@@ -1,0 +1,162 @@
+
+nav.header-nav {
+  position: fixed;
+  top: 0;
+
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-primary);
+  padding: 0.5em;
+
+  li {
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  a {
+    color: white;
+    opacity: 1;
+    display: block;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    min-width: 180px;
+  }
+
+  a.active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  label.active {
+    font-weight: bold;
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+  }
+
+  .with-icon {
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 25px;
+    }
+  }
+
+  .header-nav-content {
+    overflow: scroll;
+    height: calc(~"100vh - 40px");
+
+    &>ul {
+      list-style-type: disclosure-closed;
+      margin: 0;
+      color: white;
+      padding: 0 20px 0;
+
+      a {
+        padding: 0;
+      }
+    }
+
+    li.active {
+      list-style-type: disclosure-open;
+    }
+  }
+
+  .accordion_input {
+    display: none;
+  }
+
+  .accordion_label {
+    color: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .accordion_sub-menu {
+    display: none;
+  }
+
+  .accordion_input:checked ~ .accordion_sub-menu {
+    display: block;
+    color: white;
+    list-style-type: square;
+  }
+
+  .toggle-btn {
+    i {
+      color: white;
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 860px) {
+
+  .header-nav {
+    z-index: 300;
+    width: 100%;
+    height: 25px;
+    ul {
+      height: 100%;
+    }
+  }
+
+  main {
+    position: fixed;
+    top: 44px;
+    overflow: scroll;
+    height: 90vh;
+  }
+
+  .header-nav-content {
+    display: none;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    bottom: 0;
+    overflow: scroll;
+    overflow-x: scroll;
+    height: calc(~"100vh - 40px");
+    width: 280px;
+  }
+
+  .content {
+    padding-left: 1rem;
+  }
+
+  .showMenu {
+    display: block;
+    background-color: var(--color-primary);
+  }
+
+  .menuItems {
+    background-color: var(--color-primary);
+    height: 100vh;
+    max-width: 400px;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  .menuItems.showMenu {
+    transform: translateX(0);
+    background-color: @color-primary;
+  }
+}
+
+@media (min-width: 859px) {
+  .toggle-btn {
+    display: none;
+  }
+
+  .header-nav {
+    height: 100%;
+    width: 280px;
+  }
+
+  main {
+    padding-left: 320px;
+  }
+}

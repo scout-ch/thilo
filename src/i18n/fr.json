@@ -1,0 +1,36 @@
+{
+  "translation": {
+    "target": {
+      "role": {
+        "LL": "Responsable de camp",
+        "C": "Coach",
+        "AL": "Responsable de groupe"
+      }
+    },
+    "homePage": {
+      "title": "Salut Hering"
+    },
+    "calendarPage": {
+      "title": "Calendrier",
+      "startDate": "Premier jour du camp",
+      "responsible": "Responsable",
+      "puffer": "Marge",
+      "responsibleOptions": {
+        "all": "Tous",
+        "ll": "Responsable de camp",
+        "al": "Responsable de groupe",
+        "c": "Coach"
+      },
+      "generate": "Générer",
+      "download": "Télécharger .ics",
+      "filename": "Dates.ics",
+      "table": {
+        "what": "Quoi",
+        "who": "Qui",
+        "when": "Quand",
+        "target": "À qui",
+        "chapters": "Voir"
+      }
+    }
+  }
+}
