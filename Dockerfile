@@ -8,7 +8,7 @@ CMD [ "npm", "start" ]
 
 RUN adduser --disabled-password --uid "$UID" app
 
-COPY [ "package.json", "package-lock.json",  "./"]
+COPY [ "package.json", "package-lock.json", "craco.config.js", "tsconfig.json",  "./"]
 RUN npm install
 
 COPY [ "public", "public"]
