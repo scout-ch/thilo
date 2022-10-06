@@ -20,7 +20,7 @@ jobs:
           node-version: 16.x
       - run: npm install
       - run: npm build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-cache
           path: ./build
