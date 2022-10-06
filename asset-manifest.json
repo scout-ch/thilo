@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/thilo/static/css/main.8e46167e.chunk.css",
+    "main.js": "/thilo/static/js/main.86ff4c83.chunk.js",
+    "main.js.map": "/thilo/static/js/main.86ff4c83.chunk.js.map",
+    "runtime-main.js": "/thilo/static/js/runtime-main.1049d4dd.js",
+    "runtime-main.js.map": "/thilo/static/js/runtime-main.1049d4dd.js.map",
+    "static/js/2.9ce67d06.chunk.js": "/thilo/static/js/2.9ce67d06.chunk.js",
+    "static/js/2.9ce67d06.chunk.js.map": "/thilo/static/js/2.9ce67d06.chunk.js.map",
+    "static/js/3.e603a8a1.chunk.js": "/thilo/static/js/3.e603a8a1.chunk.js",
+    "static/js/3.e603a8a1.chunk.js.map": "/thilo/static/js/3.e603a8a1.chunk.js.map",
+    "index.html": "/thilo/index.html",
+    "static/css/main.8e46167e.chunk.css.map": "/thilo/static/css/main.8e46167e.chunk.css.map",
+    "static/js/2.9ce67d06.chunk.js.LICENSE.txt": "/thilo/static/js/2.9ce67d06.chunk.js.LICENSE.txt",
+    "static/media/index.less": "/thilo/static/media/SourceSansPro-SemiBoldItalic.f035d6a1.woff2",
+    "static/media/footer.744eec6b.svg": "/thilo/static/media/footer.744eec6b.svg",
+    "static/media/pbs_logo.33551793.svg": "/thilo/static/media/pbs_logo.33551793.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1049d4dd.js",
+    "static/js/2.9ce67d06.chunk.js",
+    "static/css/main.8e46167e.chunk.css",
+    "static/js/main.86ff4c83.chunk.js"
+  ]
+}
