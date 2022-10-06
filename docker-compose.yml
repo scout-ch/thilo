@@ -3,5 +3,7 @@ version: '3.9'
 services:
   frontend:
     build: .
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
     ports:
-      - 3001:3001
+      - 3000:3000
