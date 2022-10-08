@@ -8,29 +8,7 @@
       }
     },
     "homePage": {
-      "title": "Ciao Hering"
-    },
-    "calendarPage": {
-      "title": "Calendario",
-      "startDate": "Primo giorno del campo",
-      "responsible": "Responsabile",
-      "puffer": "Puffer",
-      "responsibleOptions": {
-        "all": "Tutti",
-        "ll": "Capo campo",
-        "al": "Capo Sezione",
-        "c": "Coach"
-      },
-      "generate": "Generieren",
-      "download": "Download als .ics",
-      "filename": "Dati.ics",
-      "table": {
-        "what": "Cosa",
-        "who": "Chi",
-        "when": "Quando",
-        "target": "a chi",
-        "chapters": "Links"
-      }
+      "title": "Ciao Thilo"
     },
     "searchPage": {
       "searchPlaceholder": "Inserisci il termine di ricerca....",

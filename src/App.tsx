@@ -72,7 +72,7 @@ function App() {
             <Route exact path="/">
               <HomePage page={startPage}></HomePage>
             </Route>
-            <Route exact path="/hering/">
+            <Route exact path="/thilo/">
               <HomePage page={startPage}></HomePage>
             </Route>
           </Switch>

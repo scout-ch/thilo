@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactComponent as FooterLogo } from './../images/footer.svg'
 import { ReactComponent as PBSLogo } from './../images/pbs_logo.svg'
 import styled from '@emotion/styled';
 import i18n from './../i18n';
@@ -51,7 +50,6 @@ function Footer(props: Props) {
   const location = useLocation();
   const history = useHistory();
   return <>
-    <div className='footer-image'><FooterLogo></FooterLogo></div>
     <div className="footer-content">
       <nav className="footer-nav">
         <div className='footer-logo'><PBSLogo></PBSLogo></div>

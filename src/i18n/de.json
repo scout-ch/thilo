@@ -8,29 +8,7 @@
       }
     },
     "homePage": {
-      "title": "Hallo Hering"
-    },
-    "calendarPage": {
-      "title": "Kalender",
-      "startDate": "Startdatum Lager",
-      "responsible": "Verantwortlich",
-      "puffer": "Puffer",
-      "responsibleOptions": {
-        "all": "Alle",
-        "ll": "Lagerleitung",
-        "al": "Abteilungsleitung",
-        "c": "Coach"
-      },
-      "generate": "Generieren",
-      "download": "Download als .ics",
-      "filename": "Daten.ics",
-      "table": {
-        "what": "Was",
-        "who": "Wer",
-        "when": "Wann",
-        "target": "An wen",
-        "chapters": "Links"
-      }
+      "title": "Hallo Thilo"
     },
     "searchPage": {
       "searchPlaceholder": "Suchbegriff eingeben...",
