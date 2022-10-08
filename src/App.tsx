@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { faCalendar, faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import HomePage from './pages/HomePage ';
 import i18n from './i18n';
@@ -16,6 +16,7 @@ import ImpressumPage from './pages/ImpressumPage';
 import { setLocalData } from './helper/LocalDataHelper';
 import { checkLinks } from './helper/LinkChecker';
 import SearchPage from './pages/SearchPage';
+import client from "./client";
 
 export type LinkT = {
   title: string
@@ -35,14 +36,23 @@ function App() {
   const lang = i18n.language
 
   React.useEffect(() => {
-    setLocalData(lang, setSections, setLinks, setStartPage, setSearchPage)
+    const sectionsPromise = client.get('/sections?_sort=sorting:ASC&_locale=' + lang)
+    const linksPromise = client.get('/links?_locale=' + lang)
+    const startPagePromise = client.get('/start-page?_locale=' + lang)
+
+    setLocalData(lang, setSections, setLinks, setStartPage, setSearchPage);
+    Promise.all([sectionsPromise, linksPromise, startPagePromise]).then((values) => {
+      setSections(values[0].data)
+      setLinks(values[1].data)
+      setStartPage(values[2].data)
+    })
   }, [lang])
 
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, []);
 
-  library.add(faCalendar, faExclamationTriangle, faBars, faSearch)
+  library.add(faExclamationTriangle, faBars, faSearch)
 
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore

@@ -1,10 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { withTranslation } from 'react-i18next'
-import impressumPageFR from './../data/impressum-page/fr.json'
-import impressumPageDE from './../data/impressum-page/de.json'
-import impressumPageIT from './../data/impressum-page/it.json'
 import i18n from '../i18n';
+import client from '../client';
 
 export type ImpressumPageT = {
   title: string
@@ -18,20 +16,9 @@ function ImpressumPage() {
   const [impressumPage, setImpressumPage] = React.useState<ImpressumPageT>();
 
   React.useEffect(() => {
-    switch (i18n.language) {
-      case 'fr':
-        // @ts-ignore
-        return setImpressumPage(impressumPageFR)
-      case 'de':
-        // @ts-ignore
-        return setImpressumPage(impressumPageDE)
-      case 'it':
-        // @ts-ignore
-        return setImpressumPage(impressumPageIT)
-      default:
-        // @ts-ignore
-        setImpressumPage(impressumPageDE)
-    }
+    client.get('/impressum-page?_locale=' + lang).then((response: { data: any }) => {
+      setImpressumPage(response.data)
+    })
   }, [lang])
 
   if (!impressumPage) return null

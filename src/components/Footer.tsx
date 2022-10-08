@@ -5,7 +5,7 @@ import i18n from './../i18n';
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { SectionT } from './Section';
 import { getLocalSectionData } from '../helper/LocalDataHelper';
-
+import client from "./../client";
 
 const Button = styled.button`
   border: none;
@@ -32,19 +32,22 @@ function Footer(props: Props) {
         redirect = true
         return
       }
-      const newSections = getLocalSectionData(lang)
-      if (currentSection) {
-        const otherSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
-        // @ts-ignore
-        const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
-        if (newCurrentSection) {
-          redirect = true
-          history.push('/' + newCurrentSection.slug)
+      client.get('/sections?_sort=sorting:ASC&_locale=' + lang).then((response: { data: any }) => {
+        const newSections = getLocalSectionData(lang)
+        if (currentSection) {
+          const otherSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
+          // @ts-ignore
+          const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
+          if (newCurrentSection) {
+            redirect = true
+            history.push('/' + newCurrentSection.slug)
+          }
         }
-      }
-      if (!redirect) {
-        history.push('/')
-      }
+      }).finally(() => {
+        if (!redirect) {
+          history.push('/')
+        }
+      })
     });
   }
   const location = useLocation();
