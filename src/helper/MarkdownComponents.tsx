@@ -58,7 +58,8 @@ export const LinkComponent = {
         * alt: text, width: 50
         * maybe later: alt.match('alt:\\s([\\w\\s\-\_\*]*),?\\s?(size:\\s((\\d*)x(\\d*)))?,?\\s?(width:\\s(\\d*))?,?\\s?(float: (\\w*))?');
         */
-        var found = alt.match('alt: (.*), (size: ((\\d*)x(\\d*)))?(width: (\\d*))?');
+        var found = alt.match('alt: (.*), (size: ((\\d*)x(\\d*)))?(width: (\\d*[%]?)?)?');
+        console.log(found)
         if (found) {
             if (found[7]) {
                 return <img src={props.src} alt={found[1]} width={found[7]} />
