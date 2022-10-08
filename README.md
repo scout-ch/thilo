@@ -4,6 +4,10 @@ Schweizer Pfadibüchlein Thilo, das Original.
 
 The Thilo contains a lot of interesting and useful information about the Scouts and belongs on every Scout's bedside table and in his or her bag. Contents: The scout movement, the world we live in, scout techniques, first aid, nature and the environment, camp life, etc.
 
+## Archictrecture
+
+![Architecture](./documentation/TechStack.png)
+
 ## Available Scripts
 
 In the project directory, you can run:

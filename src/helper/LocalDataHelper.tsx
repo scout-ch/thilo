@@ -11,7 +11,12 @@ import startPageDE from './../data/start-page/de.json'
 import startPageFR from './../data/start-page/fr.json'
 import startPageIT from './../data/start-page/it.json'
 
-export function setLocalData(lang: string, setSections: React.Dispatch<React.SetStateAction<null>>, setLinks: React.Dispatch<React.SetStateAction<null>>, setStartPage: React.Dispatch<React.SetStateAction<null>>) {
+import searchPageDE from './../data/search-page/de.json'
+import searchPageFR from './../data/search-page/fr.json'
+import searchPageIT from './../data/search-page/it.json'
+import { SectionT } from '../components/Section'
+
+export function setLocalData(lang: string, setSections: React.Dispatch<React.SetStateAction<null>>, setLinks: React.Dispatch<React.SetStateAction<null>>, setStartPage: React.Dispatch<React.SetStateAction<null>>, setSearchPage: React.Dispatch<React.SetStateAction<null>>) {
   if (lang === 'de') {
     // @ts-ignore
     setSections(sectionsDE);
@@ -19,6 +24,8 @@ export function setLocalData(lang: string, setSections: React.Dispatch<React.Set
     setLinks(linksDE);
     // @ts-ignore
     setStartPage(startPageDE);
+    // @ts-ignore
+    setSearchPage(searchPageDE);
   } else if (lang === 'it') {
     // @ts-ignore
     setSections(sectionsIT);
@@ -26,6 +33,8 @@ export function setLocalData(lang: string, setSections: React.Dispatch<React.Set
     setLinks(linksIT);
     // @ts-ignore
     setStartPage(startPageIT);
+    // @ts-ignore
+    setSearchPage(searchPageIT);
   } else if (lang === 'fr') {
     // @ts-ignore
     setSections(sectionsFR);
@@ -33,10 +42,12 @@ export function setLocalData(lang: string, setSections: React.Dispatch<React.Set
     setLinks(linksFR);
     // @ts-ignore
     setStartPage(startPageFR);
+    // @ts-ignore
+    setSearchPage(searchPageFR);
   }
 }
 
-export function getLocalSectionData(lang: string) {
+export function getLocalSectionData(lang: string): SectionT[] {
   if (lang === 'de') {
     return sectionsDE
   } else if (lang === 'fr') {
@@ -44,4 +55,5 @@ export function getLocalSectionData(lang: string) {
   } else if (lang === 'it') {
     return sectionsIT
   }
+  return []
 }

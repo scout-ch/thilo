@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { faCalendar, faExclamationTriangle, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import HomePage from './pages/HomePage ';
 import i18n from './i18n';
@@ -15,6 +15,7 @@ import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
 import { setLocalData } from './helper/LocalDataHelper';
 import { checkLinks } from './helper/LinkChecker';
+import SearchPage from './pages/SearchPage';
 
 export type LinkT = {
   title: string
@@ -30,19 +31,20 @@ function App() {
   const [sections, setSections] = React.useState(null);
   const [links, setLinks] = React.useState(null);
   const [startPage, setStartPage] = React.useState(null);
+  const [searchPage, setSearchPage] = React.useState(null);
   const lang = i18n.language
 
   React.useEffect(() => {
-    setLocalData(lang, setSections, setLinks, setStartPage);
+    setLocalData(lang, setSections, setLinks, setStartPage, setSearchPage)
   }, [lang])
 
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, []);
 
-  library.add(faCalendar, faExclamationTriangle, faBars)
+  library.add(faCalendar, faExclamationTriangle, faBars, faSearch)
 
-  if (!sections || !links || !startPage) return null
+  if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
   const sectionsByKey = sections.reduce(function (map, section: SectionT) {
     map[section.slug] = section
@@ -60,6 +62,9 @@ function App() {
 
         <main>
           <Switch>
+            <Route path="/search" >
+              <SearchPage page={searchPage} />
+            </Route>
             <Route path="/impressum" >
               <ImpressumPage />
             </Route>

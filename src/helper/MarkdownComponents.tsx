@@ -38,8 +38,8 @@ export const LinkComponent = {
             }
         } else {
             var mailto = link.match('(mailto:)')
-            if (mailto[1]) {    
-                return <Link to='#' onClick={(e) => { 
+            if (mailto?.length >= 0 && mailto[1]) {
+                return <Link to='#' onClick={(e) => {
                     window.location = props.href;
                     e.preventDefault();
                 }}>{children}</Link>

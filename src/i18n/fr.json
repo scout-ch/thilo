@@ -31,6 +31,11 @@
         "target": "À qui",
         "chapters": "Voir"
       }
+    },
+    "searchPage": {
+      "searchPlaceholder": "Saisir le terme de recherche....",
+      "noResults": "Aucun résultat trouvé. Veuillez essayer un autre terme de recherche.",
+      "noKeyword": "Veuillez saisir un terme de recherche contenant au moins {{amountOfCharacters}} caractères pour lancer la recherche."
     }
   }
 }
