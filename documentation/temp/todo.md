@@ -16,8 +16,8 @@
   - ---
   - [ ] find and integrate quiz implementation
 - strap:
-  - [ ] include unit in img alt text 
-  - [ ] chapter: include color code
+  - [ ] include units in img alt text for testing
+  - [ ] define API for multi image layouting 
   - [ ] chapter - section: include zeilenabstände
   - ---
   - [ ] define quiz interface
