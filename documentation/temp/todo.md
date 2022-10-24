@@ -6,7 +6,7 @@
     - [ ] test logo scaling
   - [ ] adapt footer elements spacing
   - [ ] multiple images with rel. unit layouting
-    - [ ] test img alt text display
+    - [x] test img alt text display
     - [x] test width / height tag with units, adapt regex
     - [ ] multiple images per row / layouting - requires API design
   - [ ] customize chapters 
