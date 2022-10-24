@@ -84,7 +84,10 @@ export const LinkComponent = {
                 <figcaption>{found[1]}</figcaption>
             </div>
         } else {
-            return <img src={props.src} alt={props.alt} />
+            return <div className="md-img"> 
+                <img src={props.src} alt={props.alt} style={style} /> 
+                <figcaption>{props.alt}</figcaption>
+            </div>
         }
     }
 }
