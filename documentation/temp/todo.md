@@ -10,7 +10,8 @@
     - [x] test width / height tag with units, adapt regex
     - [ ] multiple images per row / layouting - requires API design
   - [ ] customize chapters 
-    - [ ] choose logo files based on chapter id / color code
+    - [ ] choose logo files based on chapter id
+    - [x] colors based on sorting id
     - [ ] change zeilenabstand based on json
   - ---
   - [ ] find and integrate quiz implementation

@@ -9,6 +9,40 @@
 @color-primary: #521d3a;
 @color-primary-light: #8c3c4f;
 
+@color-1: #521d3a;
+@color-1-light: #8c3c4f;
+
+@color-2: #c55931;
+@color-2-light: #c55931;
+
+@color-3: #d8965a;
+@color-3-light: #e8c19a;
+
+@color-4: #e0c477;
+@color-4-light: #eddbaf;
+
+@color-5: #c8bca5;
+@color-5-light: #ddd5c7;
+
+@color-6: #57632e;
+@color-6-light: #93966e;
+
+@color-7: #a9ba9b;
+@color-7-light: #cbd3c2;
+
+@color-8: #579a9e;
+@color-8-light: #a2c0c3;
+
+@colors: color-1, color-1-light, color-2, color-2-light, color-3, color-3-light, color-4, color-4-light, color-5, color-5-light, color-6, color-6-light, color-7, color-7-light, color-8, color-8-light;
+
+.make-color-classes(@i: length(@colors)) when (@i > 0) {
+  .make-color-classes(@i - 1);
+  @color: extract(@colors, @i); 
+  .@{color} {
+      color: @color;  
+  }
+}
+
 :root {
   --color-primary: @color-primary;
   --color-primary-light: @color-primary-light;
@@ -29,7 +63,7 @@ img {
 h1,
 h2,
 h3 {
-  color: @color-primary-light
+  color: var(--color-primary)
 }
 
 h1 {
@@ -45,16 +79,16 @@ h2 {
 }
 
 .bg-primary {
-  background-color: @color-primary !important;
+  background-color: var(--color-primary) !important;
 }
 
 .bg-secondary {
-  background-color: @color-primary-light !important;
+  background-color: var(--color-primary-light) !important;
 }
 
 a {
   font-weight: 400;
-  color: @color-primary-light;
+  color: var(--color-primary-light);
   text-decoration: none;
   opacity: 1;
 }
@@ -189,7 +223,7 @@ li {
 
 table {
   td {
-    border-top: 1px solid @color-primary-light;
+    border-top: 1px solid var(--color-primary-light);
     padding: 5px;
     margin: 0;
   }
@@ -204,7 +238,7 @@ button {
   padding: .5em;
   text-align: center;
   min-width: 5em;
-  background-color: @color-primary-light;
+  background-color: var(--color-primary-light);
   color: white;
   border-radius: 4px;
   border: none;
