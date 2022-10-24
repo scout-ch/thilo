@@ -2,7 +2,7 @@
 - front:
   - [ ] test on mobile
   - [ ] test physical qr integration
-  - [ ] smaller logo before subtitles
+  - [x] smaller logo before subtitles
     - [ ] test logo scaling
   - [ ] adapt footer elements spacing
   - [ ] multiple images with rel. unit layouting
