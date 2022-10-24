@@ -4,7 +4,7 @@
   - [ ] test physical qr integration
   - [x] smaller logo before subtitles
     - [ ] test logo scaling
-  - [ ] adapt footer elements spacing
+  - [x] adapt footer elements spacing
   - [ ] multiple images with rel. unit layouting
     - [x] test img alt text display
     - [x] test width / height tag with units, adapt regex
