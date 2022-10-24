@@ -1,0 +1,22 @@
+# todos
+- front:
+  - [ ] test on mobile
+  - [ ] test physical qr integration
+  - [x] smaller logo before subtitles
+    - [ ] test logo scaling
+  - [ ] adapt footer elements spacing
+  - [ ] multiple images with rel. unit layouting
+    - [ ] test img alt text display
+    - [x] test width / height tag with units, adapt regex
+    - [ ] multiple images per row / layouting - requires API design
+  - [ ] customize chapters 
+    - [ ] choose logo files based on chapter id / color code
+    - [ ] change zeilenabstand based on json
+  - ---
+  - [ ] find and integrate quiz implementation
+- strap:
+  - [ ] include unit in img alt text 
+  - [ ] chapter: include color code
+  - [ ] chapter - section: include zeilenabstände
+  - ---
+  - [ ] define quiz interface

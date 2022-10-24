@@ -58,13 +58,20 @@ export const LinkComponent = {
         * alt: text, width: 50
         * maybe later: alt.match('alt:\\s([\\w\\s\-\_\*]*),?\\s?(size:\\s((\\d*)x(\\d*)))?,?\\s?(width:\\s(\\d*))?,?\\s?(float: (\\w*))?');
         */
-        var found = alt.match('alt: (.*), (size: ((\\d*)x(\\d*)))?(width: (\\d*[%]?)?)?');
-        console.log(found)
+        var found = alt.match('alt: (.*), (size: ((\\d*)([a-zA-Z%]{1,4})?x(\\d*)([a-zA-Z%]{1,4})?))?(width: (\\d*)([a-zA-Z%]{1,4})?)?');
+        
         if (found) {
-            if (found[7]) {
-                return <img src={props.src} alt={found[1]} width={found[7]} />
+            if (found[9]) {
+                let width = found[9];
+                if(found[10]) width+=found[10];
+                // TODO: width / height tag do not officially support units. FF and Chrome work with %, but add to style="width: {width};" tag...
+                return <img src={props.src} alt={found[1]} width={width} />
             } else {
-                return <img src={props.src} alt={found[1]} width={found[4]} height={found[5]} />
+                let width  = found[4];
+                let height = found[6];
+                if(found[5])  width+=found[5];
+                if(found[7]) height+=found[7];
+                return <img src={props.src} alt={found[1]} width={width} height={height} />
             }
         } else {
             return <img src={props.src} alt={props.alt} />
