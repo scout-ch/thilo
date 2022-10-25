@@ -21,6 +21,7 @@ export type ChapterT = {
     icon: IconT
     section: number
     responsible: Array<Role>
+    line_height?: number
 }
 
 type ChapterProps = {
@@ -33,8 +34,13 @@ function Chapter(props: ChapterProps) {
     if (!data) {
         return null
     }
-
-    return <div className='chapter'>
+    let style;
+    if(data.line_height) {
+        style = {lineHeight: data.line_height}
+    } else {
+        style = {lineHeight: 'var(--line-height)'}
+    }
+    return <div className='chapter' style={style}>
         <div id={data.slug}>
 
             <div className="chapter-title">

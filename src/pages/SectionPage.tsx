@@ -42,10 +42,11 @@ function SectionPage(props: Props) {
         const title = document.getElementById('section-title')
         if (title) title.scrollIntoView()
     }
-    const title = document.getElementById('section-title')
-    if (title) {
-      const sorting = parseInt(title.classList[title.classList.length-1][title.classList[title.classList.length-1].length-1]);
-      const root = document.documentElement;
+    const section_title = document.getElementById('section-title')
+    const root = document.documentElement;
+    if (section_title) {
+      const last_class = section_title.classList[section_title.classList.length-1]
+      const sorting = parseInt(last_class[last_class.length-1]);
 
       root.style.setProperty('--color-primary', colors[2*(sorting-1)]);
       root.style.setProperty('--color-primary-light', colors[2*(sorting-1)+1]);

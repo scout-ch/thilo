@@ -9,10 +9,10 @@
     - [x] test img alt text display
     - [x] test width / height tag with units, adapt regex
     - [ ] multiple images per row / layouting - requires API design
-  - [ ] customize chapters 
-    - [ ] choose logo files based on chapter id
-    - [x] colors based on sorting id
-    - [ ] change zeilenabstand based on json
+  - [ ] customize section & chapters 
+    - [ ] logo files based on section sorting / id
+    - [x] colors     based on section sorting / id
+    - [x] zeilenabstand based on chapter json
   - ---
   - [ ] find and integrate quiz implementation
 - strap:
