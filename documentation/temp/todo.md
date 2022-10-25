@@ -10,7 +10,7 @@
     - [x] test width / height tag with units, adapt regex
     - [ ] multiple images per row / layouting - requires API design
   - [ ] customize section & chapters 
-    - [ ] logo files based on section sorting / id
+    - [ ] logo files based on section sorting / id - or simply supply in strapi?
     - [x] colors     based on section sorting / id
     - [x] zeilenabstand based on chapter json
   - ---
@@ -19,5 +19,6 @@
   - [ ] include units in img alt text for testing
   - [ ] define API for multi image layouting 
   - [ ] chapter - section: include zeilenabstände
+  - [ ] chapter: supply specific logos?
   - ---
   - [ ] define quiz interface
