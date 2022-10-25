@@ -16,6 +16,7 @@
   - ---
   - [ ] find and integrate quiz implementation
     - [ ] https://github.com/florinpop17/quiz-app
+    - [ ] https://github.com/mitchgavan/react-multi-choice-quiz
 - strap:
   - [ ] include units in img alt text for testing
   - [ ] define API for multi image layouting 
