@@ -4,23 +4,28 @@
   - [ ] test physical qr integration
   - [x] smaller logo before subtitles
     - [ ] test logo scaling
+    - [ ] move icon to section title
   - [x] adapt footer elements spacing
   - [ ] multiple images with rel. unit layouting
     - [x] test img alt text display
     - [x] test width / height tag with units, adapt regex
-    - [ ] multiple images per row / layouting - requires API design
+    - [ ] ~~multiple images per row / layouting - requires API design~~
   - [ ] customize section & chapters 
-    - [ ] logo files based on section sorting / id - or simply supply in strapi?
-    - [x] colors     based on section sorting / id
-    - [x] zeilenabstand based on chapter json
+    - [ ] logo files based on ~~section sorting / id - or simply supply~~ in strapi?
+    - [ ] colors     based on ~~section sorting / id~~ strapi
+    - [x] zeilenabstand based strapi
   - ---
   - [ ] find and integrate quiz implementation
-    - [ ] https://github.com/florinpop17/quiz-app
     - [ ] https://github.com/mitchgavan/react-multi-choice-quiz
-- strap:
+      - [ ] create quiz section, with each quiz as a chapter 
+    - [ ] https://github.com/florinpop17/quiz-app
+- back:
   - [ ] include units in img alt text for testing
-  - [ ] define API for multi image layouting 
-  - [ ] chapter - section: include zeilenabstände
-  - [ ] chapter: supply specific logos?
+  - [ ] ~~define API for multi image layouting~~ 
+  - [ ] section: supply specific logos?
+  - [ ] chapter: include zeilenabstände
+  - [ ] quiz: include quiz section, and q and a set per chapter
+  - [ ] qr code generation: reverse proxy with felsenfeste URL
+
   - ---
   - [ ] define quiz interface
