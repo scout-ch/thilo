@@ -31,12 +31,12 @@ function Section(props: Props) {
     }).map(function (chapter: any) {
         return <Chapter key={chapter['title']} data={chapter}></Chapter>
     })
+    let classes=`section-title section-${props.section.sorting}`;
 
     return <div className='content'>
         <Helmet><title>{props.section['title']}</title></Helmet>
-
         <div className='content-main'>
-            <div id="section-title" className="section-title">
+            <div id="section-title" className={classes}>
                 <h1>{props.section['title']}</h1>
             </div>
             <ReactMarkdown
