@@ -19,6 +19,10 @@
     - [ ] https://github.com/mitchgavan/react-multi-choice-quiz
       - [ ] create quiz section, with each quiz as a chapter 
     - [ ] https://github.com/florinpop17/quiz-app
+    - [ ] quiz-component implementing
+      - include json file instead of API call
+      - hack into section loading
+      - document for further dev
 - back:
   - [ ] include units in img alt text for testing
   - [ ] ~~define API for multi image layouting~~ 
