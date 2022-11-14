@@ -25,7 +25,7 @@
   - [ ] section: supply specific logos?
   - [ ] chapter: include zeilenabstände
   - [ ] quiz: include quiz section, and q and a set per chapter
-  - [ ] qr code generation: reverse proxy with felsenfeste URL
+  - [ ] qr code generation: felsenfeste domain required
 
   - ---
   - [ ] define quiz interface
