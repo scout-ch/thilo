@@ -37,10 +37,12 @@ function Footer(props: Props) {
         if (currentSection) {
           const otherSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
           // @ts-ignore
-          const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
-          if (newCurrentSection) {
-            redirect = true
-            history.push('/' + newCurrentSection.slug)
+          if(newSections) {
+            const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
+            if (newCurrentSection) {
+              redirect = true
+              history.push('/' + newCurrentSection.slug)
+            }
           }
         }
       }).finally(() => {
