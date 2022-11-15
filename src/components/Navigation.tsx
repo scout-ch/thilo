@@ -59,7 +59,7 @@ function Navigation(props: Props) {
         const chapters = section.chapters
         const chapterItems = chapters.map(function (chapter: ChapterT) {
             var isActive = location.hash.replace('#', '') === chapter.slug
-            var className = isActive ? 'active' : ''
+            var className = isActive ? `${chapter.slug_with_section} active` : `${chapter.slug_with_section}`
             return <li key={chapter.slug_with_section} className="subMenu" onClick={handleToggle}>
                 <HashLink to={chapter.slug_with_section} className={className}>{chapter.menu_name}</HashLink>
             </li>
