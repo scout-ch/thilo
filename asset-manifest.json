@@ -1,24 +1,27 @@
 {
   "files": {
-    "main.css": "/thilo/static/css/main.60384614.chunk.css",
-    "main.js": "/thilo/static/js/main.79aa646c.chunk.js",
-    "main.js.map": "/thilo/static/js/main.79aa646c.chunk.js.map",
-    "runtime-main.js": "/thilo/static/js/runtime-main.47c49b58.js",
-    "runtime-main.js.map": "/thilo/static/js/runtime-main.47c49b58.js.map",
-    "static/js/2.2c2a0665.chunk.js": "/thilo/static/js/2.2c2a0665.chunk.js",
-    "static/js/2.2c2a0665.chunk.js.map": "/thilo/static/js/2.2c2a0665.chunk.js.map",
-    "static/js/3.198d8d28.chunk.js": "/thilo/static/js/3.198d8d28.chunk.js",
-    "static/js/3.198d8d28.chunk.js.map": "/thilo/static/js/3.198d8d28.chunk.js.map",
+    "main.css": "/thilo/static/css/main.b28f1307.chunk.css",
+    "main.js": "/thilo/static/js/main.bc429482.chunk.js",
+    "main.js.map": "/thilo/static/js/main.bc429482.chunk.js.map",
+    "runtime-main.js": "/thilo/static/js/runtime-main.aa7a7014.js",
+    "runtime-main.js.map": "/thilo/static/js/runtime-main.aa7a7014.js.map",
+    "static/css/2.748d4fe1.chunk.css": "/thilo/static/css/2.748d4fe1.chunk.css",
+    "static/js/2.e8a4696b.chunk.js": "/thilo/static/js/2.e8a4696b.chunk.js",
+    "static/js/2.e8a4696b.chunk.js.map": "/thilo/static/js/2.e8a4696b.chunk.js.map",
+    "static/js/3.ca32dc82.chunk.js": "/thilo/static/js/3.ca32dc82.chunk.js",
+    "static/js/3.ca32dc82.chunk.js.map": "/thilo/static/js/3.ca32dc82.chunk.js.map",
     "index.html": "/thilo/index.html",
-    "static/css/main.60384614.chunk.css.map": "/thilo/static/css/main.60384614.chunk.css.map",
-    "static/js/2.2c2a0665.chunk.js.LICENSE.txt": "/thilo/static/js/2.2c2a0665.chunk.js.LICENSE.txt",
+    "static/css/2.748d4fe1.chunk.css.map": "/thilo/static/css/2.748d4fe1.chunk.css.map",
+    "static/css/main.b28f1307.chunk.css.map": "/thilo/static/css/main.b28f1307.chunk.css.map",
+    "static/js/2.e8a4696b.chunk.js.LICENSE.txt": "/thilo/static/js/2.e8a4696b.chunk.js.LICENSE.txt",
     "static/media/index.less": "/thilo/static/media/SourceSansPro-SemiBoldItalic.f035d6a1.woff2",
     "static/media/pbs_logo.33551793.svg": "/thilo/static/media/pbs_logo.33551793.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.47c49b58.js",
-    "static/js/2.2c2a0665.chunk.js",
-    "static/css/main.60384614.chunk.css",
-    "static/js/main.79aa646c.chunk.js"
+    "static/js/runtime-main.aa7a7014.js",
+    "static/css/2.748d4fe1.chunk.css",
+    "static/js/2.e8a4696b.chunk.js",
+    "static/css/main.b28f1307.chunk.css",
+    "static/js/main.bc429482.chunk.js"
   ]
 }
