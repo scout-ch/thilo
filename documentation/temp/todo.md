@@ -16,8 +16,7 @@
     - [x] zeilenabstand based strapi
   - ---
   - [x] find and integrate quiz implementation
-    - https://github.com/mitchgavan/react-multi-choice-quiz
-    - https://github.com/florinpop17/quiz-app
+    - change to this? https://codesandbox.io/s/u7oxs
     - [x] quiz-component implementing
       - [x] create quiz section, with each quiz as a chapter / includeable as a link
       - include json file instead of API call
