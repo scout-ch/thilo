@@ -5,6 +5,13 @@ import { LinksContext } from '../App';
 // import { HashLink } from 'react-router-hash-link';
 import Warning from '../components/Warning';
 
+import client from "../client";
+import quiz_data from '../data/quiz/example.json'
+const QuizI = require('react-quiz-component');
+const Quiz = QuizI.default
+
+
+
 // // @ts-ignore
 // remark.macros.img = function (altText, width) {
 //     var url = this;
@@ -21,6 +28,21 @@ export const LinkComponent = {
         /* eslint-disable */
         const links = useContext(LinksContext)
         const link = props.href
+
+        if(link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
+            var quiz_call = client.get(link);
+            // TODO: overwrite quiz_data on promise fulfillment and render then...
+            quiz_call.then((res) => {
+                let quiz_data = res['data'];
+                console.log('quiz in link', quiz_call, quiz_data);
+            })
+            return <span id={link.split(/.*[\/|\\]/)[1]}>
+                        <a href={link} target="_blank" rel="noreferrer">{children}</a>
+                        <br/>
+                        <Quiz quiz={quiz_data} shuffle={true}/>
+                    </span>
+        }
+
         var found = link.match('\\$(.*)\\$');
         if (found) {
             //@ts-ignore
@@ -79,15 +101,15 @@ export const LinkComponent = {
                 style={width : width, height : height}
             }
             
-            return <div className="md-img"> 
-                <img src={props.src} alt={found[1]} style={style} /> 
-                <figcaption>{found[1]}</figcaption>
-            </div>
+            return <span className="md-img"> 
+                <img src={props.src} alt={found[1]} style={style} /> <br></br>
+                <span>{found[1]}</span>
+            </span>
         } else {
-            return <div className="md-img"> 
-                <img src={props.src} alt={props.alt} style={style} /> 
-                <figcaption>{props.alt}</figcaption>
-            </div>
+            return <span className="md-img"> 
+                <img src={props.src} alt={props.alt} style={style} />  <br></br>
+                <span>{props.alt}</span>
+            </span>
         }
     }
 }

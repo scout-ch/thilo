@@ -48,8 +48,8 @@ function SectionPage(props: Props) {
       const last_class = section_title.classList[section_title.classList.length-1]
       const sorting = parseInt(last_class[last_class.length-1]);
 
-      root.style.setProperty('--color-primary', colors[2*(sorting-1)]);
-      root.style.setProperty('--color-primary-light', colors[2*(sorting-1)+1]);
+      root.style.setProperty('--color-primary', colors[(2*(sorting-1)) % colors.length]);
+      root.style.setProperty('--color-primary-light', colors[(2*(sorting-1)+1) % colors.length]);
 
     }
   });

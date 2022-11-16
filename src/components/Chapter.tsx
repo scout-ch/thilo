@@ -51,6 +51,7 @@ function Chapter(props: ChapterProps) {
                 <Target targets={data.responsible} />
                 <ReactMarkdown remarkPlugins={[remarkGfm]}
                     components={LinkComponent}>{data.content}</ReactMarkdown>
+                
             </div>
         </div>
     </div>

@@ -59,7 +59,7 @@ function Navigation(props: Props) {
         const chapters = section.chapters
         const chapterItems = chapters.map(function (chapter: ChapterT) {
             var isActive = location.hash.replace('#', '') === chapter.slug
-            var className = isActive ? 'active' : ''
+            var className = isActive ? `${chapter.slug_with_section} active` : `${chapter.slug_with_section}`
             return <li key={chapter.slug_with_section} className="subMenu" onClick={handleToggle}>
                 <HashLink to={chapter.slug_with_section} className={className}>{chapter.menu_name}</HashLink>
             </li>
@@ -71,7 +71,7 @@ function Navigation(props: Props) {
 
     const sectionList = sections.map(function (section: SectionT, index: number) {
         var isActive = location.pathname.replace('/', '') === section.slug
-        var className = isActive ? 'active' : ''
+        var className = isActive ? `${section.slug} active` : `${section.slug}`
 
         return <>
             <li key={section.slug} className={className}>
@@ -92,7 +92,7 @@ function Navigation(props: Props) {
     })
     const startPage = props.startPage
     const isHome = location.pathname === '/'
-    var homeActive = isHome ? 'active' : ''
+    var classNameHome = isHome ? 'home active' : 'home'
     return <nav className="header-nav">
         <div className="toggle-btn">
             <i onClick={handleToggle}><FontAwesomeIcon icon="bars" /></i>
@@ -100,8 +100,8 @@ function Navigation(props: Props) {
         <div className={`header-nav-content ${navbarOpen ? "showMenu" : ""}`}>
             <SearchInput onKeyDown={onSearchKeyDown} />
             <ul className={`menuItems ${navbarOpen ? "showMenu" : ""}`}>
-                <li key="home">
-                    <Link to="/" className={homeActive} onClick={() => setNavbarOpen(!navbarOpen)}>{startPage.menu_name}</Link>
+                <li key="home" className={classNameHome}>
+                    <Link to="/" className={classNameHome} onClick={() => setNavbarOpen(!navbarOpen)}>{startPage.menu_name}</Link>
                 </li>
                 {sectionList}
             </ul>
