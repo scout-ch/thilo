@@ -57,10 +57,9 @@ function Footer(props: Props) {
   var currentSection = location.pathname.replace('/', '');
   console.log(currentSection, currentChapter, props.sections)
   var prevSection = '', nextSection = '';
-  var prevChapter = '', nextChapter = '';
   if(currentSection) {
     for(let i = 0; i < props.sections.length; i++) {
-      if(props.sections[i].title == currentSection) {
+      if(props.sections[i].title === currentSection) {
         if(i>0) {
           prevSection = props.sections[i-1].title;
         }
@@ -84,7 +83,7 @@ function Footer(props: Props) {
               {prevSection.length > 0 &&
                 <>Vorheriges Kapitel<br/><i>{prevSection}</i></>
               }
-              {prevSection.length == 0 &&
+              {prevSection.length === 0 &&
                 <>Zurück zum Start</>
               }
             </Button>
@@ -92,7 +91,7 @@ function Footer(props: Props) {
               {nextSection.length > 0 &&
                 <>Nächstes Kapitel<br/><i>{nextSection}</i></>
               }
-              {nextSection.length == 0 &&
+              {nextSection.length === 0 &&
                 <>Zurück zum Start</>
               }
             </Button>
