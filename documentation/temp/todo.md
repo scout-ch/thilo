@@ -23,6 +23,7 @@
     - [x] quiz-component implementing
       - [x] create quiz section, with each quiz as a chapter / includeable as a link
       - include json file instead of API call
+  - [x] section navigation buttons in footer
 - back:
   - [ ] include units in img alt text for testing
   - [ ] ~~define API for multi image layouting~~ 
