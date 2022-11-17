@@ -8,7 +8,6 @@ import { getLocalSectionData } from '../helper/LocalDataHelper';
 import client from "./../client";
 
 const Button = styled.button`
-  border: none;
   background: none;
   color: white;
 
@@ -54,10 +53,51 @@ function Footer(props: Props) {
   }
   const location = useLocation();
   const history = useHistory();
+  var currentChapter = location.hash.replace('#', '');
+  var currentSection = location.pathname.replace('/', '');
+  console.log(currentSection, currentChapter, props.sections)
+  var prevSection = '', nextSection = '';
+  var prevChapter = '', nextChapter = '';
+  if(currentSection) {
+    for(let i = 0; i < props.sections.length; i++) {
+      if(props.sections[i].title == currentSection) {
+        if(i>0) {
+          prevSection = props.sections[i-1].title;
+        }
+        if(i<props.sections.length-1) {
+          nextSection = props.sections[i+1].title;
+        }
+      }
+    }
+  } else {
+    nextSection = props.sections[0].title;
+    prevSection = props.sections[props.sections.length-1].title;
+  }
+
   return <>
     <div className="footer-content">
       <nav className="footer-nav">
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
+        <ul>
+          <li>
+            <Button className='btn' onClick={() => history.push(`/${prevSection}`)}>
+              {prevSection.length > 0 &&
+                <>Vorheriges Kapitel<br/><i>{prevSection}</i></>
+              }
+              {prevSection.length == 0 &&
+                <>Zurück zum Start</>
+              }
+            </Button>
+            <Button className='btn' onClick={() => history.push(`/${nextSection}`)}>
+              {nextSection.length > 0 &&
+                <>Nächstes Kapitel<br/><i>{nextSection}</i></>
+              }
+              {nextSection.length == 0 &&
+                <>Zurück zum Start</>
+              }
+            </Button>
+          </li>
+        </ul>
         <ul>
           <li>
             <Button className={props.lang === 'de' ? 'active' : ''} onClick={() => changeLanguage('de', history, location, props.sections)}>Deutsch</Button>
