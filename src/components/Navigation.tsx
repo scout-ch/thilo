@@ -83,7 +83,7 @@ function Navigation(props: Props) {
                     checked={checkedState[index]}
                     onChange={() => handleOnChange(index, section)}
                 />
-                <label htmlFor={section.slug} className={`accordion_label ${className}`}>
+                <label htmlFor={section.slug} className={`accordion_label ${className}`} onClick={() => setNavbarOpen(!navbarOpen)}>
                     {section.menu_name}
                 </label>
                 {chapterList(section)}
