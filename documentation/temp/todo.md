@@ -1,10 +1,13 @@
 # todos
 - front:
   - [ ] test on mobile
+    - [ ] fix footer placement and size
+    - [x] fix header margins
+    - [x] fix collapsible navbar 
   - [ ] test physical qr integration
   - [x] smaller logo before subtitles
     - [ ] test logo scaling
-    - [ ] move icon to section title
+    - [x] move icon to section title
   - [x] adapt footer elements spacing
   - [ ] multiple images with rel. unit layouting
     - [x] test img alt text display
