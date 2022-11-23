@@ -15,7 +15,7 @@
     - [ ] ~~multiple images per row / layouting - requires API design~~
   - [ ] customize section & chapters 
     - [ ] logo files based on ~~section sorting / id - or simply supply~~ in strapi?
-    - [ ] colors     based on ~~section sorting / id~~ strapi
+    - [x] colors     based on ~~section sorting / id~~ strapi
     - [x] zeilenabstand based strapi
   - ---
   - [x] find and integrate quiz implementation
@@ -28,7 +28,8 @@
   - [ ] include units in img alt text for testing
   - [ ] ~~define API for multi image layouting~~ 
   - [ ] section: supply specific logos?
-  - [ ] chapter: include zeilenabstände
+  - [x] section: include color_primary, color_secondary
+  - [x] chapter: include zeilenabstände
   - [ ] quiz: include quiz section, and q and a set per chapter
   - [ ] qr code generation: felsenfeste domain required
 
