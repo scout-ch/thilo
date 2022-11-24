@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { StartPage } from '../pages/HomePage '
@@ -34,6 +34,12 @@ function Navigation(props: Props) {
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen)
     }
+
+    useEffect(() => {    
+        document.getElementsByTagName('main')[0].addEventListener('scroll', function (e) {
+          setNavbarOpen(false);
+        });
+      }, []);
 
     const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
