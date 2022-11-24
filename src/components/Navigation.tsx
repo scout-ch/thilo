@@ -57,7 +57,9 @@ function Navigation(props: Props) {
 
     function chapterList(section: SectionT) {
         const chapters = section.chapters
-        const chapterItems = chapters.map(function (chapter: ChapterT) {
+        const chapterItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
+            return a.sorting - b.sorting;
+        }).map(function (chapter: ChapterT) {
             var isActive = location.hash.replace('#', '') === chapter.slug
             var className = isActive ? `${chapter.slug_with_section} active` : `${chapter.slug_with_section}`
             return <li key={chapter.slug_with_section} className="subMenu" onClick={handleToggle}>

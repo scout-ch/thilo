@@ -30,8 +30,8 @@ type Props = {
 function Section(props: Props) {
     const chapters = props.section['chapters'].sort(function (a: ChapterT, b: ChapterT) {
         return a.sorting - b.sorting;
-    }).map(function (chapter: any) {
-        return <Chapter key={chapter['title']} data={chapter}></Chapter>
+    }).map(function (chapter: ChapterT) {
+        return <Chapter key={chapter.title} data={chapter}></Chapter>
     })
     let classes=`section-title section-${props.section.sorting}`;
     const root = document.documentElement;
