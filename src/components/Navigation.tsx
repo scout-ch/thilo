@@ -85,7 +85,7 @@ function Navigation(props: Props) {
                     checked={checkedState[index]}
                     onChange={() => handleOnChange(index, section)}
                 />
-                <label htmlFor={section.slug} className={`accordion_label ${className}`} onClick={() => setNavbarOpen(!navbarOpen)}>
+                <label htmlFor={section.slug} className={`accordion_label ${className}`}>
                     {section.menu_name}
                 </label>
                 {chapterList(section)}
@@ -103,7 +103,7 @@ function Navigation(props: Props) {
             <SearchInput onKeyDown={onSearchKeyDown} />
             <ul className={`menuItems ${navbarOpen ? "showMenu" : ""}`}>
                 <li key="home" className={classNameHome}>
-                    <Link to="/" className={classNameHome} onClick={() => setNavbarOpen(!navbarOpen)}>{startPage.menu_name}</Link>
+                    <Link to="/" className={classNameHome}>{startPage.menu_name}</Link>
                 </li>
                 {sectionList}
             </ul>
