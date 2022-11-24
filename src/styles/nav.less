@@ -11,6 +11,7 @@ nav.header-nav {
   li {
     margin-top: 8px;
     font-weight: 400;
+    cursor: pointer;
   }
 
   a {
@@ -22,16 +23,10 @@ nav.header-nav {
     text-decoration: none;
     min-width: 180px;
   }
-
-  a.active {
+  
+  a.active, label.active {
     font-weight: bold;
     text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  label.active {
-    font-weight: bold;
-    text-decoration-line: underline;
     text-underline-offset: 3px;
   }
 
@@ -115,7 +110,7 @@ nav.header-nav {
     top: 40px;
     left: 0;
     bottom: 0;
-    overflow: auto;
+    // overflow: auto;
     height: calc(~"100vh - 40px");
     width: 280px;
     &>ul {
