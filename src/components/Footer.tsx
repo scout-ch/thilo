@@ -53,9 +53,8 @@ function Footer(props: Props) {
   }
   const location = useLocation();
   const history = useHistory();
-  var currentChapter = location.hash.replace('#', '');
   var currentSection = location.pathname.replace('/', '');
-  console.log(currentSection, currentChapter, props.sections)
+  // console.log(currentSection, currentChapter, props.sections)
   var prevSection = '', nextSection = '';
   if(currentSection) {
     for(let i = 0; i < props.sections.length; i++) {
