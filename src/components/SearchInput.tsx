@@ -13,7 +13,7 @@ function SearchInput(props: Props) {
 
     return <div className='search-input'>
         <div className='icon-input'>
-            <div className='icon'>
+            <div className='search-icon'>
                 <FontAwesomeIcon icon="search" />
             </div>
             <input type='text'
