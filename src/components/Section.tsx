@@ -16,6 +16,7 @@ export type SectionT = {
     localizations: any
     color_primary?: string
     color_primary_light?: string
+    icon?: IconT
 }
 
 export type IconT = {
@@ -45,6 +46,7 @@ function Section(props: Props) {
         <Helmet><title>{props.section['title']}</title></Helmet>
         <div className='content-main'>
             <div id="section-title" className={classes}>
+                {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
                 <h1>{props.section['title']}</h1>
             </div>
             <ReactMarkdown
