@@ -19,16 +19,16 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  min-width: 84.3vw;
 }
 
-.content {
-  flex: 1 0 auto;
+main {
+  flex: 1;
+  @media (max-width: 860px) {
+    margin-top:44px;
+  }
 }
 
-.footer {
+footer {
   flex-shrink: 0;
 }
 

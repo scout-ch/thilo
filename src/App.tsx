@@ -66,9 +66,9 @@ function App() {
   return <div className='App'>
     <Router basename="/">
       <LinksContext.Provider value={links}>
-        <div className='header'>
+        <header>
           <Navigation sections={sections} startPage={startPage}></Navigation>
-        </div>
+        </header>
 
         <main>
           <Switch>
@@ -87,10 +87,10 @@ function App() {
             </Route>
           </Switch>
 
-          <div className='footer'>
-            <Footer lang={lang} sections={sections} />
-          </div>
         </main>
+        <footer>
+          <Footer lang={lang} sections={sections} />
+        </footer>
 
       </LinksContext.Provider>
     </Router>
