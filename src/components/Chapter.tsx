@@ -18,7 +18,7 @@ export type ChapterT = {
     content: string
     slug: string
     slug_with_section: string
-    icon: IconT
+    icon?: IconT
     section: number
     responsible: Array<Role>
     line_height?: number
@@ -44,7 +44,7 @@ function Chapter(props: ChapterProps) {
         <div id={data.slug}>
 
             <div className="chapter-title">
-                {data.icon && (<img className='chapter-icon' src={data.icon.url} alt="icon" />)}
+                {data.icon && (<img className='icon' src={data.icon.url} alt="icon" />)}
                 <h2 id={data.slug}>{data.title}</h2>
             </div>
             <div className='chapter-main'>

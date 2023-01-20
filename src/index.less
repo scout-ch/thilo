@@ -7,46 +7,9 @@
 @import './styles/loading.less';
 @import './styles/quiz.less';
 
-@color-primary: #521d3a;
-@color-primary-light: #8c3c4f;
-
-@color-1: #521d3a;
-@color-1-light: #8c3c4f;
-
-@color-2: #c55931;
-@color-2-light: #c55931;
-
-@color-3: #d8965a;
-@color-3-light: #e8c19a;
-
-@color-4: #e0c477;
-@color-4-light: #eddbaf;
-
-@color-5: #c8bca5;
-@color-5-light: #ddd5c7;
-
-@color-6: #57632e;
-@color-6-light: #93966e;
-
-@color-7: #a9ba9b;
-@color-7-light: #cbd3c2;
-
-@color-8: #579a9e;
-@color-8-light: #a2c0c3;
-
-@colors: color-1, color-1-light, color-2, color-2-light, color-3, color-3-light, color-4, color-4-light, color-5, color-5-light, color-6, color-6-light, color-7, color-7-light, color-8, color-8-light;
-
-.make-color-classes(@i: length(@colors)) when (@i > 0) {
-  .make-color-classes(@i - 1);
-  @color: extract(@colors, @i); 
-  .@{color} {
-      color: @color;  
-  }
-}
-
 :root {
-  --color-primary: @color-primary;
-  --color-primary-light: @color-primary-light;
+  --color-primary: #521d3a;
+  --color-primary-light: #8c3c4f;
   --line-height: 1.5;
 }
 
@@ -56,6 +19,17 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
+}
+
+main {
+  flex: 1;
+  @media (max-width: 860px) {
+    margin-top:44px;
+  }
+}
+
+footer {
+  flex-shrink: 0;
 }
 
 img {
@@ -117,6 +91,12 @@ div {
   font-size: 15px;
 }
 
+.icon {
+  align-self:center; // height: 100%;
+  margin: 0em 1.5em 0em -1.5em; /* top right bottom left */
+  width: 80px;
+}
+
 @media (max-width: 659px) {
   h1 {
     font-size: 30px;
@@ -155,6 +135,11 @@ div {
 
   .content-main {
     margin: 0 5rem 0 3rem;
+  }
+  .icon {
+    align-self:center; // height: 100%;
+    // margin: 0em 1.5em 0em -1.5em; /* top right bottom left */
+    width: 100px;
   }
 }
 @media (min-width: 860px) {
