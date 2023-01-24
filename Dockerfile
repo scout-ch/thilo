@@ -26,6 +26,7 @@ COPY --chown=node:node [ "src", "src"]
 ############################################
 # Building Application
 ############################################
+ENV PUBLIC_URL=/
 RUN npm install
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
 RUN chmod +x entrypoint.sh
