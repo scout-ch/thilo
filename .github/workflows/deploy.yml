@@ -7,7 +7,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push counter docker images to GitHub Packages
+    name: Build and Push Thilo Container
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +39,7 @@ jobs:
             ghcr.io/scout-ch/thilo/thilo_frontend:latest
 
   build:
-    name: Build
+    name: Build Thilo App
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +55,7 @@ jobs:
           path: ./build
 
   deploy:
-    name: Deploy
+    name: Deploy Thilo App
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'

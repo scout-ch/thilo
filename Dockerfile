@@ -28,6 +28,7 @@ COPY --chown=node:node [ "src", "src"]
 ############################################
 RUN npm install
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+RUN chmod +x entrypoint.sh
 RUN dos2unix entrypoint.sh
 
 USER root

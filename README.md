@@ -15,9 +15,24 @@ Frontend written in React.
 ### Backend
 [Strapi Backend](https://github.com/scout-ch/thilo-api)
 
+## Deployment
+Run docker-compose.prod.yml file
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+Services
+- Frontend: http://localhost:3000
+- Backend: http://localhost:1337
+- SHLINK: http://localhost:8080
+- SHLINK ADMIN: http://localhost:8081
+- Postgres: localhost:5432
+- PgAdmin: http://localhost:5050
+
 ## Development
 ### Environment Variables
-None 
+None
 
 ### Available Scripts
 In the project directory, you can run:
@@ -42,4 +57,4 @@ Wir freuen uns über jeden PR.
 Bei Fragen kannst du dich an die Betreuungskommission (inhaltlich) oder die IT Kommission (technisch) wenden.
 
 ## Production
-The frontend is deployed to GitHub pages. 
+The frontend is deployed to GitHub pages.
