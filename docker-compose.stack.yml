@@ -1,0 +1,95 @@
+version: '3.9'
+
+services:
+  frontend:
+    image: ghcr.io/scout-ch/thilo/thilo_frontend:latest
+    restart: always
+    environment:
+      - BACKEND_URL=BACKEND_URL
+    ports:
+      - 3000:3000
+
+  backend:
+    image: ghcr.io/scout-ch/thilo-api/thilo_api:latest
+    restart: always
+    networks:
+      - internal
+    depends_on:
+      - database
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=1337
+      - CLOUDINARY_NAME=
+      - CLOUDINARY_KEY=
+      - CLOUDINARY_SECRET=
+      - DATABASE_HOST=database
+      - DATABASE_NAME=strapi
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=admin
+    ports:
+      - 1337:3001
+
+  linkshortner:
+    image: shlinkio/shlink:3.4.0
+    restart: always
+    networks:
+      - internal
+    depends_on:
+      - database
+    environment:
+      - DB_DRIVER=postgres
+      - DB_HOST=database
+      - DB_NAME=shlink
+      - DB_USER=postgres
+      - DB_PASSWORD=admin
+      - DEFAULT_DOMAIN=thilo.cloud
+      - IS_HTTPS_ENABLED=true
+    ports:
+      - 8080:8080
+
+  linkshortner-webgui:
+    image: shlinkio/shlink-web-client:3.9.1
+    restart: always
+    networks:
+      - internal
+    depends_on:
+      - linkshortner
+    ports:
+      - 8081:80
+
+  database:
+    image: postgres:15.1
+    restart: always
+    networks:
+      - internal
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=postgres
+      - PGDATA=/data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    networks:
+      - internal
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@thilo.ch
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+
+networks:
+  internal:
+
+
+volumes:
+  postgres:
+  pgadmin:
