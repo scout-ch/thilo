@@ -1,16 +1,36 @@
-FROM node:18.3.0-alpine3.14
+FROM node:19.0.1-alpine
 
-ARG UID=1001
+############################################
+# General Docker image configuration
+############################################
 WORKDIR /srv/app
-
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "serve" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
 
-RUN adduser --disabled-password --uid "$UID" app
+############################################
+# System Dependencies
+############################################
+RUN apk update && apk add --no-cache gettext dos2unix
 
-COPY [ "package.json", "package-lock.json", "craco.config.js", "tsconfig.json",  "./"]
+############################################
+# None root user
+############################################
+RUN chown -R node:node /srv/app
+USER node
+COPY --chown=node:node [ "package.json", "package-lock.json", "craco.config.js", "tsconfig.json",  "./"]
+COPY --chown=node:node [ "./docker/entrypoint.sh", "./entrypoint.sh"]
+COPY --chown=node:node [ "public", "public"]
+COPY --chown=node:node [ "src", "src"]
+
+############################################
+# Building Application
+############################################
 RUN npm install
-
-COPY [ "public", "public"]
-COPY [ "src", "src"]
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+RUN dos2unix entrypoint.sh
+
+USER root
+RUN chgrp -R 0 /srv/app && \
+    chmod -R g=u /srv/app
+USER node
