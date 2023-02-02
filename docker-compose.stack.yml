@@ -58,6 +58,36 @@ services:
     ports:
       - 8081:80
 
+  feedback:
+    image: getfider/fider:stable
+    restart: always
+    networks:
+      - internal
+    depends_on:
+      - database
+    ports:
+      - "9000:3000"
+    environment:
+      BASE_URL: http://localhost:9000
+
+      # Connection string to the PostgreSQL database
+      DATABASE_URL: postgres://postgres:admin@database:5432/fider?sslmode=disable
+
+      # Generate a 512-bit secret here https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx
+      JWT_SECRET: VERY_STRONG_SECRET_SHOULD_BE_USED_HERE
+
+      # From which account e-mails will be sent
+      EMAIL_NOREPLY: noreply@thilo.scout.ch
+
+      ###
+      # EMAIL
+      ###
+      EMAIL_SMTP_HOST: smtp.sendgrid.net
+      EMAIL_SMTP_PORT: 465
+      EMAIL_SMTP_USERNAME: apikey
+      EMAIL_SMTP_PASSWORD: apikiey
+      EMAIL_SMTP_ENABLE_STARTTLS: 'true'
+
   database:
     image: postgres:15.1
     restart: always
