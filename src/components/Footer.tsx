@@ -72,6 +72,22 @@ function Footer(props: Props) {
     nextSection = props.sections[0].title;
     prevSection = props.sections[props.sections.length-1].title;
   }
+  let prevButtonText = "Previous Chapter";
+  let nextButtonText = "Next Chapter";
+  let homeButtonText = "Return to Start";
+  if (props.lang === 'de') {
+    prevButtonText = "Vorheriges Kapitel";
+    nextButtonText = "Nächstes Kapitel";
+    homeButtonText = "Zurück zum Start";
+  } else if (props.lang === 'fr') {
+    prevButtonText = "Chapitre Précédent";
+    nextButtonText = "Chapitre Suivant";
+    homeButtonText = "Retour au Début";
+  } else if (props.lang === 'it') {
+    prevButtonText = "Capitolo Precedente";
+    nextButtonText = "Prossimo Capitolo";
+    homeButtonText = "Ritorno all' Inizio";
+  }
 
   return <>
     <div className="footer-content">
@@ -79,20 +95,20 @@ function Footer(props: Props) {
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
         <ul>
           <li>
-            <Button className='btn' onClick={() => navigate(`/${prevSection}`)}>
+            <Button className='btn btn-footer' onClick={() => navigate(`/${prevSection}`)}>
               {prevSection.length > 0 &&
-                <>Vorheriges Kapitel<br/><i>{prevSection}</i></>
+                <>{prevButtonText}<br/><i>{prevSection}</i></>
               }
               {prevSection.length === 0 &&
-                <>Zurück zum Start</>
+                <>{homeButtonText}<br/>&nbsp;</>
               }
             </Button>
             <Button className='btn' onClick={() => navigate(`/${nextSection}`)}>
               {nextSection.length > 0 &&
-                <>Nächstes Kapitel<br/><i>{nextSection}</i></>
+                <>{nextButtonText}<br/><i>{nextSection}</i></>
               }
               {nextSection.length === 0 &&
-                <>Zurück zum Start</>
+                <>{homeButtonText}<br/>&nbsp;</>
               }
             </Button>
           </li>
