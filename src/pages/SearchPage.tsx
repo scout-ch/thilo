@@ -32,7 +32,7 @@ function SearchPage(props: Props) {
         <div className='search'>
             <h1><FontAwesomeIcon icon="search" /> {searchPage.title}</h1>
             <ReactMarkdown
-                plugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm]}
                 components={LinkComponent}
             >{searchPage.content}</ReactMarkdown>
 

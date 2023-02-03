@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next"
 import Loading from './Loading'
 import { getLocalSectionData } from '../helper/LocalDataHelper';
 import { SearchHelper } from '../helper/SearchHelper';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation, createPath } from 'react-router';
 import { ChapterT } from '../components/Chapter';
 import { SectionT } from '../components/Section';
 import ReactMarkdown from 'react-markdown';
@@ -25,7 +25,7 @@ type SearchResult = {
 
 function SearchForm(props: Props) {
     const location = useLocation()
-    const history = useHistory()
+    const navigate = useNavigate()
     const { t, lang } = props;
 
     const [keyword, setKeyword] = useState<string>('')
@@ -53,7 +53,7 @@ function SearchForm(props: Props) {
             if (!keyword || keyword.length <= 2) {
                 setSearchResults([])
                 setIsLoadingResults(false)
-                history.replace({ search: '' })
+                navigate({ search: '' })
                 return
             }
 
@@ -74,7 +74,7 @@ function SearchForm(props: Props) {
                 const routeParams = new URLSearchParams(location.search)
                 if (routeParams.get('keyword') !== keyword) {
                     routeParams.set('keyword', keyword)
-                    history.replace({ search: routeParams.toString() })
+                    navigate({ search: routeParams.toString() })
                 }
             }, 500))
         }
@@ -97,7 +97,7 @@ function SearchForm(props: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <a href={history.createHref({ pathname: result.slug })}>{result.title}</a>
+                                <a href={createPath({ pathname: result.slug })}>{result.title}</a>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>

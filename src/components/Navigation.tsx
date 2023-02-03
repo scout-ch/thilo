@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { StartPage } from '../pages/HomePage '
 import { ChapterT } from './Chapter'
@@ -16,7 +16,7 @@ function Navigation(props: Props) {
 
     const [navbarOpen, setNavbarOpen] = useState(false)
     const location = useLocation()
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const sections = props.sections
     const [checkedState, setCheckedState] = useState(
@@ -28,7 +28,7 @@ function Navigation(props: Props) {
             index === sectionNav ? !item : false
         );
         setCheckedState(updatedCheckedState)
-        history.push('/' + section.slug)
+        navigate('/' + section.slug)
     }
 
     const handleToggle = () => {
@@ -46,14 +46,14 @@ function Navigation(props: Props) {
             const searchFieldValue = e.currentTarget.value;
             const searchPageRoute = '/search';
 
-            if (history.location.pathname !== searchPageRoute) {
+            if (location.pathname !== searchPageRoute) {
                 const location = { pathname: searchPageRoute, search: '' }
                 if (searchFieldValue?.length > 0) {
                     location.search = `keyword=${searchFieldValue}`
                 }
-                history.push(location)
+                navigate(location)
             } else {
-                history.replace({ search: `keyword=${searchFieldValue}` })
+                navigate({ search: `keyword=${searchFieldValue}` })
             }
 
             e.currentTarget.value = '';

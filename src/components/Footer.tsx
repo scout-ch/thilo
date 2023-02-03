@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactComponent as PBSLogo } from './../images/pbs_logo.svg'
 import styled from '@emotion/styled';
 import i18n from './../i18n';
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SectionT } from './Section';
 import { getLocalSectionData } from '../helper/LocalDataHelper';
 import client from "./../client";
@@ -22,7 +22,8 @@ type Props = {
 }
 
 function Footer(props: Props) {
-  const changeLanguage = (lang: string, history: any, location: any, oldSections: SectionT[]) => {
+  const navigate = useNavigate();
+  const changeLanguage = (lang: string, location: any, oldSections: SectionT[]) => {
     let redirect = false
     const path = location.pathname.replace('/', '')
     const currentSection = oldSections.find((s) => { return s['slug'] === path })
@@ -40,19 +41,18 @@ function Footer(props: Props) {
             const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
             if (newCurrentSection) {
               redirect = true
-              history.push('/' + newCurrentSection.slug)
+              navigate('/' + newCurrentSection.slug)
             }
           }
         }
       }).finally(() => {
         if (!redirect) {
-          history.push('/')
+          navigate('/')
         }
       })
     });
   }
   const location = useLocation();
-  const history = useHistory();
   var currentSection = location.pathname.replace('/', '');
   // console.log(currentSection, currentChapter, props.sections)
   var prevSection = '', nextSection = '';
@@ -67,7 +67,8 @@ function Footer(props: Props) {
         }
       }
     }
-  } else {
+  } else if(props.sections[0]) { 
+    // if no props.sections[0] then we can't access the section titles
     nextSection = props.sections[0].title;
     prevSection = props.sections[props.sections.length-1].title;
   }
@@ -78,7 +79,7 @@ function Footer(props: Props) {
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
         <ul>
           <li>
-            <Button className='btn' onClick={() => history.push(`/${prevSection}`)}>
+            <Button className='btn' onClick={() => navigate(`/${prevSection}`)}>
               {prevSection.length > 0 &&
                 <>Vorheriges Kapitel<br/><i>{prevSection}</i></>
               }
@@ -86,7 +87,7 @@ function Footer(props: Props) {
                 <>Zurück zum Start</>
               }
             </Button>
-            <Button className='btn' onClick={() => history.push(`/${nextSection}`)}>
+            <Button className='btn' onClick={() => navigate(`/${nextSection}`)}>
               {nextSection.length > 0 &&
                 <>Nächstes Kapitel<br/><i>{nextSection}</i></>
               }
@@ -98,9 +99,9 @@ function Footer(props: Props) {
         </ul>
         <ul>
           <li>
-            <Button className={props.lang === 'de' ? 'active' : ''} onClick={() => changeLanguage('de', history, location, props.sections)}>Deutsch</Button>
-            <Button className={props.lang === 'fr' ? 'active' : ''} onClick={() => changeLanguage('fr', history, location, props.sections)}>Français</Button>
-            <Button className={props.lang === 'it' ? 'active' : ''} onClick={() => changeLanguage('it', history, location, props.sections)}>Italiano</Button>
+            <Button className={props.lang === 'de' ? 'active' : ''} onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</Button>
+            <Button className={props.lang === 'fr' ? 'active' : ''} onClick={() => changeLanguage('fr', location, props.sections)}>Français</Button>
+            <Button className={props.lang === 'it' ? 'active' : ''} onClick={() => changeLanguage('it', location, props.sections)}>Italiano</Button>
           </li>
         </ul>
       </nav>

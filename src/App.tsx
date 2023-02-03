@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from "react-router-dom";
 import { faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -71,21 +71,14 @@ function App() {
         </header>
 
         <main>
-          <Switch>
-            <Route path="/search" >
-              <SearchPage page={searchPage} />
-            </Route>
-            <Route path="/impressum" >
-              <ImpressumPage />
-            </Route>
-            <Route path="/:slug" children={<SectionPage sections={sectionsByKey} />} />
-            <Route exact path="/">
-              <HomePage page={startPage}></HomePage>
-            </Route>
-            <Route exact path="/thilo/">
-              <HomePage page={startPage}></HomePage>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/search" element={<SearchPage page={searchPage} />} />
+            <Route path="/impressum" element={<ImpressumPage />} />
+            <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+            <Route path="/" element={<HomePage page={startPage}/>
+            } />
+            <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+          </Routes>
 
         </main>
         <footer>
