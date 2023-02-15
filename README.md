@@ -6,7 +6,7 @@ The Thilo contains a lot of interesting and useful information about the Scouts 
 Frontend written in React.
 
 ## Big Picture
-![Architecture](./documentation/TechStack.png)
+![Architecture](./documentation/architecture.png)
 
 ## Components
 ### Frontend
