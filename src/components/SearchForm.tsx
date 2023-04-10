@@ -99,7 +99,7 @@ function SearchForm(props: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <a href={createPath({ pathname: result.slug_with_section })}>{result.title}</a>
+                                <a href={createPath({ pathname: '#/' + result.slug_with_section })}>{result.title}</a>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>
