@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import HomePage from './pages/HomePage ';
+import HomePage from './pages/HomePage';
 import i18n from './i18n';
 import { withTranslation } from 'react-i18next';
 import Navigation from './components/Navigation';
