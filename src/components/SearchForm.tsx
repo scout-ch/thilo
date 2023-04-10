@@ -12,7 +12,6 @@ import SearchInput from './SearchInput';
 
 type Props = {
     t: any,
-    lang: string
     sections: SectionT[]
 }
 
@@ -27,14 +26,15 @@ type SearchResult = {
 function SearchForm(props: Props) {
     const location = useLocation()
     const navigate = useNavigate()
-    const { t, lang } = props;
+    const { t, sections } = props;
 
     const [keyword, setKeyword] = useState<string>('')
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
     const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false)
+    
+    const searchableSectionChapters = useMemo<ChapterT[]>(() => sections.reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [sections]);
 
-    const searchableSectionChapters = useMemo<ChapterT[]>(() => props.sections.reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [lang])
 
     useEffect(() => {
         const routeParams = new URLSearchParams(location.search)
@@ -62,7 +62,6 @@ function SearchForm(props: Props) {
                 const searchResults = searchableSectionChapters
                     .filter(chapter => SearchHelper.matches(keyword, [chapter.title, chapter.content]))
                     .map(chapter => {
-                        console.log(chapter)
                         return {
                             id: chapter.id,
                             title: chapter.title,

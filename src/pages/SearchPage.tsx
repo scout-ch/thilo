@@ -6,7 +6,6 @@ import remarkGfm from 'remark-gfm';
 import { LinkComponent } from '../helper/MarkdownComponents';
 import { withTranslation } from 'react-i18next'
 import { IconT } from '../components/Section';
-import i18n from '../i18n';
 import SearchForm from '../components/SearchForm';
 import { SectionT } from '../components/Section'
 
@@ -24,7 +23,6 @@ type Props = {
 
 function SearchPage(props: Props) {
     const searchPage = props.page
-    const lang = i18n.language
 
     return <div className='content-main'>
         <HelmetProvider>
@@ -38,7 +36,7 @@ function SearchPage(props: Props) {
                 components={LinkComponent}
             >{searchPage.content}</ReactMarkdown>
 
-            <SearchForm lang={lang} sections = {props.sections}></SearchForm>
+            <SearchForm sections = {props.sections}></SearchForm>
         </div>
     </div>
 }
