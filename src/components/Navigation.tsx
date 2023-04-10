@@ -80,24 +80,27 @@ function Navigation(props: Props) {
     const sectionList = sections.map(function (section: SectionT, index: number) {
         var isActive = location.pathname.replace('/', '') === section.slug
         var className = isActive ? `${section.slug} active` : `${section.slug}`
-
-        return <>
-            <li key={section.slug} className={className}>
-                <input
-                    type="checkbox"
-                    name="tabs"
-                    id={section.slug}
-                    className={`accordion_input ${className}`}
-                    checked={checkedState[index]}
-                    onChange={() => handleOnChange(index, section)}
-                />
-                <label htmlFor={section.slug} className={`accordion_label ${className}`}>
-                    {section.menu_name}
-                </label>
-                {chapterList(section)}
-            </li>
-        </>
-    })
+    
+        return (
+            <React.Fragment key={section.slug}> {/* Provide unique key prop */}
+                <li key={section.slug} className={className}>
+                    <input
+                        type="checkbox"
+                        name="tabs"
+                        id={section.slug}
+                        className={`accordion_input ${className}`}
+                        checked={checkedState[index]}
+                        onChange={() => handleOnChange(index, section)}
+                    />
+                    <label htmlFor={section.slug} className={`accordion_label ${className}`}>
+                        {section.menu_name}
+                    </label>
+                    {chapterList(section)}
+                </li>
+            </React.Fragment>
+        )
+    });
+    
     const startPage = props.startPage
     const isHome = location.pathname === '/'
     var classNameHome = isHome ? 'home active' : 'home'
