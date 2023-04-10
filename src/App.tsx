@@ -13,7 +13,6 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
-import { setLocalData } from './helper/LocalDataHelper';
 import { checkLinks } from './helper/LinkChecker';
 import SearchPage from './pages/SearchPage';
 import client from "./client";
@@ -40,9 +39,9 @@ function App() {
     const linksPromise = client.get('/links?_locale=' + lang)
     const startPagePromise = client.get('/start-page?_locale=' + lang)
 
-    setLocalData(lang, setSections, setLinks, setStartPage, setSearchPage);
     Promise.all([sectionsPromise, linksPromise, startPagePromise]).then((values) => {
       setSections(values[0].data)
+      setSearchPage(values[0].data)
       setLinks(values[1].data)
       setStartPage(values[2].data)
     })
@@ -72,7 +71,7 @@ function App() {
 
         <main>
           <Routes>
-            <Route path="/search" element={<SearchPage page={searchPage} />} />
+            <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
             <Route path="/impressum" element={<ImpressumPage />} />
             <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
             <Route path="/" element={<HomePage page={startPage}/>

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { withTranslation } from "react-i18next"
 import Loading from './Loading'
-import { getLocalSectionData } from '../helper/LocalDataHelper';
 import { SearchHelper } from '../helper/SearchHelper';
 import { useNavigate, useLocation, createPath } from 'react-router';
 import { ChapterT } from '../components/Chapter';
@@ -14,14 +13,16 @@ import SearchInput from './SearchInput';
 type Props = {
     t: any,
     lang: string
+    sections: SectionT[]
 }
 
 type SearchResult = {
     id: number
     title: string
     matchingContents: string[]
-    slug: string
+    slug_with_section: string
 }
+
 
 function SearchForm(props: Props) {
     const location = useLocation()
@@ -33,7 +34,7 @@ function SearchForm(props: Props) {
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
     const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false)
 
-    const searchableSectionChapters = useMemo<ChapterT[]>(() => getLocalSectionData(lang).reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [lang])
+    const searchableSectionChapters = useMemo<ChapterT[]>(() => props.sections.reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [lang])
 
     useEffect(() => {
         const routeParams = new URLSearchParams(location.search)
@@ -61,11 +62,12 @@ function SearchForm(props: Props) {
                 const searchResults = searchableSectionChapters
                     .filter(chapter => SearchHelper.matches(keyword, [chapter.title, chapter.content]))
                     .map(chapter => {
+                        console.log(chapter)
                         return {
                             id: chapter.id,
                             title: chapter.title,
                             matchingContents: findMatchingContents(keyword, chapter.content),
-                            slug: chapter.slug_with_section
+                            slug_with_section: chapter.slug_with_section
                         } as SearchResult
                     })
                 setSearchResults(searchResults)
@@ -97,7 +99,7 @@ function SearchForm(props: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <a href={createPath({ pathname: result.slug })}>{result.title}</a>
+                                <a href={createPath({ pathname: result.slug_with_section })}>{result.title}</a>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>
