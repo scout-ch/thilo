@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { HelmetProvider } from 'react-helmet-async'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
