@@ -1,15 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { LinksContext } from '../App';
-// import { HashLink } from 'react-router-hash-link';
 import Warning from '../components/Warning';
-
-import client from "../client";
-import quiz_data from '../data/quiz/example.json'
 const QuizI = require('react-quiz-component');
-const Quiz = QuizI.default
-
+const Quiz = QuizI.default;
 
 
 // // @ts-ignore
@@ -29,18 +24,37 @@ export const LinkComponent = {
         const links = useContext(LinksContext)
         const link = props.href
 
-        if(link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
-            var quiz_call = client.get(link);
-            // TODO: overwrite quiz_data on promise fulfillment and render then...
-            quiz_call.then((res) => {
-                let quiz_data = res['data'];
-                console.log('quiz in link', quiz_call, quiz_data);
-            })
-            return <span id={link.split(/.*[\/|\\]/)[1]}>
-                        <a href={link} target="_blank" rel="noreferrer">{children}</a>
-                        <br/>
-                        <Quiz quiz={quiz_data} shuffle={true}/>
-                    </span>
+        
+    if (link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
+      const [quizData, setQuizData] = useState(null);
+
+            useEffect(() => {
+                const fetchQuizData = async () => {
+                try {
+                    const response = await fetch('https://res.cloudinary.com/dsii0i72y/raw/upload/v1668589914/thilo/quiz_example_f3088c8c29.json');
+                    const data = await response.json();
+                    setQuizData(data);
+                    } catch (error) {
+                    console.error('Failed to fetch quiz data', error);
+                }
+                };
+
+                fetchQuizData();
+            }, []);
+
+            if (!quizData) {
+                return <span>Loading quiz data...</span>; // or render a loading component
+            }
+
+            return (
+                <span id={link.split(/.*[\/|\\]/)[1]}>
+                <a href={link} target="_blank" rel="noreferrer">
+                    {children}
+                </a>
+                <br />
+                <Quiz quiz={quizData} shuffle={true} />
+                </span>
+            );
         }
 
         var found = link.match('\\$(.*)\\$');
