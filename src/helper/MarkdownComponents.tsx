@@ -30,7 +30,7 @@ export const LinkComponent = {
             useEffect(() => {
                 const fetchQuizData = async () => {
                 try {
-                    const response = await fetch('https://res.cloudinary.com/dsii0i72y/raw/upload/v1668589914/thilo/quiz_example_f3088c8c29.json');
+                    const response = await fetch(link);
                     const data = await response.json();
                     setQuizData(data);
                     } catch (error) {
