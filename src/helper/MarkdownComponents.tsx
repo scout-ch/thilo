@@ -95,22 +95,35 @@ export const LinkComponent = {
         // we include a custom tag in the alt text to specify the size of the image
         /*
         * matches the following:
-        * alt: text, size: 50x50
+        * alt: text, size: 50x60 or alt: text, size: 50%x60px 
         * or
-        * alt: text, width: 50
+        * alt: text, width: 50vh
         * maybe later: alt.match('alt:\\s([\\w\\s\-\_\*]*),?\\s?(size:\\s((\\d*)x(\\d*)))?,?\\s?(width:\\s(\\d*))?,?\\s?(float: (\\w*))?');
         */
+        // the regex captures the following groups:
+        // 1: alt text
+        // 2: size: 50x60
+        // 3: 50% x 60px
+        // 4: 50
+        // 5: %
+        // 6: 60
+        // 7: px
+        // 8: width: 50vh
+        // 9: 50
+        // 10: vh
         var found = alt.match('alt: (.*), (size: ((\\d*)([a-zA-Z%]{1,4})?x(\\d*)([a-zA-Z%]{1,4})?))?(width: (\\d*)([a-zA-Z%]{1,4})?)?');
         
-
+        // if we found a match, we add the size to the style tag
         let style;
         if (found) {
+            // if we found a width tag, we use that
             if (found[9]) {
                 let width = found[9];
                 if(found[10]) width+=found[10];
                 else width += 'px';
                 // TODO: width / height tag do not officially support units. FF and Chrome work with %, but add to style="width: {width};" tag...
                 style={width : width}
+            // else it is a width x height tag and we use the respective units
             } else {
                 let width  = found[4];
                 let height = found[6];
@@ -127,7 +140,7 @@ export const LinkComponent = {
             </span>
         } else {
             return <span className="md-img" style={style}> 
-                <img src={props.src} alt={props.alt}    />  <br></br>
+                <img src={props.src} alt={props.alt}/>  <br></br>
                 <span>{props.alt}</span>
             </span>
         }
