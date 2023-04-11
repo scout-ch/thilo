@@ -39,10 +39,12 @@ function App() {
   // get data from strapi or local storage if available
   // TODO: check if data is up to date
   useEffect(() => {
+    // load data from local storage
     let startPageLocal = window.localStorage.getItem(`startPage-${lang}`)
     let sectionsLocal = window.localStorage.getItem(`sections-${lang}`)
     let linksLocal = window.localStorage.getItem(`links-${lang}`)
     
+    // parase data from local storage or pull from strapi
     if(startPageLocal !== null) {
       setStartPage(JSON.parse(startPageLocal))
       console.info('loaded from local storage - startPage')
@@ -98,6 +100,8 @@ function App() {
 
   checkLinks(sections, links)
 
+  // HelmetProvider allows the use of Helmet components to set the title 
+  // and, in the future, meta tags and SEO data
   return <div className='App'>
     <HelmetProvider>
       <Router basename="/">
