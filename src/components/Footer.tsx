@@ -1,6 +1,5 @@
 import React from 'react'
 import { ReactComponent as PBSLogo } from './../images/pbs_logo.svg'
-import styled from '@emotion/styled';
 import i18n from './../i18n';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SectionT } from './Section';
@@ -12,37 +11,51 @@ type Props = {
 }
 
 function Footer(props: Props) {
+  // to change the language, we need to set the language in the url and reload the page
   const navigate = useNavigate();
   const changeLanguage = (lang: string, location: any, oldSections: SectionT[]) => {
     let redirect = false
     const path = location.pathname.replace('/', '')
     const currentSection = oldSections.find((s) => { return s['slug'] === path })
     i18n.changeLanguage(lang).then((_t) => {
+      // we need to reload if we are on the impressum page
       if (path === 'impressum') {
         redirect = true
         return
       }
-      client.get('/sections?_sort=sorting:ASC&_locale=' + lang).then((response: { data: any }) => {
-        const newSections = props.sections
-        if (currentSection) {
-          const otherSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
-          // @ts-ignore
-          if(newSections && otherSection) {
-            const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
-            if (newCurrentSection) {
-              redirect = true
-              navigate('/' + newCurrentSection.slug)
-            }
+      // else we need to get the new sections and check if the current section has a translation
+      let sectionsLocal = window.localStorage.getItem(`sections-${lang}`);
+      let newSections: SectionT[] = [];
+      if(sectionsLocal !== null) {
+        newSections = JSON.parse(sectionsLocal)
+      } else {
+        client.get('/sections?_sort=sorting:ASC&_locale=' + lang).then((response: { data: any }) => {
+          newSections = response.data   
+        })
+      }
+      if (currentSection) {
+        // TODO: Explore method using localizations by i18n instead of new requests
+        // const localizedSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
+        const localizedSection = newSections.find((s: any) => { return s['sorting'] === currentSection['sorting'] })
+
+        // if the current section has the requested localization, we need to redirect to the new section
+        if(newSections && localizedSection) {
+          const newCurrentSection = newSections.find((s: any) => { return s['sorting'] === localizedSection['sorting'] })
+          if (newCurrentSection) {
+            redirect = true
+            navigate('/' + newCurrentSection.slug)
           }
         }
-      }).finally(() => {
-        if (!redirect) {
-          navigate('/')
-        }
-      })
+      }
+      // if no localized section is found, we need to redirect to the start page
+      if (!redirect) {
+        navigate('/')
+      }
     });
   }
+
   const location = useLocation();
+  // get the proper texts for the navigation buttons based on relative section position
   var currentSection = location.pathname.replace('/', '');
   // console.log(currentSection, currentChapter, props.sections)
   var prevSection = '', nextSection = '';
@@ -62,6 +75,7 @@ function Footer(props: Props) {
     nextSection = props.sections[0].title;
     prevSection = props.sections[props.sections.length-1].title;
   }
+  // localize the navigation buttons
   let prevButtonText = "Previous Chapter";
   let nextButtonText = "Next Chapter";
   let homeButtonText = "Return to Start";
@@ -79,6 +93,7 @@ function Footer(props: Props) {
     homeButtonText = "Ritorno all' Inizio";
   }
 
+  // render the footer with the localized navigation buttons
   return <>
     <div className="footer-content">
       <nav className="footer-nav">
