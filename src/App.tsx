@@ -34,25 +34,58 @@ function App() {
   const [searchPage, setSearchPage] = React.useState(null);
   const lang = i18n.language
 
-  React.useEffect(() => {
-    const sectionsPromise = client.get('/sections?_sort=sorting:ASC&_locale=' + lang)
-    const linksPromise = client.get('/links?_locale=' + lang)
-    const startPagePromise = client.get('/start-page?_locale=' + lang)
 
-    Promise.all([sectionsPromise, linksPromise, startPagePromise]).then((values) => {
-      setSections(values[0].data)
-      setSearchPage(values[0].data)
-      setLinks(values[1].data)
-      setStartPage(values[2].data)
-    })
+  // get data from strapi or local storage if available
+  // TODO: check if data is up to date
+  useEffect(() => {
+
+    if(window.localStorage.getItem('startPage')) {
+      setStartPage(JSON.parse(window.localStorage.getItem('startPage') || ''))
+    }
+    if(window.localStorage.getItem('sections')) {
+      setSections(JSON.parse(window.localStorage.getItem('sections') || ''))
+    }
+    if(window.localStorage.getItem('links')) {
+      setLinks(JSON.parse(window.localStorage.getItem('links') || ''))
+    }
+
+    if(sections && links && startPage && searchPage) return
+
+    if(startPage === '' || startPage === null) {
+      const startPagePromise = client.get('/start-page?_locale=' + lang)
+      Promise.all([startPagePromise]).then((values) => {
+        setStartPage(values[0].data)
+      })
+    }
+
+    if(sections === '' || sections === null || links === '' || links === null) {
+      const sectionsPromise = client.get('/sections?_sort=sorting:ASC&_locale=' + lang)
+      const linksPromise = client.get('/links?_locale=' + lang)
+      Promise.all([sectionsPromise, linksPromise]).then((values) => {
+        setSections(values[0].data)
+        setSearchPage(values[0].data)
+        setLinks(values[1].data)
+      })
+    }
+
   }, [lang])
 
+  // save data to local storage
+  useEffect(() => {
+    window.localStorage.setItem('startPage', JSON.stringify(startPage));
+    window.localStorage.setItem('sections', JSON.stringify(sections));
+    window.localStorage.setItem('links', JSON.stringify(links));
+  }, [sections, links, startPage, searchPage])
+
+  // disable scroll restoration
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, []);
 
+  // add font awesome icons
   library.add(faExclamationTriangle, faBars, faSearch)
 
+  // check if data is available
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
   const sectionsByKey = sections.reduce(function (map, section: SectionT) {
