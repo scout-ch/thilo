@@ -7,6 +7,8 @@ type Props = {
   targets: Array<Role>
 }
 
+// render the target list of a chapter, i.e. the 'responsible' roles or perhaps 'contact' roles, 'useful-for' etc.
+// currently not used
 function Target(props: Props) {
  const { t, targets } = props
 
