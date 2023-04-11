@@ -12,20 +12,24 @@ const Quiz = QuizI.default;
 //     return '<img alt="' + altText + '" src="' + url + '" style="width: ' + width + '" />';
 //   };
 
+
+// this is the component that renders the markdown content
 export const LinkComponent = {
+    // blockquotes used for warnings
     // @ts-ignore
     blockquote({node, children, ...props}) {
         return <Warning content={children}/>
     },
+
     // @ts-ignore
     a({node, children, ...props}) {
         /* eslint-disable */
         const links = useContext(LinksContext)
         const link = props.href
 
-        
-    if (link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
-      const [quizData, setQuizData] = useState(null);
+        // if links point to a quiz, we load the quiz component. this is subject to change
+        if (link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
+            const [quizData, setQuizData] = useState(null);
 
             useEffect(() => {
                 const fetchQuizData = async () => {
@@ -57,6 +61,7 @@ export const LinkComponent = {
         }
 
         var found = link.match('\\$(.*)\\$');
+        // if link is a link to another page, we render a react router link
         if (found) {
             //@ts-ignore
             const foundLink = links.find((l) => {return l['key'] == found[1]})
@@ -72,6 +77,7 @@ export const LinkComponent = {
                return <Link to={props.href || ''}>{children}</Link>
             }
         } else {
+            // if link is a mailto link, we render it as a mailto link and prevent default
             var mailto = link.match('(mailto:)')
             if (mailto?.length >= 0 && mailto[1]) {
                 return <Link to='#' onClick={(e) => {
@@ -86,6 +92,7 @@ export const LinkComponent = {
     // @ts-ignore
     img({node, children, ...props}) {
         const alt = props.alt
+        // we include a custom tag in the alt text to specify the size of the image
         /*
         * matches the following:
         * alt: text, size: 50x50
