@@ -68,7 +68,7 @@ function App() {
       })
     }
 
-  }, [lang])
+  }, [sections, links, startPage, searchPage, lang])
 
   // save data to local storage
   useEffect(() => {
