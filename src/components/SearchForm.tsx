@@ -28,14 +28,16 @@ function SearchForm(props: Props) {
     const navigate = useNavigate()
     const { t, sections } = props;
 
+    // stateful keyword, search results and timeout id
     const [keyword, setKeyword] = useState<string>('')
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
     const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false)
     
+    // memoized searchable chapters
     const searchableSectionChapters = useMemo<ChapterT[]>(() => sections.reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [sections]);
 
-
+    // update keyword from route if it changes
     useEffect(() => {
         const routeParams = new URLSearchParams(location.search)
         const keywordFromRoute = routeParams.get('keyword')
@@ -44,6 +46,7 @@ function SearchForm(props: Props) {
         }
     }, [location.search])
 
+    // build search results when keyword changes or searchable chapters change
     useEffect(() => {
         const buildSearchResults = () => {
             setIsLoadingResults(true)
@@ -52,12 +55,15 @@ function SearchForm(props: Props) {
             }
 
             if (!keyword || keyword.length <= 2) {
+                // only search for keywords with 3 or more characters
                 setSearchResults([])
                 setIsLoadingResults(false)
+                // else show empty search page
                 navigate({ search: '' })
                 return
             }
 
+            // search for keyword in chapters for up to 500ms
             setTimeoutId(setTimeout(() => {
                 const searchResults = searchableSectionChapters
                     .filter(chapter => SearchHelper.matches(keyword, [chapter.title, chapter.content]))
@@ -72,6 +78,7 @@ function SearchForm(props: Props) {
                 setSearchResults(searchResults)
                 setIsLoadingResults(false)
 
+                // update route if keyword changed
                 const routeParams = new URLSearchParams(location.search)
                 if (routeParams.get('keyword') !== keyword) {
                     routeParams.set('keyword', keyword)
@@ -82,19 +89,23 @@ function SearchForm(props: Props) {
         buildSearchResults()
     }, [keyword, searchableSectionChapters])  // eslint-disable-line react-hooks/exhaustive-deps
 
+    // update keyword when input changes
     const onChangeKeyword = (e: React.FormEvent<HTMLInputElement>): void => {
         setKeyword(e.currentTarget?.value ?? '')
     }
 
+    // find matching contents in chapter content for keyword
     const findMatchingContents = (keyword: string, content: string): string[] => {
         const matches = Array.from(content.matchAll(new RegExp(`[^.!?:;#\n]*(?=${keyword}).*?[.!?](?=\s?|\p{Lu}|$)`, 'gmi'))) // eslint-disable-line no-useless-escape
         return matches.reduce((searchResults: string[], currentMatches: RegExpMatchArray) => searchResults.concat(currentMatches), [])
     }
 
+    // render search results or loading indicator or no results message or no keyword message
     const searchResultViews = () => {
         if (!isLoadingResults) {
             if (keyword.length > 0) {
                 if (searchResults.length > 0) {
+                    // render results
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
@@ -111,8 +122,10 @@ function SearchForm(props: Props) {
                         </div>
                     })
                 }
+                // show no results message if no results were found or timeout was reached
                 return <div>{t('searchPage.noResults')}</div>
             }
+            // show no keyword message if keyword is empty or has less than 3 characters
             return <div> {t('searchPage.noKeyword', { amountOfCharacters: 3 })}</div>
         }
         return null
