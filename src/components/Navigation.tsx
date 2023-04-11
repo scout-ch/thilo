@@ -13,15 +13,19 @@ type Props = {
 
 function Navigation(props: Props) {
 
+    // state for the navbar to be open or closed
     const [navbarOpen, setNavbarOpen] = useState(false)
+    // location and navigate for browsing sections and chapters via hash links
     const location = useLocation()
     const navigate = useNavigate()
 
+    // checked state for the dropdown menu to signify current section and chapter
     const sections = props.sections
     const [checkedState, setCheckedState] = useState(
         new Array(sections.length).fill(false)
     );
 
+    // if navbar changes: check the current section and set the checked state 
     const handleOnChange = (sectionNav: any, section: SectionT) => {
         const updatedCheckedState = checkedState.map((item, index) =>
             index === sectionNav ? !item : false
@@ -30,36 +34,41 @@ function Navigation(props: Props) {
         navigate('/' + section.slug)
     }
 
+    // toggle the navbar open and closed
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen)
     }
 
-    useEffect(() => {    
+    // close the navbar when scrolling
+    useEffect(() => {
         document.getElementsByTagName('main')[0].addEventListener('scroll', function (e) {
           setNavbarOpen(false);
         });
       }, []);
 
-    const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            const searchFieldValue = e.currentTarget.value;
-            const searchPageRoute = '/search';
-
-            if (location.pathname !== searchPageRoute) {
-                const location = { pathname: searchPageRoute, search: '' }
-                if (searchFieldValue?.length > 0) {
-                    location.search = `keyword=${searchFieldValue}`
+      const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                const searchFieldValue = e.currentTarget.value;
+                const searchPageRoute = '/search';
+                // if we are not on the search page, we need to navigate to it
+                if (location.pathname !== searchPageRoute) {
+                    const location = { pathname: searchPageRoute, search: '' }
+                    // if there is a search query from the nav, use it for the search link
+                    if (searchFieldValue?.length > 0) {
+                        location.search = `keyword=${searchFieldValue}`
+                        }
+                        navigate(location)
+                    } else {
+                    // if we are on the search page we can search directly
+                    navigate({ search: `keyword=${searchFieldValue}` })
                 }
-                navigate(location)
-            } else {
-                navigate({ search: `keyword=${searchFieldValue}` })
-            }
-
-            e.currentTarget.value = '';
-            setNavbarOpen(false);
+                e.currentTarget.value = '';
+                // close the navbar on search
+                setNavbarOpen(false);
         }
     }
 
+    // get sorted chapters for current section, mark current chapter
     function chapterList(section: SectionT) {
         const chapters = section.chapters
         const chapterItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
@@ -76,6 +85,7 @@ function Navigation(props: Props) {
         </ul>
     }
 
+    // get the sections, mark the current section
     const sectionList = sections.map(function (section: SectionT, index: number) {
         var isActive = location.pathname.replace('/', '') === section.slug
         var className = isActive ? `${section.slug} active` : `${section.slug}`
@@ -102,6 +112,7 @@ function Navigation(props: Props) {
     
     const startPage = props.startPage
     const isHome = location.pathname === '/'
+    // special case for the home page which is not a section
     var classNameHome = isHome ? 'home active' : 'home'
     return <nav className="header-nav">
         <div className="toggle-btn">
