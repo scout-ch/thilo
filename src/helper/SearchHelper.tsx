@@ -1,4 +1,5 @@
 export class SearchHelper {
+    // returns true if the given keywords match any of the given values
     static matches(keywords: string, ...values: any[]) {
         if (!keywords) {
             return true;
@@ -17,6 +18,7 @@ export class SearchHelper {
         }
     }
 
+    // returns true if the given keyword string matches any of the given values exactly
     static matchesExact(keywords: string, ...values: any[]) {
         if (!keywords) {
             return true;
@@ -32,6 +34,7 @@ export class SearchHelper {
         }
     }
 
+    // get possible values for a given keyword recursively
     private static extractKeywordValues(value: any, keywordValues: any[]) {
         if (value instanceof Object) {
             Object.keys(value).forEach(key => {
@@ -43,12 +46,14 @@ export class SearchHelper {
         }
     }
 
+    // normalize and check if value contains term
     private static contains(value: any, term: string) {
         const str = (value || '').toString() as string;
 
         return this.normalize(str).includes(this.normalize(term));
     }
 
+    // normalize string
     private static normalize(value: string) {
         return value.toLowerCase()
             .replace(/[éèë]/g, 'e')
