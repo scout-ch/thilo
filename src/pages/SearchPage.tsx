@@ -1,5 +1,5 @@
 import React from 'react'
-// import { HelmetProvider } from 'react-helmet-async'
+import { HelmetProvider } from 'react-helmet-async'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -25,7 +25,9 @@ function SearchPage(props: Props) {
     const searchPage = props.page
 
     return <div className='content-main'>
-        <title>{searchPage.title}</title>
+        <HelmetProvider>
+            <title>{searchPage.title}</title>
+        </HelmetProvider>
 
         <div className='search'>
             <h1><FontAwesomeIcon icon="search" /> {searchPage.title}</h1>
