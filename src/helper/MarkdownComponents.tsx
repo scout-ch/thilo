@@ -114,13 +114,13 @@ export const LinkComponent = {
                 style={width : width, height : height}
             }
             
-            return <span className="md-img"> 
-                <img src={props.src} alt={found[1]} style={style} /> <br></br>
+            return <span className="md-img" style={style}> 
+                <img src={props.src} alt={found[1]}/> <br></br>
                 <span>{found[1]}</span>
             </span>
         } else {
-            return <span className="md-img"> 
-                <img src={props.src} alt={props.alt} style={style} />  <br></br>
+            return <span className="md-img" style={style}> 
+                <img src={props.src} alt={props.alt}    />  <br></br>
                 <span>{props.alt}</span>
             </span>
         }
