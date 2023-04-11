@@ -34,12 +34,17 @@ function Chapter(props: ChapterProps) {
     if (!data) {
         return null
     }
+
+    // get line height from chapter or use default
     let style;
     if(data.line_height) {
         style = {lineHeight: data.line_height}
     } else {
         style = {lineHeight: 'var(--line-height)'}
     }
+
+    // render chapter
+    // slug is used for anchor links
     return <div className='chapter' style={style}>
         <div id={data.slug}>
 
