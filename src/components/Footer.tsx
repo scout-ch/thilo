@@ -6,15 +6,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SectionT } from './Section';
 import client from "./../client";
 
-const Button = styled.button`
-  background: none;
-  color: white;
-
-  &:hover {
-    color: white;
-    opacity: 0.5;
-  }
-`
 type Props = {
   lang: string
   sections: SectionT[]
@@ -94,29 +85,32 @@ function Footer(props: Props) {
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
         <ul>
           <li>
-            <Button className='btn btn-footer' onClick={() => navigate(`/${prevSection}`)}>
+            <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSection}`)}>
               {prevSection.length > 0 &&
                 <>{prevButtonText}<br/><i>{prevSection}</i></>
               }
               {prevSection.length === 0 &&
                 <>{homeButtonText}<br/>&nbsp;</>
               }
-            </Button>
-            <Button className='btn' onClick={() => navigate(`/${nextSection}`)}>
+            </button>
+            <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSection}`)}>
               {nextSection.length > 0 &&
                 <>{nextButtonText}<br/><i>{nextSection}</i></>
               }
               {nextSection.length === 0 &&
                 <>{homeButtonText}<br/>&nbsp;</>
               }
-            </Button>
+            </button>
           </li>
         </ul>
         <ul>
           <li>
-            <Button className={props.lang === 'de' ? 'active' : ''} onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</Button>
-            <Button className={props.lang === 'fr' ? 'active' : ''} onClick={() => changeLanguage('fr', location, props.sections)}>Français</Button>
-            <Button className={props.lang === 'it' ? 'active' : ''} onClick={() => changeLanguage('it', location, props.sections)}>Italiano</Button>
+            <button className={'language ' + (props.lang === 'de' ? 'active' : '')} 
+              onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</button>
+            <button className={'language ' + (props.lang === 'fr' ? 'active' : '')} 
+              onClick={() => changeLanguage('fr', location, props.sections)}>Français</button>
+            <button className={'language ' + (props.lang === 'it' ? 'active' : '')} 
+              onClick={() => changeLanguage('it', location, props.sections)}>Italiano</button>
           </li>
         </ul>
       </nav>
