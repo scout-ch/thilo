@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 import { LinksContext } from '../App';
 import Warning from '../components/Warning';
 const QuizI = require('react-quiz-component');
@@ -65,7 +64,7 @@ export const LinkComponent = {
                 if (foundLink['link']) {
                     return <a href={foundLink['link']} target="_blank" rel="noreferrer">{children}</a>
                 } else if(foundLink['slug']) {
-                    return <HashLink to={foundLink['slug']}>{children}</HashLink>
+                    return <Link to={foundLink['slug']}>{children}</Link>
                 } else {
                     return <Link to={props.href || ''}>{children}</Link>
                 }
