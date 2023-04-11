@@ -8,6 +8,7 @@ type Props = {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
+// render the search input field in the navigation bar and search page
 function SearchInput(props: Props) {
     const { t, keyword, onChange, onKeyDown } = props
 
