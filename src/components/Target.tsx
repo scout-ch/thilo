@@ -8,7 +8,7 @@ type Props = {
 }
 
 // render the target list of a chapter, i.e. the 'responsible' roles or perhaps 'contact' roles, 'useful-for' etc.
-// currently not used
+// currently not used, integrated here but not in backend, see https://scout-ch.github.io for examples
 function Target(props: Props) {
  const { t, targets } = props
 

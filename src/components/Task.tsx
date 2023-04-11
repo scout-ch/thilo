@@ -13,7 +13,7 @@ export type TaskT = {
 }
 
 function Task(props: TaskT) {
-
+  // currently not used and not integrated, see https://scout-ch.github.io for examples
   var options = { year: 'numeric', month: 'numeric', day: 'numeric' }
 
   // @ts-ignore
