@@ -50,9 +50,10 @@ function App() {
       Promise.all([startPagePromise]).then((values) => {
         setStartPage(values[0].data)
         window.localStorage.setItem(`startPage-${lang}`, JSON.stringify(values[0].data));
+        console.info('pulled from strapi - startPage')
       })
     }
-    if(sectionsLocal !== null) {
+    if(sectionsLocal !== null && sectionsLocal !== '[]') {
       setSections(JSON.parse(sectionsLocal))
       setSearchPage(JSON.parse(sectionsLocal))
       console.info('loaded from local storage - sections')
@@ -62,9 +63,10 @@ function App() {
         setSections(values[0].data)
         setSearchPage(values[0].data)
         window.localStorage.setItem(`sections-${lang}`, JSON.stringify(values[0].data));
+        console.info('pulled from strapi - sections')
       })
     }
-    if(linksLocal !== null) {
+    if(linksLocal !== null && linksLocal !== '[]') {
       setLinks(JSON.parse(linksLocal))
       console.info('loaded from local storage - links')
     } else {
@@ -72,6 +74,7 @@ function App() {
       Promise.all([linksPromise]).then((values) => {
         setLinks(values[0].data)
         window.localStorage.setItem(`links-${lang}`, JSON.stringify(values[0].data));
+        console.info('pulled from strapi - links')
       })
     }
   }, [lang])
