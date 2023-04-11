@@ -38,44 +38,43 @@ function App() {
   // get data from strapi or local storage if available
   // TODO: check if data is up to date
   useEffect(() => {
-
-    if(window.localStorage.getItem('startPage')) {
-      setStartPage(JSON.parse(window.localStorage.getItem('startPage') || ''))
-    }
-    if(window.localStorage.getItem('sections')) {
-      setSections(JSON.parse(window.localStorage.getItem('sections') || ''))
-    }
-    if(window.localStorage.getItem('links')) {
-      setLinks(JSON.parse(window.localStorage.getItem('links') || ''))
-    }
-
-    if(sections && links && startPage && searchPage) return
-
-    if(startPage === '' || startPage === null) {
+    let startPageLocal = window.localStorage.getItem(`startPage-${lang}`)
+    let sectionsLocal = window.localStorage.getItem(`sections-${lang}`)
+    let linksLocal = window.localStorage.getItem(`links-${lang}`)
+    
+    if(startPageLocal !== null) {
+      setStartPage(JSON.parse(startPageLocal))
+      console.info('loaded from local storage - startPage')
+    } else {
       const startPagePromise = client.get('/start-page?_locale=' + lang)
       Promise.all([startPagePromise]).then((values) => {
         setStartPage(values[0].data)
+        window.localStorage.setItem(`startPage-${lang}`, JSON.stringify(values[0].data));
       })
     }
-
-    if(sections === '' || sections === null || links === '' || links === null) {
+    if(sectionsLocal !== null) {
+      setSections(JSON.parse(sectionsLocal))
+      setSearchPage(JSON.parse(sectionsLocal))
+      console.info('loaded from local storage - sections')
+    } else {
       const sectionsPromise = client.get('/sections?_sort=sorting:ASC&_locale=' + lang)
-      const linksPromise = client.get('/links?_locale=' + lang)
-      Promise.all([sectionsPromise, linksPromise]).then((values) => {
+      Promise.all([sectionsPromise]).then((values) => {
         setSections(values[0].data)
         setSearchPage(values[0].data)
-        setLinks(values[1].data)
+        window.localStorage.setItem(`sections-${lang}`, JSON.stringify(values[0].data));
       })
     }
-
-  }, [sections, links, startPage, searchPage, lang])
-
-  // save data to local storage
-  useEffect(() => {
-    window.localStorage.setItem('startPage', JSON.stringify(startPage));
-    window.localStorage.setItem('sections', JSON.stringify(sections));
-    window.localStorage.setItem('links', JSON.stringify(links));
-  }, [sections, links, startPage, searchPage])
+    if(linksLocal !== null) {
+      setLinks(JSON.parse(linksLocal))
+      console.info('loaded from local storage - links')
+    } else {
+      const linksPromise = client.get('/links?_locale=' + lang)
+      Promise.all([linksPromise]).then((values) => {
+        setLinks(values[0].data)
+        window.localStorage.setItem(`links-${lang}`, JSON.stringify(values[0].data));
+      })
+    }
+  }, [lang])
 
   // disable scroll restoration
   useEffect(() => {
