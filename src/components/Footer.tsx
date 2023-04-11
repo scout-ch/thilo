@@ -36,7 +36,7 @@ function Footer(props: Props) {
         if (currentSection) {
           const otherSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
           // @ts-ignore
-          if(newSections) {
+          if(newSections && otherSection) {
             const newCurrentSection = newSections.find((s: any) => { return s['id'] === otherSection['id'] })
             if (newCurrentSection) {
               redirect = true
