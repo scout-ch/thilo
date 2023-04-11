@@ -18,6 +18,8 @@ type Props = {
   page: StartPage
 }
 
+
+// all content comes from the backend as json with markdown
 function HomePage(props: Props) {
   const startPage = props.page
 

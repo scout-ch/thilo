@@ -16,11 +16,13 @@ type Props = {
   sections: SectionsByKey
 }
 
+// Section pages include section components
 function SectionPage(props: Props) {
   const { slug } = useParams<Params>()
   const section = props.sections[slug!]
   const location = useLocation();
 
+  // scroll to chapter if hash in url is set
   useEffect(() => {
     const hash = location.hash
     const id = hash.replace('#', '');

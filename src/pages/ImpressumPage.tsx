@@ -15,6 +15,7 @@ function ImpressumPage() {
 
   const [impressumPage, setImpressumPage] = React.useState<ImpressumPageT>();
 
+  // TODO: create the impressum page, and cache it perhaps
   React.useEffect(() => {
     client.get('/impressum-page?_locale=' + lang).then((response: { data: any }) => {
       setImpressumPage(response.data)
