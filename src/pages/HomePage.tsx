@@ -1,6 +1,6 @@
 // import styled from '@emotion/styled'
 import React from 'react'
-import { HelmetProvider } from 'react-helmet-async'
+import { Helmet } from 'react-helmet-async'
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -22,9 +22,9 @@ function HomePage(props: Props) {
   const startPage = props.page
 
   return <div className='content-main'>
-    <HelmetProvider>
+    <Helmet>
       <title>{startPage.title}</title>
-    </HelmetProvider>
+    </Helmet>
     
     <h1>{startPage.title}</h1>
 

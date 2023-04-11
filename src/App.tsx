@@ -16,6 +16,7 @@ import ImpressumPage from './pages/ImpressumPage';
 import { checkLinks } from './helper/LinkChecker';
 import SearchPage from './pages/SearchPage';
 import client from "./client";
+import { HelmetProvider } from 'react-helmet-async';
 
 export type LinkT = {
   title: string
@@ -98,29 +99,31 @@ function App() {
   checkLinks(sections, links)
 
   return <div className='App'>
-    <Router basename="/">
-      <LinksContext.Provider value={links}>
-        <header>
-          <Navigation sections={sections} startPage={startPage}></Navigation>
-        </header>
+    <HelmetProvider>
+      <Router basename="/">
+        <LinksContext.Provider value={links}>
+          <header>
+            <Navigation sections={sections} startPage={startPage}></Navigation>
+          </header>
 
-        <main>
-          <Routes>
-            <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-            <Route path="/impressum" element={<ImpressumPage />} />
-            <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-            <Route path="/" element={<HomePage page={startPage}/>
-            } />
-            <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+              <Route path="/impressum" element={<ImpressumPage />} />
+              <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+              <Route path="/" element={<HomePage page={startPage}/>
+              } />
+              <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+            </Routes>
 
-        </main>
-        <footer>
-          <Footer lang={lang} sections={sections} />
-        </footer>
+          </main>
+          <footer>
+            <Footer lang={lang} sections={sections} />
+          </footer>
 
-      </LinksContext.Provider>
-    </Router>
+        </LinksContext.Provider>
+      </Router>
+    </HelmetProvider>
   </div>
 }
 

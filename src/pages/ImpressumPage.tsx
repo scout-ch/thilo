@@ -1,5 +1,5 @@
 import React from 'react'
-import { HelmetProvider } from 'react-helmet-async'
+import { Helmet } from 'react-helmet-async'
 import { withTranslation } from 'react-i18next'
 import i18n from '../i18n';
 import client from '../client';
@@ -24,9 +24,9 @@ function ImpressumPage() {
   if (!impressumPage) return null
 
   return <div className='content-main'>
-    <HelmetProvider>
+    <Helmet>
       <title>{impressumPage.title}</title>
-    </HelmetProvider>
+    </Helmet>
   </div>
 }
 export default withTranslation()(ImpressumPage)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { HelmetProvider } from 'react-helmet-async'
+import { Helmet } from 'react-helmet-async'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -43,7 +43,7 @@ function Section(props: Props) {
 
 
     return <div className='content'>
-        <HelmetProvider><title>{props.section['title']}</title></HelmetProvider>
+        <Helmet><title>{props.section['title']}</title></Helmet>
         <div className='content-main'>
             <div id="section-title" className={classes}>
                 {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
