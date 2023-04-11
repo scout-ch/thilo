@@ -6,7 +6,7 @@ type Props = {
 }
 
 function Loading(probs: Props) {
-
+    // show loading spinner if isLoading is true
     const loadingView = () => {
         if (probs.isLoading) {
             return <div className='loading-container'>
