@@ -13,6 +13,7 @@ import SearchInput from './SearchInput';
 type Props = {
     t: any,
     sections: SectionT[]
+    minKeyWordLength?: number
 }
 
 type SearchResult = {
@@ -27,7 +28,7 @@ function SearchForm(props: Props) {
     const location = useLocation()
     const navigate = useNavigate()
     const { t, sections } = props;
-
+    
     // stateful keyword, search results and timeout id
     const [keyword, setKeyword] = useState<string>('')
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
@@ -36,6 +37,9 @@ function SearchForm(props: Props) {
     
     // memoized searchable chapters
     const searchableSectionChapters = useMemo<ChapterT[]>(() => sections.reduce((chapters: ChapterT[], currentSection: SectionT) => chapters.concat(currentSection.chapters), []), [sections]);
+    
+    // minimum keyword length
+    const minKeywordLength = props.minKeyWordLength ?? 3;
 
     // update keyword from route if it changes
     useEffect(() => {
@@ -54,8 +58,8 @@ function SearchForm(props: Props) {
                 clearTimeout(timeoutId)
             }
 
-            if (!keyword || keyword.length <= 2) {
-                // only search for keywords with 3 or more characters
+            if (!keyword || keyword.length < minKeywordLength) {
+                // only search for keywords with where keyword length is met
                 setSearchResults([])
                 setIsLoadingResults(false)
                 // else show empty search page
@@ -103,7 +107,7 @@ function SearchForm(props: Props) {
     // render search results or loading indicator or no results message or no keyword message
     const searchResultViews = () => {
         if (!isLoadingResults) {
-            if (keyword.length > 0) {
+            if (keyword.length >= minKeywordLength) {
                 if (searchResults.length > 0) {
                     // render results
                     return searchResults.map(result => {
@@ -125,8 +129,8 @@ function SearchForm(props: Props) {
                 // show no results message if no results were found or timeout was reached
                 return <div>{t('searchPage.noResults')}</div>
             }
-            // show no keyword message if keyword is empty or has less than 3 characters
-            return <div> {t('searchPage.noKeyword', { amountOfCharacters: 3 })}</div>
+            // show no keyword message if keyword is empty or is too short
+            return <div> {t('searchPage.noKeyword', { amountOfCharacters: minKeywordLength })}</div>
         }
         return null
     }
