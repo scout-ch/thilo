@@ -41,12 +41,12 @@ function Navigation(props: Props) {
 
     // close the navbar when scrolling
     useEffect(() => {
-        document.getElementsByTagName('main')[0].addEventListener('scroll', function (e) {
-          setNavbarOpen(false);
+        window.addEventListener('scroll', function (e) {
+            setNavbarOpen(false);
         });
-      }, []);
+    }, []);
 
-      const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') {
                 const searchFieldValue = e.currentTarget.value;
                 const searchPageRoute = '/search';
