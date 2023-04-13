@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LinksContext } from '../App';
+import Loading from '../components/Loading';
 import Warning from '../components/Warning';
 const QuizI = require('react-quiz-component');
 const Quiz = QuizI.default;
@@ -43,19 +44,15 @@ export const LinkComponent = {
                 };
 
                 fetchQuizData();
-            }, []);
+            }, [quizData]);
 
             if (!quizData) {
-                return <span>Loading quiz data...</span>; // or render a loading component
+                return <Loading isLoading={true} />
             }
 
             return (
-                <span id={link.split(/.*[\/|\\]/)[1]}>
-                <a href={link} target="_blank" rel="noreferrer">
-                    {children}
-                </a>
-                <br />
-                <Quiz quiz={quizData} shuffle={true} />
+                <span id={link.split(/.*[\/|\\]/)[1]} className='quiz-container'>
+                    <Quiz quiz={quizData} shuffle={true} />
                 </span>
             );
         }
