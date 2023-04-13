@@ -1,12 +1,11 @@
 .react-quiz-container {
-  width: unset !important;
-  margin: unset !important;
+  all: unset !important;
   h2 {
     color: var(--color-primary-light);
     font-size: smaller;
   }
   .quiz-synopsis {
-
+    all: unset !important;
   }
 
   img {
@@ -16,13 +15,33 @@
 
   
   .btn {
-    display: flex;
-    background-color: #fff;
-    border-color: var(--color-primary-light);
-    color: black;
-    font-weight: unset !important;
-    font-family: unset;
+    font-family: unset !important;
 
+    background-color: white;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .1s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: var(--color-primary-light);
+    &:not(:disabled):hover {
+      filter: brightness(105%);
+      opacity: 0.9;
+    }
+    &:not(:disabled):active {
+      filter: brightness(105%);
+      opacity: 0.8;
+    }
+    &:not(>.result-answer-wrapper):disabled {
+      filter: brightness(90%);
+      opacity: 0.5;
+    }
+    &:disabled {
+      cursor:default;
+    }
+   
     img {
       max-width: 250px;
     }
