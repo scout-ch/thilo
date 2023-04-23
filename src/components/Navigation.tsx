@@ -31,7 +31,7 @@ function Navigation(props: Props) {
             index === sectionNav ? !item : false
         );
         setCheckedState(updatedCheckedState)
-        navigate('/' + section.slug)
+        navigate('/' + section.slug);
     }
 
     // toggle the navbar open and closed
@@ -90,18 +90,20 @@ function Navigation(props: Props) {
         var isActive = location.pathname.replace('/', '') === section.slug
         var className = isActive ? `${section.slug} active` : `${section.slug}`
     
+        var id = 'nav_li_'+section.slug
+
         return (
             <React.Fragment key={section.slug}> {/* Provide unique key prop */}
                 <li key={section.slug} className={className}>
                     <input
                         type="checkbox"
                         name="tabs"
-                        id={section.slug}
+                        id={id}
                         className={`accordion_input ${className}`}
                         checked={checkedState[index]}
                         onChange={() => handleOnChange(index, section)}
                     />
-                    <label htmlFor={section.slug} className={`accordion_label ${className}`}>
+                    <label htmlFor={id} className={`accordion_label ${className}`}>
                         {section.menu_name}
                     </label>
                     {chapterList(section)}

@@ -26,11 +26,11 @@ function SectionPage(props: Props) {
   useEffect(() => {
     const hash = location.hash
     const id = hash.replace('#', '');
-    if (hash) {
-        const element = document.getElementById(id);
+    if (hash && id) {
+        const element = document.getElementById(id)?.getElementsByTagName('h2')[0];
         if (element) element.scrollIntoView()
     } else {
-        const title = document.getElementById('section-title')
+        const title = document.getElementById('section-title')?.getElementsByTagName('h1')[0]
         if (title) title.scrollIntoView()
     }
   });
