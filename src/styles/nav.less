@@ -1,19 +1,25 @@
-
-nav.header-nav {
-  position: fixed;
+header { 
+  position: sticky;
   top: 0;
-
+  
   display: flex;
   justify-content: space-between;
   background-color: var(--color-primary);
   padding: 0.6em;
+}
+
+
+nav.header-nav {
 
   li {
     margin-top: 8px;
     font-weight: 400;
+  }
+  
+  .accordion_label {
     cursor: pointer;
   }
-
+  
   a {
     color: white;
     opacity: 1;
