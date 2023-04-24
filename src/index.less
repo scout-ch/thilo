@@ -22,14 +22,29 @@ body {
 
 .App {
   min-height: 100vh; // fills available space with footer at the bottom
+
   display: grid; // grid layout for header, main, footer
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+    'header'
+    'main'
+    'footer';
+}
+
+header {
+  grid-area: header;
 }
 
 main {
-  grid-row: 1 / -1; // grows to fill the remaining space, keeping the footer at the bottom if content is short
-}
+  grid-area: main;
+  @media screen and (min-width: 860px) {
+    grid-row: 1 / -1; /* grows to fill the remaining space, 
+      keeping the footer at the bottom if content is short 
+      but only for large screens because it moves the start to the headers location
+      */
 
+  }
+}
 
 img {
   max-width: 100%;
@@ -97,17 +112,13 @@ div {
   width: 80px;
 }
 
-@media (max-width: 659px) {
+@media (max-width: calc(660px - 1px)) {
   h1 {
     font-size: 30px;
   }
 
   h2 {
     font-size: 20px;
-  }
-
-  .App, #root {
-    display: block;
   }
 
   .content-main {
