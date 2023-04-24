@@ -35,50 +35,54 @@ function App() {
   const [searchPage, setSearchPage] = React.useState(null);
   const lang = i18n.language
 
+  async function pullData(source: string, lang: string, setterFunc: Function) {
+    const dataPromise = client.get(`/${source}?_locale=${lang}`)
+    Promise.all([dataPromise]).then((values) => {
+      setterFunc(values[0].data)
+      window.localStorage.setItem(`${source}_${lang}`, JSON.stringify(values[0].data));
+      console.info(`pulled from strapi - ${source}_${lang}`)
+    })
+  }
 
   // get data from strapi or local storage if available
   // TODO: check if data is up to date
   useEffect(() => {
     // load data from local storage
-    let startPageLocal = window.localStorage.getItem(`startPage-${lang}`)
-    let sectionsLocal = window.localStorage.getItem(`sections-${lang}`)
-    let linksLocal = window.localStorage.getItem(`links-${lang}`)
-    
-    // parase data from local storage or pull from strapi
-    if(startPageLocal !== null) {
-      setStartPage(JSON.parse(startPageLocal))
-      console.info('loaded from local storage - startPage')
+    let startPageLocal = window.localStorage.getItem(`start-page_${lang}`)
+    let sectionsLocal = window.localStorage.getItem(`sections_${lang}`)
+    let linksLocal = window.localStorage.getItem(`links_${lang}`)
+    // unless you are currently editing the data... a dev can set this in the console
+    let alwaysReload = window.localStorage.getItem(`always-reload`)
+
+    if(alwaysReload === null) {
+      // parse data from local storage or pull from strapi
+      if(startPageLocal !== null) {
+        setStartPage(JSON.parse(startPageLocal))
+        console.info('loaded from local storage - start-page')
+      } else {
+        pullData('start-page', lang, setStartPage);
+      }
+      if(sectionsLocal !== null && sectionsLocal !== '[]') {
+        setSections(JSON.parse(sectionsLocal))
+        setSearchPage(JSON.parse(sectionsLocal))
+        console.info('loaded from local storage - sections')
+      } else {
+        pullData('sections', lang, setSections);
+        // TODO: Is this setSearchPage call necessary?
+        pullData('sections', lang, setSearchPage);
+      }
+      if(linksLocal !== null && linksLocal !== '[]') {
+        setLinks(JSON.parse(linksLocal))
+        console.info('loaded from local storage - links')
+      } else {
+        pullData('links', lang, setLinks);
+      }
     } else {
-      const startPagePromise = client.get('/start-page?_locale=' + lang)
-      Promise.all([startPagePromise]).then((values) => {
-        setStartPage(values[0].data)
-        window.localStorage.setItem(`startPage-${lang}`, JSON.stringify(values[0].data));
-        console.info('pulled from strapi - startPage')
-      })
-    }
-    if(sectionsLocal !== null && sectionsLocal !== '[]') {
-      setSections(JSON.parse(sectionsLocal))
-      setSearchPage(JSON.parse(sectionsLocal))
-      console.info('loaded from local storage - sections')
-    } else {
-      const sectionsPromise = client.get('/sections?_sort=sorting:ASC&_locale=' + lang)
-      Promise.all([sectionsPromise]).then((values) => {
-        setSections(values[0].data)
-        setSearchPage(values[0].data)
-        window.localStorage.setItem(`sections-${lang}`, JSON.stringify(values[0].data));
-        console.info('pulled from strapi - sections')
-      })
-    }
-    if(linksLocal !== null && linksLocal !== '[]') {
-      setLinks(JSON.parse(linksLocal))
-      console.info('loaded from local storage - links')
-    } else {
-      const linksPromise = client.get('/links?_locale=' + lang)
-      Promise.all([linksPromise]).then((values) => {
-        setLinks(values[0].data)
-        window.localStorage.setItem(`links-${lang}`, JSON.stringify(values[0].data));
-        console.info('pulled from strapi - links')
-      })
+      console.log('always reload is not null! reloading data from strapi...')
+      pullData('start-page', lang, setStartPage);
+      pullData('sections', lang, setSections);
+      pullData('sections', lang, setSearchPage);
+      pullData('links', lang, setLinks);
     }
   }, [lang])
 
