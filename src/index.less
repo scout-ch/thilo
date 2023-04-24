@@ -21,18 +21,15 @@ body {
 }
 
 .App {
-  display: flex; // to allow the footer to stick to the bottom
-  flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; // fills available space with footer at the bottom
+  display: grid; // grid layout for header, main, footer
+  grid-template-rows: 1fr auto;
 }
 
 main {
-  flex-grow: 1; /* allow the main content to grow to fill the remaining space */
+  grid-row: 1 / -1; // grows to fill the remaining space, keeping the footer at the bottom if content is short
 }
 
-footer {
-  flex-shrink: 0; /* prevent the footer from shrinking */
-}
 
 img {
   max-width: 100%;
