@@ -71,6 +71,11 @@ footer {
   .footer-logo {
     width: 250px;
     margin-left: 20px;
+    @media (max-width: calc(660px - 1px)) {
+      display: none; /* hide logo on mobile, doesn't scale well 
+      !!! and causes horizontal scrollbar and empty space beneath html tags */
+    }
+
   }
 
   @media (max-width: calc(660px - 1px)) {
