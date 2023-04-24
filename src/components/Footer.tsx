@@ -98,44 +98,38 @@ function Footer(props: Props) {
     <div className="footer-content">
       <nav className="footer-nav">
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
-        <ul>
-          <li>
-            <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSection}`)}>
-              {prevSection.length > 0 &&
-                <>{prevButtonText}<br/><i>{prevSection}</i></>
-              }
-              {prevSection.length === 0 &&
-                <>{homeButtonText}<br/>&nbsp;</>
-              }
-            </button>
-            <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSection}`)}>
-              {nextSection.length > 0 &&
-                <>{nextButtonText}<br/><i>{nextSection}</i></>
-              }
-              {nextSection.length === 0 &&
-                <>{homeButtonText}<br/>&nbsp;</>
-              }
-            </button>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <button className={'language' + (props.lang === 'de' ? ' active' : '')} 
-              onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</button>
-            <button className={'language' + (props.lang === 'fr' ? ' active' : '')} 
-              onClick={() => changeLanguage('fr', location, props.sections)}>Français</button>
-            <button className={'language' + (props.lang === 'it' ? ' active' : '')} 
-              onClick={() => changeLanguage('it', location, props.sections)}>Italiano</button>
-          </li>
-        </ul>
+        <div>
+          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSection}`)}>
+            {prevSection.length > 0 &&
+              <>{prevButtonText}<br/><i>{prevSection}</i></>
+            }
+            {prevSection.length === 0 &&
+              <>{homeButtonText}<br/>&nbsp;</>
+            }
+          </button>
+          <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSection}`)}>
+            {nextSection.length > 0 &&
+              <>{nextButtonText}<br/><i>{nextSection}</i></>
+            }
+            {nextSection.length === 0 &&
+              <>{homeButtonText}<br/>&nbsp;</>
+            }
+          </button>
+        </div>
+        <div className='language'>
+          <button className={'btn-language' + (props.lang === 'de' ? ' active' : '')} 
+            onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</button>
+          <button className={'btn-language' + (props.lang === 'fr' ? ' active' : '')} 
+            onClick={() => changeLanguage('fr', location, props.sections)}>Français</button>
+          <button className={'btn-language' + (props.lang === 'it' ? ' active' : '')} 
+            onClick={() => changeLanguage('it', location, props.sections)}>Italiano</button>
+        </div>
       </nav>
       <div className='footer-bottom'>
-        <p className="footer-copyright">© 2022 Pfadibewegung Schweiz</p>
-        <ul className='footer-bottom-nav'>
-          <li className="child">
-            <Link to="/impressum">Impressum</Link>
-          </li>
-        </ul>
+        <div className='footer-bottom-nav'>
+          <div className="footer-copyright">© 2022 Pfadibewegung Schweiz</div>
+          <Link to="/impressum">Impressum</Link>
+        </div>
       </div>
     </div>
   </>
