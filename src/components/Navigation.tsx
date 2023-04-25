@@ -26,22 +26,22 @@ function Navigation(props: Props) {
     );
 
     // if navbar changes: check the current section and set the checked state 
-    const handleOnChange = (sectionNav: any, section: SectionT) => {
-        console.log('handle on change')
+    const handleOnChange = (sectionIndex: any, section: SectionT, redirect: boolean=true) => {
         const updatedCheckedState = checkedState.map((item, index) =>
-            index === sectionNav ? true : false
+            index === sectionIndex ? true : false
         );
         setCheckedState(updatedCheckedState)
-        navigate('/' + section.slug);
+        if(redirect) navigate('/' + section.slug);
     }
-    const clickHandler = (sectionNav: number) => {
+    // for clicks on outer menu list markers, toggle the checked state
+    const handleLiMarkerOnClick = (sectionIndex: number) => {
         return (event: React.MouseEvent) => {
-          if(event.target instanceof HTMLLIElement)
-            console.log('set checked', event.target)
-            const updatedCheckedState = checkedState.map((item, index) =>
-                index === sectionNav ? !item : item
-            );
-            setCheckedState(updatedCheckedState)
+            if(event.target instanceof HTMLLIElement) {
+                const updatedCheckedState = checkedState.map((item, index) =>
+                    index === sectionIndex ? !item : item
+                );
+                setCheckedState(updatedCheckedState)
+            }
         }
     }
 
@@ -82,12 +82,13 @@ function Navigation(props: Props) {
     // get sorted chapters for current section, mark current chapter
     function chapterList(section: SectionT) {
         const chapters = section.chapters
+        const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
         const chapterItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
             return a.sorting - b.sorting;
         }).map(function (chapter: ChapterT) {
             var isActive = location.hash.replace('#', '') === chapter.slug
             var className = isActive ? `${chapter.slug_with_section} active` : `${chapter.slug_with_section}`
-            return <li key={chapter.slug_with_section} className="subMenu" onClick={handleToggle}>
+            return <li key={chapter.slug_with_section} className="subMenu" onMouseUp={() => {handleOnChange(sectionIndex, section, false); handleToggle() } }>
                 <Link to={chapter.slug_with_section} className={className}>{chapter.menu_name}</Link>
             </li>
         })
@@ -105,7 +106,7 @@ function Navigation(props: Props) {
 
         return (
             <React.Fragment key={section.slug}> {/* Provide unique key prop */}
-                <li className={className} onClick={clickHandler(index)}>
+                <li className={className} onClick={handleLiMarkerOnClick(index)}>
                     <input
                         type="checkbox"
                         name="tabs"
