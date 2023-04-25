@@ -27,11 +27,22 @@ function Navigation(props: Props) {
 
     // if navbar changes: check the current section and set the checked state 
     const handleOnChange = (sectionNav: any, section: SectionT) => {
+        console.log('handle on change')
         const updatedCheckedState = checkedState.map((item, index) =>
-            index === sectionNav ? !item : false
+            index === sectionNav ? true : false
         );
         setCheckedState(updatedCheckedState)
         navigate('/' + section.slug);
+    }
+    const clickHandler = (sectionNav: number) => {
+        return (event: React.MouseEvent) => {
+          if(event.target instanceof HTMLLIElement)
+            console.log('set checked', event.target)
+            const updatedCheckedState = checkedState.map((item, index) =>
+                index === sectionNav ? !item : item
+            );
+            setCheckedState(updatedCheckedState)
+        }
     }
 
     // toggle the navbar open and closed
@@ -94,7 +105,7 @@ function Navigation(props: Props) {
 
         return (
             <React.Fragment key={section.slug}> {/* Provide unique key prop */}
-                <li key={section.slug} className={className}>
+                <li className={className} onClick={clickHandler(index)}>
                     <input
                         type="checkbox"
                         name="tabs"

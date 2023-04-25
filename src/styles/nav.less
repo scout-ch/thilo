@@ -10,6 +10,7 @@ nav.header-nav {
   li {
     margin-top: 8px;
     font-weight: 400;
+    cursor: context-menu;
   }
   
   .accordion_label {
@@ -55,6 +56,9 @@ nav.header-nav {
     }
 
     li.active {
+      list-style-type: disclosure-open;
+    }
+    li:has(> .accordion_input:checked) { // has is not supported in FF yet
       list-style-type: disclosure-open;
     }
   }
