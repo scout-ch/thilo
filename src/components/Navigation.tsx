@@ -50,12 +50,34 @@ function Navigation(props: Props) {
         setNavbarOpen(!navbarOpen)
     }
 
+    const [activeLink, setActiveLink] = useState("");
+
     // close the navbar when scrolling
     useEffect(() => {
         window.addEventListener('scroll', function (e) {
             setNavbarOpen(false);
         });
     }, []);
+
+    useEffect(() => {
+        function handleScroll() {
+          var scrollTop = window.pageYOffset; 
+          const anchors = document.querySelectorAll(".chapter-title>h2");
+          const contents = document.querySelectorAll(".chapter-main");
+          console.log(scrollTop, anchors[0].getBoundingClientRect().top, contents[0].getBoundingClientRect().bottom)
+
+          anchors.forEach((anchor, index) => {
+            const upper = anchor.getBoundingClientRect().top;
+            const lower = anchor.getBoundingClientRect().bottom;
+            if (upper <= scrollTop && scrollTop >= lower) {
+              console.log(anchor.id)
+              setActiveLink(`${anchor.id}`);
+            }
+          });
+        }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+      }, []);
 
     const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') {
@@ -86,10 +108,10 @@ function Navigation(props: Props) {
         const chapterItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
             return a.sorting - b.sorting;
         }).map(function (chapter: ChapterT) {
-            var isActive = location.hash.replace('#', '') === chapter.slug
+            var isActive = activeLink === chapter.slug
             var className = isActive ? `${chapter.slug_with_section} active` : `${chapter.slug_with_section}`
             return <li key={chapter.slug_with_section} className="subMenu" onMouseUp={() => {handleOnChange(sectionIndex, section, false); handleToggle() } }>
-                <Link to={chapter.slug_with_section} className={className}>{chapter.menu_name}</Link>
+                <Link to={chapter.slug_with_section} className={className} id={`accordion-link_${chapter.slug}`}>{chapter.menu_name}</Link>
             </li>
         })
         return <ul className="accordion_sub-menu">
