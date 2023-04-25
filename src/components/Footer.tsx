@@ -3,7 +3,6 @@ import { ReactComponent as PBSLogo } from './../images/pbs_logo.svg'
 import i18n from './../i18n';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SectionT } from './Section';
-import client from "./../client";
 
 type Props = {
   lang: string
@@ -24,14 +23,13 @@ function Footer(props: Props) {
         return
       }
       // else we need to get the new sections and check if the current section has a translation
-      let sectionsLocal = window.localStorage.getItem(`sections-${lang}`);
+      let sectionsLocal = window.localStorage.getItem(`sections_${lang}`);
       let newSections: SectionT[] = [];
       if(sectionsLocal !== null) {
         newSections = JSON.parse(sectionsLocal)
       } else {
-        client.get('/sections?_sort=sorting:ASC&_locale=' + lang).then((response: { data: any }) => {
-          newSections = response.data   
-        })
+        console.error('No sections found in local storage')
+        return
       }
       if (currentSection) {
         // TODO: Explore method using localizations by i18n instead of new requests
@@ -56,25 +54,26 @@ function Footer(props: Props) {
 
   const location = useLocation();
   // get the proper texts for the navigation buttons based on relative section position
-  var currentSection = location.pathname.replace('/', '');
-  // console.log(currentSection, currentChapter, props.sections)
-  var prevSection = '', nextSection = '';
-  if(currentSection) {
+  var currentSectionSlug = location.pathname.replace('/', '');
+  // console.log(currentSectionSlug, currentChapter, props.sections)
+  var prevSection: SectionT | null = null, nextSection: SectionT | null = null;
+  if(currentSectionSlug) {
     for(let i = 0; i < props.sections.length; i++) {
-      if(props.sections[i].title === currentSection) {
+      if(props.sections[i].slug === currentSectionSlug) {
         if(i>0) {
-          prevSection = props.sections[i-1].title;
+          prevSection = props.sections[i-1];
         }
         if(i<props.sections.length-1) {
-          nextSection = props.sections[i+1].title;
+          nextSection = props.sections[i+1];
         }
       }
     }
   } else if(props.sections[0]) { 
     // if no props.sections[0] then we can't access the section titles
-    nextSection = props.sections[0].title;
-    prevSection = props.sections[props.sections.length-1].title;
+    nextSection = props.sections[0];
+    prevSection = props.sections[props.sections.length-1];
   }
+  
   // localize the navigation buttons
   let prevButtonText = "Previous Chapter";
   let nextButtonText = "Next Chapter";
@@ -93,25 +92,30 @@ function Footer(props: Props) {
     homeButtonText = "Ritorno all' Inizio";
   }
 
+  var prevSlug = prevSection && prevSection.slug;
+  var nextSlug = nextSection && nextSection.slug;
+  if (!prevSection) prevSlug = '';
+  if (!nextSection) nextSlug = '';
+
   // render the footer with the localized navigation buttons
   return <>
     <div className="footer-content">
       <nav className="footer-nav">
         <div className='footer-logo'><PBSLogo></PBSLogo></div>
         <div>
-          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSection}`)}>
-            {prevSection.length > 0 &&
-              <>{prevButtonText}<br/><i>{prevSection}</i></>
+          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
+            {prevSection &&
+              <>{prevButtonText}<br/><i>{prevSection?.title}</i></>
             }
-            {prevSection.length === 0 &&
+            {!prevSection &&
               <>{homeButtonText}<br/>&nbsp;</>
             }
           </button>
-          <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSection}`)}>
-            {nextSection.length > 0 &&
-              <>{nextButtonText}<br/><i>{nextSection}</i></>
+          <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSlug}`)}>
+            {nextSection &&
+              <>{nextButtonText}<br/><i>{nextSection?.title}</i></>
             }
-            {nextSection.length === 0 &&
+            {!nextSection &&
               <>{homeButtonText}<br/>&nbsp;</>
             }
           </button>
