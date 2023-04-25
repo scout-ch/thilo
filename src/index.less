@@ -55,7 +55,12 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
-  scroll-margin-top: 80px; 
+  @media screen and (max-width: calc(860px - 1px)) {
+    scroll-margin-top: 80px; /* offset for fixed header */
+  }
+}
+h4 {
+  color: var(--color-primary-light);
 }
 
 h1 {
