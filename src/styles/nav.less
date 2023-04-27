@@ -43,6 +43,9 @@ nav.header-nav {
 
   .header-nav-content {
     height: 100vh;
+    overflow-y: scroll;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    clip-path: inset(0px -15px 0px 0px); // show only right shadow
 
     &>ul {
       list-style-type: disclosure-closed;
@@ -96,9 +99,6 @@ nav.header-nav {
   .header-nav {
     z-index: 300;
     height: 25px;
-    ul {
-      height: 100%;
-    }
   }
 
 
