@@ -1,6 +1,9 @@
 footer {
-  z-index: 201;
   padding-top: 100px;
+
+  @media screen and (min-width: 860px) {
+    z-index: 201;
+  }
   
   .footer-content {
     background-color: var(--color-primary);
@@ -47,6 +50,10 @@ footer {
     .language {
       display: grid;
       justify-self: end;
+      margin-left: 3.5em;
+      @media screen and (min-width: 860px) {
+        margin-right: 80px;
+      }
     }
   }
 }
