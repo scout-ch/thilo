@@ -3,6 +3,10 @@ header {
   top: 0;
   background-color: var(--color-primary);
   padding: 0.6em;
+  @media screen and (min-width: calc(860px - 1px)) {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    clip-path: inset(0px -15px 0px 0px); // show only right shadow}
+  }
 }
 
 nav.header-nav {
@@ -44,8 +48,10 @@ nav.header-nav {
   .header-nav-content {
     height: 100vh;
     overflow-y: scroll;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-    clip-path: inset(0px -15px 0px 0px); // show only right shadow
+    @media screen and (max-width: 860px) {
+      box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+      clip-path: inset(0px -15px 0px 0px); // show only right shadow}
+    }
 
     &>ul {
       list-style-type: disclosure-closed;
