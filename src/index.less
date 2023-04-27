@@ -10,11 +10,42 @@
 :root {
   --color-primary: #521d3a;
   --color-primary-light: #8c3c4f;
+  --lightness: 120%;
   --line-height: 1.5;
 }
 
 html {
   font-family: "Source Sans Pro", sans-serif;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
+  /* TODO: think about scrollbar design
+  scrollbar-color: var(--color-primary) var(--color-primary-light);
+  scrollbar-width: thin;
+  
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-primary-light);
+    &:hover {
+      background: brightness(var(--lightness));
+    }
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    -webkit-border-radius: 5px;
+    &:hover {
+      background: brightness(var(--lightness));
+    }
+  }
+  */
+  
 }
 body, #root {
   margin: 0;
