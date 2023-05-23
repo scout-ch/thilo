@@ -54,6 +54,8 @@ function App() {
     // unless you are currently editing the data... a dev can set this in the console
     let alwaysReload = window.localStorage.getItem(`always-reload`)
 
+    alwaysReload = 'not-null-during-dev'
+
     if(alwaysReload === null) {
       // parse data from local storage or pull from strapi
       if(startPageLocal !== null) {
