@@ -46,8 +46,10 @@ function Section(props: Props) {
         <Helmet><title>{props.section['title']}</title></Helmet>
         <div className='content-main'>
             <div id="section-title" className={classes}>
-                {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
-                <h1>{props.section['title']}</h1>
+                <h1>
+                    {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
+                    {props.section['title']}
+                </h1>
             </div>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}

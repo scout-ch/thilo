@@ -49,8 +49,10 @@ function Chapter(props: ChapterProps) {
         <div id={data.slug}>
 
             <div className="chapter-title">
-                {data.icon && (<img className='icon' src={data.icon.url} alt="icon" />)}
-                <h2 id={data.slug}>{data.title}</h2>
+                <h2 id={data.slug}>
+                    {data.icon && (<img className='icon' src={data.icon.url} alt="icon" />)}
+                    {data.title}
+                </h2>
             </div>
             <div className='chapter-main'>
                 <Target targets={data.responsible} />
