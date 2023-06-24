@@ -125,7 +125,7 @@ export const LinkComponent = {
                     // remove whitespace and ;
                     let tag = tag_value[0].trim();
                     let value = tag_value[1].replace(';', '').trim();
-                    if (tag === 'caption') {
+                    if (tag === 'caption' || tag === 'alt') {
                         caption = value;
                     } else {
                         styles[tag] = value.replace(' ', '');
