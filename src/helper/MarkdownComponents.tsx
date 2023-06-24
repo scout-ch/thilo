@@ -89,54 +89,56 @@ export const LinkComponent = {
     // @ts-ignore
     img({node, children, ...props}) {
         const alt = props.alt
-        // we include a custom tag in the alt text to specify the size of the image
-        /*
-        * matches the following:
-        * alt: text, size: 50x60 or alt: text, size: 50%x60px 
-        * or
-        * alt: text, width: 50vh
-        * maybe later: alt.match('alt:\\s([\\w\\s\-\_\*]*),?\\s?(size:\\s((\\d*)x(\\d*)))?,?\\s?(width:\\s(\\d*))?,?\\s?(float: (\\w*))?');
+        // we include a custom tag in the alt text to specify the caption and sizing of the image
+        /* imitating css syntax: 
+            tag: value;
+            i.e.:
+            caption: text; width: value; height: value;
         */
-        // the regex captures the following groups:
-        // 1: alt text
-        // 2: size: 50x60
-        // 3: 50% x 60px
-        // 4: 50
-        // 5: %
-        // 6: 60
-        // 7: px
-        // 8: width: 50vh
-        // 9: 50
-        // 10: vh
-        var found = alt.match('alt: (.*), (size: ((\\d*)([a-zA-Z%]{1,4})?x(\\d*)([a-zA-Z%]{1,4})?))?(width: (\\d*)([a-zA-Z%]{1,4})?)?');
         
-        // if we found a match, we add the size to the style tag
-        let style;
-        if (found) {
-            // if we found a width tag, we use that
-            if (found[9]) {
-                let width = found[9];
-                if(found[10]) width+=found[10];
-                else width += 'px';
-                // TODO: width / height tag do not officially support units. FF and Chrome work with %, but add to style="width: {width};" tag...
-                style={width : width}
-            // else it is a width x height tag and we use the respective units
-            } else {
-                let width  = found[4];
-                let height = found[6];
-                if(found[5])  width+=found[5];
-                else width += 'px';
-                if(found[7]) height+=found[7];
-                else height += 'px';
-                style={width : width, height : height}
-            }
-            
-            return <span className="md-img" style={style}> 
-                <img src={props.src} alt={found[1]}/> <br></br>
-                <span>{found[1]}</span>
+        /* super complicated regex:
+        /^(?=.*\b(caption:\s*(.*?))\s*;)(?:(?=.*\b(width:\s*(\d+px))\s*;)|(?=.*\bheight:\s*(\d+px)\s*;))?(?=.*\bcaption:\s*(.*?)\s*;).*?(?:\bwidth:\s*(\d+px)\s*;)?\s*(?:\bheight:\s*(\d+px)\s*;)?$/gm
+        matches:
+        caption: text; width: value; height: value; // in any order!
+        */
+
+        /* much simpler:
+        (\w+):\s*([^;]+);
+        matches:
+        tag: value;
+        then just iterate over the matches
+        */
+
+        // global regex to match all tag: value; pairs
+        const regex = new RegExp(/(\w+):\s*([^;]+);/g);
+        var matches = alt.match(regex);
+
+        // initialize styles and caption for typescript compiler
+        let styles: any, caption;
+        if (matches) {
+            // define styles, otherwise can't use styles[tag] = value
+            styles = {};
+            matches.forEach((match: string) => {
+                // split tag: value; into tag and value
+                let tag_value = match.split(':');
+                if (tag_value) {
+                    // remove whitespace and ;
+                    let tag = tag_value[0].trim();
+                    let value = tag_value[1].replace(';', '').trim();
+                    if (tag === 'caption') {
+                        caption = value;
+                    } else {
+                        styles[tag] = value.replace(' ', '');
+                    }
+                }
+            });
+            console.log(styles);
+            return <span className="md-img" style={styles}> 
+                <img src={props.src} alt={caption}/> <br></br>
+                <span>{caption}</span>
             </span>
         } else {
-            return <span className="md-img" style={style}> 
+            return <span className="md-img"> 
                 <img src={props.src} alt={props.alt}/>  <br></br>
                 <span>{props.alt}</span>
             </span>
