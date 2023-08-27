@@ -35,7 +35,7 @@ module.exports = function () {
         },
         devServer: {
             hot: true,
-            port: 7579,
+            port: 3000,
             static: false,
             compress: true,
             host: "localhost",
