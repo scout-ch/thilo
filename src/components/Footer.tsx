@@ -1,5 +1,5 @@
 import React from 'react'
-import PBSLogo from '../static/images/pbs_logo.svg';
+import PBSLogo from '../images/pbs_logo.svg';
 import i18n from './../i18n';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
