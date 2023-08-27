@@ -1,11 +1,11 @@
-@import './fonts/fonts.css';
-@import './styles/section.less';
-@import './styles/chapter.less';
-@import './styles/search.less';
-@import './styles/nav.less';
-@import './styles/footer.less';
-@import './styles/loading.less';
-@import './styles/quiz.less';
+@import './styles/fonts/fonts.css';
+@import './styles/section.scss';
+@import './styles/chapter.scss';
+@import './styles/search.scss';
+@import './styles/nav.scss';
+@import './styles/footer.scss';
+@import './styles/loading.scss';
+@import './styles/quiz.scss';
 
 :root {
   --color-primary: #521d3a;
@@ -15,9 +15,9 @@
 }
 
 html {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", "Source Sans Pro", sans-serif;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
   scrollbar-width: none;
@@ -26,18 +26,18 @@ html {
   scrollbar-color: var(--color-primary) var(--color-primary-light);
   scrollbar-width: thin;
   
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 4px;
   }
   
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     background: var(--color-primary-light);
     &:hover {
       background: brightness(var(--lightness));
     }
   }
   
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: var(--color-primary);
     -webkit-border-radius: 5px;
     &:hover {
@@ -45,8 +45,8 @@ html {
     }
   }
   */
-  
 }
+
 body, #root {
   margin: 0;
   height: 100%; // fixes 100vh on mobile browsers
@@ -119,12 +119,12 @@ a {
   color: var(--color-primary-light);
   text-decoration: none;
   opacity: 1;
-}
-a:focus,
-a:hover,
-a:active,
-a.active {
-  opacity: 0.8;
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    opacity: 0.8;
+  }
 }
 
 p {
@@ -281,4 +281,3 @@ button {
   cursor: pointer;
   margin: 0.5em 0;
 }
-
