@@ -35,7 +35,6 @@ module.exports = function () {
             }),
             new HtmlWebpackPlugin({
                 template: "index.html",
-                baseUrl: process.env.NODE_ENV == 'development'?'/':'/thilo/'
             }),
             new CopyWebpackPlugin({
                 patterns: [{ from: "static", noErrorOnMissing: true }],

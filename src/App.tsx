@@ -110,7 +110,7 @@ function App() {
   // and, in the future, meta tags and SEO data
   return <div className='App'>
     <HelmetProvider>
-      <Router basename="/">
+      <Router basename={process.env.NODE_ENV == 'production'? '/thilo': '/'}>
         <LinksContext.Provider value={links}>
           <header>
             <Navigation sections={sections} startPage={startPage}></Navigation>
