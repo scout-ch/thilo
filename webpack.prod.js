@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const packageJson = require("./package.json");
 
-const ACCEPTABLE_LICENSES = ["MIT", "BSD-2-Clause", "BSD-3-Clause", "APACHE-2.0", "ISC", "Unlicense"];
+const ACCEPTABLE_LICENSES = ["APACHE-2.0", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "CC-BY-4.0", "ISC", "MIT", "Unlicensed"];
 
 module.exports = function () {
     return {
@@ -18,9 +18,9 @@ module.exports = function () {
             }),
             new LicenseWebpackPlugin({
                 outputFilename: "third-party-licenses.txt",
-                unacceptableLicenseTest: (licenseIdentifier) => {
-                    return !ACCEPTABLE_LICENSES.includes(licenseIdentifier);
-                },
+                // unacceptableLicenseTest: (licenseIdentifier) => {
+                //     return !ACCEPTABLE_LICENSES.includes(licenseIdentifier);
+                // },
                 perChunkOutput: false,
                 skipChildCompilers: true,
                 excludedPackageTest: (packageName) => {
