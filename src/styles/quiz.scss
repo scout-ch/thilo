@@ -45,6 +45,8 @@
     }
     &:disabled {
       cursor:default;
+      filter: brightness(90%);
+      opacity: 0.5;
     }
    
     img {

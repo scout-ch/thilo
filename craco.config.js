@@ -1,15 +1,15 @@
 const CracoLessPlugin = require("craco-less");
 
-const emotionBabelPreset = require("@emotion/babel-preset-css-prop").default(
-  undefined,
-  {} // emotion preset options
-);
-
 module.exports = {
   plugins: [{ plugin: CracoLessPlugin }],
-  babel: {
-    plugins: [
-      ...emotionBabelPreset.plugins
-    ]
-  }
+  style: {
+    sass: {
+      loaderOptions: {
+        // Prefer 'sass' (dart-sass) over 'node-sass' if both packages are installed.
+        implementation: require('sass'),
+        // Workaround for this bug: https://github.com/webpack-contrib/sass-loader/issues/804
+        webpackImporter: false,
+      },
+    },
+  },
 };

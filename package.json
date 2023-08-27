@@ -8,7 +8,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -39,8 +38,8 @@
     "@types/react-helmet": "^6.1.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.5",
-    "craco-less": "2.1.0-alpha.0",
     "react-scripts": "^5.0.1",
+    "sass": "^1.66.1",
     "serve": "^14.2.0"
   },
   "scripts": {
