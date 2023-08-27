@@ -18,7 +18,16 @@ RUN apk update && apk add --no-cache gettext dos2unix
 ############################################
 RUN chown -R node:node /srv/app
 USER node
-COPY --chown=node:node [ "package.json", "package-lock.json", "craco.config.js", "tsconfig.json",  "./"]
+COPY --chown=node:node [ 
+    "babel.config.js",
+    "jest.config.js",
+    "lint-staged.config.js",
+    "package.json", "package-lock.json", 
+    "postcss.config.js",
+    "prettier.config.js",
+    "tsconfig.json",  
+    "webpack.common.js", "webpack.prod.js", "webpack.config.js", 
+    "./"]
 COPY --chown=node:node [ "./docker/entrypoint.sh", "./entrypoint.sh"]
 # COPY --chown=node:node [ "public", "public"]
 COPY --chown=node:node [ "src", "src"]
