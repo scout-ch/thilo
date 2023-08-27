@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.less';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
