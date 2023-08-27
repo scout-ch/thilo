@@ -101,7 +101,7 @@ function Footer(props: Props) {
   return <>
     <div className="footer-content">
       <nav className="footer-nav">
-        <div className='footer-logo'><img src={PBSLogo}></img></div>
+        <div className='footer-logo'><img alt='PBSLogo' src={PBSLogo}></img></div>
         <div>
           <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
             {prevSection &&
