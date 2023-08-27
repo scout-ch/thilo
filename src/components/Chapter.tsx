@@ -2,8 +2,8 @@ import React from 'react'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { LinkComponent } from '../helper/MarkdownComponents'
-import { IconT } from './Section'
+import { LinkComponent } from '../utils/MarkdownComponents'
+import type { IconT } from './Section'
 import Target from './Target'
 
 export type Role = {

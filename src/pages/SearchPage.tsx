@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet-async'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { LinkComponent } from '../helper/MarkdownComponents';
+import { LinkComponent } from '../utils/MarkdownComponents';
 import { withTranslation } from 'react-i18next'
-import { IconT } from '../components/Section';
+import type { IconT } from '../components/Section';
 import SearchForm from '../components/SearchForm';
-import { SectionT } from '../components/Section'
+import type { SectionT } from '../components/Section'
 
 export type SearchPageT = {
     title: string

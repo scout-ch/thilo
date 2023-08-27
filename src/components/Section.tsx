@@ -3,8 +3,9 @@ import { Helmet } from 'react-helmet-async'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { LinkComponent } from '../helper/MarkdownComponents'
-import Chapter, { ChapterT } from './Chapter'
+import { LinkComponent } from '../utils/MarkdownComponents'
+import Chapter from './Chapter'
+import type { ChapterT } from './Chapter'
 
 export type SectionT = {
     chapters: Array<ChapterT>

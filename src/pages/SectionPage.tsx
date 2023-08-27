@@ -1,6 +1,7 @@
 // import styled from '@emotion/styled'
 import React, { useEffect } from 'react'
-import Section, { SectionT } from '../components/Section'
+import Section from '../components/Section'
+import type { SectionT } from '../components/Section'
 import { useLocation, useParams } from 'react-router'
 import { withTranslation } from 'react-i18next'
 

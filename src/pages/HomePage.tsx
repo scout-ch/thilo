@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet-async'
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { LinkComponent } from '../helper/MarkdownComponents';
+import { LinkComponent } from '../utils/MarkdownComponents';
 import { withTranslation } from 'react-i18next';
-import { IconT } from '../components/Section';
+import type { IconT } from '../components/Section';
 
 export type StartPage = {
   title: string

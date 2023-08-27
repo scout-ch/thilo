@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { withTranslation } from "react-i18next"
 import Loading from './Loading'
-import { SearchHelper } from '../helper/SearchHelper';
+import { SearchHelper } from '../utils/SearchHelper';
 import { useNavigate, useLocation, createPath } from 'react-router';
-import { ChapterT } from '../components/Chapter';
-import { SectionT } from '../components/Section';
+import type { ChapterT } from '../components/Chapter';
+import type { SectionT } from '../components/Section';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { LinkComponent } from '../helper/MarkdownComponents';
+import { LinkComponent } from '../utils/MarkdownComponents';
 import SearchInput from './SearchInput';
 
 type Props = {

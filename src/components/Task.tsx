@@ -1,7 +1,7 @@
 import React from 'react'
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
-import { ChapterT, Role } from './Chapter';
+import type { ChapterT, Role } from './Chapter';
 
 export type TaskT = {
   deadline: Date

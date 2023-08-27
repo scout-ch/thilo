@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { StartPage } from '../pages/HomePage'
-import { ChapterT } from './Chapter'
+import type { StartPage } from '../pages/HomePage'
+import type { ChapterT } from './Chapter'
 import SearchInput from './SearchInput'
-import { SectionT } from './Section'
+import type { SectionT } from './Section'
 
 type Props = {
     sections: Array<SectionT>

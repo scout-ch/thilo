@@ -13,7 +13,7 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
-import { checkLinks } from './helper/LinkChecker';
+import { checkLinks } from './utils/LinkChecker';
 import SearchPage from './pages/SearchPage';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
