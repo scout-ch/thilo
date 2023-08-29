@@ -11,7 +11,7 @@
       "title": "Home"
     },
     "searchPage": {
-      "searchPlaceholder": "Rechercher dans les Chapitres",
+      "searchPlaceholder": "Rechercher Chapitres",
       "noResults": "Aucun résultat trouvé. Veuillez essayer avec un autre terme de recherche.",
       "noKeyword": "Veuillez entrer un terme de recherche d'au moins {{amountOfCharacters}} caractères pour commencer la recherche."
     }
