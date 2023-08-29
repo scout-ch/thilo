@@ -2,18 +2,18 @@
   "translation": {
     "target": {
       "role": {
-        "LL": "Capo campo",
-        "C": "Coach",
-        "AL": "Capo sezione"
+        "LL": "Responsabile del Magazzino",
+        "C": "Allenatore",
+        "AL": "Responsabile di Reparto"
       }
     },
     "homePage": {
-      "title": "Ciao Thilo"
+      "title": "Home"
     },
     "searchPage": {
-      "searchPlaceholder": "Inserisci il termine di ricerca....",
-      "noResults": "Nessun risultato trovato. Provare con un altro termine di ricerca..",
-      "noKeyword": "Inserire un termine di ricerca con almeno {{amountOfCharacters}}. caratteri per avviare la ricerca "
+      "searchPlaceholder": "Cerca nei Capitoli",
+      "noResults": "Nessun risultato trovato. Prova con un termine di ricerca diverso.",
+      "noKeyword": "Inserisci un termine di ricerca di almeno {{amountOfCharacters}} caratteri per avviare la ricerca."
     }
   }
 }

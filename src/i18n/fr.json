@@ -2,18 +2,18 @@
   "translation": {
     "target": {
       "role": {
-        "LL": "Responsable de camp",
-        "C": "Coach",
-        "AL": "Responsable de groupe"
+        "LL": "Responsable d'Entrepôt",
+        "C": "Entraîneur",
+        "AL": "Chef de Service"
       }
     },
     "homePage": {
-      "title": "Salut Thilo"
+      "title": "Home"
     },
     "searchPage": {
-      "searchPlaceholder": "Saisir le terme de recherche....",
-      "noResults": "Aucun résultat trouvé. Veuillez essayer un autre terme de recherche.",
-      "noKeyword": "Veuillez saisir un terme de recherche contenant au moins {{amountOfCharacters}} caractères pour lancer la recherche."
+      "searchPlaceholder": "Rechercher dans les Chapitres",
+      "noResults": "Aucun résultat trouvé. Veuillez essayer avec un autre terme de recherche.",
+      "noKeyword": "Veuillez entrer un terme de recherche d'au moins {{amountOfCharacters}} caractères pour commencer la recherche."
     }
   }
 }
