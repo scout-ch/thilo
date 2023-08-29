@@ -1,5 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useRef } from "react"
 import { withTranslation } from "react-i18next"
+import { SearchIcon, XIcon } from '@primer/octicons-react'
+import { TextInput } from "@primer/react"
 
 type Props = {
     t: any,
@@ -10,21 +12,35 @@ type Props = {
 
 // render the search input field in the navigation bar and search page
 function SearchInput(props: Props) {
-    const { t, keyword, onChange, onKeyDown } = props
+    const { t, keyword, onChange, onKeyDown } = props;
 
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const clear = () => {
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
+    };
     return <div className='search-input'>
         <div className='icon-input'>
-            <div className='search-icon'>
-                <FontAwesomeIcon icon="search" />
-            </div>
-            <input type='text'
+            <TextInput
                 name='search'
-                className='search'
                 placeholder={t('searchPage.searchPlaceholder')}
-                value={keyword}
+                defaultValue={keyword}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
-                autoFocus/>
+                autoFocus
+                leadingVisual={SearchIcon}
+                ref={inputRef}
+                trailingAction={
+                    <TextInput.Action
+                    onClick={clear}
+                    icon={XIcon}
+                    aria-label="Clear input"
+                    tooltipDirection="nw"
+                    sx={{color: 'fg.subtle'}}
+                />
+            }
+            />
         </div>
     </div>
 }

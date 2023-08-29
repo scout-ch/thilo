@@ -4,12 +4,9 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
 import HomePage from './pages/HomePage';
 import i18n from './i18n';
 import { withTranslation } from 'react-i18next';
-import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
@@ -17,6 +14,9 @@ import { checkLinks } from './utils/LinkChecker';
 import SearchPage from './pages/SearchPage';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
+
+import { ThemeProvider } from '@primer/react'
+import { Header } from './components/Header';
 
 export type LinkT = {
   title: string
@@ -93,9 +93,6 @@ function App() {
     window.history.scrollRestoration = 'manual'
   }, []);
 
-  // add font awesome icons
-  library.add(faExclamationTriangle, faBars, faSearch)
-
   // check if data is available
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
@@ -108,33 +105,40 @@ function App() {
 
   // HelmetProvider allows the use of Helmet components to set the title 
   // and, in the future, meta tags and SEO data
-  return <div className='App'>
-    <HelmetProvider>
-      <Router basename="/">
-        <LinksContext.Provider value={links}>
-          <header>
-            <Navigation sections={sections} startPage={startPage}></Navigation>
-          </header>
+  return (
+    <ThemeProvider>
+      <div className='App'>
+        <HelmetProvider>
+          <Router basename="/">
+            <LinksContext.Provider value={links}>
+              <Header sections={sections} startPageMenuName={'start'}></Header>
+              <div className="d-lg-flex">
+                {/* <SidebarNav sections={sections} startPageMenuName={'start'} variant='full'/> */}
+                {/* Need to set an explicit height for sticky elements since we also
+                  set overflow to auto */}
+                <div className="flex-column flex-1 min-width-0">
+                  <main id="main-content">
+                    <Routes>
+                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                        <Route path="/impressum" element={<ImpressumPage />} />
+                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+                        <Route path="/" element={<HomePage page={startPage}/>
+                        } />
+                        <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                      </Routes>
+                  </main>
+                  <footer>
+                    <Footer lang={lang} sections={sections} />
+                  </footer>
+                </div>
+              </div>
 
-          <main>
-            <Routes>
-              <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-              <Route path="/impressum" element={<ImpressumPage />} />
-              <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-              <Route path="/" element={<HomePage page={startPage}/>
-              } />
-              <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
-            </Routes>
-
-          </main>
-          <footer>
-            <Footer lang={lang} sections={sections} />
-          </footer>
-
-        </LinksContext.Provider>
-      </Router>
-    </HelmetProvider>
-  </div>
+            </LinksContext.Provider>
+          </Router>
+        </HelmetProvider>
+      </div>
+    </ThemeProvider>
+  )
 }
 
 export default withTranslation()(App);

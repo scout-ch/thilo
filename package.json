@@ -10,10 +10,10 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@fortawesome/fontawesome-svg-core": "^6.2.1",
-    "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@primer/css": "^21.0.8",
+    "@primer/react": "^35.28.0",
     "axios": "^1.2.6",
+    "classnames": "^2.3.2",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
     "react": "^18.2.0",
@@ -25,6 +25,7 @@
     "react-router": "^6.8.0",
     "react-router-dom": "^6.8.0",
     "remark-gfm": "^3.0.1",
+    "styled-components": "^5.3.11",
     "typescript": "^4.9.4",
     "web-vitals": "^3.1.1"
   },

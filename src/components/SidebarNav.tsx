@@ -1,26 +1,31 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import type { StartPage } from '../pages/HomePage'
+import React from 'react'
+import { useLocation } from 'react-router-dom'
 import type { ChapterT } from './Chapter'
-import SearchInput from './SearchInput'
 import type { SectionT } from './Section'
+
+import { NavList, Truncate} from '@primer/react'
+import cx from 'classnames'
+
+import { HomeIcon, AppsIcon } from '@primer/octicons-react'
+
 
 type Props = {
     sections: Array<SectionT>
-    startPage: StartPage
+    startPageMenuName?: String
+    variant?: 'full' | 'overlay'
 }
 
-function Navigation(props: Props) {
+function SidebarNav(props: Props) {
 
-    // state for the navbar to be open or closed
-    const [navbarOpen, setNavbarOpen] = useState(false)
     // location and navigate for browsing sections and chapters via hash links
     const location = useLocation()
+    const sections = props.sections
+    /*
+    // state for the navbar to be open or closed
+    const [navbarOpen, setNavbarOpen] = useState(false)
     const navigate = useNavigate()
 
     // checked state for the dropdown menu to signify current section and chapter
-    const sections = props.sections
     const [checkedState, setCheckedState] = useState(
         new Array(sections.length).fill(false)
     );
@@ -44,42 +49,22 @@ function Navigation(props: Props) {
             }
         }
     }
-
+    
     // toggle the navbar open and closed
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen)
     }
-
+    
     // close the navbar when scrolling
     useEffect(() => {
         window.addEventListener('scroll', function (e) {
             setNavbarOpen(false);
         });
     }, []);
-
-    const onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter') {
-                const searchFieldValue = e.currentTarget.value;
-                const searchPageRoute = '/search';
-                // if we are not on the search page, we need to navigate to it
-                if (location.pathname !== searchPageRoute) {
-                    const location = { pathname: searchPageRoute, search: '' }
-                    // if there is a search query from the nav, use it for the search link
-                    if (searchFieldValue?.length > 0) {
-                        location.search = `keyword=${searchFieldValue}`
-                        }
-                        navigate(location)
-                    } else {
-                    // if we are on the search page we can search directly
-                    navigate({ search: `keyword=${searchFieldValue}` })
-                }
-                e.currentTarget.value = '';
-                // close the navbar on search
-                setNavbarOpen(false);
-        }
-    }
+    */
 
     // get sorted chapters for current section, mark current chapter
+    /*
     function chapterList(section: SectionT) {
         const chapters = section.chapters
         const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
@@ -105,7 +90,7 @@ function Navigation(props: Props) {
         var id = 'nav_li_'+section.slug
 
         return (
-            <React.Fragment key={section.slug}> {/* Provide unique key prop */}
+            <React.Fragment key={section.slug}>
                 <li className={className} onClick={handleLiMarkerOnClick(index)}>
                     <input
                         type="checkbox"
@@ -123,12 +108,74 @@ function Navigation(props: Props) {
             </React.Fragment>
         )
     });
+    */
     
-    const startPage = props.startPage
+    const sectionListNavItems = sections.map(function (section: SectionT, index: number) {
+        var sectionActive = location.pathname.replace('/', '') === section.slug
+        
+        /*
+        var link = '/#/'+section.slug
+        var id = 'nav_li_'+section.slug
+        const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
+        */
+
+        const chapters = section.chapters
+        const chapterNavItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
+            return a.sorting - b.sorting;
+        }).map(function (chapter: ChapterT) {
+            var isActive = location.hash.replace('#', '') === chapter.slug
+            return (
+                <NavList.Item href={(`/#/${chapter.slug_with_section}`)} 
+                    className={cx('ml-4', `${chapter.slug_with_section}`)} 
+                    aria-current={isActive && "page"}
+                >
+                    {chapter.menu_name}
+                </NavList.Item>
+            )
+        })
+
+        return (
+            <NavList.Item className={section.slug} href={('/#/'+section.slug)} aria-current={sectionActive && "page"}>
+                <NavList.LeadingVisual><AppsIcon/></NavList.LeadingVisual>
+                <Truncate title={section.menu_name} as='span' maxWidth={200}>{section.menu_name}</Truncate>
+                {chapterNavItems.length > 0 && 
+                    <NavList.SubNav>
+                        {chapterNavItems}
+                    </NavList.SubNav>
+                }
+            </NavList.Item>
+            
+        )
+    });
+
     const isHome = location.pathname === '/'
     // special case for the home page which is not a section
-    var classNameHome = isHome ? 'home active' : 'home'
-    return <nav className="header-nav">
+    var classHome = isHome ? 'home active' : 'home' 
+    const variant = props.variant;
+
+    return (
+        <div data-container="nav"
+            className={cx(variant === 'full' ? 'position-sticky border-right d-xxl-block' : '')}
+            style={{ width: 326, height: 'calc(100vh - 65px)', top: '165px' }}
+        >
+            <NavList className={cx('mt-8')}>
+                <NavList.Item href='/' className={classHome}>
+                    <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> Home
+                </NavList.Item>
+                {sectionListNavItems}
+            </NavList>
+            <div
+            className={cx(
+            variant === 'overlay' ? 'd-xxl-none' : 'border-right d-none d-xxl-block',
+            'bg-primary overflow-y-auto flex-shrink-0',
+            )}
+            style={{ width: 326, height: 'calc(100vh - 175px)', paddingBottom: '250px' }}
+            >
+            </div>
+        </div>
+    )
+    /*
+    <nav className="header-nav">
         <div className="toggle-btn">
             <i onClick={handleToggle}><FontAwesomeIcon icon="bars" /></i>
         </div>
@@ -142,6 +189,7 @@ function Navigation(props: Props) {
             </ul>
         </div>
     </nav>
+    */
 }
 
-export default Navigation
+export default SidebarNav

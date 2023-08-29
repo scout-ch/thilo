@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { LinkComponent } from '../utils/MarkdownComponents';
@@ -30,7 +29,7 @@ function SearchPage(props: Props) {
             <title>{searchPage.title}</title>
         </Helmet>
         <div className='search'>
-            <h1><FontAwesomeIcon icon="search" /> {searchPage.title}</h1>
+            <h1>{searchPage.title}</h1>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={LinkComponent}
