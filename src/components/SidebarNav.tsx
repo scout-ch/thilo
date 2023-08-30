@@ -72,7 +72,7 @@ function SidebarNav(props: Props) {
     return (
         <div data-container="nav"
             className={cx(variant === 'full' ? 'position-sticky border-right d-xxl-block d-lg-block d-none' : '')}
-            style={{ width: 326, height: 'calc(100vh - 65px)' }}
+            style={{ width: 326}}
         >
             <NavList className={cx('')}>
                 <NavList.Item href='/' className={classHome}>
@@ -85,7 +85,7 @@ function SidebarNav(props: Props) {
             variant === 'overlay' ? 'd-xxl-none' : 'border-right d-none d-lg-block d-xxl-block',
             'bg-primary overflow-y-auto flex-shrink-0',
             )}
-            style={{ width: 326, height: 'calc(100vh - 175px)', paddingBottom: '250px' }}
+            style={{ width: 326,}}
             >
             </div>
         </div>

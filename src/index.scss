@@ -5,11 +5,12 @@
 @import '@primer/css/core/index.scss';
 
 // Primer components
+@import "@primer/css/layout/index.scss";
 
 // @import './styles/fonts/fonts.css';
 @import './styles/section.scss';
 @import './styles/chapter.scss';
-// @import './styles/search.scss';
+@import './styles/search.scss';
 // @import './styles/nav.scss';
 @import './styles/footer.scss';
 @import './styles/loading.scss';
@@ -73,19 +74,33 @@ header {
   grid-area: header;
 }
 
-/*
+
 main {
   grid-area: main;
-  @media screen and (min-width: 860px) {
+  @media screen and (min-width: $width-md) {
     grid-row: 1 / -1; // grows to fill the remaining space, keeping the footer 
     // at the bottom if content is short but only for large screens because it 
     // moves the start to the headers location
-    
-    
   }
 }
-*/
 
+.content {
+  margin: 10px 0 10px 100px;
+  max-width: $width-lg;
+  padding: 30px;
+  @media screen and (max-width: $width-lg) {
+    margin: 10px 0 10px 80px;
+    max-width: $width-md;
+  }
+  @media screen and (max-width: $width-md) {
+    margin: 10px 0 10px 60px;
+    max-width: $width-sm;
+  }
+  @media screen and (max-width: $width-sm) {
+    margin: 10px 0 10px 40px;
+    max-width: calc($width-sm - 155px);
+  }
+}
 
 img {
   max-width: 100%;
@@ -95,18 +110,15 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
-  @media screen and (max-width: calc(860px - 1px)) {
-    scroll-margin-top: 80px; /* offset for fixed header */
-  }
+  scroll-margin-top: 65px; /* offset for fixed header */
 }
 h4 {
   color: var(--color-primary-light);
 }
 
-/*
 h1 {
   font-weight: 700;
-  font-size: 70px;
+  font-size: 50px;
   padding-bottom: 0.1em;
 }
 
@@ -159,21 +171,22 @@ div {
   padding-right: 0.5em;
   width: 80px;
 }
-
-@media (max-width: calc(660px - 1px)) {
+/*
+@media (max-width: $width-sm) {
   h1 {
     font-size: 30px;
   }
-
+  
   h2 {
     font-size: 20px;
   }
-
+  
   .content-main {
     margin: 10px 10px;
   }
 }
-@media (min-width: 660px) {
+
+@media (min-width: $width-sm) {
   h1 {
     font-size: 34px;
   }
@@ -201,7 +214,7 @@ div {
     width: 100px;
   }
 }
-@media (min-width: 860px) {
+@media (min-width: $width-md) {
   p,
   ul,
   li,
@@ -220,7 +233,7 @@ div {
     font-size: 30px;
   }
 }
-@media (min-width: 1100px) {
+@media (min-width: $width-lg) {
   p,
   ul,
   li,
@@ -243,7 +256,7 @@ div {
     font-size: 30px;
   }
 }
-@media (min-width: 1300px) {
+@media (min-width: $width-xl) {
   p,
   ul,
   li,
@@ -262,6 +275,8 @@ div {
     font-size: 40px;
   }
 }
+
+*/
 
 li {
   font-weight: 300;
@@ -289,7 +304,4 @@ button {
   border-radius: 4px;
   border: none;
   cursor: pointer;
-  margin: 0.5em 0;
 }
-
-*/

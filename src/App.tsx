@@ -131,10 +131,10 @@ function App() {
                         <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
                       </Routes>
                   </main>
-                  <footer>
-                    <Footer lang={lang} sections={sections} />
-                  </footer>
                 </div>
+              <footer>
+                <Footer lang={lang} sections={sections} />
+              </footer>
               </div>
 
             </LinksContext.Provider>

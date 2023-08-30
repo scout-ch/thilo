@@ -24,7 +24,7 @@ function SearchPage(props: Props) {
     const searchPage = props.page
 
     // The basis of the search are the sections, from which the chapter content is read
-    return <div className='content-main'>
+    return <div className='content'>
         <Helmet>
             <title>{searchPage.title}</title>
         </Helmet>

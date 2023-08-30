@@ -40,28 +40,5 @@
 }
 
 .search-input {
-    .icon-input {
-        width: 100%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        .search-icon {
-            position: absolute;
-            padding: 7px;
-            min-width: 24px;
-            color: var(--color-primary-light);
-            transform: translateY(-5%);
-        }
-    }
-
-
-    input[type="text"] {
-        text-indent: 32px;
-        font-size: 16px
-    }
-
-    input[type="text"]:focus {
-        outline: 0;
-        box-shadow: 0 0 4px 0 var(--color-primary-light);
-    }
+    max-width: 512px;
 }

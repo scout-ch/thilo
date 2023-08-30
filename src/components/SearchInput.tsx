@@ -19,7 +19,7 @@ function SearchInput(props: Props) {
     return <div className="position-relative">
         <form
           role="search"
-          className="width-full d-flex"
+          className="d-flex"
           onSubmit={(event) => {
             event.preventDefault()
             inputRef.current?.focus()
@@ -32,7 +32,7 @@ function SearchInput(props: Props) {
           }}
         >
     <meta name="viewport" content="width=device-width initial-scale=1" />
-    <label className="text-normal width-full">
+    <label className="text-normal ">
       <span
         className="visually-hidden"
       >{t('searchPage.searchPlaceholder')}</span>
