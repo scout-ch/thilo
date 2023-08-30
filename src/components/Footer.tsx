@@ -3,6 +3,7 @@ import PBSLogo from '../images/pbs_logo.svg';
 import i18n from './../i18n';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
+import { Truncate } from '@primer/react';
 
 type Props = {
   lang: string
@@ -103,9 +104,12 @@ function Footer(props: Props) {
       <nav className="footer-nav">
         <div className='footer-logo'><img alt='PBSLogo' src={PBSLogo}></img></div>
         <div>
+          {(prevSection || nextSection) && <>
           <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
             {prevSection &&
-              <>{prevButtonText}<br/><i>{prevSection?.title}</i></>
+              <>{prevButtonText}<br/>
+                <Truncate title={prevSection?.title} maxWidth={100}><i>{prevSection?.title}</i></Truncate>
+              </>
             }
             {!prevSection &&
               <>{homeButtonText}<br/>&nbsp;</>
@@ -113,21 +117,23 @@ function Footer(props: Props) {
           </button>
           <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSlug}`)}>
             {nextSection &&
-              <>{nextButtonText}<br/><i>{nextSection?.title}</i></>
+              <>{nextButtonText}<br/>
+                <Truncate title={nextSection?.title} maxWidth={100}><i>{nextSection?.title}</i></Truncate>
+              </>
             }
             {!nextSection &&
               <>{homeButtonText}<br/>&nbsp;</>
             }
           </button>
-        </div>
-        <div className='language'>
-          <button className={'btn-language' + (props.lang === 'de' ? ' active' : '')} 
-            onClick={() => changeLanguage('de', location, props.sections)}>Deutsch</button>
-          <button className={'btn-language' + (props.lang === 'fr' ? ' active' : '')} 
-            onClick={() => changeLanguage('fr', location, props.sections)}>Français</button>
-          <button className={'btn-language' + (props.lang === 'it' ? ' active' : '')} 
-            onClick={() => changeLanguage('it', location, props.sections)}>Italiano</button>
-        </div>
+          </>
+          }
+          {(!prevSection && !nextSection) && <>
+          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
+              {homeButtonText}<br/>&nbsp;
+          </button>
+          </>
+          }
+        </div>  
       </nav>
       <div className='footer-bottom'>
         <div className='footer-bottom-nav'>

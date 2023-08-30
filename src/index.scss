@@ -1,12 +1,12 @@
 // primer files:
-// CSS color variables
+// CSS color variables: Must come first
 @import '@primer/css/color-modes/index.scss';
-// Global requirements
+// Global requirements: Must come second
 @import '@primer/css/core/index.scss';
-@import '@primer/css/product/index.scss';
 
+// Primer components
 
-@import './styles/fonts/fonts.css';
+// @import './styles/fonts/fonts.css';
 @import './styles/section.scss';
 @import './styles/chapter.scss';
 // @import './styles/search.scss';
@@ -14,6 +14,7 @@
 @import './styles/footer.scss';
 @import './styles/loading.scss';
 @import './styles/quiz.scss';
+@import './styles/utilities.scss';
 
 
 :root {

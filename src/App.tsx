@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './globals'
 import {
   HashRouter as Router,
   Routes,
@@ -17,6 +18,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { ThemeProvider } from '@primer/react'
 import { Header } from './components/Header';
+import SidebarNav from './components/SidebarNav';
 
 export type LinkT = {
   title: string
@@ -103,6 +105,8 @@ function App() {
 
   checkLinks(sections, links)
 
+  window.sections = sections;
+
   // HelmetProvider allows the use of Helmet components to set the title 
   // and, in the future, meta tags and SEO data
   return (
@@ -113,7 +117,7 @@ function App() {
             <LinksContext.Provider value={links}>
               <Header sections={sections} startPageMenuName={'start'}></Header>
               <div className="d-lg-flex">
-                {/* <SidebarNav sections={sections} startPageMenuName={'start'} variant='full'/> */}
+                <SidebarNav startPageMenuName={'start'} variant='full'/>
                 {/* Need to set an explicit height for sticky elements since we also
                   set overflow to auto */}
                 <div className="flex-column flex-1 min-width-0">

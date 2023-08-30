@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { SectionT } from './Section'
-import SearchInput from './SearchInput'
-
 import cx from 'classnames'
-import { Dialog, IconButton } from '@primer/react'
+import { ActionMenu, ActionList, Dialog, IconButton } from '@primer/react'
 import {
   ThreeBarsIcon,
   SearchIcon,
-  XIcon
+  XIcon,
+  KebabHorizontalIcon,
 } from '@primer/octicons-react'
 
+import { SectionT } from './Section'
+import { LanguagePicker } from './LanguagePicker'
+import SearchInput from './SearchInput'
 import SidebarNav from './SidebarNav'
+import styles from './Header.module.scss'
+
+
 
 type Props = {
     sections: Array<SectionT>
@@ -119,16 +123,24 @@ export const Header = (props: Props) => {
 
   return (
     <>
+      <div
+        data-container="header"
+        className={cx(
+          'border-bottom d-unset color-border-muted no-print z-3 color-bg-default position-sticky top-0',
+          styles.header,
+        )}
+      >
         <header
           className={cx(
-            'color-bg-default p-2 position-sticky z-1 border',
+            'color-bg-default p-2 z-1 border-bottom',
             scroll && 'color-shadow-small',
           )}
+          role='banner'
+          aria-label='Main'
         >
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
-            className="color-fg-muted border"
-            variant="invisible"
+            className="color-fg-muted border hide-xl"
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
             onClick={openSidebar}
@@ -158,62 +170,62 @@ export const Header = (props: Props) => {
               >
               SidebarNav Header
             </Dialog.Header>
-            <SidebarNav sections={props.sections} startPageMenuName={props.startPageMenuName} variant="overlay" />
+            <SidebarNav startPageMenuName={props.startPageMenuName} variant="overlay" />
           </Dialog>
           
 
           {!isSearchResultsPage && <div
               className={cx(
-                // isSearchOpen
-                //   ? styles.searchContainerWithOpenSearch
-                //   : styles.searchContainerWithClosedSearch,
+                isSearchOpen
+                  ? styles.searchContainerWithOpenSearch
+                  : styles.searchContainerWithClosedSearch,
                 'mr-3 ml-auto',
               )}
             >
               <SearchInput onKeyDown={onSearchKeyDown} />
             </div>
           }
-            
-
-            <div className={cx('d-none d-lg-flex flex-items-center')}>
-            </div>
-
-            <IconButton
-              className={cx(
-                'hide-lg hide-xl',
-                !isSearchOpen ? 'd-flex flex-items-center' : 'd-none',
-              )}
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Open Search Bar"
-              aria-expanded={isSearchOpen ? 'true' : 'false'}
-              icon={SearchIcon}
-            />
-            <IconButton
-              className="px-3"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Close Search Bar"
-              aria-expanded={isSearchOpen ? 'true' : 'false'}
-              icon={XIcon}
-              sx={
-                isSearchOpen
-                  ? {
-                      // The x button to close the small width search UI when search is open, as the
-                      // browser width increases to md and above we no longer show that search UI so
-                      // the close search button is hidden as well.
-                      // breakpoint(md)
-                      '@media (min-width: 768px)': {
+            {!isSearchResultsPage && <>
+              <IconButton
+                className={cx(
+                  'hide-lg hide-xl',
+                  !isSearchOpen ? 'd-flex flex-items-center ml-auto' : 'd-none',
+                )}
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                aria-label="Open Search Bar"
+                aria-expanded={isSearchOpen ? 'true' : 'false'}
+                icon={SearchIcon}
+              />
+              <IconButton
+                className="px-3"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                aria-label="Close Search Bar"
+                aria-expanded={isSearchOpen ? 'true' : 'false'}
+                icon={XIcon}
+                sx={
+                  isSearchOpen
+                    ? {
+                        // The x button to close the small width search UI when search is open, as the
+                        // browser width increases to md and above we no longer show that search UI so
+                        // the close search button is hidden as well.
+                        // breakpoint(md)
+                        '@media (min-width: 768px)': {
+                          display: 'none',
+                        },
+                      }
+                    : {
                         display: 'none',
-                      },
-                    }
-                  : {
-                      display: 'none',
-                    }
-              }
-            />
+                      }
+                }
+              />
+            </>
+            }
+            <div className={cx('d-lg-flex flex-items-center ml-3', isSearchResultsPage && 'ml-auto')}>
+                <LanguagePicker />
+            </div>
           </div>
-
-
         </header>
+      </div>
     </>
   )
 }
