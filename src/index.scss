@@ -27,10 +27,6 @@
 html {
   font-family: sans-serif;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
   
   /* TODO: think about scrollbar design
   scrollbar-color: var(--color-primary) var(--color-primary-light);
