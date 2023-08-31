@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { withTranslation } from "react-i18next"
-import { SearchIcon, XIcon } from '@primer/octicons-react'
+import { SearchIcon } from '@primer/octicons-react'
 import { IconButton, TextInput, Tooltip } from "@primer/react"
 
 type Props = {

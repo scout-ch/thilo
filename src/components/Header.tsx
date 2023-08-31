@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import cx from 'classnames'
-import { ActionMenu, ActionList, Dialog, IconButton } from '@primer/react'
+import { Dialog, IconButton } from '@primer/react'
 import {
   ThreeBarsIcon,
   SearchIcon,
   XIcon,
-  KebabHorizontalIcon,
 } from '@primer/octicons-react'
 
 import { SectionT } from './Section'
