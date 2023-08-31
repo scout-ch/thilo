@@ -2,13 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { withTranslation } from "react-i18next"
 import Loading from './Loading'
 import { SearchHelper } from '../utils/SearchHelper';
-import { useNavigate, useLocation, createPath } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import type { ChapterT } from '../components/Chapter';
 import type { SectionT } from '../components/Section';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { LinkComponent } from '../utils/MarkdownComponents';
 import SearchInput from './SearchInput';
+import { Link } from 'react-router-dom';
 
 type Props = {
     t: any,
@@ -113,7 +114,7 @@ function SearchForm(props: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <a href={createPath({ pathname: '#/' + result.slug_with_section })}>{result.title}</a>
+                                <Link to={result.slug_with_section }>{result.title}</Link>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>

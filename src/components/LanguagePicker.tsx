@@ -1,7 +1,7 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { GlobeIcon } from '@primer/octicons-react'
 
-import { ActionList, ActionMenu, IconButton, Link, Tooltip } from '@primer/react'
+import { ActionList, ActionMenu, IconButton, Tooltip } from '@primer/react'
 
 import i18n from '../i18n'
 import { SectionT } from './Section'
@@ -79,8 +79,6 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
     <ActionList.Item
       key={`/${lang}`}
       selected={lang === locale}
-      as={Link}
-      href={`/${lang}`}
       onSelect={() => {
         if (lang) {
           try {
@@ -91,7 +89,9 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
         }
       }}
     >
-      <span data-testid="default-language">{languages[lang as keyof typeof languages].name}</span>
+      <span data-testid="default-language">
+        <Link to={lang}>{languages[lang as keyof typeof languages].name}</Link>
+      </span>
     </ActionList.Item>
   ))
 

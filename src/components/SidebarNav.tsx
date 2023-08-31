@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import type { ChapterT } from './Chapter'
 import type { SectionT } from './Section'
 
@@ -38,22 +38,26 @@ function SidebarNav(props: Props) {
         }).map(function (chapter: ChapterT) {
             var isActive = location.hash.replace('#', '') === chapter.slug
             return (
-                <NavList.Item href={(`/#/${chapter.slug_with_section}`)} 
+                <NavList.Item 
                     // className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     // aria-current={isActive && "page"}
                 >
                     <NavList.LeadingVisual>
                     {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
-                    {chapter.menu_name}
+                    <Link to={(`${chapter.slug_with_section}`)}>
+                        {chapter.menu_name}
+                    </Link>
                 </NavList.Item>
             )
         })
 
         return (
-            <NavList.Item className={section.slug} href={('/#/'+section.slug)} aria-current={sectionActive && "page"}>
+            <NavList.Item className={section.slug} aria-current={sectionActive && "page"}>
                 <NavList.LeadingVisual><DynamicIcon/></NavList.LeadingVisual>
-                <Truncate title={section.menu_name} as='span' maxWidth={200}>{section.menu_name}</Truncate>
+                <Link to={section.slug}>
+                    <Truncate title={section.menu_name} as='span' className='d-inline-block' maxWidth={200}>{section.menu_name}</Truncate>
+                </Link>
                 {chapterNavItems.length > 0 && 
                     <NavList.SubNav>
                         {chapterNavItems}
@@ -74,8 +78,9 @@ function SidebarNav(props: Props) {
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
         >
             <NavList className={cx('')}>
-                <NavList.Item href='/' className={classHome}>
-                    <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> Home
+                <NavList.Item className={classHome}>
+                    <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
+                    <Link to='/'>Home</Link>
                 </NavList.Item>
                 {sectionListNavItems}
             </NavList>
