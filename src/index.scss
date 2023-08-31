@@ -12,7 +12,7 @@
 @import './styles/chapter.scss';
 @import './styles/search.scss';
 // @import './styles/nav.scss';
-@import './styles/footer.scss';
+// @import './styles/footer.scss';
 @import './styles/loading.scss';
 @import './styles/quiz.scss';
 @import './styles/utilities.scss';
@@ -53,6 +53,8 @@ html {
   }
   */
 }
+
+/*
 
 body, #root {
   margin: 0;
@@ -110,7 +112,7 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
-  scroll-margin-top: 65px; /* offset for fixed header */
+  scroll-margin-top: 65px; // offset for fixed header
 }
 h4 {
   color: var(--color-primary-light);
@@ -164,6 +166,8 @@ div {
   // line-height: var(--line-height);
   font-size: 15px;
 }
+
+*/
 
 .icon {
   align-self:center; // height: 100%;
@@ -276,7 +280,6 @@ div {
   }
 }
 
-*/
 
 li {
   font-weight: 300;
@@ -305,3 +308,5 @@ button {
   border: none;
   cursor: pointer;
 }
+
+*/

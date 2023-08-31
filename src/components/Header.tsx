@@ -126,13 +126,13 @@ export const Header = (props: Props) => {
       <div
         data-container="header"
         className={cx(
-          'border-bottom d-unset color-border-muted no-print z-3 color-bg-default position-sticky top-0',
+          'sections d-unset color-border-muted no-print z-3 color-bg-default position-sticky top-0',
           styles.header,
         )}
       >
         <header
           className={cx(
-            'color-bg-default p-2 z-1 border-bottom',
+            'color-bg-default p-2 z-1 sections',
             scroll && 'color-shadow-small',
           )}
           role='banner'

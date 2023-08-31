@@ -16,7 +16,7 @@ import SearchPage from './pages/SearchPage';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
 
-import { ThemeProvider } from '@primer/react'
+import { Box, PageLayout, SplitPageLayout, ThemeProvider } from '@primer/react'
 import { Header } from './components/Header';
 import SidebarNav from './components/SidebarNav';
 
@@ -115,11 +115,11 @@ function App() {
         <HelmetProvider>
           <Router basename="/">
             <LinksContext.Provider value={links}>
-              <Header sections={sections} startPageMenuName={'start'}></Header>
+              {/* Need to set an explicit height for sticky elements since we also
+                set overflow to auto */}
+              {/* <Header sections={sections} startPageMenuName={'start'}></Header>
               <div className="d-lg-flex">
                 <SidebarNav startPageMenuName={'start'} variant='full'/>
-                {/* Need to set an explicit height for sticky elements since we also
-                  set overflow to auto */}
                 <div className="flex-column flex-1 min-width-0">
                   <main id="main-content">
                     <Routes>
@@ -135,7 +135,35 @@ function App() {
               <footer>
                 <Footer lang={lang} sections={sections} />
               </footer>
-              </div>
+              </div> */}
+              <PageLayout>
+                <PageLayout.Header>
+                  <Header sections={sections} startPageMenuName={'start'}></Header>
+                </PageLayout.Header>
+                <PageLayout.Content>
+                  <div className="flex-column flex-1 min-width-0">
+                    <main id="main-content">
+                      <Routes>
+                          <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                          <Route path="/impressum" element={<ImpressumPage />} />
+                          <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+                          <Route path="/" element={<HomePage page={startPage}/>
+                          } />
+                          <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                        </Routes>
+                    </main>
+                  </div>
+                </PageLayout.Content>
+                  <PageLayout.Pane position={'start'} sticky  //resizable
+                    hidden={{narrow: true, regular: true  , wide: false}}
+                    // offsetHeader={64}
+                  >
+                    <SidebarNav startPageMenuName={'start'} variant='full'/>
+                  </PageLayout.Pane>
+                <PageLayout.Footer>
+                  <Footer />
+                </PageLayout.Footer>
+              </PageLayout>
 
             </LinksContext.Provider>
           </Router>

@@ -1,9 +1,9 @@
-import React from 'react'
 import PBSLogo from '../images/pbs_logo.svg';
 import i18n from './../i18n';
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
-import { Truncate } from '@primer/react';
+import { Button, ButtonGroup, Truncate } from '@primer/react';
+import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from '@primer/octicons-react'
 
 function Footer() {
   // to change the language, we need to set the language in the url and reload the page
@@ -101,9 +101,12 @@ function Footer() {
     <div className="footer-content">
       <nav className="footer-nav">
         <div className='footer-logo'><img alt='PBSLogo' src={PBSLogo}></img></div>
-        <div>
-          {(prevSection || nextSection) && <>
-          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
+        {(prevSection || nextSection) && <>
+        <ButtonGroup className='width-full'>
+          <Button size="large" className='btn-nav btn-footer pb-5 pt-5' 
+            onClick={() => navigate(`/${prevSlug}`)}
+            leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
+          >
             {prevSection &&
               <>{prevButtonText}<br/>
                 <Truncate title={prevSection?.title} maxWidth={100}><i>{prevSection?.title}</i></Truncate>
@@ -112,8 +115,11 @@ function Footer() {
             {!prevSection &&
               <>{homeButtonText}<br/>&nbsp;</>
             }
-          </button>
-          <button className='btn-nav btn-footer' onClick={() => navigate(`/${nextSlug}`)}>
+          </Button>
+          <Button size="large" className='btn-nav btn-footer pb-5 pt-5'
+            onClick={() => navigate(`/${nextSlug}`)}
+            trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
+          >
             {nextSection &&
               <>{nextButtonText}<br/>
                 <Truncate title={nextSection?.title} maxWidth={100}><i>{nextSection?.title}</i></Truncate>
@@ -122,16 +128,19 @@ function Footer() {
             {!nextSection &&
               <>{homeButtonText}<br/>&nbsp;</>
             }
-          </button>
-          </>
-          }
-          {(!prevSection && !nextSection) && <>
-          <button className='btn-nav btn-footer' onClick={() => navigate(`/${prevSlug}`)}>
-              {homeButtonText}<br/>&nbsp;
-          </button>
-          </>
-          }
-        </div>  
+          </Button>
+        </ButtonGroup>
+        </>
+        }
+        {(!prevSection && !nextSection) && <>
+        <Button className='btn-nav btn-footer pb-5 pt-5'
+          onClick={() => navigate(`/${prevSlug}`)}
+          leadingIcon={ArrowUpIcon} 
+        >
+          {homeButtonText}<br/>&nbsp;
+        </Button>
+        </>
+        }
       </nav>
       <div className='footer-bottom'>
         <div className='footer-bottom-nav'>
