@@ -5,14 +5,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
 import { Truncate } from '@primer/react';
 
-type Props = {
-  lang: string
-  sections: SectionT[]
-}
-
-function Footer(props: Props) {
+function Footer() {
   // to change the language, we need to set the language in the url and reload the page
   const navigate = useNavigate();
+  const locale = i18n.language;
+  const sections = window.sections;
+
   const changeLanguage = (lang: string, location: any, oldSections: SectionT[]) => {
     let redirect = false
     const path = location.pathname.replace('/', '')
@@ -56,38 +54,38 @@ function Footer(props: Props) {
   const location = useLocation();
   // get the proper texts for the navigation buttons based on relative section position
   var currentSectionSlug = location.pathname.replace('/', '');
-  // console.log(currentSectionSlug, currentChapter, props.sections)
+  // console.log(currentSectionSlug, currentChapter, sections)
   var prevSection: SectionT | null = null, nextSection: SectionT | null = null;
   if(currentSectionSlug) {
-    for(let i = 0; i < props.sections.length; i++) {
-      if(props.sections[i].slug === currentSectionSlug) {
+    for(let i = 0; i < sections.length; i++) {
+      if(sections[i].slug === currentSectionSlug) {
         if(i>0) {
-          prevSection = props.sections[i-1];
+          prevSection = sections[i-1];
         }
-        if(i<props.sections.length-1) {
-          nextSection = props.sections[i+1];
+        if(i<sections.length-1) {
+          nextSection = sections[i+1];
         }
       }
     }
-  } else if(props.sections[0]) { 
-    // if no props.sections[0] then we can't access the section titles
-    nextSection = props.sections[0];
-    prevSection = props.sections[props.sections.length-1];
+  } else if(sections[0]) { 
+    // if no sections[0] then we can't access the section titles
+    nextSection = sections[0];
+    prevSection = sections[sections.length-1];
   }
   
   // localize the navigation buttons
   let prevButtonText = "Previous Chapter";
   let nextButtonText = "Next Chapter";
   let homeButtonText = "Return to Start";
-  if (props.lang === 'de') {
+  if (locale === 'de') {
     prevButtonText = "Vorheriges Kapitel";
     nextButtonText = "Nächstes Kapitel";
     homeButtonText = "Zurück zum Start";
-  } else if (props.lang === 'fr') {
+  } else if (locale === 'fr') {
     prevButtonText = "Chapitre Précédent";
     nextButtonText = "Chapitre Suivant";
     homeButtonText = "Retour au Début";
-  } else if (props.lang === 'it') {
+  } else if (locale === 'it') {
     prevButtonText = "Capitolo Precedente";
     nextButtonText = "Prossimo Capitolo";
     homeButtonText = "Ritorno all' Inizio";
