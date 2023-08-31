@@ -1,7 +1,5 @@
-import React from 'react'
-
 import styled from '@emotion/styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ZapIcon } from '@primer/octicons-react'
 
 const WarningDiv = styled.div`
   border: 1px solid black;
@@ -25,7 +23,7 @@ function Warning(props: Props) {
     const { content } = props;
     return (
       <WarningDiv>
-        <FontAwesomeIcon icon="exclamation-triangle"/>
+        <ZapIcon/>
         {content}
       </WarningDiv>
     );

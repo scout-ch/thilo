@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
+import './globals'
 import {
   HashRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
-import { faExclamationTriangle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
 import HomePage from './pages/HomePage';
 import i18n from './i18n';
 import { withTranslation } from 'react-i18next';
-import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
@@ -17,6 +15,10 @@ import { checkLinks } from './utils/LinkChecker';
 import SearchPage from './pages/SearchPage';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
+
+import { Box, PageLayout, SplitPageLayout, ThemeProvider } from '@primer/react'
+import { Header } from './components/Header';
+import SidebarNav from './components/SidebarNav';
 
 export type LinkT = {
   title: string
@@ -93,9 +95,6 @@ function App() {
     window.history.scrollRestoration = 'manual'
   }, []);
 
-  // add font awesome icons
-  library.add(faExclamationTriangle, faBars, faSearch)
-
   // check if data is available
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
@@ -106,35 +105,72 @@ function App() {
 
   checkLinks(sections, links)
 
+  window.sections = sections;
+
   // HelmetProvider allows the use of Helmet components to set the title 
   // and, in the future, meta tags and SEO data
-  return <div className='App'>
-    <HelmetProvider>
-      <Router basename="/">
-        <LinksContext.Provider value={links}>
-          <header>
-            <Navigation sections={sections} startPage={startPage}></Navigation>
-          </header>
+  return (
+    <ThemeProvider>
+      <div className='App'>
+        <HelmetProvider>
+          <Router basename="/">
+            <LinksContext.Provider value={links}>
+              {/* Need to set an explicit height for sticky elements since we also
+                set overflow to auto */}
+              {/* <Header sections={sections} startPageMenuName={'start'}></Header>
+              <div className="d-lg-flex">
+                <SidebarNav startPageMenuName={'start'} variant='full'/>
+                <div className="flex-column flex-1 min-width-0">
+                  <main id="main-content">
+                    <Routes>
+                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                        <Route path="/impressum" element={<ImpressumPage />} />
+                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+                        <Route path="/" element={<HomePage page={startPage}/>
+                        } />
+                        <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                      </Routes>
+                  </main>
+                </div>
+              <footer>
+                <Footer lang={lang} sections={sections} />
+              </footer>
+              </div> */}
+              <PageLayout>
+                <PageLayout.Header>
+                  <Header sections={sections} startPageMenuName={'start'}></Header>
+                </PageLayout.Header>
+                <PageLayout.Content>
+                  <div className="flex-column flex-1 min-width-0">
+                    <main id="main-content">
+                      <Routes>
+                          <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                          <Route path="/impressum" element={<ImpressumPage />} />
+                          <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+                          <Route path="/" element={<HomePage page={startPage}/>
+                          } />
+                          <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                        </Routes>
+                    </main>
+                  </div>
+                </PageLayout.Content>
+                  <PageLayout.Pane position={'start'} sticky  //resizable
+                    hidden={{narrow: true, regular: true  , wide: false}}
+                    // offsetHeader={64}
+                  >
+                    <SidebarNav startPageMenuName={'start'} variant='full'/>
+                  </PageLayout.Pane>
+                <PageLayout.Footer>
+                  <Footer />
+                </PageLayout.Footer>
+              </PageLayout>
 
-          <main>
-            <Routes>
-              <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-              <Route path="/impressum" element={<ImpressumPage />} />
-              <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-              <Route path="/" element={<HomePage page={startPage}/>
-              } />
-              <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
-            </Routes>
-
-          </main>
-          <footer>
-            <Footer lang={lang} sections={sections} />
-          </footer>
-
-        </LinksContext.Provider>
-      </Router>
-    </HelmetProvider>
-  </div>
+            </LinksContext.Provider>
+          </Router>
+        </HelmetProvider>
+      </div>
+    </ThemeProvider>
+  )
 }
 
 export default withTranslation()(App);

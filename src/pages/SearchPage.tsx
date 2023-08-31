@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { LinkComponent } from '../utils/MarkdownComponents';
@@ -25,12 +24,12 @@ function SearchPage(props: Props) {
     const searchPage = props.page
 
     // The basis of the search are the sections, from which the chapter content is read
-    return <div className='content-main'>
+    return <div className='content'>
         <Helmet>
             <title>{searchPage.title}</title>
         </Helmet>
         <div className='search'>
-            <h1><FontAwesomeIcon icon="search" /> {searchPage.title}</h1>
+            <h1>{searchPage.title}</h1>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={LinkComponent}

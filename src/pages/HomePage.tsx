@@ -23,7 +23,7 @@ type Props = {
 function HomePage(props: Props) {
   const startPage = props.page
 
-  return <div className='content-main'>
+  return <div className='content'>
     <Helmet>
       <title>{startPage.title}</title>
     </Helmet>

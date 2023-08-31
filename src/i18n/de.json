@@ -8,12 +8,16 @@
       }
     },
     "homePage": {
-      "title": "Hallo Thilo"
+      "title": "Home"
     },
     "searchPage": {
-      "searchPlaceholder": "Suchbegriff eingeben...",
+      "tooltip": "Suchen",
+      "searchPlaceholder": "Kapitel durchsuchen",
       "noResults": "Keine Resultate gefunden. Bitte versuche es mit einem anderen Suchbegriff.",
       "noKeyword": "Bitte gib einen Suchbegriff mit mindestens {{amountOfCharacters}} Zeichen ein, um die Suche zu starten. "
+    },
+    "languagePicker": {
+      "tooltip": "Sprache wählen"
     }
   }
 }

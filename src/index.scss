@@ -1,11 +1,22 @@
-@import './styles/fonts/fonts.css';
+// primer files:
+// CSS color variables: Must come first
+@import '@primer/css/color-modes/index.scss';
+// Global requirements: Must come second
+@import '@primer/css/core/index.scss';
+
+// Primer components
+@import "@primer/css/layout/index.scss";
+
+// @import './styles/fonts/fonts.css';
 @import './styles/section.scss';
 @import './styles/chapter.scss';
 @import './styles/search.scss';
-@import './styles/nav.scss';
-@import './styles/footer.scss';
+// @import './styles/nav.scss';
+// @import './styles/footer.scss';
 @import './styles/loading.scss';
 @import './styles/quiz.scss';
+@import './styles/utilities.scss';
+
 
 :root {
   --color-primary: #521d3a;
@@ -15,13 +26,9 @@
 }
 
 html {
-  font-family: "Roboto", "Source Sans Pro", sans-serif;
+  font-family: sans-serif;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-
+  
   /* TODO: think about scrollbar design
   scrollbar-color: var(--color-primary) var(--color-primary-light);
   scrollbar-width: thin;
@@ -47,6 +54,8 @@ html {
   */
 }
 
+/*
+
 body, #root {
   margin: 0;
   height: 100%; // fixes 100vh on mobile browsers
@@ -54,27 +63,44 @@ body, #root {
 
 .App {
   min-height: 100vh; // fills available space with footer at the bottom
-
+  
   display: grid; // grid layout for header, main, footer
   grid-template-rows: auto 1fr auto;
   grid-template-areas: 
-    'header'
-    'main'
-    'footer';
+  'header'
+  'main'
+  'footer';
 }
 
 header {
   grid-area: header;
 }
 
+
 main {
   grid-area: main;
-  @media screen and (min-width: 860px) {
-    grid-row: 1 / -1; /* grows to fill the remaining space, 
-      keeping the footer at the bottom if content is short 
-      but only for large screens because it moves the start to the headers location
-      */
+  @media screen and (min-width: $width-md) {
+    grid-row: 1 / -1; // grows to fill the remaining space, keeping the footer 
+    // at the bottom if content is short but only for large screens because it 
+    // moves the start to the headers location
+  }
+}
 
+.content {
+  margin: 10px 0 10px 100px;
+  max-width: $width-lg;
+  padding: 30px;
+  @media screen and (max-width: $width-lg) {
+    margin: 10px 0 10px 80px;
+    max-width: $width-md;
+  }
+  @media screen and (max-width: $width-md) {
+    margin: 10px 0 10px 60px;
+    max-width: $width-sm;
+  }
+  @media screen and (max-width: $width-sm) {
+    margin: 10px 0 10px 40px;
+    max-width: calc($width-sm - 155px);
   }
 }
 
@@ -86,9 +112,7 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
-  @media screen and (max-width: calc(860px - 1px)) {
-    scroll-margin-top: 80px; /* offset for fixed header */
-  }
+  scroll-margin-top: 65px; // offset for fixed header
 }
 h4 {
   color: var(--color-primary-light);
@@ -96,7 +120,7 @@ h4 {
 
 h1 {
   font-weight: 700;
-  font-size: 70px;
+  font-size: 50px;
   padding-bottom: 0.1em;
 }
 
@@ -143,27 +167,30 @@ div {
   font-size: 15px;
 }
 
+*/
+
 .icon {
   align-self:center; // height: 100%;
-  // margin: 0em 1.5em 0em -1.5em; /* top right bottom left */
+  // margin: 0em 1.5em 0em -1.5em;
   padding-right: 0.5em;
   width: 80px;
 }
-
-@media (max-width: calc(660px - 1px)) {
+/*
+@media (max-width: $width-sm) {
   h1 {
     font-size: 30px;
   }
-
+  
   h2 {
     font-size: 20px;
   }
-
+  
   .content-main {
     margin: 10px 10px;
   }
 }
-@media (min-width: 660px) {
+
+@media (min-width: $width-sm) {
   h1 {
     font-size: 34px;
   }
@@ -187,11 +214,11 @@ div {
   }
   .icon {
     align-self:center; // height: 100%;
-    // margin: 0em 1.5em 0em -1.5em; /* top right bottom left */
+    // margin: 0em 1.5em 0em -1.5em;
     width: 100px;
   }
 }
-@media (min-width: 860px) {
+@media (min-width: $width-md) {
   p,
   ul,
   li,
@@ -210,7 +237,7 @@ div {
     font-size: 30px;
   }
 }
-@media (min-width: 1100px) {
+@media (min-width: $width-lg) {
   p,
   ul,
   li,
@@ -233,7 +260,7 @@ div {
     font-size: 30px;
   }
 }
-@media (min-width: 1300px) {
+@media (min-width: $width-xl) {
   p,
   ul,
   li,
@@ -252,6 +279,7 @@ div {
     font-size: 40px;
   }
 }
+
 
 li {
   font-weight: 300;
@@ -279,5 +307,6 @@ button {
   border-radius: 4px;
   border: none;
   cursor: pointer;
-  margin: 0.5em 0;
 }
+
+*/

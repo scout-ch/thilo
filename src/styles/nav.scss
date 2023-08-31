@@ -48,10 +48,6 @@ nav.header-nav {
   .header-nav-content {
     height: 100vh;
     overflow-y: auto;
-    @media screen and (max-width: calc(860px - 1px)) {
-      box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-      clip-path: inset(0px -15px 0px 0px); // show only right shadow}
-    }
 
     &>ul {
       list-style-type: disclosure-closed;
@@ -98,62 +94,5 @@ nav.header-nav {
       color: white;
       font-size: 20px;
     }
-  }
-}
-
-@media (max-width: calc(860px - 1px)) {
-  .header-nav {
-    z-index: 300;
-    height: 25px;
-  }
-
-
-  .header-nav-content {
-    display: none;
-    position: fixed;
-    top: 40px;
-    left: 0;
-    bottom: 0;
-    width: 280px;
-    &>ul {
-      padding: 0 20px 0 27px !important;
-    }
-  }
-
-  .content {
-    padding-left: 1rem;
-  }
-
-  .showMenu {
-    display: block;
-    background-color: var(--color-primary);
-  }
-
-  .menuItems {
-    background-color: var(--color-primary);
-    max-width: 400px;
-    z-index: 200;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-out;
-  }
-
-  .menuItems.showMenu {
-    transform: translateX(0);
-    background-color: var(--color-primary);
-  }
-}
-
-@media (min-width: 860px) {
-  .toggle-btn {
-    display: none;
-  }
-
-  header {
-    position: fixed;
-    width: 280px;
-  }
-
-  main {
-    padding-left: 320px;
   }
 }
