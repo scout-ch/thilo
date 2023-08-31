@@ -16,7 +16,7 @@ import SearchPage from './pages/SearchPage';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
 
-import { Box, PageLayout, SplitPageLayout, ThemeProvider } from '@primer/react'
+import { PageLayout, ThemeProvider } from '@primer/react'
 import { Header } from './components/Header';
 import SidebarNav from './components/SidebarNav';
 

@@ -11,46 +11,6 @@ function Footer() {
   const locale = i18n.language;
   const sections = window.sections;
 
-  const changeLanguage = (lang: string, location: any, oldSections: SectionT[]) => {
-    let redirect = false
-    const path = location.pathname.replace('/', '')
-    const currentSection = oldSections.find((s) => { return s['slug'] === path })
-    i18n.changeLanguage(lang).then((_t) => {
-      // we need to reload if we are on the impressum page
-      if (path === 'impressum') {
-        redirect = true
-        return
-      }
-      // else we need to get the new sections and check if the current section has a translation
-      let sectionsLocal = window.localStorage.getItem(`sections_${lang}`);
-      let newSections: SectionT[] = [];
-      if(sectionsLocal !== null) {
-        newSections = JSON.parse(sectionsLocal)
-      } else {
-        console.error('No sections found in local storage')
-        return
-      }
-      if (currentSection) {
-        // TODO: Explore method using localizations by i18n instead of new requests
-        // const localizedSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
-        const localizedSection = newSections.find((s: any) => { return s['sorting'] === currentSection['sorting'] })
-
-        // if the current section has the requested localization, we need to redirect to the new section
-        if(newSections && localizedSection) {
-          const newCurrentSection = newSections.find((s: any) => { return s['sorting'] === localizedSection['sorting'] })
-          if (newCurrentSection) {
-            redirect = true
-            navigate('/' + newCurrentSection.slug)
-          }
-        }
-      }
-      // if no localized section is found, we need to redirect to the start page
-      if (!redirect) {
-        navigate('/')
-      }
-    });
-  }
-
   const location = useLocation();
   // get the proper texts for the navigation buttons based on relative section position
   var currentSectionSlug = location.pathname.replace('/', '');
