@@ -133,11 +133,11 @@ function Footer() {
         </>
         }
         {(!prevSection && !nextSection) && <>
-        <Button className='btn-nav btn-footer pb-5 pt-5'
+        <Button size="large" className='btn-nav btn-footer'
           onClick={() => navigate(`/${prevSlug}`)}
           leadingIcon={ArrowUpIcon} 
         >
-          {homeButtonText}<br/>&nbsp;
+          {homeButtonText}
         </Button>
         </>
         }
