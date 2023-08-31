@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { withTranslation } from "react-i18next"
 import { SearchIcon, XIcon } from '@primer/octicons-react'
-import { IconButton, TextInput } from "@primer/react"
+import { IconButton, TextInput, Tooltip } from "@primer/react"
 
 type Props = {
     t: any,
@@ -59,11 +59,13 @@ function SearchInput(props: Props) {
         }}
       />
     </label>
-    <IconButton
-      aria-label="Search"
-      icon={SearchIcon}
-      sx={{ borderTopLeftRadius: 'unset', borderBottomLeftRadius: 'unset' }}
-    />
+    <Tooltip aria-label={t("searchPage.tooltip")} >
+      <IconButton
+        aria-label={t("searchPage.tooltip")}
+        icon={SearchIcon}
+        sx={{ borderTopLeftRadius: 'unset', borderBottomLeftRadius: 'unset' }}
+      />
+    </Tooltip>
 </form>
 </div>
 }

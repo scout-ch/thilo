@@ -11,9 +11,13 @@
       "title": "Home"
     },
     "searchPage": {
+      "tooltip": "Suchen",
       "searchPlaceholder": "Kapitel durchsuchen",
       "noResults": "Keine Resultate gefunden. Bitte versuche es mit einem anderen Suchbegriff.",
       "noKeyword": "Bitte gib einen Suchbegriff mit mindestens {{amountOfCharacters}} Zeichen ein, um die Suche zu starten. "
+    },
+    "languagePicker": {
+      "tooltip": "Sprache wählen"
     }
   }
 }

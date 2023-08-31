@@ -1,17 +1,19 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GlobeIcon } from '@primer/octicons-react'
 
-import { ActionList, ActionMenu, IconButton, Link } from '@primer/react'
+import { ActionList, ActionMenu, IconButton, Link, Tooltip } from '@primer/react'
 
 import i18n from '../i18n'
 import { SectionT } from './Section'
+import { withTranslation } from 'react-i18next'
 
 type Props = {
+  t?: any
   xs?: boolean
   mediumOrLower?: boolean
 }
 
-export const LanguagePicker = ({ xs, mediumOrLower }: Props) => {
+const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
   const navigate = useNavigate()
   const location = useLocation();
   const languages = {
@@ -114,7 +116,7 @@ export const LanguagePicker = ({ xs, mediumOrLower }: Props) => {
                   'span:first-child': { display: 'inline' },
                 }}
               >
-                <span style={{ whiteSpace: 'pre-wrap' }}>{"t('language_picker_label')" + '\n'}</span>
+                <span style={{ whiteSpace: 'pre-wrap' }}>{"t('language_picker_label')\n"}</span>
                 <span className="color-fg-muted text-normal f6">{selectedLang.name}</span>
               </ActionMenu.Button>
             </ActionMenu.Anchor>
@@ -130,10 +132,12 @@ export const LanguagePicker = ({ xs, mediumOrLower }: Props) => {
       ) : (
         <ActionMenu>
           <ActionMenu.Anchor>
-            <IconButton
-              icon={GlobeIcon}
-              aria-label={`Select language: current language is ${selectedLang.name}`}
-            />
+            <Tooltip aria-label={t("languagePicker.tooltip")}>
+              <IconButton
+                icon={GlobeIcon}
+                aria-label={`Select language: current language is ${selectedLang.name}`}
+              />
+            </Tooltip>
           </ActionMenu.Anchor>
           <ActionMenu.Overlay align="end">
             <ActionList selectionVariant="single">{languageList}</ActionList>
@@ -143,3 +147,5 @@ export const LanguagePicker = ({ xs, mediumOrLower }: Props) => {
     </div>
   )
 }
+
+export default withTranslation()(LanguagePicker)

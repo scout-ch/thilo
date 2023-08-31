@@ -11,9 +11,13 @@
       "title": "Home"
     },
     "searchPage": {
+      "tooltip": "Cercare",
       "searchPlaceholder": "Cerca nei Capitoli",
       "noResults": "Nessun risultato trovato. Prova con un termine di ricerca diverso.",
       "noKeyword": "Inserisci un termine di ricerca di almeno {{amountOfCharacters}} caratteri per avviare la ricerca."
+    },
+    "languagePicker": {
+      "tooltip": "Seleziona Lingua"
     }
   }
 }

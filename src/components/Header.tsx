@@ -10,7 +10,7 @@ import {
 } from '@primer/octicons-react'
 
 import { SectionT } from './Section'
-import { LanguagePicker } from './LanguagePicker'
+import LanguagePicker from './LanguagePicker'
 import SearchInput from './SearchInput'
 import SidebarNav from './SidebarNav'
 import styles from './Header.module.scss'

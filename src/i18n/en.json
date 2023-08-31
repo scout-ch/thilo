@@ -1,20 +1,24 @@
 {
-    "translation": {
-      "target": {
-        "role": {
-          "LL": "Warehouse Manager",
-          "C": "Coach",
-          "AL": "Department Manager"
-        }
-      },
-      "homePage": {
-        "title": "Home"
-      },
-      "searchPage": {
-        "searchPlaceholder": "Search Chapters",
-        "noResults": "No results found. Please try a different search term.",
-        "noKeyword": "Please enter a search term of at least {{amountOfCharacters}} characters to initiate the search."
+  "translation": {
+    "target": {
+      "role": {
+        "LL": "Warehouse Manager",
+        "C": "Coach",
+        "AL": "Department Manager"
       }
+    },
+    "homePage": {
+      "title": "Home"
+    },
+    "searchPage": {
+      "tooltip": "Search",
+      "searchPlaceholder": "Search Chapters",
+      "noResults": "No results found. Please try a different search term.",
+      "noKeyword": "Please enter a search term of at least {{amountOfCharacters}} characters to initiate the search."
+    },
+    "languagePicker": {
+      "tooltip": "Choose Language"
     }
   }
+}
   
