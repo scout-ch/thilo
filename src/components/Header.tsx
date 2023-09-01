@@ -160,11 +160,14 @@ const Header = ({ t }: Props) => {
               top: '0',
               left: '0',
               marginTop: '0',
-              maxHeight: '100vh',
+              maxHeight: '100vh !important',
+              height: '100vh',
               width: 'auto !important',
               transform: 'none',
               borderRadius: '0',
               borderRight: '1px solid var(--color-border-default)',
+              borderBottomRightRadius: '6px',
+              borderTopRightRadius:'6px',
             }}
           >
             <Dialog.Header
