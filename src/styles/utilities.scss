@@ -106,6 +106,7 @@
 ------------------------------------------------------------------------------*/
 
 // used to help prevent overlapping main content and the minitoc sidebar
+$breakpoint-xxl: 1400px;
 @mixin breakpoint-xxl {
     @media (min-width: 1400px) {
       @content;
@@ -120,6 +121,11 @@
 
 .d-xxl-none {
   @include breakpoint-xxl {
+    display: none !important;
+  }
+}
+@media (min-width: $breakpoint-xxl) {
+  .hide-xxl {
     display: none !important;
   }
 }

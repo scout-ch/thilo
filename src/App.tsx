@@ -116,11 +116,13 @@ function App() {
           <Router basename="/">
             <LinksContext.Provider value={links}>
               <PageLayout>
-                <PageLayout.Header>
+                {/* <PageLayout.Header>
                   <Header />
-                </PageLayout.Header>
+                </PageLayout.Header> */}
                 <PageLayout.Content>
                   <div className="flex-column flex-1 min-width-0">
+                    {/* to have a sticky header, it needs to be placed here */}
+                    <Header /> 
                     <main id="main-content">
                       <Routes>
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />

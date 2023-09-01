@@ -136,7 +136,7 @@ const Header = ({ t }: Props) => {
         >
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
-            className="color-fg-muted border hide-xl mr-3"
+            className="color-fg-muted border hide-xxl mr-3"
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
             onClick={openSidebar}
