@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/thilo/static/css/main.010e2699.css",
-    "main.js": "/thilo/static/js/main.26d0fb60.js",
+    "main.js": "/thilo/static/js/main.b061b808.js",
     "static/js/496.5c07fd4f.chunk.js": "/thilo/static/js/496.5c07fd4f.chunk.js",
     "static/media/pbs_logo.svg": "/thilo/static/media/pbs_logo.335517935b1dda8752296e36c6bc4772.svg",
     "index.html": "/thilo/index.html",
     "main.010e2699.css.map": "/thilo/static/css/main.010e2699.css.map",
-    "main.26d0fb60.js.map": "/thilo/static/js/main.26d0fb60.js.map",
+    "main.b061b808.js.map": "/thilo/static/js/main.b061b808.js.map",
     "496.5c07fd4f.chunk.js.map": "/thilo/static/js/496.5c07fd4f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.010e2699.css",
-    "static/js/main.26d0fb60.js"
+    "static/js/main.b061b808.js"
   ]
 }
