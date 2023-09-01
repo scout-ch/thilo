@@ -139,11 +139,19 @@ export const Header = (props: Props) => {
         >
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
-            className="color-fg-muted border hide-xl"
+            className="color-fg-muted border hide-xl mr-3"
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
             onClick={openSidebar}
             ref={returnFocusRef}
+            sx={
+              isSearchOpen ? {
+                // make sure search doesn't squash the button too much, hide it
+                    '@media (max-width: 400px)': {
+                      display: 'none',
+                    },
+                  }: { }
+                }
           />
           <Dialog
             returnFocusRef={returnFocusRef}

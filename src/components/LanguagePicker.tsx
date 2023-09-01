@@ -17,9 +17,9 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
   const navigate = useNavigate()
   const location = useLocation();
   const languages = {
-    "de": {name:"Deutsch"},
-    "fr": {name:"Français"},
-    "it": {name:"Italiano"},
+    "de": {name: "Deutsch"},
+    "fr": {name: "Français"},
+    "it": {name: "Italiano"},
     // "en": {name:"English (not implemented)"},
   };
   
@@ -100,15 +100,14 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
   // the <Header> component can place it inside its own <ActionMenu> with multiple
   // groups, language being just one of those groups.
   return (
-    <div data-testid="language-picker" className="d-flex">
+    <div data-testid="language-picker" className="d-flex z-3">
       {xs ? (
         <>
           {/* XS Mobile Menu */}
           <ActionMenu>
             <ActionMenu.Anchor>
               <ActionMenu.Button
-                variant="invisible"
-                className="color-fg-default width-full"
+                className="width-full"
                 aria-label={`Select language: current language is ${selectedLang.name}`}
                 sx={{
                   height: 'auto',
