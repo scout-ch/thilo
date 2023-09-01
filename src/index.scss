@@ -27,43 +27,8 @@
 
 html {
   font-family: sans-serif;
-
-  
-  /* TODO: think about scrollbar design
-  scrollbar-color: var(--color-primary) var(--color-primary-light);
-  scrollbar-width: thin;
-  
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: var(--color-primary-light);
-    &:hover {
-      background: brightness(var(--lightness));
-    }
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-    -webkit-border-radius: 5px;
-    &:hover {
-      background: brightness(var(--lightness));
-    }
-  }
-  */
 }
 
-
-body, #root {
-  margin: 0;
-  height: 100%; // fixes 100vh on mobile browsers
-  overflow: hidden;
-}
-
-.App {
-  min-height: 100vh; // fills available space with footer at the bottom
-}
 
 img {
   max-width: 100%;
@@ -82,6 +47,12 @@ ul, ol {
   list-style-position:inside;
 
 }
+.icon {
+  align-self:center; // height: 100%;
+  // margin: 0em 1.5em 0em -1.5em;
+  padding-right: 0.5em;
+  width: 80px;
+}
 
 
 .bg-primary {
@@ -90,11 +61,4 @@ ul, ol {
 
 .bg-secondary {
   background-color: var(--color-primary-light) !important;
-}
-
-.icon {
-  align-self:center; // height: 100%;
-  // margin: 0em 1.5em 0em -1.5em;
-  padding-right: 0.5em;
-  width: 80px;
 }

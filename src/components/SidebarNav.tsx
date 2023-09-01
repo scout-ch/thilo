@@ -88,7 +88,7 @@ function SidebarNav(props: Props) {
             <div
             className={cx(
             variant === 'overlay' ? 'd-xxl-none' : 'd-none d-lg-block d-xxl-block',
-            'bg-primary overflow-y-auto flex-shrink-0',
+            
             )}
             >
             </div>

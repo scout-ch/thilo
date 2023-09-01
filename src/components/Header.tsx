@@ -9,7 +9,6 @@ import {
   KebabHorizontalIcon
 } from '@primer/octicons-react'
 
-import { SectionT } from './Section'
 import LanguagePicker from './LanguagePicker'
 import SearchInput from './SearchInput'
 import SidebarNav from './SidebarNav'
@@ -17,13 +16,10 @@ import styles from './Header.module.scss'
 import { withTranslation } from 'react-i18next'
 
 type Props = {
-    sections: Array<SectionT>
-    startPageMenuName: String
     t?: any
 }
 
-const Header = (props: Props) => {
-
+const Header = ({ t }: Props) => {
   const [scroll, setScroll] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const openSidebar = useCallback(() => setIsSidebarOpen(true), [])
@@ -138,7 +134,6 @@ const Header = (props: Props) => {
           role='banner'
           aria-label='Main'
         >
-          
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
             className="color-fg-muted border hide-xl mr-3"
@@ -179,7 +174,7 @@ const Header = (props: Props) => {
               >
               SidebarNav Header
             </Dialog.Header>
-            <SidebarNav startPageMenuName={props.startPageMenuName} variant="overlay" />
+            <SidebarNav startPageMenuName={t('startPage.menuName')} variant="overlay" />
           </Dialog>
           
 

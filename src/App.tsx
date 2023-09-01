@@ -117,7 +117,7 @@ function App() {
             <LinksContext.Provider value={links}>
               <PageLayout>
                 <PageLayout.Header>
-                  <Header sections={sections} startPageMenuName={'start'}></Header>
+                  <Header />
                 </PageLayout.Header>
                 <PageLayout.Content>
                   <div className="flex-column flex-1 min-width-0">

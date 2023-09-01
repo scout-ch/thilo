@@ -101,25 +101,6 @@
   width: 1px;
 }
 
-/* Screen Reader Only
-------------------------------------------------------------------------------*/
-.skip-button {
-  width: auto;
-  height: auto;
-  clip: auto;
-  overflow: hidden;
-  z-index: 101;
-  padding: 16px;
-
-  &:not(:focus) {
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    padding: 0px;
-  }
-}
 
 /* Responsive display utilities
 ------------------------------------------------------------------------------*/
