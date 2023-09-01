@@ -54,7 +54,6 @@ html {
   */
 }
 
-/*
 
 body, #root {
   margin: 0;
@@ -63,45 +62,6 @@ body, #root {
 
 .App {
   min-height: 100vh; // fills available space with footer at the bottom
-  
-  display: grid; // grid layout for header, main, footer
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas: 
-  'header'
-  'main'
-  'footer';
-}
-
-header {
-  grid-area: header;
-}
-
-
-main {
-  grid-area: main;
-  @media screen and (min-width: $width-md) {
-    grid-row: 1 / -1; // grows to fill the remaining space, keeping the footer 
-    // at the bottom if content is short but only for large screens because it 
-    // moves the start to the headers location
-  }
-}
-
-.content {
-  margin: 10px 0 10px 100px;
-  max-width: $width-lg;
-  padding: 30px;
-  @media screen and (max-width: $width-lg) {
-    margin: 10px 0 10px 80px;
-    max-width: $width-md;
-  }
-  @media screen and (max-width: $width-md) {
-    margin: 10px 0 10px 60px;
-    max-width: $width-sm;
-  }
-  @media screen and (max-width: $width-sm) {
-    margin: 10px 0 10px 40px;
-    max-width: calc($width-sm - 155px);
-  }
 }
 
 img {
@@ -112,23 +72,16 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
-  scroll-margin-top: 65px; // offset for fixed header
 }
 h4 {
   color: var(--color-primary-light);
 }
 
-h1 {
-  font-weight: 700;
-  font-size: 50px;
-  padding-bottom: 0.1em;
+ul, ol {
+  list-style-position:inside;
+
 }
 
-h2 {
-  font-size: 35px;
-  font-weight: 600; // default: 700
-  margin-bottom: -0.15em;
-}
 
 .bg-primary {
   background-color: var(--color-primary) !important;
@@ -138,175 +91,9 @@ h2 {
   background-color: var(--color-primary-light) !important;
 }
 
-a {
-  font-weight: 400;
-  color: var(--color-primary-light);
-  text-decoration: none;
-  opacity: 1;
-  &:focus,
-  &:hover,
-  &:active,
-  &.active {
-    opacity: 0.8;
-  }
-}
-
-p {
-  font-weight: 300; // default: 400
-  padding-bottom: 1em;
-  font-size: 18px;
-}
-
-p,
-ul,
-li,
-a,
-span,
-div {
-  // line-height: var(--line-height);
-  font-size: 15px;
-}
-
-*/
-
 .icon {
   align-self:center; // height: 100%;
   // margin: 0em 1.5em 0em -1.5em;
   padding-right: 0.5em;
   width: 80px;
 }
-/*
-@media (max-width: $width-sm) {
-  h1 {
-    font-size: 30px;
-  }
-  
-  h2 {
-    font-size: 20px;
-  }
-  
-  .content-main {
-    margin: 10px 10px;
-  }
-}
-
-@media (min-width: $width-sm) {
-  h1 {
-    font-size: 34px;
-  }
-
-  h2 {
-    font-size: 28px;
-  }
-
-  p,
-  ul,
-  li,
-  a,
-  span,
-  div,
-  h2 .btn {
-    font-size: 16.25px;
-  }
-
-  .content-main {
-    margin: 0 5rem 0 3rem;
-  }
-  .icon {
-    align-self:center; // height: 100%;
-    // margin: 0em 1.5em 0em -1.5em;
-    width: 100px;
-  }
-}
-@media (min-width: $width-md) {
-  p,
-  ul,
-  li,
-  a,
-  span,
-  div,
-  h2 .btn {
-    font-size: 17.5px;
-  }
-
-  h1 {
-    font-size: 40px;
-  }
-
-  h2 {
-    font-size: 30px;
-  }
-}
-@media (min-width: $width-lg) {
-  p,
-  ul,
-  li,
-  a,
-  span,
-  div,
-  h2 .btn {
-    font-size: 18.75px;
-  }
-
-  .content-main {
-    margin: 0 9rem 0 6rem;
-  }
-
-  h1 {
-    font-size: 50px;
-  }
-
-  h2 {
-    font-size: 30px;
-  }
-}
-@media (min-width: $width-xl) {
-  p,
-  ul,
-  li,
-  a,
-  span,
-  div,
-  h2 .btn {
-    font-size: 20px;
-  }
-
-  h1 {
-    font-size: 70px;
-  }
-
-  h2 {
-    font-size: 40px;
-  }
-}
-
-
-li {
-  font-weight: 300;
-}
-
-table {
-  td {
-    border-top: 1px solid var(--color-primary-light);
-    padding: 5px;
-    margin: 0;
-  }
-
-  tr {
-    font-weight: 300;
-  }
-}
-
-button {
-  font-size: 1em;
-  padding: .5em;
-  text-align: center;
-  min-width: 5em;
-  background-color: var(--color-primary-light);
-  color: white;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-}
-
-*/
