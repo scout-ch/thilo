@@ -18,6 +18,9 @@
     },
     "languagePicker": {
       "tooltip": "Choose Language"
+    },
+    "scrollButton": {
+      "tooltip": "Scroll to Top"
     }
   }
 }

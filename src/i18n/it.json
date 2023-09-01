@@ -18,6 +18,9 @@
     },
     "languagePicker": {
       "tooltip": "Seleziona Lingua"
+    },
+    "scrollButton": {
+      "tooltip": "Scorrere Verso l'Alto"
     }
   }
 }

@@ -4,8 +4,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
 import { Button, ButtonGroup, Truncate } from '@primer/react';
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from '@primer/octicons-react'
+import ScrollButton from './ScrollButton';
 
-function Footer() {
+type Props = {
+  t?: any;
+}
+
+function Footer({ t }: Props) {
   // to change the language, we need to set the language in the url and reload the page
   const navigate = useNavigate();
   const locale = i18n.language;
@@ -107,6 +112,7 @@ function Footer() {
           <div className="footer-copyright">© 2022 Pfadibewegung Schweiz</div>
           <Link to="/impressum">Impressum</Link>
         </div>
+        <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
       </div>
     </div>
   </>
