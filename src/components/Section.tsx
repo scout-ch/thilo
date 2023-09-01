@@ -36,10 +36,14 @@ function Section(props: Props) {
     })
     let classes=`section-title section-${props.section.sorting}`;
     const root = document.documentElement;
-    if(props.section.color_primary)
+    if(props.section.color_primary){
         root.style.setProperty('--color-primary', props.section.color_primary);
-    if(props.section.color_primary_light)
+        root.style.setProperty('--color-accent-emphasis', props.section.color_primary);
+    }
+    
+    if(props.section.color_primary_light) {
         root.style.setProperty('--color-primary-light', props.section.color_primary_light);
+    }
 
 
     return <div className='content'>
