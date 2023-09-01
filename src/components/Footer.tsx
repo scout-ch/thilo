@@ -63,7 +63,7 @@ function Footer({ t }: Props) {
 
   // render the footer with the localized navigation buttons
   return <>
-    <div className="footer-content">
+    <footer data-container="footer">
       <nav className="footer-nav">
         <div className='footer-logo'><img alt='PBSLogo' src={PBSLogo}></img></div>
         {(prevSection || nextSection) && <>
@@ -108,7 +108,7 @@ function Footer({ t }: Props) {
         }
         <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
       </nav>
-    </div>
+    </footer>
   </>
 
 }
