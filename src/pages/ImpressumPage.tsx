@@ -24,7 +24,7 @@ function ImpressumPage() {
 
   if (!impressumPage) return null
 
-  return <div className='content-main'>
+  return <div className='content'>
     <Helmet>
       <title>{impressumPage.title}</title>
     </Helmet>

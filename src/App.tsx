@@ -115,27 +115,6 @@ function App() {
         <HelmetProvider>
           <Router basename="/">
             <LinksContext.Provider value={links}>
-              {/* Need to set an explicit height for sticky elements since we also
-                set overflow to auto */}
-              {/* <Header sections={sections} startPageMenuName={'start'}></Header>
-              <div className="d-lg-flex">
-                <SidebarNav startPageMenuName={'start'} variant='full'/>
-                <div className="flex-column flex-1 min-width-0">
-                  <main id="main-content">
-                    <Routes>
-                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-                        <Route path="/impressum" element={<ImpressumPage />} />
-                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-                        <Route path="/" element={<HomePage page={startPage}/>
-                        } />
-                        <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
-                      </Routes>
-                  </main>
-                </div>
-              <footer>
-                <Footer lang={lang} sections={sections} />
-              </footer>
-              </div> */}
               <PageLayout>
                 <PageLayout.Header>
                   <Header sections={sections} startPageMenuName={'start'}></Header>

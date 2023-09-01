@@ -1,4 +1,3 @@
-import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
@@ -44,21 +43,20 @@ function Section(props: Props) {
 
 
     return <div className='content'>
-        <Helmet><title>{props.section['title']}</title></Helmet>
-        <div className='content-main'>
-            <div id="section-title" className={classes}>
-                <h1>
-                    {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
-                    {props.section['title']}
-                </h1>
-            </div>
-            <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={LinkComponent}
-            >{props.section.content ?? ''}</ReactMarkdown>
-            {chapters}
+    <Helmet><title>{props.section['title']}</title></Helmet>
+        <div id="section-title" className={classes}>
+            <h1>
+                {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
+                {props.section['title']}
+            </h1>
         </div>
+        <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={LinkComponent}
+        >{props.section.content ?? ''}</ReactMarkdown>
+        {chapters}
     </div>
+
 }
 
 export default withTranslation()(Section)
