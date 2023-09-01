@@ -109,7 +109,7 @@ function Footer({ t }: Props) {
       </nav>
       <div className='footer-bottom'>
         <div className='footer-bottom-nav'>
-          <div className="footer-copyright">© 2022 Pfadibewegung Schweiz</div>
+          <div className="footer-copyright">© 2024 Pfadibewegung Schweiz</div>
           <Link as={ReactRouterLink} to="/impressum">Impressum</Link>
         </div>
         <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
