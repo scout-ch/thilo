@@ -21,6 +21,11 @@
     },
     "scrollButton": {
       "tooltip": "Nach Oben Scrollen"
+    },
+    "footer": {
+      "prevButtonText": "Vorheriges Kapitel",
+      "nextButtonText": "Nächstes Kapitel",
+      "homeButtonText": "Zurück zum Start"
     }
   }
 }

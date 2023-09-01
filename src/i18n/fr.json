@@ -21,6 +21,11 @@
     },
     "scrollButton": {
       "tooltip": "Remonter en Haut"
+    },
+    "footer": {
+      "prevButtonText": "Chapitre Précédent",
+      "nextButtonText": "Chapitre Suivant",
+      "homeButtonText": "Retour au Début"
     }
   }
 }

@@ -5,6 +5,7 @@ import type { SectionT } from './Section';
 import { Button, ButtonGroup, Truncate } from '@primer/react';
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from '@primer/octicons-react'
 import ScrollButton from './ScrollButton';
+import { withTranslation } from 'react-i18next';
 
 type Props = {
   t?: any;
@@ -37,24 +38,6 @@ function Footer({ t }: Props) {
     nextSection = sections[0];
     prevSection = sections[sections.length-1];
   }
-  
-  // localize the navigation buttons
-  let prevButtonText = "Previous Chapter";
-  let nextButtonText = "Next Chapter";
-  let homeButtonText = "Return to Start";
-  if (locale === 'de') {
-    prevButtonText = "Vorheriges Kapitel";
-    nextButtonText = "Nächstes Kapitel";
-    homeButtonText = "Zurück zum Start";
-  } else if (locale === 'fr') {
-    prevButtonText = "Chapitre Précédent";
-    nextButtonText = "Chapitre Suivant";
-    homeButtonText = "Retour au Début";
-  } else if (locale === 'it') {
-    prevButtonText = "Capitolo Precedente";
-    nextButtonText = "Prossimo Capitolo";
-    homeButtonText = "Ritorno all' Inizio";
-  }
 
   var prevSlug = prevSection && prevSection.slug;
   var nextSlug = nextSection && nextSection.slug;
@@ -73,12 +56,12 @@ function Footer({ t }: Props) {
             leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
           >
             {prevSection &&
-              <>{prevButtonText}<br/>
+              <>{t('footer.prevButtonText')}<br/>
                 <Truncate title={prevSection?.title} maxWidth={100}><i>{prevSection?.title}</i></Truncate>
               </>
             }
             {!prevSection &&
-              <>{homeButtonText}<br/>&nbsp;</>
+              <>{t('footer.homeButtonText')}<br/>&nbsp;</>
             }
           </Button>
           <Button size="large" className='btn-nav btn-footer pb-5 pt-5'
@@ -86,12 +69,12 @@ function Footer({ t }: Props) {
             trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
           >
             {nextSection &&
-              <>{nextButtonText}<br/>
+              <>{t('footer.nextButtonText')}<br/>
                 <Truncate title={nextSection?.title} maxWidth={100}><i>{nextSection?.title}</i></Truncate>
               </>
             }
             {!nextSection &&
-              <>{homeButtonText}<br/>&nbsp;</>
+              <>{t('footer.homeButtonText')}<br/>&nbsp;</>
             }
           </Button>
         </ButtonGroup>
@@ -102,7 +85,7 @@ function Footer({ t }: Props) {
           onClick={() => navigate(`/${prevSlug}`)}
           leadingIcon={ArrowUpIcon} 
         >
-          {homeButtonText}
+          {t('footer.homeButtonText')}
         </Button>
         </>
         }
@@ -113,4 +96,4 @@ function Footer({ t }: Props) {
 
 }
 
-export default Footer
+export default withTranslation()(Footer)
