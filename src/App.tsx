@@ -111,8 +111,8 @@ function App() {
   // and, in the future, meta tags and SEO data
   return (
     <ThemeProvider>
-      <div className='App'>
-        <HelmetProvider>
+      <HelmetProvider>
+        <div className='App'>
           <Router basename="/">
             <LinksContext.Provider value={links}>
               <PageLayout>
@@ -146,8 +146,8 @@ function App() {
 
             </LinksContext.Provider>
           </Router>
-        </HelmetProvider>
-      </div>
+        </div>
+      </HelmetProvider>
     </ThemeProvider>
   )
 }
