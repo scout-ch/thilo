@@ -1,5 +1,4 @@
 import PBSLogo from '../images/pbs_logo.svg';
-import i18n from './../i18n';
 import { useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
 import { Button, ButtonGroup, Truncate } from '@primer/react';
@@ -14,7 +13,6 @@ type Props = {
 function Footer({ t }: Props) {
   // to change the language, we need to set the language in the url and reload the page
   const navigate = useNavigate();
-  const locale = i18n.language;
   const sections = window.sections;
 
   const location = useLocation();
