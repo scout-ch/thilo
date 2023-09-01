@@ -1,8 +1,8 @@
 import PBSLogo from '../images/pbs_logo.svg';
 import i18n from './../i18n';
-import { Link as ReactRouterLink, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
-import { Button, ButtonGroup, Truncate, Link } from '@primer/react';
+import { Button, ButtonGroup, Truncate } from '@primer/react';
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from '@primer/octicons-react'
 import ScrollButton from './ScrollButton';
 
@@ -106,14 +106,8 @@ function Footer({ t }: Props) {
         </Button>
         </>
         }
-      </nav>
-      <div className='footer-bottom'>
-        <div className='footer-bottom-nav'>
-          <div className="footer-copyright">© 2024 Pfadibewegung Schweiz</div>
-          <Link as={ReactRouterLink} to="/impressum">Impressum</Link>
-        </div>
         <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
-      </div>
+      </nav>
     </div>
   </>
 

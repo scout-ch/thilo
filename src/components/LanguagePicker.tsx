@@ -89,7 +89,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
         }
       }}
     >
-      <span data-testid="default-language">
+      <span>
         <Link to={lang}>{languages[lang as keyof typeof languages].name}</Link>
       </span>
     </ActionList.Item>
@@ -100,7 +100,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
   // the <Header> component can place it inside its own <ActionMenu> with multiple
   // groups, language being just one of those groups.
   return (
-    <div data-testid="language-picker" className="d-flex z-3">
+    <div className="d-flex">
       {xs ? (
         <>
           {/* XS Mobile Menu */}
@@ -115,18 +115,18 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
                   'span:first-child': { display: 'inline' },
                 }}
               >
-                <span style={{ whiteSpace: 'pre-wrap' }}>{"t('language_picker_label')\n"}</span>
+                <span style={{ whiteSpace: 'pre-wrap' }}>{t('languagePicker.tooltip')+'\n'}</span>
                 <span className="color-fg-muted text-normal f6">{selectedLang.name}</span>
               </ActionMenu.Button>
             </ActionMenu.Anchor>
-            <ActionMenu.Overlay align="start">
+            <ActionMenu.Overlay align="end">
               <ActionList selectionVariant="single">{languageList}</ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
         </>
       ) : mediumOrLower ? (
-        <ActionList className="hide-sm" selectionVariant="single">
-          <ActionList.Group title={"t('language_picker_label')"}>{languageList}</ActionList.Group>
+        <ActionList className="hide-sm width-full" selectionVariant="single">
+          <ActionList.Group title={t('languagePicker.tooltip')}>{languageList}</ActionList.Group>
         </ActionList>
       ) : (
         <ActionMenu>
@@ -134,7 +134,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
             <Tooltip aria-label={t("languagePicker.tooltip")}>
               <IconButton
                 icon={GlobeIcon}
-                aria-label={`Select language: current language is ${selectedLang.name}`}
+                aria-label={`${t('languagePicker.tooltip')}: ${selectedLang.name}`}
               />
             </Tooltip>
           </ActionMenu.Anchor>

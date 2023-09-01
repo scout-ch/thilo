@@ -58,6 +58,7 @@ html {
 body, #root {
   margin: 0;
   height: 100%; // fixes 100vh on mobile browsers
+  overflow: hidden;
 }
 
 .App {

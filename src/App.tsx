@@ -17,7 +17,7 @@ import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
 
 import { PageLayout, ThemeProvider } from '@primer/react'
-import { Header } from './components/Header';
+import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
 
 export type LinkT = {

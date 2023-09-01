@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, Link as ReactRouterLink } from 'react-router-dom'
 import cx from 'classnames'
-import { Dialog, IconButton } from '@primer/react'
+import { ActionList, ActionMenu, Dialog, IconButton } from '@primer/react'
 import {
   ThreeBarsIcon,
   SearchIcon,
   XIcon,
+  KebabHorizontalIcon
 } from '@primer/octicons-react'
 
 import { SectionT } from './Section'
@@ -13,15 +14,15 @@ import LanguagePicker from './LanguagePicker'
 import SearchInput from './SearchInput'
 import SidebarNav from './SidebarNav'
 import styles from './Header.module.scss'
-
-
+import { withTranslation } from 'react-i18next'
 
 type Props = {
     sections: Array<SectionT>
     startPageMenuName: String
+    t?: any
 }
 
-export const Header = (props: Props) => {
+const Header = (props: Props) => {
 
   const [scroll, setScroll] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -131,12 +132,13 @@ export const Header = (props: Props) => {
       >
         <header
           className={cx(
-            'color-bg-default p-2 z-1 sections',
+            'color-bg-default p-2 z-1 sections position-sticky top-0 z-1 border rounded',
             scroll && 'color-shadow-small',
           )}
           role='banner'
           aria-label='Main'
         >
+          
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
             className="color-fg-muted border hide-xl mr-3"
@@ -227,8 +229,73 @@ export const Header = (props: Props) => {
               />
             </>
             }
-            <div className={cx('d-lg-flex flex-items-center ml-3', isSearchResultsPage && 'ml-auto')}>
+            <div className={isSearchResultsPage? 'ml-auto' : ''}>
+              <div className={cx('d-none d-lg-flex flex-items-center')}>
                 <LanguagePicker />
+              </div>
+
+              {/* The ... navigation menu at medium and smaller widths */}
+              <div>
+                <ActionMenu aria-labelledby="menu-title">
+                  <ActionMenu.Anchor>
+                    <IconButton
+                      icon={KebabHorizontalIcon}
+                      aria-label="Open Menu"
+                      sx={
+                        isSearchOpen
+                          ? // The ... menu button when the smaller width search UI is open.  Since the search
+                            // UI is open, we don't show the button at smaller widths but we do show it as
+                            // the browser width increases to md, and then at lg and above widths we hide
+                            // the button again since the pickers and sign-up button are shown in the header.
+                            {
+                              marginLeft: '8px',
+                              display: 'none',
+                              // breakpoint(md)
+                              '@media (min-width: 768px)': {
+                                display: 'inline-block',
+                                marginLeft: '4px',
+                              },
+                              // breakpoint(lg)
+                              '@media (min-width: 1012px)': {
+                                display: 'none',
+                              },
+                            }
+                          : // The ... menu button when the smaller width search UI is closed, the button is
+                            // shown up to md.  At lg and above we don't show the button since the pickers
+                            // and sign-up button are shown in the header.
+                            {
+                              marginLeft: '16px',
+                              '@media (min-width: 768px)': {
+                                marginLeft: '0',
+                              },
+                              '@media (min-width: 1012px)': {
+                                display: 'none',
+                              },
+                            }
+                      }
+                    />
+                  </ActionMenu.Anchor>
+                  <ActionMenu.Overlay align="start">
+                    <ActionList>
+                      <ActionList.Group>
+                        {width && width > 544 ? (
+                          <LanguagePicker mediumOrLower={true}/>
+                        ) : (
+                          <LanguagePicker xs={true} />
+                        )}
+                      </ActionList.Group>
+                      <ActionList.Group>
+                        <ActionList.Item as={ReactRouterLink} to="/impressum">
+                          Impressum
+                        </ActionList.Item>
+                        <ActionList.Item disabled>
+                          © 2024 Pfadibewegung Schweiz
+                        </ActionList.Item>
+                      </ActionList.Group>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+              </div>
             </div>
           </div>
         </header>
@@ -236,3 +303,5 @@ export const Header = (props: Props) => {
     </>
   )
 }
+
+export default withTranslation()(Header);
