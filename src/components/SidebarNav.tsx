@@ -1,9 +1,8 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link as ReactRouterLink, useLocation } from 'react-router-dom'
 import type { ChapterT } from './Chapter'
 import type { SectionT } from './Section'
 
-import { NavList, Truncate} from '@primer/react'
+import { NavList, Truncate, Link} from '@primer/react'
 import cx from 'classnames'
 
 import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon } from '@primer/octicons-react'
@@ -22,13 +21,11 @@ function SidebarNav(props: Props) {
 
     
     const sectionListNavItems = sections.map(function (section: SectionT, index: number) {
-        var sectionActive = location.pathname.replace('/', '') === section.slug
+        const sectionActive = location.pathname.replace('/', '') === section.slug;
+        const id = `nav_item_${section.sorting}_${section.slug}`;
         
-        /*
-        var link = '/#/'+section.slug
-        var id = 'nav_li_'+section.slug
-        const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
-        */
+        // const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
+
         const icons = [RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon];
         const DynamicIcon = icons[section.sorting % icons.length]
 
@@ -36,26 +33,30 @@ function SidebarNav(props: Props) {
         const chapterNavItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
             return a.sorting - b.sorting;
         }).map(function (chapter: ChapterT) {
-            var isActive = location.hash.replace('#', '') === chapter.slug
+            const isActive = location.hash.replace('#', '') === chapter.slug
+            const id = `subnav_item_${chapter.sorting}_${chapter.slug_with_section}`;
             return (
                 <NavList.Item 
                     // className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     // aria-current={isActive && "page"}
+                    key={id} id={id}
                 >
                     <NavList.LeadingVisual>
                     {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
-                    <Link to={(`${chapter.slug_with_section}`)}>
-                        {chapter.menu_name}
-                    </Link>
+                    <Link as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}> {chapter.menu_name} </Link>
                 </NavList.Item>
             )
         })
 
         return (
-            <NavList.Item className={section.slug} aria-current={sectionActive && "page"}>
+            <NavList.Item 
+            id={id} key={id}
+            className={section.slug} 
+            aria-current={sectionActive && "page"}
+            >
                 <NavList.LeadingVisual><DynamicIcon/></NavList.LeadingVisual>
-                <Link to={section.slug}>
+                <Link as={ReactRouterLink} to={section.slug}>
                     <Truncate title={section.menu_name} as='span' className='d-inline-block' maxWidth={200}>{section.menu_name}</Truncate>
                 </Link>
                 {chapterNavItems.length > 0 && 
@@ -80,7 +81,7 @@ function SidebarNav(props: Props) {
             <NavList className={cx('')}>
                 <NavList.Item className={classHome}>
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
-                    <Link to='/'>Home</Link>
+                    <Link as={ReactRouterLink} to='/'>Home</Link>
                 </NavList.Item>
                 {sectionListNavItems}
             </NavList>
