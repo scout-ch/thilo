@@ -44,9 +44,13 @@ h4 {
 }
 
 ul, ol {
-  list-style-position:inside;
-
+  list-style-position: inside;
+  li::marker {
+    color: var(--color-primary);
+  }
 }
+
+
 .icon {
   align-self:center; // height: 100%;
   // margin: 0em 1.5em 0em -1.5em;
