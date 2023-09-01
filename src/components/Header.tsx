@@ -128,7 +128,7 @@ const Header = ({ t }: Props) => {
       >
         <header
           className={cx(
-            'color-bg-default p-2 z-1 sections position-sticky top-0 z-1',
+            'color-bg-default p-2 z-1 sections position-sticky top-0 z-1 rounded',
             scroll && 'color-shadow-small',
           )}
           role='banner'
@@ -228,9 +228,9 @@ const Header = ({ t }: Props) => {
             </>
             }
             <div className={isSearchResultsPage? 'ml-auto' : ''}>
-              <div className={cx('d-none d-lg-flex flex-items-center')}>
+              {/* <div className={cx('d-none d-lg-flex flex-items-center')}>
                 <LanguagePicker />
-              </div>
+              </div> */}
 
               {/* The ... navigation menu at medium and smaller widths */}
               <div>
@@ -267,7 +267,7 @@ const Header = ({ t }: Props) => {
                                 marginLeft: '0',
                               },
                               '@media (min-width: 1012px)': {
-                                display: 'none',
+                                display: 'inline-block', // display: 'none' to hide on bigger screens!
                               },
                             }
                       }
