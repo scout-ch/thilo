@@ -159,14 +159,17 @@ const Header = ({ t }: Props) => {
               transform: 'none',
               borderRadius: '0',
               borderRight: '1px solid var(--color-border-default)',
-              borderBottomRightRadius: '6px',
-              borderTopRightRadius:'6px',
+              borderBottomRightRadius: '6px !important',
+              borderTopRightRadius:'6px !important',
             }}
           >
             <Dialog.Header
-              style={{ paddingTop: '0px', background: 'none' }}
               id="sidebar-overlay-header"
-              sx={{ display: 'block' }}
+              sx={{
+                borderRadius: '0',
+                borderBottomRightRadius: '6px !important',
+                borderTopRightRadius:'6px !important',
+              }}
               >
               SidebarNav Header
             </Dialog.Header>
@@ -197,7 +200,6 @@ const Header = ({ t }: Props) => {
                 icon={SearchIcon}
               />
               <IconButton
-                className="px-3"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 aria-label="Close Search Bar"
                 aria-expanded={isSearchOpen ? 'true' : 'false'}
