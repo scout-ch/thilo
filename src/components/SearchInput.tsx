@@ -4,15 +4,15 @@ import { SearchIcon } from '@primer/octicons-react'
 import { IconButton, TextInput, Tooltip } from "@primer/react"
 
 type Props = {
-    t: any,
+    t?: any,
     keyword?: string,
     onChange?: (e: React.FormEvent<HTMLInputElement>) => void,
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    tooltipDirection?: 's' | 'n'
 }
 
 // render the search input field in the navigation bar and search page
-function SearchInput(props: Props) {
-    const { t, keyword, onChange, onKeyDown } = props;
+function SearchInput({ t, keyword, onChange, onKeyDown, tooltipDirection }: Props) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     
 
@@ -59,7 +59,7 @@ function SearchInput(props: Props) {
         }}
       />
     </label>
-    <Tooltip aria-label={t("searchPage.tooltip")} >
+    <Tooltip aria-label={t("searchPage.tooltip")} direction={tooltipDirection? tooltipDirection : 'n'}>
       <IconButton
         aria-label={t("searchPage.tooltip")}
         icon={SearchIcon}

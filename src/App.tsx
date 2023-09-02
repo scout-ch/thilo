@@ -116,13 +116,10 @@ function App() {
           <Router basename="/">
             <LinksContext.Provider value={links}>
               <PageLayout>
-                {/* <PageLayout.Header>
-                  <Header />
-                </PageLayout.Header> */}
                 <PageLayout.Content>
-                  <div className="flex-column flex-1 min-width-0">
-                    {/* to have a sticky header, it needs to be placed here */}
-                    <Header /> 
+                  {/* to have a sticky header, it needs to be placed here
+                  in the content */}
+                  <Header />
                     <main id="main-content">
                       <Routes>
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
@@ -133,7 +130,6 @@ function App() {
                           <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
                         </Routes>
                     </main>
-                  </div>
                 </PageLayout.Content>
                   <PageLayout.Pane position={'start'} sticky  //resizable
                     hidden={{narrow: true, regular: true  , wide: false}}

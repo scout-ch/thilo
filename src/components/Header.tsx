@@ -119,17 +119,10 @@ const Header = ({ t }: Props) => {
 
   return (
     <>
-      <div
-        data-container="header"
-        className={cx(
-          'sections d-unset color-border-muted no-print z-3 color-bg-default position-sticky top-0',
-          styles.header,
-        )}
-      >
         <header
           className={cx(
             'color-bg-default p-2 z-1 sections position-sticky top-0 z-1 rounded',
-            scroll && 'color-shadow-small',
+            scroll && 'color-shadow-small mt-3',
           )}
           role='banner'
           aria-label='Main'
@@ -189,7 +182,7 @@ const Header = ({ t }: Props) => {
                 'mr-3 ml-auto',
               )}
             >
-              <SearchInput onKeyDown={onSearchKeyDown} />
+              <SearchInput onKeyDown={onSearchKeyDown} tooltipDirection='s'/>
             </div>
           }
             {!isSearchResultsPage && <>
@@ -297,7 +290,6 @@ const Header = ({ t }: Props) => {
             </div>
           </div>
         </header>
-      </div>
     </>
   )
 }

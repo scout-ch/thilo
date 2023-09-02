@@ -131,7 +131,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
       ) : (
         <ActionMenu>
           <ActionMenu.Anchor>
-            <Tooltip aria-label={t("languagePicker.tooltip")}>
+            <Tooltip aria-label={t("languagePicker.tooltip")} direction='s'>
               <IconButton
                 icon={GlobeIcon}
                 aria-label={`${t('languagePicker.tooltip')}: ${selectedLang.name}`}
