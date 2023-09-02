@@ -35,6 +35,11 @@ img {
   max-width: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-top: 48px;
+}
+
+
 h1,
 h2,
 h3 {
@@ -51,13 +56,13 @@ ul, ol {
   }
 }
 
-
 .icon {
   align-self:center; // height: 100%;
   // margin: 0em 1.5em 0em -1.5em;
   padding-right: 0.5em;
   width: 80px;
 }
+
 
 
 .bg-primary {
