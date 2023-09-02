@@ -40,11 +40,12 @@ function SidebarNav(props: Props) {
                     // className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     // aria-current={isActive && "page"}
                     key={id} id={id}
+                    as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
                 >
                     <NavList.LeadingVisual>
                     {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
-                    <Link as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}> {chapter.menu_name} </Link>
+                    {chapter.menu_name}
                 </NavList.Item>
             )
         })
@@ -54,16 +55,27 @@ function SidebarNav(props: Props) {
             id={id} key={id}
             className={section.slug} 
             aria-current={sectionActive && "page"}
+            as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual><DynamicIcon/></NavList.LeadingVisual>
-                <Link as={ReactRouterLink} to={section.slug}>
-                    <Truncate title={section.menu_name} as='span' className='d-inline-block' maxWidth={200}>{section.menu_name}</Truncate>
-                </Link>
-                {chapterNavItems.length > 0 && 
-                    <NavList.SubNav>
-                        {chapterNavItems}
-                    </NavList.SubNav>
+                { chapterNavItems.length > 0
+                    ? <Link as={ReactRouterLink} to={section.slug} sx={{color: 'unset'}}>
+                        <Truncate title={section.menu_name} as='span' 
+                        className='d-inline-block' maxWidth={200}
+                        >
+                            {section.menu_name}
+                        </Truncate>
+                    </Link>
+                    : <Truncate title={section.menu_name} as='span' 
+                    className='d-inline-block' maxWidth={200}
+                    >
+                        {section.menu_name}
+                    </Truncate>
                 }
+                { chapterNavItems.length > 0 && <NavList.SubNav>
+                    {chapterNavItems}
+                </NavList.SubNav> }
+
             </NavList.Item>
             
         )
@@ -79,9 +91,9 @@ function SidebarNav(props: Props) {
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
         >
             <NavList className={cx('')}>
-                <NavList.Item className={classHome}>
+                <NavList.Item className={classHome} as={ReactRouterLink} to='/'>
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
-                    <Link as={ReactRouterLink} to='/'>Home</Link>
+                    Home
                 </NavList.Item>
                 {sectionListNavItems}
             </NavList>
