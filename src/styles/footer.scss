@@ -1,135 +1,21 @@
 footer {
-  padding-top: 100px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  @media screen and (min-width: 860px) {
-    z-index: 201;
-  }
-  
-  .footer-content {
-    background-color: var(--color-primary);
-    padding-top: 20px;
-    button {
-      padding: 0.5em 0.2em;
-      text-align: center;
-      border-radius: 0.5rem;
-      margin: 0.2em 0.2em;
-      &:hover {
-        color: var(--color-primary-light);
-        opacity: 0.5;
-      }
-      &.active {
-        background: white;
-        color: var(--color-primary-light);
-      }
-    }
-    .btn {
-      &-nav {
-        width: 150px;
-        background-color: rgba(255,255,255, 0.1);
-        line-height: 1.5;
-      }
-      &-language {
-        background-color: var(--color-primary);
-        color: white;
-        margin: 0.3em 0.2em;
-      }
-    }
-
-    .footer-image svg {
+  footer-image svg {
       display: block;
     width: 100%;
     height: auto;
     fill: var(--color-primary);
   }
 
-  .footer-nav {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    justify-items: center;
-
-    .language {
-      display: grid;
-      justify-self: end;
-      margin-left: 3.5em;
-      @media screen and (min-width: 860px) {
-        margin-right: 80px;
-      }
-    }
-  }
-}
-  
-  .footer-bottom {
-    color: white;
-    padding: 4px 60px;
-    a {
-      font-size: 16px;
-    }
-    .footer-copyright {
-      font-size: 13px;
-      font-weight: 300;
-    }
-  }
-
   .footer-logo {
     width: 250px;
-    margin-left: 20px;
+    vertical-align: bottom;
   }
 
-  @media (max-width: $width-md) {
-    padding-left: 0;
-    padding-top: 30px;
-    
-    .footer-nav {
-      padding: 10px;
-      
-      .child {
-        margin-top: 0;
-      }
-      
-      ul button {
-        font-size: 10px;
-        padding: 0.5em 0.4em;
-      }
-      
-      .footer-logo {
-        display: none; /* hide logo on mobile, doesn't scale well 
-        !!! and causes horizontal scrollbar and empty space beneath html tags */
-        width: 120px;
-        margin-left: 10px;
-      }
-    }
-
-    .footer-bottom {
-      .footer-bottom-nav a {
-        font-size: 10px;
-        padding-bottom: 8px;
-      }
-
-      .footer-copyright {
-        font-size: 8px;
-      }
-    }
-  }
-  
-  @media (max-width: $width-md) {
-    .footer-nav {
-      padding: 20px;
-
-      .child {
-        margin-top: 0;
-      }
-
-      ul button {
-        font-size: 13px;
-        padding: 0.6em 0.5em;
-      }
-
-      .footer-logo {
-        width: 130px;
-        margin-left: 10px;
-      }
+  @media (max-width: $width-md) {      
+    .footer-logo {
+      display: none; /* hide logo on mobile, doesn't scale well 
+      !!! and causes horizontal scrollbar and empty space beneath html tags */
+      width: 120px;
     }
   }
 }

@@ -131,14 +131,15 @@ function App() {
                         </Routes>
                     </main>
                 </PageLayout.Content>
-                  <PageLayout.Pane position={'start'} sticky  //resizable
-                    hidden={{narrow: true, regular: true  , wide: false}}
-                    // offsetHeader={64}
-                  >
-                    <SidebarNav startPageMenuName={'start'} variant='full'/>
-                  </PageLayout.Pane>
+                <PageLayout.Pane position={'start'} sticky  //resizable
+                  hidden={{narrow: true, regular: true  , wide: false}}
+                  // offsetHeader={64}
+                >
+                  <SidebarNav startPageMenuName={'start'} variant='full'/>
+                </PageLayout.Pane>
                 <PageLayout.Footer>
                   <Footer />
+
                 </PageLayout.Footer>
               </PageLayout>
 

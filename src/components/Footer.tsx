@@ -36,7 +36,7 @@ function Footer({ t }: Props) {
     nextSection = sections[0];
     prevSection = sections[sections.length-1];
   }
-
+  
   var prevSlug = prevSection && prevSection.slug;
   var nextSlug = nextSection && nextSection.slug;
   if (!prevSection) prevSlug = '';
@@ -44,52 +44,51 @@ function Footer({ t }: Props) {
 
   // render the footer with the localized navigation buttons
   return <>
-    <footer data-container="footer">
+    <div data-container="footer" className='py-6'>
       <nav className="footer-nav">
-        <div className='footer-logo'><img alt='PBSLogo' src={PBSLogo}></img></div>
+        <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div>
         {(prevSection || nextSection) && <>
-        <ButtonGroup className='width-full'>
-          <Button size="large" className='btn-nav btn-footer pb-5 pt-5' 
-            onClick={() => navigate(`/${prevSlug}`)}
-            leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
-          >
-            {prevSection &&
-              <>{t('footer.prevButtonText')}<br/>
-                <Truncate title={prevSection?.title} maxWidth={100}><i>{prevSection?.title}</i></Truncate>
-              </>
-            }
-            {!prevSection &&
-              <>{t('footer.homeButtonText')}<br/>&nbsp;</>
-            }
-          </Button>
-          <Button size="large" className='btn-nav btn-footer pb-5 pt-5'
-            onClick={() => navigate(`/${nextSlug}`)}
-            trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
-          >
-            {nextSection &&
-              <>{t('footer.nextButtonText')}<br/>
-                <Truncate title={nextSection?.title} maxWidth={100}><i>{nextSection?.title}</i></Truncate>
-              </>
-            }
-            {!nextSection &&
-              <>{t('footer.homeButtonText')}<br/>&nbsp;</>
-            }
-          </Button>
-        </ButtonGroup>
-        </>
-        }
+          <ButtonGroup>
+            <Button size="large" className='btn-nav btn-footer pb-5 pt-5' 
+              onClick={() => navigate(`/${prevSlug}`)}
+              leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
+            >
+              {prevSection &&
+                <>{t('footer.prevButtonText')}<br/>
+                  <Truncate title={prevSection?.title} maxWidth={100}><i>{prevSection?.title}</i></Truncate>
+                </>
+              }
+              {!prevSection &&
+                <>{t('footer.homeButtonText')}<br/>&nbsp;</>
+              }
+            </Button>
+            <Button size="large" className='btn-nav btn-footer pb-5 pt-5'
+              onClick={() => navigate(`/${nextSlug}`)}
+              trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
+            >
+              {nextSection &&
+                <>{t('footer.nextButtonText')}<br/>
+                  <Truncate title={nextSection?.title} maxWidth={100}><i>{nextSection?.title}</i></Truncate>
+                </>
+              }
+              {!nextSection &&
+                <>{t('footer.homeButtonText')}<br/>&nbsp;</>
+              }
+            </Button>
+          </ButtonGroup>
+        </>}
         {(!prevSection && !nextSection) && <>
-        <Button size="large" className='btn-nav btn-footer'
-          onClick={() => navigate(`/${prevSlug}`)}
-          leadingIcon={ArrowUpIcon} 
-        >
-          {t('footer.homeButtonText')}
-        </Button>
-        </>
-        }
+          <Button size="large" className='btn-nav btn-footer'
+            onClick={() => navigate(`/${prevSlug}`)}
+            leadingIcon={ArrowUpIcon} 
+            >
+            {t('footer.homeButtonText')}
+          </Button>
+        </>}
         <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
       </nav>
-    </footer>
+
+    </div>
   </>
 
 }

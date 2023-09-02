@@ -7,12 +7,12 @@
 // Primer components
 @import "@primer/css/layout/index.scss";
 
-// @import './styles/fonts/fonts.css';
+@import './styles/fonts/fonts.css';
 @import './styles/section.scss';
 @import './styles/chapter.scss';
 @import './styles/search.scss';
 // @import './styles/nav.scss';
-// @import './styles/footer.scss';
+@import './styles/footer.scss';
 @import './styles/loading.scss';
 @import './styles/quiz.scss';
 @import './styles/utilities.scss';
