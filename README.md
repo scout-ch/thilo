@@ -71,7 +71,9 @@ Die Bildgestaltung und die Bildunterschrift können über das Alt-Attribut eines
 ```md
 [caption: test-image; width: 150px; height: 150px;](location/of/test-image.jpg)
 ```
-Alle möglichen HTML Einheiten funktionieren für die width- und height-Tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
+Der `caption` tag erlaubt die ursprüngliche alt-tag funktionalität noch zu nutzen. Wichtig ist das trennen von tag Name und Wert mittels `:`, und das abschliessen eines Paars mit `;`. Genau wie bei der Verwendung von [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+
+Alle möglichen HTML Einheiten funktionieren für die `width` und `height` tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
 
 Des weiteren werden auch HTML tags akzeptiert. Dies erfordet mehr Hintergrund-
 wissen und erfordert vertraulichen Zugang zum Backend, da dieses Feature 
