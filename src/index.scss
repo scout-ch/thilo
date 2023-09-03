@@ -50,7 +50,11 @@ h4 {
 }
 
 ul, ol {
-  list-style-position: inside;
+  // list-style-position: inside;
+  padding-left: 1em;
+  li {
+    // padding-left: 20px;
+  }
   li::marker {
     color: var(--color-primary);
   }
