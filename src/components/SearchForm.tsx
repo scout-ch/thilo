@@ -133,7 +133,7 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <Link to={result.slug_with_section }>{result.title}</Link>
+                                <Link to={`/${result.slug_with_section}`}>{result.title}</Link>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>
