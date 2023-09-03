@@ -53,8 +53,10 @@ function SidebarNav(props: Props) {
         return (
             <NavList.Item 
             id={id} key={id}
-            className={section.slug} 
+            className={cx(section.slug, sectionActive && 'active')} 
             aria-current={sectionActive && "page"}
+            // FIXME: expand current section on page load does not work comme ca 
+            aria-expanded={sectionActive}
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual><DynamicIcon/></NavList.LeadingVisual>
@@ -86,11 +88,15 @@ function SidebarNav(props: Props) {
     var classHome = isHome ? 'home active' : 'home' 
     const variant = props.variant;
 
+    /* HACK: move to this?
+        https://primer.style/react/TreeView
+    */
+
     return (
         <div data-container="nav"
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
         >
-            <NavList className={cx('')}>
+            <NavList>
                 <NavList.Item className={classHome} as={ReactRouterLink} to='/'>
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
                     Home
