@@ -32,7 +32,7 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
   }, [])
 
   const onClick = () => {
-    document?.getElementById('main-content')?.scrollIntoView()
+    document?.getElementById('root')?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
