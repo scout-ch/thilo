@@ -10,10 +10,10 @@
 @import "@primer/css/layout/index.scss";
 
 @import './styles/fonts/fonts.css';
-@import './styles/section.scss';
 @import './styles/chapter.scss';
 @import './styles/search.scss';
 // @import './styles/nav.scss';
+@import './styles/table.scss';
 @import './styles/footer.scss';
 @import './styles/loading.scss';
 @import './styles/quiz.scss';
@@ -59,43 +59,7 @@ html {
       color: var(--color-primary);
     }
   }
-  table {
-    border: 1px solid var(--color-primary-light);
-    border-radius: 6px;
-    border-collapse: unset;
-    border-spacing: unset;
-    th:first-child {
-      border-radius: 6px 0 0 0;
-    }
-    th:last-child {
-      border-radius: 0 6px 0 0;
-    }
-    td:first-child,
-    th:first-child {
-      border-left: none;
-    }
-    th {
-      background-color: var(--color-primary-light);
-    }
-    td, th {
-      padding: 10px;
-    }
-    tbody {
-      td, th {
-        border-left: 1px solid var(--color-primary-light);
-        border-top: 1px solid var(--color-primary-light);
-      }
-    }
-    tr:hover {
-      background-color: var(--color-btn-hover-bg);
-    }
-  }
-  
-  
 }
-
-
-
 
 .bg-primary {
   background-color: var(--color-primary) !important;
