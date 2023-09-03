@@ -4,6 +4,8 @@
 // Global requirements: Must come second
 @import '@primer/css/core/index.scss';
 
+@import '@primer/primitives/dist/scss/colors/_light.scss';
+
 // Primer components
 @import "@primer/css/layout/index.scss";
 
@@ -58,7 +60,7 @@ html {
     }
   }
   table {
-    border: 1px solid #CCCCCC;
+    border: 1px solid var(--color-primary-light);
     border-radius: 6px;
     border-collapse: unset;
     border-spacing: unset;
@@ -80,9 +82,12 @@ html {
     }
     tbody {
       td, th {
-        border-left: 1px solid #CCCCCC;
-        border-top: 1px solid #CCCCCC;
+        border-left: 1px solid var(--color-primary-light);
+        border-top: 1px solid var(--color-primary-light);
       }
+    }
+    tr:hover {
+      background-color: var(--color-btn-hover-bg);
     }
   }
   
