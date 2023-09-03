@@ -122,7 +122,7 @@ const Header = ({ t }: Props) => {
         <header
           className={cx(
             'color-bg-default p-2 z-1 sections position-sticky top-0 z-1',
-            scroll && 'color-shadow-small pt-3',
+            scroll && 'color-shadow-small',
           )}
           role='banner'
           aria-label='Main'

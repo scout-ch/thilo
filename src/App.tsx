@@ -132,7 +132,7 @@ function App() {
                     </main>
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
-                  hidden={{narrow: true, regular: true  , wide: false}}
+                  hidden={{narrow: true, regular: true, wide: false}}
                   // offsetHeader={64}
                 >
                   <SidebarNav startPageMenuName={'start'} variant='full'/>
