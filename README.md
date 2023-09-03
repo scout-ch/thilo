@@ -56,5 +56,26 @@ Schaue dir die Issues an oder erstelle ein Neues.
 Wir freuen uns über jeden PR.
 Bei Fragen kannst du dich an die Betreuungskommission (inhaltlich) oder die IT Kommission (technisch) wenden.
 
+### Content Creation
+Der Inhalt für dieses Frontend wird mittels Markdown und HTML erstellt. Zur Zeit
+werden JSON Dateien angelegt mittels Strapi die Markdown enthalten.
+
+#### Anleitungen und Cheat Sheets für Markdown:
+Die grundlegende Markdown Syntax, die in diesem Projekt unterstützt wird, findet
+Ihr auf folgenden Seiten: 
+- https://remarkjs.github.io/react-markdown/
+- https://commonmark.org/help/
+- https://github.com/remarkjs/remark-gfm#use
+#### Projektspezifisches Markdown:
+Die Bildgestaltung und die Bildunterschrift können über das Alt-Attribut eines Bildes spezifiziert werden, wie folgt:
+```md
+[caption: test-image; width: 150px; height: 150px;](location/of/test-image.jpg)
+```
+Alle möglichen HTML Einheiten funktionieren für die width- und height-Tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
+
+Des weiteren werden auch HTML tags akzeptiert. Dies erfordet mehr Hintergrund-
+wissen und erfordert vertraulichen Zugang zum Backend, da dieses Feature 
+missbraucht werden könnte. 
+
 ## Production
 The frontend is deployed to GitHub pages.
