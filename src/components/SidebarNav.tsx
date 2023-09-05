@@ -29,6 +29,7 @@ function SidebarNav(props: Props) {
 
         const icons = [RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon];
         const DynamicIcon = icons[section.sorting % icons.length]
+        console.log(DynamicIcon)
 
         const chapters = section.chapters
         const chapterNavItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
@@ -62,7 +63,7 @@ function SidebarNav(props: Props) {
             >
                 <NavList.LeadingVisual>
                     {/* <DynamicIcon/> */}
-                    <img src={chapter_logo_test} style={{width: '18px'}}/>
+                    <img src={chapter_logo_test} alt='chapter_logo_test' style={{width: '18px'}}/>
                 </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
                     ? <Link as={ReactRouterLink} to={section.slug} sx={{color: 'unset'}}>
