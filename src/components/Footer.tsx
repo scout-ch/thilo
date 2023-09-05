@@ -45,8 +45,8 @@ function Footer({ t }: Props) {
   // render the footer with the localized navigation buttons
   return <>
     <div data-container="footer" className='py-6'>
-      <nav className="footer-nav">
-        <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div>
+      <nav className="footer-nav d-flex flex-justify-center">
+        {/* <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div> */}
         {(prevSection || nextSection) && <>
           <ButtonGroup>
             <Button size="large" className='btn-nav btn-footer pb-5 pt-5' 
