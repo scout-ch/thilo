@@ -7,6 +7,7 @@ import cx from 'classnames'
 
 import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon } from '@primer/octicons-react'
 
+import chapter_logo_test from '../images/chapter_logo_test.png'
 
 type Props = {
     startPageMenuName?: String
@@ -59,7 +60,10 @@ function SidebarNav(props: Props) {
             aria-expanded={sectionActive}
             as={ReactRouterLink} to={section.slug}
             >
-                <NavList.LeadingVisual><DynamicIcon/></NavList.LeadingVisual>
+                <NavList.LeadingVisual>
+                    {/* <DynamicIcon/> */}
+                    <img src={chapter_logo_test} style={{width: '18px'}}/>
+                </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
                     ? <Link as={ReactRouterLink} to={section.slug} sx={{color: 'unset'}}>
                         <Truncate title={section.menu_name} as='span' 
