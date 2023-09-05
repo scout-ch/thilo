@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/thilo/static/css/main.e81cb1d0.css",
-    "main.js": "/thilo/static/js/main.ecb18614.js",
+    "main.js": "/thilo/static/js/main.c92ef207.js",
     "static/js/496.5c07fd4f.chunk.js": "/thilo/static/js/496.5c07fd4f.chunk.js",
     "static/media/SourceSansPro-Regular.svg": "/thilo/static/media/SourceSansPro-Regular.70198363adc97876a497.svg",
     "static/media/SourceSansPro-SemiBold.svg": "/thilo/static/media/SourceSansPro-SemiBold.67659b46fab992fe0bb2.svg",
@@ -15,6 +15,7 @@
     "static/media/SourceSansPro-BlackItalic.svg": "/thilo/static/media/SourceSansPro-BlackItalic.5f58bf4f64e9aaecf3aa.svg",
     "static/media/SourceSansPro-BoldItalic.svg": "/thilo/static/media/SourceSansPro-BoldItalic.05053252107796c55fbe.svg",
     "static/media/SourceSansPro-SemiBoldItalic.svg": "/thilo/static/media/SourceSansPro-SemiBoldItalic.d29d76e1a9b105d6ad25.svg",
+    "static/media/chapter_logo_test.png": "/thilo/static/media/chapter_logo_test.aa86da937fed07ebc43b.png",
     "static/media/SourceSansPro-Regular.eot": "/thilo/static/media/SourceSansPro-Regular.f97a58c8dd1c3b762bb3.eot",
     "static/media/SourceSansPro-Regular.ttf": "/thilo/static/media/SourceSansPro-Regular.560fd875d8d846d9783e.ttf",
     "static/media/SourceSansPro-Light.eot": "/thilo/static/media/SourceSansPro-Light.e42166496be88f879186.eot",
@@ -57,7 +58,6 @@
     "static/media/SourceSansPro-BoldItalic.woff": "/thilo/static/media/SourceSansPro-BoldItalic.097e86e5c1a9d40ae43e.woff",
     "static/media/SourceSansPro-BlackItalic.woff": "/thilo/static/media/SourceSansPro-BlackItalic.23ac2cb303e520d9dae1.woff",
     "static/media/SourceSansPro-ExtraLightItalic.woff": "/thilo/static/media/SourceSansPro-ExtraLightItalic.4a745a8610207e8d302b.woff",
-    "static/media/pbs_logo.svg": "/thilo/static/media/pbs_logo.335517935b1dda8752296e36c6bc4772.svg",
     "static/media/SourceSansPro-SemiBoldItalic.woff2": "/thilo/static/media/SourceSansPro-SemiBoldItalic.f035d6a1c635cda6d11a.woff2",
     "static/media/SourceSansPro-Italic.woff2": "/thilo/static/media/SourceSansPro-Italic.df0284f48bf82344e808.woff2",
     "static/media/SourceSansPro-LightItalic.woff2": "/thilo/static/media/SourceSansPro-LightItalic.5fe22e53f5325a7be047.woff2",
@@ -66,11 +66,11 @@
     "static/media/SourceSansPro-ExtraLightItalic.woff2": "/thilo/static/media/SourceSansPro-ExtraLightItalic.e18594a38c6a04711f56.woff2",
     "index.html": "/thilo/index.html",
     "main.e81cb1d0.css.map": "/thilo/static/css/main.e81cb1d0.css.map",
-    "main.ecb18614.js.map": "/thilo/static/js/main.ecb18614.js.map",
+    "main.c92ef207.js.map": "/thilo/static/js/main.c92ef207.js.map",
     "496.5c07fd4f.chunk.js.map": "/thilo/static/js/496.5c07fd4f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e81cb1d0.css",
-    "static/js/main.ecb18614.js"
+    "static/js/main.c92ef207.js"
   ]
 }
