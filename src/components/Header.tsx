@@ -161,6 +161,7 @@ const Header = ({ t }: Props) => {
               borderRight: '1px solid var(--color-border-default)',
               borderBottomRightRadius: '6px !important',
               borderTopRightRadius:'6px !important',
+              overflow: 'auto',
             }}
           >
             <Dialog.Header
