@@ -1,0 +1,10 @@
+.content {
+  strong {
+    color: var(--color-primary);
+    filter: brightness(--lightness);
+  }
+  .md-img {
+    display: block;
+  }
+}
+
