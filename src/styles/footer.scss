@@ -1,6 +1,11 @@
 footer {
+  .btn-nav {
+    background: var(--color-primary);
+    // filter: brightness(var(--lightness));
+  }
+
   footer-image svg {
-      display: block;
+    display: block;
     width: 100%;
     height: auto;
     fill: var(--color-primary);

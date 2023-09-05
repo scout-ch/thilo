@@ -44,8 +44,10 @@ function SidebarNav(props: Props) {
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
                 >
-                    <NavList.LeadingVisual>
-                    {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
+                    <NavList.LeadingVisual style={{color: section.color_primary}}>
+                        /* fill has to be added to the parent, as the prop isn't
+                        working on the Icon objects */
+                        {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
                     {chapter.menu_name}
                 </NavList.Item>
