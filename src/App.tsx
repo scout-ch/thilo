@@ -125,8 +125,7 @@ function App() {
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
                           <Route path="/impressum" element={<ImpressumPage />} />
                           <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-                          <Route path="/" element={<HomePage page={startPage}/>
-                          } />
+                          <Route path="/" element={<HomePage page={startPage}/>} />
                           <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
                         </Routes>
                     </main>
