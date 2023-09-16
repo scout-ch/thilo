@@ -1,6 +1,9 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import ReactMarkdown from 'react-markdown';
+// FIXME: rehypeRaw, used for parsing HTML, adds ~60kb to the bundle size. 
+// consider if really necessary
+import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm';
 import { LinkComponent } from '../utils/MarkdownComponents';
 import { withTranslation } from 'react-i18next'
@@ -32,9 +35,10 @@ function SearchPage(props: Props) {
             <h1>{searchPage.title}</h1>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]} // FIXME: adds 60kb to the bundle, remove?
                 components={LinkComponent}
-            >{searchPage.content}</ReactMarkdown>
-
+                children={searchPage.content} 
+            />
             <SearchForm sections = {props.sections}></SearchForm>
         </div>
     </div>

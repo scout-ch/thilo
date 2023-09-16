@@ -1,6 +1,9 @@
 import React from 'react'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
+// FIXME: rehypeRaw, used for parsing HTML, adds ~60kb to the bundle size. 
+// consider if really necessary
+import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import { LinkComponent } from '../utils/MarkdownComponents'
 import type { IconT } from './Section'
@@ -56,9 +59,12 @@ function Chapter(props: ChapterProps) {
             </div>
             <div className='chapter-main'>
                 <Target targets={data.responsible} />
-                <ReactMarkdown remarkPlugins={[remarkGfm]}
-                    components={LinkComponent}>{data.content}</ReactMarkdown>
-                
+                <ReactMarkdown 
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]} // FIXME: adds 60kb to the bundle, remove?
+                    components={LinkComponent}
+                    children={data.content}
+                />
             </div>
         </div>
     </div>

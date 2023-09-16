@@ -1,20 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { withTranslation } from "react-i18next";
 import Loading from './Loading';
 import { SearchHelper } from '../utils/SearchHelper';
 import { useNavigate, useLocation } from 'react-router';
 import type { ChapterT } from '../components/Chapter';
 import type { SectionT } from '../components/Section';
+import SearchInput from './SearchInput';
+
+import { LinkComponent } from '../utils/MarkdownComponents';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import strip_md from 'strip-markdown';
 import { remark } from 'remark';
-
-import { LinkComponent } from '../utils/MarkdownComponents';
-import SearchInput from './SearchInput';
-import { Link } from 'react-router-dom';
-
 var strip_html = require('remark-strip-html');
+
+
 
 type Props = {
     t: any,
@@ -138,7 +139,11 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>
                                     {result.matchingContents.map((content, idx) => {
-                                        return <ReactMarkdown key={idx} remarkPlugins={[remarkGfm, strip_md, strip_html]} components={LinkComponent}>{content}</ReactMarkdown>
+                                        return <ReactMarkdown key={idx} 
+                                            remarkPlugins={[remarkGfm, strip_md, strip_html]}
+                                            components={LinkComponent}
+                                            children={content}
+                                        />
                                     })}
                                 </div>
                                 : null
