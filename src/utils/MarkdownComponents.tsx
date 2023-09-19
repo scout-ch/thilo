@@ -133,14 +133,14 @@ export const LinkComponent = {
                 }
             });
             console.log(styles);
-            return <span className="md-img" style={styles}> 
+            return <span className="md-img mb-4" style={styles}> 
                 <img src={props.src} alt={caption}/> <br></br>
-                <span>{caption}</span>
+                <span className='text-small text-italic'>{caption}</span>
             </span>
         } else {
-            return <span className="md-img"> 
+            return <span className="md-img mb-4"> 
                 <img src={props.src} alt={props.alt}/>  <br></br>
-                <span>{props.alt}</span>
+                <span className='text-small text-italic'>{props.alt}</span>
             </span>
         }
     }
