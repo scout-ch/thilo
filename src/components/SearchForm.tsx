@@ -27,6 +27,7 @@ type SearchResult = {
     title: string
     matchingContents: string[]
     slug_with_section: string
+    section: SectionT
 }
 
 function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
@@ -85,7 +86,8 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                                     id: chapter.id,
                                     title: chapter.title,
                                     matchingContents,
-                                    slug_with_section: chapter.slug_with_section
+                                    slug_with_section: chapter.slug_with_section,
+                                    section: sections.find(section => section.id === chapter.section)
                                 } as SearchResult;
                             })
                     );
@@ -133,12 +135,22 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result'>
                             <div className='title-match'>
-                                <Link to={`/${result.slug_with_section}`}>{result.title}</Link>
+                                <Link to={`/${result.section.slug}`}> 
+                                    {result.section.title}
+                                </Link>
+                                &nbsp;/&nbsp;
+                                <Link to={`/${result.slug_with_section}`}>
+                                    {result.title}
+                                </Link>
                             </div>
                             {result.matchingContents.length > 0 ?
                                 <div className='content-match'>
                                     {result.matchingContents.map((content, idx) => {
-                                        return <ReactMarkdown key={idx} remarkPlugins={[remarkGfm, strip_md, strip_html]} components={LinkComponent}>{content}</ReactMarkdown>
+                                        return <ReactMarkdown key={idx} 
+                                            remarkPlugins={[remarkGfm, strip_md, strip_html]} 
+                                            components={LinkComponent} 
+                                            children={content} 
+                                        />
                                     })}
                                 </div>
                                 : null

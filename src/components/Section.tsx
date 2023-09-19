@@ -7,6 +7,7 @@ import Chapter from './Chapter'
 import type { ChapterT } from './Chapter'
 
 export type SectionT = {
+    id: number,
     chapters: Array<ChapterT>
     sorting: number
     title: string
