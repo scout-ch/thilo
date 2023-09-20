@@ -5,7 +5,10 @@ import type { SectionT } from './Section'
 import { NavList, Truncate, Link} from '@primer/react'
 import cx from 'classnames'
 
-import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon } from '@primer/octicons-react'
+import { HomeIcon, BookmarkIcon, BookmarkFillIcon } from '@primer/octicons-react'
+// icons related to books:
+// RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon 
+
 
 import chapter_logo_test from '../images/chapter_logo_test.png'
 
@@ -27,8 +30,8 @@ function SidebarNav(props: Props) {
         
         // const sectionIndex = sections.findIndex((s: SectionT) => s.sorting === section.sorting)
 
-        const icons = [RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon];
-        const DynamicIcon = icons[section.sorting % icons.length]
+        // const icons = [RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon];
+        // const DynamicIcon = icons[section.sorting % icons.length]
         // console.log(DynamicIcon)
 
         const chapters = section.chapters
