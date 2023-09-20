@@ -40,8 +40,13 @@ function App() {
   async function pullData(source: string, lang: string, setterFunc: Function) {
     const dataPromise = client.get(`/${source}?_locale=${lang}`)
     Promise.all([dataPromise]).then((values) => {
-      setterFunc(values[0].data)
-      window.localStorage.setItem(`${source}_${lang}`, JSON.stringify(values[0].data));
+      let data = values[0].data;
+      if(data.filter) {
+        data = data.filter((e:any) => e.published_at !== null)
+        console.log(data)
+      }
+      setterFunc(data)
+      window.localStorage.setItem(`${source}_${lang}`, JSON.stringify(data));
       console.info(`pulled from strapi - ${source}_${lang}`)
     })
   }

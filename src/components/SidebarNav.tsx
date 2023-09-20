@@ -29,7 +29,7 @@ function SidebarNav(props: Props) {
 
         const icons = [RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon];
         const DynamicIcon = icons[section.sorting % icons.length]
-        console.log(DynamicIcon)
+        // console.log(DynamicIcon)
 
         const chapters = section.chapters
         const chapterNavItems = chapters.sort(function (a: ChapterT, b: ChapterT) {
