@@ -27,6 +27,11 @@
       "nextButtonText": "Nächstes Kapitel",
       "homeButtonText": "Zurück zum Start"
     },
+    "header": {
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Light",
+      "theme_dark_name": "Dark"
+    },
     "sideBarNav": {
       "title": "Thilo Online"
     }

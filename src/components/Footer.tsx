@@ -49,7 +49,9 @@ function Footer({ t }: Props) {
         {/* <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div> */}
         {(prevSection || nextSection) && <>
           <ButtonGroup>
-            <Button size="large" className='btn-nav btn-footer pb-5 pt-5' 
+            <Button size="large" 
+              className='btn-nav btn-footer pb-5 pt-5
+              color-fg-default color-bg-default color-border-default' 
               onClick={() => navigate(`/${prevSlug}`)}
               leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
             >
@@ -62,7 +64,10 @@ function Footer({ t }: Props) {
                 <>{t('footer.homeButtonText')}<br/>&nbsp;</>
               }
             </Button>
-            <Button size="large" className='btn-nav btn-footer pb-5 pt-5'
+            <Button size="large" 
+              className='btn-nav btn-footer pb-5 pt-5 
+              color-fg-default color-bg-default color-border-default'
+              sx={{color:'fg.default', backgroundColor: 'canvas.default'}}
               onClick={() => navigate(`/${nextSlug}`)}
               trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
             >
@@ -78,7 +83,9 @@ function Footer({ t }: Props) {
           </ButtonGroup>
         </>}
         {(!prevSection && !nextSection) && <>
-          <Button size="large" className='btn-nav btn-footer'
+          <Button size="large" 
+            className='btn-nav btn-footer
+              color-fg-default color-bg-default color-border-default'
             onClick={() => navigate(`/${prevSlug}`)}
             leadingIcon={ArrowUpIcon} 
             >

@@ -43,6 +43,7 @@ function SidebarNav(props: Props) {
                     // aria-current={isActive && "page"}
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
+                    className='color-fg-default color-border-muted'
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
                         {/* fill has to be added to the parent, as the prop isn't
@@ -73,7 +74,10 @@ function SidebarNav(props: Props) {
                     }
                 </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
-                    ? <Link as={ReactRouterLink} to={section.slug} sx={{color: 'unset'}}>
+                    ? 
+                    <Link as={ReactRouterLink} to={section.slug}
+                        className='color-fg-default color-border-muted'    
+                    >
                         <Truncate title={section.menu_name} as='span' 
                         className='d-inline-block' maxWidth={200}
                         >
@@ -110,7 +114,12 @@ function SidebarNav(props: Props) {
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
         >
             <NavList>
-                <NavList.Item className={classHome} as={ReactRouterLink} to='/'>
+                <NavList.Item as={ReactRouterLink} to='/'
+                    className={cx(
+                    classHome,
+                        'color-fg-default color-border-muted'
+                    )}
+                >
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
                     Home
                 </NavList.Item>

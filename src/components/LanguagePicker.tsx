@@ -90,7 +90,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
       }}
     >
       <span>
-        <Link to={lang}>{languages[lang as keyof typeof languages].name}</Link>
+        <Link to={lang} className="color-fg-default">{languages[lang as keyof typeof languages].name}</Link>
       </span>
     </ActionList.Item>
   ))
@@ -107,19 +107,20 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
           <ActionMenu>
             <ActionMenu.Anchor>
               <ActionMenu.Button
-                className="width-full"
+                className="width-full color-fg-default color-bg-default color-border-muted"
                 aria-label={`Select language: current language is ${selectedLang.name}`}
                 sx={{
                   height: 'auto',
                   textAlign: 'left',
                   'span:first-child': { display: 'inline' },
                 }}
+
               >
                 <span style={{ whiteSpace: 'pre-wrap' }}>{t('languagePicker.tooltip')+'\n'}</span>
                 <span className="color-fg-muted text-normal f6">{selectedLang.name}</span>
               </ActionMenu.Button>
             </ActionMenu.Anchor>
-            <ActionMenu.Overlay align="end">
+            <ActionMenu.Overlay align="end" className="color-fg-default color-bg-default color-border-muted">
               <ActionList selectionVariant="single">{languageList}</ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>

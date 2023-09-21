@@ -28,6 +28,14 @@ const Header = ({ t }: Props) => {
   const { width } = useWidth()
   const returnFocusRef = useRef(null)
 
+  const colorSchemes = [
+    {id: "auto",  name: t("header.theme_auto_name")},
+    {id: "light", name: t("header.theme_light_name")},
+    {id: "dark",  name: t("header.theme_dark_name")},
+  ]
+
+  const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemes[0])
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -53,6 +61,11 @@ const Header = ({ t }: Props) => {
         closeSidebar();
     }
   }
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    body?.setAttribute('data-color-mode', selectedColorScheme.id)
+  })
 
 
   useEffect(() => {
@@ -129,7 +142,10 @@ const Header = ({ t }: Props) => {
         >
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
-            className="color-fg-muted border hide-xxl mr-3"
+            className={cx(
+              "border hide-xxl mr-3",
+              'color-bg-default color-fg-default color-border-muted'
+            )}
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
             onClick={openSidebar}
@@ -148,6 +164,7 @@ const Header = ({ t }: Props) => {
             isOpen={isSidebarOpen}
             onDismiss={closeSidebar}
             aria-labelledby="menu-title"
+            className='color-bg-default color-fg-default color-border-muted'
             sx={{
               position: 'fixed',
               top: '0',
@@ -158,7 +175,7 @@ const Header = ({ t }: Props) => {
               width: 'auto !important',
               transform: 'none',
               borderRadius: '0',
-              borderRight: '1px solid var(--color-border-default)',
+              borderRight: '1px solid var(--color-border-muted)',
               borderBottomRightRadius: '6px !important',
               borderTopRightRadius:'6px !important',
               overflow: 'auto',
@@ -170,6 +187,8 @@ const Header = ({ t }: Props) => {
                 borderRadius: '0',
                 borderBottomRightRadius: '6px !important',
                 borderTopRightRadius:'6px !important',
+                color:'fg.default',
+                backgroundColor: 'bg.default'
               }}
               >
               {t('sideBarNav.title')}
@@ -194,6 +213,7 @@ const Header = ({ t }: Props) => {
                 className={cx(
                   'hide-lg hide-xl',
                   !isSearchOpen ? 'd-flex flex-items-center ml-auto' : 'd-none',
+                  'color-bg-default color-fg-default color-border-muted'
                 )}
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 aria-label="Open Search Bar"
@@ -205,6 +225,8 @@ const Header = ({ t }: Props) => {
                 aria-label="Close Search Bar"
                 aria-expanded={isSearchOpen ? 'true' : 'false'}
                 icon={XIcon}
+
+                className='color-bg-default color-fg-default color-border-muted'
                 sx={
                   isSearchOpen
                     ? {
@@ -216,7 +238,7 @@ const Header = ({ t }: Props) => {
                           display: 'none',
                         },
                       }
-                    : {
+                      : {
                         display: 'none',
                       }
                 }
@@ -228,13 +250,14 @@ const Header = ({ t }: Props) => {
                 <LanguagePicker />
               </div> */}
 
-              {/* The ... navigation menu at medium and smaller widths */}
+              {/* The ... navigation menu */}
               <div>
                 <ActionMenu aria-labelledby="menu-title">
                   <ActionMenu.Anchor>
                     <IconButton
                       icon={KebabHorizontalIcon}
                       aria-label="Open Menu"
+                      className='color-bg-default color-fg-default color-border-muted'
                       sx={
                         isSearchOpen
                           ? // The ... menu button when the smaller width search UI is open.  Since the search
@@ -269,7 +292,9 @@ const Header = ({ t }: Props) => {
                       }
                     />
                   </ActionMenu.Anchor>
-                  <ActionMenu.Overlay align="start">
+                  <ActionMenu.Overlay align="start" 
+                    className='color-bg-default color-fg-default color-border-muted'
+                  >
                     <ActionList>
                       <ActionList.Group>
                         {width && width > 544 ? (
@@ -278,8 +303,40 @@ const Header = ({ t }: Props) => {
                           <LanguagePicker xs={true} />
                         )}
                       </ActionList.Group>
+                      <ActionMenu>
+                        <ActionMenu.Button
+                          className='width-full
+                          color-bg-default color-fg-default color-border-muted'
+                          sx={{
+                            textAlign: 'left',
+                            'span:first-child': { display: 'inline' },
+                          }}
+                        >
+                          Theme: {selectedColorScheme.name}
+                        </ActionMenu.Button>
+                        <ActionMenu.Overlay>
+                          <ActionList selectionVariant="single"
+                            className='color-bg-default color-fg-default color-border-muted'
+                          >
+                            {colorSchemes.map(colorScheme => (
+                              <ActionList.Item
+
+                      className='color-bg-default color-fg-default color-border-muted'
+                                key={colorScheme.id}
+                                selected={colorScheme.id === selectedColorScheme.id}
+                                onSelect={() => setSelectedColorScheme(colorScheme)}
+                              >
+                                {colorScheme.name}
+                              </ActionList.Item>
+                            ))}
+                          </ActionList>
+                        </ActionMenu.Overlay>
+                      </ActionMenu>
+
                       <ActionList.Group>
-                        <ActionList.Item as={ReactRouterLink} to="/impressum">
+                        <ActionList.Item as={ReactRouterLink} to="/impressum"
+                          className='color-fg-default'
+                          >
                           Impressum
                         </ActionList.Item>
                         <ActionList.Item disabled>
