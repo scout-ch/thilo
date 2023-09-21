@@ -5,12 +5,9 @@ import type { SectionT } from './Section'
 import { NavList, Truncate, Link} from '@primer/react'
 import cx from 'classnames'
 
-import { HomeIcon, BookmarkIcon, BookmarkFillIcon } from '@primer/octicons-react'
+import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon } from '@primer/octicons-react'
 // icons related to books:
 // RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon 
-
-
-import chapter_logo_test from '../images/chapter_logo_test.png'
 
 type Props = {
     startPageMenuName?: String
@@ -68,7 +65,12 @@ function SidebarNav(props: Props) {
             >
                 <NavList.LeadingVisual>
                     {/* <DynamicIcon/> */}
-                    <img src={chapter_logo_test} alt='chapter_logo_test' style={{width: '18px'}}/>
+                    {section.icon && 
+                        (<img className='icon' src={section.icon.url} alt="icon" style={{width: '18px'}} />)
+                    }
+                    {!section.icon && 
+                        <RepoIcon />
+                    }
                 </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
                     ? <Link as={ReactRouterLink} to={section.slug} sx={{color: 'unset'}}>
@@ -104,6 +106,7 @@ function SidebarNav(props: Props) {
 
     return (
         <div data-container="nav"
+            style={{minWidth: '261px'}}
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
         >
             <NavList>

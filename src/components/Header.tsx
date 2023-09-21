@@ -172,7 +172,7 @@ const Header = ({ t }: Props) => {
                 borderTopRightRadius:'6px !important',
               }}
               >
-              SidebarNav Header
+              {t('sideBarNav.title')}
             </Dialog.Header>
             <SidebarNav startPageMenuName={t('startPage.menuName')} variant="overlay" />
           </Dialog>

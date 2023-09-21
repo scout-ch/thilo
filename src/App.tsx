@@ -43,7 +43,6 @@ function App() {
       let data = values[0].data;
       if(data.filter) {
         data = data.filter((e:any) => e.published_at !== null)
-        console.log(data)
       }
       setterFunc(data)
       window.localStorage.setItem(`${source}_${lang}`, JSON.stringify(data));

@@ -26,6 +26,9 @@
       "prevButtonText": "Vorheriges Kapitel",
       "nextButtonText": "Nächstes Kapitel",
       "homeButtonText": "Zurück zum Start"
+    },
+    "sideBarNav": {
+      "title": "Thilo"
     }
   }
 }
