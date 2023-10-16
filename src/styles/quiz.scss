@@ -25,16 +25,9 @@
   
   .btn {
     font-family: unset !important;
-
-    background-color: white;
+    border-radius: 6px !important;
     margin-right: 0.5em;
     margin-left: 0.5em;
-    border: 1px solid transparent;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0.5rem !important;
-    transition: color .1s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    color: var(--color-primary-light);
     &:not(:disabled):hover {
       filter: brightness(105%);
       opacity: 0.9;
@@ -44,6 +37,8 @@
       opacity: 0.8;
     }
     &:disabled {
+      // color: var(--fgColor-default, var(--color-fg-default)) !important;
+      // background-color: var(--bgColor-default, var(--color-bg-default))  !important;
       cursor:default;
       filter: brightness(90%);
       opacity: 0.5;
