@@ -85,7 +85,7 @@ function SidebarNav(props: Props) {
                         </Truncate>
                     </Link>
                     : <Truncate title={section.menu_name} as='span' 
-                    className='d-inline-block' maxWidth={200}
+                    className='d-inline-block color-fg-default color-border-muted' maxWidth={200}
                     >
                         {section.menu_name}
                     </Truncate>
