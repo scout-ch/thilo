@@ -9,9 +9,6 @@
     flex-direction: column;
     gap: 8px;
 
-    border: 1px solid #ebebeb;
-    border-radius: 6px;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
     padding: 10px 12px;
     animation: fadeIn 0.5s;
 
@@ -32,9 +29,11 @@
         }
 
         >:not(:last-child) {
-            border-bottom: 1px solid #ebebeb;
             margin-bottom: 8px;
             padding-bottom: 8px;
+        }
+        >:last-child {
+            border-bottom: none !important;
         }
     }
 }

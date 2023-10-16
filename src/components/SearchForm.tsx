@@ -133,7 +133,7 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                 if (searchResults.length > 0) {
                     // render results
                     return searchResults.map(result => {
-                        return <div key={result.id} className='search-result'>
+                        return <div key={result.id} className='search-result border rounded'>
                             <div className='title-match'>
                                 <Link to={`/${result.section.slug}`}> 
                                     {result.section.title}
@@ -149,7 +149,8 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                                         return <ReactMarkdown key={idx} 
                                             remarkPlugins={[remarkGfm, strip_md, strip_html]} 
                                             components={LinkComponent} 
-                                            children={content} 
+                                            children={content}
+                                            className='border-bottom'
                                         />
                                     })}
                                 </div>
