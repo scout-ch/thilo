@@ -48,7 +48,7 @@ function Section(props: Props) {
 
 
     return <div className='content'>
-    <Helmet><title>{props.section['title']}</title></Helmet>
+        <Helmet><title>{props.section['title']}</title></Helmet>
         <div id="section-title" className={classes}>
             <h1>
                 {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}

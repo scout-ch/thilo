@@ -19,6 +19,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { PageLayout, ThemeProvider } from '@primer/react'
 import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
+import { Helmet } from 'react-helmet-async';
 
 export type LinkT = {
   title: string
@@ -116,6 +117,9 @@ function App() {
   return (
     <ThemeProvider>
       <HelmetProvider>
+        <Helmet>
+          <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>
+        </Helmet>
         <div className='App'>
           <Router basename="/">
             <LinksContext.Provider value={links}>
