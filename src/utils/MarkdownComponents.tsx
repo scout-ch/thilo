@@ -132,7 +132,7 @@ export const LinkComponent = {
                     }
                 }
             });
-            console.log(styles);
+            // console.log(styles);
             return <span className="md-img mb-4" style={styles}> 
                 <img src={props.src} alt={caption}/> <br></br>
                 <span className='text-small text-italic'>{caption}</span>
