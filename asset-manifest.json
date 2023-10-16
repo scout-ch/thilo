@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/thilo/static/css/main.09653888.css",
-    "main.js": "/thilo/static/js/main.d9c81f65.js",
+    "main.css": "/thilo/static/css/main.e327d9cd.css",
+    "main.js": "/thilo/static/js/main.273dc9c0.js",
     "static/js/496.5c07fd4f.chunk.js": "/thilo/static/js/496.5c07fd4f.chunk.js",
     "static/media/SourceSansPro-Regular.svg": "/thilo/static/media/SourceSansPro-Regular.70198363adc97876a497.svg",
     "static/media/SourceSansPro-SemiBold.svg": "/thilo/static/media/SourceSansPro-SemiBold.67659b46fab992fe0bb2.svg",
@@ -64,12 +64,12 @@
     "static/media/SourceSansPro-BlackItalic.woff2": "/thilo/static/media/SourceSansPro-BlackItalic.dc2aeed524020417e75e.woff2",
     "static/media/SourceSansPro-ExtraLightItalic.woff2": "/thilo/static/media/SourceSansPro-ExtraLightItalic.e18594a38c6a04711f56.woff2",
     "index.html": "/thilo/index.html",
-    "main.09653888.css.map": "/thilo/static/css/main.09653888.css.map",
-    "main.d9c81f65.js.map": "/thilo/static/js/main.d9c81f65.js.map",
+    "main.e327d9cd.css.map": "/thilo/static/css/main.e327d9cd.css.map",
+    "main.273dc9c0.js.map": "/thilo/static/js/main.273dc9c0.js.map",
     "496.5c07fd4f.chunk.js.map": "/thilo/static/js/496.5c07fd4f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.09653888.css",
-    "static/js/main.d9c81f65.js"
+    "static/css/main.e327d9cd.css",
+    "static/js/main.273dc9c0.js"
   ]
 }
