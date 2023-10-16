@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  push_to_registry:
+  build-and-push-container:
     name: Build and Push Thilo Container
     runs-on: ubuntu-latest
 
