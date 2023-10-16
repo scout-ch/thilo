@@ -5,6 +5,5 @@ services:
     build: .
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider
-      - BACKEND_URL=http://localhost:8080
     ports:
       - 3000:3000
