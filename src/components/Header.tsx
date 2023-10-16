@@ -163,33 +163,23 @@ const Header = ({ t }: Props) => {
             returnFocusRef={returnFocusRef}
             isOpen={isSidebarOpen}
             onDismiss={closeSidebar}
-            aria-labelledby="menu-title"
-            className='color-bg-default color-fg-default color-border-muted'
+            aria-labelledby="sidebar-overlay-header"
+            className='color-bg-default color-fg-default color-border-muted
+            rounded-right position-fixed top-0 left-0
+
+            '
             sx={{
-              position: 'fixed',
-              top: '0',
-              left: '0',
               marginTop: '0',
               maxHeight: '100vh !important',
               height: '100vh',
               width: 'auto !important',
               transform: 'none',
-              borderRadius: '0',
-              borderRight: '1px solid var(--color-border-muted)',
-              borderBottomRightRadius: '6px !important',
-              borderTopRightRadius:'6px !important',
               overflow: 'auto',
             }}
           >
             <Dialog.Header
+            className='color-fg-default color-bg-default'
               id="sidebar-overlay-header"
-              sx={{
-                borderRadius: '0',
-                borderBottomRightRadius: '6px !important',
-                borderTopRightRadius:'6px !important',
-                color:'fg.default',
-                backgroundColor: 'bg.default'
-              }}
               >
               {t('sideBarNav.title')}
             </Dialog.Header>
@@ -226,7 +216,7 @@ const Header = ({ t }: Props) => {
                 aria-expanded={isSearchOpen ? 'true' : 'false'}
                 icon={XIcon}
 
-                className='color-bg-default color-fg-default color-border-muted'
+                className='color-bg-default color-fg-default color-border-muted show'
                 sx={
                   isSearchOpen
                     ? {
@@ -234,6 +224,7 @@ const Header = ({ t }: Props) => {
                         // browser width increases to md and above we no longer show that search UI so
                         // the close search button is hidden as well.
                         // breakpoint(md)
+                        // same as: .hide-sm .hide-md
                         '@media (min-width: 768px)': {
                           display: 'none',
                         },
@@ -252,7 +243,7 @@ const Header = ({ t }: Props) => {
 
               {/* The ... navigation menu */}
               <div>
-                <ActionMenu aria-labelledby="menu-title">
+                <ActionMenu aria-labelledby="sidebar-overlay-header">
                   <ActionMenu.Anchor>
                     <IconButton
                       icon={KebabHorizontalIcon}

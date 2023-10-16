@@ -66,8 +66,7 @@ function Footer({ t }: Props) {
             </Button>
             <Button size="large" 
               className='btn-nav btn-footer pb-5 pt-5
-                color-fg-inherit color-bg-inherit color-border-inherit' 
-              sx={{color:'fg.default', backgroundColor: 'canvas.default'}}
+                color-fg-inherit color-bg-inherit color-border-inherit'
               onClick={() => navigate(`/${nextSlug}`)}
               trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
             >

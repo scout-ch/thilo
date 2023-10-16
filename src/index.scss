@@ -69,3 +69,9 @@ html {
 .bg-secondary {
   background-color: var(--color-primary-light) !important;
 }
+
+
+// Force color override of the dialog header
+#sidebar-overlay-header *[color] {
+  color: var(--fgColor-default, var(--color-fg-default)) !important;
+}
