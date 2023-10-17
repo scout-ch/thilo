@@ -9,11 +9,7 @@
 }
 
 .react-quiz-container {
-  .startQuizBtn {
-    color: var(--fgColor-default, var(--color-fg-default)) !important;
-    background-color: var(--bgColor-default, var(--color-bg-default))  !important;
-  }
-  all: unset !important;
+  //  * {all: unset !important;}
   h2 {
     color: var(--color-primary-light);
     margin-bottom: 0.5em;
@@ -54,6 +50,10 @@
       color: var(--fgColor-default, var(--color-fg-default)) !important;
       background-color: var(--bgColor-default, var(--color-bg-default))  !important;
     }
+  }
+  .startQuizBtn {
+    color: var(--fgColor-default, var(--color-fg-default)) !important;
+    background-color: var(--bgColor-default, var(--color-bg-default))  !important;
   }
 
   .answerBtn {
