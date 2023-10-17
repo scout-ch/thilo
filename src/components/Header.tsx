@@ -166,7 +166,6 @@ const Header = ({ t }: Props) => {
             aria-labelledby="sidebar-overlay-header"
             className='color-bg-default color-fg-default color-border-muted
             rounded-right-3 position-fixed top-0 left-0
-
             '
             sx={{
               marginTop: '0',
