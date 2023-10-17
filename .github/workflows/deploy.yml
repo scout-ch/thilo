@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  push_to_registry:
+  build-and-push-container:
     name: Build and Push Thilo Container
     runs-on: ubuntu-latest
 
@@ -41,6 +41,8 @@ jobs:
   build:
     name: Build Thilo App
     runs-on: ubuntu-latest
+    env:
+      PUBLIC_URL: /
 
     steps:
       - uses: actions/checkout@v4
