@@ -9,6 +9,10 @@
 }
 
 .react-quiz-container {
+  .startQuizBtn {
+    color: var(--fgColor-default, var(--color-fg-default)) !important;
+    background-color: var(--bgColor-default, var(--color-bg-default))  !important;
+  }
   all: unset !important;
   h2 {
     color: var(--color-primary-light);
@@ -17,14 +21,15 @@
   .quiz-synopsis {
     all: unset !important;
   }
-
+  
   img {
     max-width: 80%;
     align-self: center;
   }
-
+  
   
   .btn {
+    border-color: var(--borderColor-muted, var(--color-border-muted)) !important;
     border-radius: 6px !important;
     margin-right: 0.5em;
     margin-left: 0.5em;
@@ -44,6 +49,10 @@
     }
     img {
       max-width: 250px;
+    }
+    &:not(.incorrect):not(.correct) {
+      color: var(--fgColor-default, var(--color-fg-default)) !important;
+      background-color: var(--bgColor-default, var(--color-bg-default))  !important;
     }
   }
 
