@@ -165,7 +165,7 @@ const Header = ({ t }: Props) => {
             onDismiss={closeSidebar}
             aria-labelledby="sidebar-overlay-header"
             className='color-bg-default color-fg-default color-border-muted
-            rounded-right position-fixed top-0 left-0
+            rounded-right-3 position-fixed top-0 left-0
 
             '
             sx={{
