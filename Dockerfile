@@ -18,7 +18,7 @@ RUN apk update && apk add --no-cache gettext dos2unix
 ############################################
 RUN chown -R node:node /srv/app
 USER node
-COPY --chown=node:node [ "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json",  "./"]
+COPY --chown=node:node [ "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json", "index.html",  "./"]
 COPY --chown=node:node [ "./docker/entrypoint.sh", "./entrypoint.sh"]
 COPY --chown=node:node [ "public", "public"]
 COPY --chown=node:node [ "src", "src"]
