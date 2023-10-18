@@ -121,7 +121,7 @@ function SidebarNav(props: Props) {
                     )}
                 >
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
-                    Home
+                    {t('sidebar.home')}
                 </NavList.Item>
                 {sectionListNavItems}
             </NavList>

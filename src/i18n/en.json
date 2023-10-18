@@ -7,8 +7,20 @@
         "AL": "Department Manager"
       }
     },
+    "header": {
+      "imprint": "Imprint",
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Light",
+      "theme_dark_name": "Dark"
+    },
     "homePage": {
       "title": "Home"
+    },
+    "startPage": {
+      "menuName": ""
+    },
+    "sidebar": {
+      "home": "Home"
     },
     "searchPage": {
       "tooltip": "Search",
@@ -26,7 +38,9 @@
       "prevButtonText": "Previous Chapter",
       "nextButtonText": "Next Chapter",
       "homeButtonText": "Return to Start"
+    },
+    "sideBarNav": {
+      "title": "Thilo Online"
     }
   }
 }
-  

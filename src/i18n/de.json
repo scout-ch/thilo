@@ -7,8 +7,20 @@
         "AL": "Abteilungsleiter*in"
       }
     },
+    "header": {
+      "imprint": "Impressum",
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Hell",
+      "theme_dark_name": "Dunkel"
+    },
     "homePage": {
       "title": "Home"
+    },
+    "startPage": {
+      "menuName": ""
+    },
+    "sidebar": {
+      "home": "Home"
     },
     "searchPage": {
       "tooltip": "Suchen",
@@ -26,11 +38,6 @@
       "prevButtonText": "Vorheriges Kapitel",
       "nextButtonText": "Nächstes Kapitel",
       "homeButtonText": "Zurück zum Start"
-    },
-    "header": {
-      "theme_auto_name": "Sync",
-      "theme_light_name": "Light",
-      "theme_dark_name": "Dark"
     },
     "sideBarNav": {
       "title": "Thilo Online"
