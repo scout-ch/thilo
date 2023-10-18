@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { LinksContext } from '../App';
 import Loading from '../components/Loading';
 import Warning from '../components/Warning';
-const QuizI = require('react-quiz-component');
-const Quiz = QuizI.default;
+//@ts-ignore
+import Quiz from 'react-quiz-component'
 
 
 // // @ts-ignore

@@ -14,7 +14,8 @@ import { LinkComponent } from '../utils/MarkdownComponents';
 import SearchInput from './SearchInput';
 import { Link } from 'react-router-dom';
 
-var strip_html = require('remark-strip-html');
+// @ts-ignore
+import * as strip_html from 'remark-strip-html';
 
 type Props = {
     t: any,
