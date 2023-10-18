@@ -7,6 +7,7 @@ export default defineConfig({
   build: {
     outDir: 'build'
   }, 
+  base: '/thilo/', 
   plugins: [react()],
   css: {
     preprocessorOptions: {
