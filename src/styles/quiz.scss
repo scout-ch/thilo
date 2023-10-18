@@ -1,14 +1,23 @@
+@import './utilities.scss';
+
 .quiz-container {
   display: block;
-  // border: 0.5px solid var(--color-primary-light);
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-  padding: 10px 15px 10px 15px;
-  margin: 10px 15px 10px 15px;
-  border-radius: 1rem;
-  font-family: unset !important;
+  padding: 10px;
+  @include default-style;
 }
 
 .react-quiz-container {
+  margin: unset;
+  font-family: unset;
+  font-weight: unset;
+  font-size: var(--body-font-size, 14px);
+  width: unset !important;
+  max-width: fit-content;
+
+  .questionWrapperBody > :nth-child(2) {
+    @include default-color();
+  }
+
   //  * {all: unset !important;}
   h2 {
     color: var(--color-primary-light);
@@ -25,21 +34,13 @@
   
   
   .btn {
+    font-weight: unset !important;
+    font-size: unset !important;
     border-color: var(--borderColor-muted, var(--color-border-muted)) !important;
     border-radius: 6px !important;
     margin-right: 0.5em;
     margin-left: 0.5em;
-    &:not(:disabled):not(.incorrect):hover {
-      filter: brightness(105%);
-      opacity: 0.9;
-    }
-    &:not(:disabled):active {
-      filter: brightness(105%);
-      opacity: 0.8;
-    }
     &:disabled {
-      // color: var(--fgColor-default, var(--color-fg-default)) !important;
-      // background-color: var(--bgColor-default, var(--color-bg-default))  !important;
       cursor: not-allowed;
       opacity: 0.6;
     }
@@ -47,12 +48,12 @@
       max-width: 250px;
     }
     &:not(.incorrect):not(.correct) {
-      color: var(--fgColor-default, var(--color-fg-default)) !important;
+      @include default-color();
       background-color: var(--bgColor-default, var(--color-bg-default))  !important;
     }
   }
   .startQuizBtn {
-    color: var(--fgColor-default, var(--color-fg-default)) !important;
+    @include default-color();
     background-color: var(--bgColor-default, var(--color-bg-default))  !important;
   }
 
@@ -63,14 +64,31 @@
     }
   }
 
-  .result-answer-wrapper,.explanation {
-    border-radius: 0.5rem;
-  }
-
+  
   .incorrect {
     cursor: not-allowed !important;
     pointer-events: none;
     opacity: 0.6;
   }
- 
+  
+  .quiz-result-filter {
+    @include default-style();
+    & * {
+      border: none !important;
+    }
+  }
+  
+  .result-answer-wrapper {
+    @include default-style;
+    h3 {
+      @include default-color;
+    }
+    .explanation {
+      border-radius: 6px;
+    }
+    *:disabled {
+      opacity: 1;
+    }
+  }
+  
 }

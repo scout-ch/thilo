@@ -149,3 +149,18 @@ select:focus,
 textarea {
   font-size: 16px;
 }
+
+/* for theme aware color overrides */
+@mixin default-color {
+  color: var(--fgColor-default, var(--color-fg-default)) !important;
+  background-color: var(--bgColor-default, var(--color-bg-default)) !important;
+}
+@mixin default-border {
+  border: var(--borderWidth-thin, 1px) solid var(--borderColor-default, var(--color-border-default)) !important;
+  border-radius: 6px;
+}
+
+@mixin default-style {
+  @include default-color();
+  @include default-border();
+}
