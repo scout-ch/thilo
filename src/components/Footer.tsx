@@ -50,8 +50,7 @@ function Footer({ t }: Props) {
         {(prevSection || nextSection) && <>
           <ButtonGroup>
             <Button size="large" 
-              className='btn-nav btn-footer pb-5 pt-5
-                color-fg-inherit color-bg-inherit color-border-inherit' 
+              className='btn-nav btn-footer pb-5 pt-5' 
               onClick={() => navigate(`/${prevSlug}`)}
               leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
             >
@@ -65,8 +64,7 @@ function Footer({ t }: Props) {
               }
             </Button>
             <Button size="large" 
-              className='btn-nav btn-footer pb-5 pt-5
-                color-fg-inherit color-bg-inherit color-border-inherit'
+              className='btn-nav btn-footer pb-5 pt-5'
               onClick={() => navigate(`/${nextSlug}`)}
               trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
             >
@@ -83,8 +81,7 @@ function Footer({ t }: Props) {
         </>}
         {(!prevSection && !nextSection) && <>
           <Button size="large" 
-            className='btn-nav btn-footer
-              color-fg-inherit color-bg-inherit color-border-inherit' 
+            className='btn-nav btn-footer' 
             onClick={() => navigate(`/${prevSlug}`)}
             leadingIcon={ArrowUpIcon} 
             >
