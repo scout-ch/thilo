@@ -42,7 +42,7 @@ jobs:
     name: Build Thilo App
     runs-on: ubuntu-latest
     env:
-      PUBLIC_URL: /
+      PUBLIC_URL: /thilo
 
     steps:
       - uses: actions/checkout@v4
