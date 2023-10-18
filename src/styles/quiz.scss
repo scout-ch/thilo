@@ -64,12 +64,22 @@
     }
   }
 
-  
   .incorrect {
     cursor: not-allowed !important;
     pointer-events: none;
     opacity: 0.6;
   }
+
+  .tag-container {
+    *:not(.number-of-selection) {
+      display: none;
+    }
+    .number-of-selection {
+      color: var(--fgColor-on-emphasis, var(--color-fg-on-emphasis)) !important;
+      background-color: var(--bgColor-emphasis, var(--color-accent-emphasis)) !important;
+    }
+  }
+
   
   .quiz-result-filter {
     @include default-style();
@@ -83,11 +93,11 @@
     h3 {
       @include default-color;
     }
-    .explanation {
-      border-radius: 6px;
-    }
     *:disabled {
       opacity: 1;
+    }
+    .explanation {
+      @include default-style;
     }
   }
   
