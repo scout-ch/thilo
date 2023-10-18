@@ -157,10 +157,41 @@ textarea {
 }
 @mixin default-border {
   border: var(--borderWidth-thin, 1px) solid var(--borderColor-default, var(--color-border-default)) !important;
-  border-radius: 6px;
+  border-radius: 6px !important;
 }
 
 @mixin default-style {
   @include default-color();
   @include default-border();
+}
+
+@mixin primer-open {
+  @include default-border();
+  color: var(--fgColor-done, var(--color-done-fg)) !important;
+  background-color: var(--bgColor-done-subtle, var(--color-done-subtle)) !important;
+  border-color: var(--borderColor-done-muted, var(--color-done-muted)) !important;
+}
+@mixin primer-success {
+  @include default-border();
+  color: var(--fgColor-success, var(--color-success-fg)) !important;
+  background-color: var(--bgColor-success-subtle, var(--color-success-subtle)) !important;
+  border-color: var(--borderColor-success-muted, var(--color-success-muted)) !important;
+}
+@mixin primer-success-emphasis {
+  @include default-border();
+  color: var(--fgColor-success, var(--color-success-fg)) !important;
+  background-color: var(--bgColor-success-subtle, var(--color-success-subtle)) !important;
+  border-color: var(--borderColor-success-emphasis, var(--color-success-emphasis)) !important;
+}
+@mixin primer-danger {
+  @include default-border();
+  color: var(--fgColor-danger, var(--color-danger-fg)) !important;
+  background-color: var(--bgColor-danger-subtle, var(--color-danger-subtle)) !important;
+  border-color: var(--borderColor-danger-muted, var(--color-danger-muted)) !important;
+}
+@mixin primer-danger-emphasis {
+  @include default-border();
+  color: var(--fgColor-danger, var(--color-danger-fg)) !important;
+  background-color: var(--bgColor-danger-subtle, var(--color-danger-subtle)) !important;
+  border-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis)) !important;
 }

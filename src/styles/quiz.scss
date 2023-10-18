@@ -36,10 +36,8 @@
   .btn {
     font-weight: unset !important;
     font-size: unset !important;
-    border-color: var(--borderColor-muted, var(--color-border-muted)) !important;
-    border-radius: 6px !important;
-    margin-right: 0.5em;
-    margin-left: 0.5em;
+    @include default-border;
+    padding: var(--base-size-8, 8px) !important;
     &:disabled {
       cursor: not-allowed;
       opacity: 0.6;
@@ -49,25 +47,27 @@
     }
     &:not(.incorrect):not(.correct) {
       @include default-color();
-      background-color: var(--bgColor-default, var(--color-bg-default))  !important;
     }
   }
-  .startQuizBtn {
-    @include default-color();
-    background-color: var(--bgColor-default, var(--color-bg-default))  !important;
-  }
-
   .answerBtn {
+    min-width: 52px;
     width: unset !important;
     > span {
       font-size: unset;
     }
   }
 
+  .correct {
+    cursor: not-allowed !important;
+    pointer-events: none;
+    opacity: 0.6;
+    @include primer-success-emphasis;
+  }
   .incorrect {
     cursor: not-allowed !important;
     pointer-events: none;
     opacity: 0.6;
+    @include primer-danger-emphasis;
   }
 
   .tag-container {
@@ -75,8 +75,7 @@
       display: none;
     }
     .number-of-selection {
-      color: var(--fgColor-on-emphasis, var(--color-fg-on-emphasis)) !important;
-      background-color: var(--bgColor-emphasis, var(--color-accent-emphasis)) !important;
+      @include primer-open;
     }
   }
 
