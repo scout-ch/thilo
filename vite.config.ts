@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'build'
   }, 
-  base: '/thilo/',
+  base: '/thilo/', 
   plugins: [react(), 
     VitePWA(
       {registerType: 'autoUpdate'}
