@@ -65,7 +65,7 @@ const Header = ({ t }: Props) => {
   useEffect(() => {
     const body = document.querySelector('body');
     body?.setAttribute('data-color-mode', selectedColorScheme.id)
-  }, [])
+  }, [selectedColorScheme.id])
 
 
   useEffect(() => {
