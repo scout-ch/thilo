@@ -65,7 +65,7 @@ const Header = ({ t }: Props) => {
   useEffect(() => {
     const body = document.querySelector('body');
     body?.setAttribute('data-color-mode', selectedColorScheme.id)
-  })
+  }, [])
 
 
   useEffect(() => {
@@ -314,7 +314,7 @@ const Header = ({ t }: Props) => {
                       className='color-bg-default color-fg-default color-border-muted'
                                 key={colorScheme.id}
                                 selected={colorScheme.id === selectedColorScheme.id}
-                                onSelect={() => setSelectedColorScheme(colorScheme)}
+                                onSelect={() => {setSelectedColorScheme(colorScheme); }}
                               >
                                 {colorScheme.name}
                               </ActionList.Item>
