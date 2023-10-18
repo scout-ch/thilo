@@ -154,10 +154,18 @@ textarea {
 @mixin default-color {
   color: var(--fgColor-default, var(--color-fg-default)) !important;
   background-color: var(--bgColor-default, var(--color-bg-default)) !important;
+  &:hover {
+    background-color: var(--button-default-bgColor-hover, var(--color-btn-hover-bg));
+  }
 }
 @mixin default-border {
   border: var(--borderWidth-thin, 1px) solid var(--borderColor-default, var(--color-border-default)) !important;
   border-radius: 6px !important;
+}
+@mixin default-hover {
+  &:hover {
+    border-color: var(--button-default-borderColor-hover, var(--color-btn-hover-border));
+  }
 }
 
 @mixin default-style {

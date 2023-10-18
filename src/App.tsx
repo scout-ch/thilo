@@ -115,7 +115,7 @@ function App() {
   // HelmetProvider allows the use of Helmet components to set the title 
   // and, in the future, meta tags and SEO data
   return (
-    <ThemeProvider>
+    <ThemeProvider colorMode='auto'>
       <HelmetProvider>
         <Helmet>
           <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>

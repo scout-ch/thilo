@@ -107,7 +107,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
           <ActionMenu>
             <ActionMenu.Anchor>
               <ActionMenu.Button
-                className="width-full color-fg-default color-bg-default color-border-muted"
+                className="width-full"
                 aria-label={`Select language: current language is ${selectedLang.name}`}
                 sx={{
                   height: 'auto',
@@ -120,7 +120,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
                 <span className="color-fg-muted text-normal f6">{selectedLang.name}</span>
               </ActionMenu.Button>
             </ActionMenu.Anchor>
-            <ActionMenu.Overlay align="end" className="color-fg-default color-bg-default color-border-muted">
+            <ActionMenu.Overlay align="end">
               <ActionList selectionVariant="single">{languageList}</ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>

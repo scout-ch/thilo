@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, Link as ReactRouterLink } from 'react-router-dom'
 import cx from 'classnames'
-import { ActionList, ActionMenu, Dialog, IconButton } from '@primer/react'
+import { ActionList, ActionMenu, Dialog, IconButton, useTheme } from '@primer/react'
 import {
   ThreeBarsIcon,
   SearchIcon,
@@ -14,6 +14,7 @@ import SearchInput from './SearchInput'
 import SidebarNav from './SidebarNav'
 import styles from './Header.module.scss'
 import { withTranslation } from 'react-i18next'
+import { ColorModeWithAuto } from '@primer/react/lib/ThemeProvider'
 
 type Props = {
     t?: any
@@ -33,6 +34,7 @@ const Header = ({ t }: Props) => {
     {id: "light", name: t("header.theme_light_name")},
     {id: "dark",  name: t("header.theme_dark_name")},
   ]
+  const {setColorMode} = useTheme();
 
   const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemes[0])
 
@@ -144,7 +146,6 @@ const Header = ({ t }: Props) => {
           <IconButton
             className={cx(
               "border hide-xxl mr-3",
-              'color-bg-default color-fg-default color-border-muted'
             )}
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
@@ -164,7 +165,7 @@ const Header = ({ t }: Props) => {
             isOpen={isSidebarOpen}
             onDismiss={closeSidebar}
             aria-labelledby="sidebar-overlay-header"
-            className='color-bg-default color-fg-default color-border-muted
+            className='
             rounded-0 rounded-right-3 position-fixed top-0 left-0
             '
             sx={{
@@ -177,7 +178,6 @@ const Header = ({ t }: Props) => {
             }}
           >
             <Dialog.Header
-            className='color-fg-default color-bg-default'
               id="sidebar-overlay-header"
               >
               {t('sideBarNav.title')}
@@ -202,7 +202,6 @@ const Header = ({ t }: Props) => {
                 className={cx(
                   'hide-lg hide-xl',
                   !isSearchOpen ? 'd-flex flex-items-center ml-auto' : 'd-none',
-                  'color-bg-default color-fg-default color-border-muted'
                 )}
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 aria-label="Open Search Bar"
@@ -215,7 +214,7 @@ const Header = ({ t }: Props) => {
                 aria-expanded={isSearchOpen ? 'true' : 'false'}
                 icon={XIcon}
 
-                className='color-bg-default color-fg-default color-border-muted show'
+                className='show'
                 sx={
                   isSearchOpen
                     ? {
@@ -247,7 +246,6 @@ const Header = ({ t }: Props) => {
                     <IconButton
                       icon={KebabHorizontalIcon}
                       aria-label="Open Menu"
-                      className='color-bg-default color-fg-default color-border-muted'
                       sx={
                         isSearchOpen
                           ? // The ... menu button when the smaller width search UI is open.  Since the search
@@ -283,7 +281,6 @@ const Header = ({ t }: Props) => {
                     />
                   </ActionMenu.Anchor>
                   <ActionMenu.Overlay align="start" 
-                    className='color-bg-default color-fg-default color-border-muted'
                   >
                     <ActionList>
                       <ActionList.Group>
@@ -295,8 +292,7 @@ const Header = ({ t }: Props) => {
                       </ActionList.Group>
                       <ActionMenu>
                         <ActionMenu.Button
-                          className='width-full
-                          color-bg-default color-fg-default color-border-muted'
+                          className='width-full'
                           sx={{
                             textAlign: 'left',
                             'span:first-child': { display: 'inline' },
@@ -306,15 +302,12 @@ const Header = ({ t }: Props) => {
                         </ActionMenu.Button>
                         <ActionMenu.Overlay>
                           <ActionList selectionVariant="single"
-                            className='color-bg-default color-fg-default color-border-muted'
                           >
                             {colorSchemes.map(colorScheme => (
                               <ActionList.Item
-
-                      className='color-bg-default color-fg-default color-border-muted'
                                 key={colorScheme.id}
                                 selected={colorScheme.id === selectedColorScheme.id}
-                                onSelect={() => {setSelectedColorScheme(colorScheme); }}
+                                onSelect={() => {setSelectedColorScheme(colorScheme); setColorMode(colorScheme.id as SetStateAction<ColorModeWithAuto>)}}
                               >
                                 {colorScheme.name}
                               </ActionList.Item>
@@ -325,7 +318,6 @@ const Header = ({ t }: Props) => {
 
                       <ActionList.Group>
                         <ActionList.Item as={ReactRouterLink} to="/impressum"
-                          className='color-fg-default'
                           >
                           Impressum
                         </ActionList.Item>

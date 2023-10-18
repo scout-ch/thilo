@@ -49,7 +49,6 @@ function SearchInput({ t, keyword, onChange, onKeyDown, tooltipDirection }: Prop
         onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
         placeholder={t('searchPage.searchPlaceholder')}
         maxLength={512}
-        className='color-bg-default color-fg-default color-border-muted'
         sx={{
           width: '100%',
           height: '2rem',
@@ -62,7 +61,6 @@ function SearchInput({ t, keyword, onChange, onKeyDown, tooltipDirection }: Prop
     </label>
     <Tooltip aria-label={t("searchPage.tooltip")} direction={tooltipDirection? tooltipDirection : 'n'}>
       <IconButton
-       className='color-bg-default color-fg-default color-border-muted'
         aria-label={t("searchPage.tooltip")}
         icon={SearchIcon}
         sx={{ borderTopLeftRadius: 'unset', borderBottomLeftRadius: 'unset' }}

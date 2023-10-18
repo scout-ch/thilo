@@ -39,11 +39,10 @@ function SidebarNav(props: Props) {
             const id = `subnav_item_${chapter.sorting}_${chapter.slug_with_section}`;
             return (
                 <NavList.Item 
-                    // className={cx('ml-4', `${chapter.slug_with_section}`)} 
+                    className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     // aria-current={isActive && "page"}
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
-                    className='color-fg-default color-border-muted'
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
                         {/* fill has to be added to the parent, as the prop isn't
@@ -75,17 +74,15 @@ function SidebarNav(props: Props) {
                 </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
                     ? 
-                    <Link as={ReactRouterLink} to={section.slug}
-                        className='color-fg-default color-border-muted'    
-                    >
+                    <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name} as='span' 
-                        className='d-inline-block' maxWidth={200}
+                        className='d-inline-block color-fg-default' maxWidth={200}
                         >
                             {section.menu_name}
                         </Truncate>
                     </Link>
                     : <Truncate title={section.menu_name} as='span' 
-                    className='d-inline-block color-fg-default color-border-muted' maxWidth={200}
+                    className='d-inline-block color-fg-default' maxWidth={200}
                     >
                         {section.menu_name}
                     </Truncate>
@@ -117,7 +114,6 @@ function SidebarNav(props: Props) {
                 <NavList.Item as={ReactRouterLink} to='/'
                     className={cx(
                     classHome,
-                        'color-fg-default color-border-muted'
                     )}
                 >
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 

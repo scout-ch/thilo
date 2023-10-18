@@ -37,6 +37,7 @@
     font-weight: unset !important;
     font-size: unset !important;
     @include default-border;
+    @include default-hover;
     padding: var(--base-size-8, 8px) !important;
     &:disabled {
       cursor: not-allowed;
