@@ -136,6 +136,7 @@ function App() {
                           <Route path="/" element={<HomePage page={startPage}/>} />
                           <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
                         </Routes>
+                    <Footer />
                     </main>
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
@@ -144,10 +145,6 @@ function App() {
                 >
                   <SidebarNav startPageMenuName={'start'} variant='full'/>
                 </PageLayout.Pane>
-                <PageLayout.Footer>
-                  <Footer />
-
-                </PageLayout.Footer>
               </PageLayout>
 
             </LinksContext.Provider>
