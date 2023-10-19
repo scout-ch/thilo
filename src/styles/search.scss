@@ -1,3 +1,9 @@
+.search {
+    & > h1 {
+        margin-left: 80px;
+    }
+}
+
 .search-results {
     display: flex;
     flex-direction: column;

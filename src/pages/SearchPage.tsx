@@ -18,24 +18,25 @@ export type SearchPageT = {
 type Props = {
     page: SearchPageT
     sections: Array<SectionT>
+    t?: any
 }
 
-function SearchPage(props: Props) {
-    const searchPage = props.page
+function SearchPage({page, sections, t}: Props) {
+    const searchPage = page
 
     // The basis of the search are the sections, from which the chapter content is read
     return <div className='content'>
         <Helmet>
-            <title>{searchPage.title}</title>
+            <title>{t('searchPage.title')}</title>
         </Helmet>
         <div className='search'>
-            <h1>{searchPage.title}</h1>
+            <h1 className="mb-4">{t('searchPage.title')}</h1>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={LinkComponent}
             >{searchPage.content}</ReactMarkdown>
 
-            <SearchForm sections = {props.sections}></SearchForm>
+            <SearchForm sections = {sections}></SearchForm>
         </div>
     </div>
 }

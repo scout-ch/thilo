@@ -11,6 +11,7 @@
       "title": "Home"
     },
     "searchPage": {
+      "title": "Suchen",
       "tooltip": "Suchen",
       "searchPlaceholder": "Kapitel durchsuchen",
       "noResults": "Keine Resultate gefunden. Bitte versuche es mit einem anderen Suchbegriff.",
