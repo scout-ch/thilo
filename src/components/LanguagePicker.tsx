@@ -107,7 +107,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
           <ActionMenu>
             <ActionMenu.Anchor>
               <ActionMenu.Button
-                className="width-full"
+                className="width-full mb-3"
                 aria-label={`Select language: current language is ${selectedLang.name}`}
                 sx={{
                   height: 'auto',
