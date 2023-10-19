@@ -37,8 +37,10 @@
     font-weight: unset !important;
     font-size: unset !important;
     @include default-border;
-    @include default-hover;
     padding: var(--base-size-8, 8px) !important;
+    &:enabled {
+      @include default-hover;
+    }
     &:disabled {
       cursor: not-allowed;
       opacity: 0.6;
@@ -77,6 +79,8 @@
     }
     .number-of-selection {
       @include primer-open;
+      margin: unset !important;
+      cursor: default;
     }
   }
 
@@ -95,9 +99,12 @@
     }
     *:disabled {
       opacity: 1;
+      cursor: default;
     }
     .explanation {
-      @include default-style;
+      @include default-color;
+      margin: unset !important;
+      border: unset !important;
     }
   }
   

@@ -164,7 +164,7 @@ textarea {
 }
 @mixin default-hover {
   &:hover {
-    border-color: var(--button-default-borderColor-hover, var(--color-btn-hover-border));
+    border-color: var(--button-default-borderColor-hover, var(--color-btn-hover-border)) !important;
   }
 }
 
