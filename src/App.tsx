@@ -123,12 +123,12 @@ function App() {
         <div className='App'>
           <Router basename="/">
             <LinksContext.Provider value={links}>
-              <PageLayout>
+              <Header />
+              <PageLayout sx={{padding: '0'}}>
                 <PageLayout.Content>
                   {/* to have a sticky header, it needs to be placed here
                   in the content */}
-                  <Header />
-                    <main id="main-content">
+                    <main id="main-content" className='p-4'>
                       <Routes>
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
                           <Route path="/impressum" element={<ImpressumPage />} />
@@ -141,7 +141,7 @@ function App() {
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
                   hidden={{narrow: true, regular: true, wide: false}}
-                  // offsetHeader={64}
+                  offsetHeader={48}
                 >
                   <SidebarNav startPageMenuName={'start'} variant='full'/>
                 </PageLayout.Pane>

@@ -136,7 +136,8 @@ const Header = ({ t }: Props) => {
     <>
         <header
           className={cx(
-            'color-bg-default p-2 z-1 sections position-sticky top-0 z-1',
+            'color-bg-default p-2 px-4 z-1 sections position-sticky top-0 z-1',
+            'border-bottom color-border-subtle',
             scroll && 'color-shadow-small',
           )}
           role='banner'
