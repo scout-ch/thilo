@@ -12,12 +12,12 @@
     -->
     <link rel="manifest" href="/manifest.json" />
     <title></title>
-    <script>
+    <script defer>
       window.env = {
         BACKEND_URL: '${BACKEND_URL}',
       };
     </script>
-    <script type="module" src="/src/index.tsx"></script>
+    <script defer type="module" src="/src/index.tsx"></script>
   </head>
   <body data-light-theme="light" data-dark-theme="dark" data-color-mode="auto">
     <noscript>You need to enable JavaScript to run this app.</noscript>
