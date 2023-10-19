@@ -15,7 +15,8 @@ import SearchInput from './SearchInput';
 import { Link } from 'react-router-dom';
 
 // @ts-ignore
-import * as strip_html from 'remark-strip-html';
+// to retain markdown without html:
+// import * as strip_html from 'remark-strip-html';
 
 type Props = {
     t: any,
@@ -116,11 +117,18 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
 
     // find matching contents in chapter content for keyword
     const findMatchingContents = (keyword: string, content: string): Promise<string[]> => {
-        let result = remark().use(strip_md).use(strip_html).process(content).then(
-            (stripped_content) =>
-            {
-               const matches = Array.from(String(stripped_content).matchAll(new RegExp(`[^.!?:;#\n]*(?=${keyword}).*?[.!?](?=\s?|\p{Lu}|$)`, 'gmi'))) // eslint-disable-line no-useless-escape
-               const result = matches.reduce((searchResults: string[], currentMatches: RegExpMatchArray) => searchResults.concat(currentMatches), [])
+        let result = remark().use(strip_md).process(content).then(
+            (stripped_content) => {
+                const matches = [...String(stripped_content)
+                    .matchAll(new RegExp(`[^.!?:;#\n]*(?=${keyword}).*?[.!?\n](?=\s?|$)`, 'gmi')
+                )] // eslint-disable-line no-useless-escape
+                let result = matches.reduce((searchResults: string[], currentMatches: RegExpMatchArray) => searchResults.concat(currentMatches), [])
+                result = [...new Set(result)]
+                // highlight matching contents
+                result = result.map((e) => {
+                    let r = e.replace(new RegExp(keyword, 'gi'), '**$&**')
+                    return r
+                })
                 return result;
             } 
         );
@@ -148,7 +156,7 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                                 <div className='content-match'>
                                     {result.matchingContents.map((content, idx) => {
                                         return <ReactMarkdown key={idx} 
-                                            remarkPlugins={[remarkGfm, strip_md, strip_html]} 
+                                            remarkPlugins={[remarkGfm]} 
                                             components={LinkComponent} 
                                             children={content}
                                             className='border-bottom'

@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: fit-content;
+    strong {
+        color: unset;
+    }
 }
 
 .search-result {
