@@ -21,16 +21,16 @@ export const LinkComponent = {
     blockquote({node, children, ...props}) {
         return <Warning content={children}/>
     },
-
+    
     // @ts-ignore
     a({node, children, ...props}) {
         /* eslint-disable */
         const links = useContext(LinksContext)
         const link = props.href
+        const [quizData, setQuizData] = useState(null);
 
         // if links point to a quiz, we load the quiz component. this is subject to change
         if (link.toLowerCase().includes('quiz') && link.toLowerCase().includes('.json')) {
-            const [quizData, setQuizData] = useState(null);
 
             useEffect(() => {
                 const fetchQuizData = async () => {
@@ -38,13 +38,13 @@ export const LinkComponent = {
                     const response = await fetch(link);
                     const data = await response.json();
                     setQuizData(data);
-                    } catch (error) {
+                } catch (error) {
                     console.error('Failed to fetch quiz data', error);
                 }
                 };
 
                 fetchQuizData();
-            }, [quizData]);
+            }, []);
 
             if (!quizData) {
                 return <Loading isLoading={true} />
