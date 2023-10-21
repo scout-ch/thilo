@@ -49,8 +49,8 @@ function Footer({ t }: Props) {
         {/* <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div> */}
         {(prevSection || nextSection) && <>
           {/* <ButtonGroup> */}
-            <Button size="large" 
-              className='btn-nav btn-footer pb-5 pt-5' 
+            <Button 
+              className='btn-nav btn-footer py-5' 
               onClick={() => navigate(`/${prevSlug}`)}
               leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
             >
@@ -63,8 +63,8 @@ function Footer({ t }: Props) {
                 <>{t('footer.homeButtonText')}<br/>&nbsp;</>
               }
             </Button>
-            <Button size="large" 
-              className='btn-nav btn-footer pb-5 pt-5'
+            <Button 
+              className='btn-nav btn-footer py-5'
               onClick={() => navigate(`/${nextSlug}`)}
               trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
             >
@@ -80,7 +80,7 @@ function Footer({ t }: Props) {
           {/* </ButtonGroup> */}
         </>}
         {(!prevSection && !nextSection) && <>
-          <Button size="large" 
+          <Button 
             className='btn-nav btn-footer' 
             onClick={() => navigate(`/${prevSlug}`)}
             leadingIcon={ArrowUpIcon} 

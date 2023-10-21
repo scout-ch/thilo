@@ -128,7 +128,7 @@ function App() {
                 <PageLayout.Content>
                   {/* to have a sticky header, it needs to be placed here
                   in the content */}
-                    <main id="main-content" className='p-4'>
+                    <main id="main-content" className='p-4 px-md-6'>
                       <Routes>
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
                           <Route path="/impressum" element={<ImpressumPage />} />

@@ -40,7 +40,7 @@ function SidebarNav(props: Props) {
             return (
                 <NavList.Item 
                     className={cx('ml-4', `${chapter.slug_with_section}`)} 
-                    // aria-current={isActive && "page"}
+                    aria-current={isActive && "location"}
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
                 >
@@ -49,7 +49,10 @@ function SidebarNav(props: Props) {
                         working on the Icon objects */}
                         {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
-                    {chapter.menu_name}
+                    <span className={cx(isActive && 'text-bold')}>
+                      {chapter.menu_name}
+
+                    </span>
                 </NavList.Item>
             )
         })
@@ -76,13 +79,13 @@ function SidebarNav(props: Props) {
                     ? 
                     <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name} as='span' 
-                        className='d-inline-block color-fg-default' maxWidth={200}
+                        className={cx('d-inline-block color-fg-default', sectionActive && 'text-bold')} maxWidth={200}
                         >
                             {section.menu_name}
                         </Truncate>
                     </Link>
                     : <Truncate title={section.menu_name} as='span' 
-                    className='d-inline-block color-fg-default' maxWidth={200}
+                    className={cx('d-inline-block color-fg-default', sectionActive && 'text-bold')} maxWidth={200}
                     >
                         {section.menu_name}
                     </Truncate>
