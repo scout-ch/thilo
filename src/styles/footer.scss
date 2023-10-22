@@ -2,6 +2,9 @@ footer {
   .btn-nav {
     background: var(--color-primary) !important;
     // filter: brightness(var(--lightness));
+    * {
+      color: var(--fgColor-default, var(--color-fg-default)) !important;
+    }
   }
 
   footer-image svg {
