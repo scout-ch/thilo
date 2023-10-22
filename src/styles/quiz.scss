@@ -3,7 +3,8 @@
 .quiz-container {
   display: block;
   padding: 10px;
-  @include default-style;
+  background-color: var(--bgColor-muted, var(--color-canvas-subtle)) !important;
+  border-radius: var(--borderRadius-medium, 6px) !important;
 }
 
 .react-quiz-container {

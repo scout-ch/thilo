@@ -110,8 +110,8 @@ function SidebarNav(props: Props) {
 
     return (
         <div data-container="nav"
-            style={{minWidth: '261px'}}
-            className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none' : '')}
+            style={{minWidth: '261px', minHeight: 'var(--sticky-pane-height)'}}
+            className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none border-right height-full color-border-subtle' : '')}
         >
             <NavList>
                 <NavList.Item as={ReactRouterLink} to='/'

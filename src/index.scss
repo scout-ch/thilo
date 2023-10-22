@@ -13,6 +13,7 @@
 @import './styles/section.scss';
 @import './styles/chapter.scss';
 // @import './styles/nav.scss';
+@import './styles/header.scss';
 @import './styles/table.scss';
 @import './styles/search.scss';
 @import './styles/footer.scss';
@@ -29,12 +30,22 @@
   --line-height: 1.5;
 }
 
+#root > div > div > div {
+  max-width: unset;
+}
+
+#main-content {
+  max-width: 1280px;
+  margin: auto;
+}
 
 .content {
-  h1, h2, h3, h4, h5, h6 {
-    scroll-margin-top: 48px;
+  h1 {
+    scroll-margin-top: 128px;
   }
-  
+  h2, h3, h4, h5, h6 {
+    scroll-margin-top: 32px;
+  }
   h1, h2, h3 {
     color: var(--color-primary);
   }
@@ -65,10 +76,4 @@
 
 .bg-secondary {
   background-color: var(--color-primary-light) !important;
-}
-
-
-// Force color override of the dialog header
-#sidebar-overlay-header *[color] {
-  color: var(--fgColor-default, var(--color-fg-default)) !important;
 }

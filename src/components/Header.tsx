@@ -136,9 +136,9 @@ const Header = ({ t }: Props) => {
     <>
         <header
           className={cx(
-            'color-bg-default p-2 px-4 z-1 sections position-sticky top-0 z-1',
-            'border-bottom color-border-subtle',
-            scroll && 'color-shadow-small',
+            'AppHeader',
+            'p-3 z-1 sections position-sticky top-0',
+            // scroll && 'color-shadow-small',
           )}
           role='banner'
           aria-label='Main'
@@ -146,7 +146,7 @@ const Header = ({ t }: Props) => {
           <div className={cx('d-flex flex-items-center')}>
           <IconButton
             className={cx(
-              "border hide-xxl mr-3",
+              "AppHeader-button hide-xxl mr-3 color-fg-muted",
             )}
             icon={ThreeBarsIcon}
             aria-label="Open Sidebar"
@@ -201,7 +201,7 @@ const Header = ({ t }: Props) => {
             {!isSearchResultsPage && <>
               <IconButton
                 className={cx(
-                  'hide-lg hide-xl',
+                  'hide-lg hide-xl AppHeader-button color-fg-muted',
                   !isSearchOpen ? 'd-flex flex-items-center ml-auto' : 'd-none',
                 )}
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -215,7 +215,7 @@ const Header = ({ t }: Props) => {
                 aria-expanded={isSearchOpen ? 'true' : 'false'}
                 icon={XIcon}
 
-                className='show'
+                className='show AppHeader-button color-fg-muted'
                 sx={
                   isSearchOpen
                     ? {
@@ -241,10 +241,11 @@ const Header = ({ t }: Props) => {
               </div> */}
 
               {/* The ... navigation menu */}
-              <div>
+              <div className='dotdotdot-nav'>
                 <ActionMenu aria-labelledby="sidebar-overlay-header">
                   <ActionMenu.Anchor>
                     <IconButton
+                      className='AppHeader-button color-fg-muted'
                       icon={KebabHorizontalIcon}
                       aria-label="Open Menu"
                       sx={

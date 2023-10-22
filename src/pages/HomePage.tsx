@@ -27,13 +27,23 @@ function HomePage(props: Props) {
       <title>{startPage.title}</title>
     </Helmet>
     
-    <h1>{startPage.title}</h1>
+    <div id="section-title" className="section-title section-1 mb-2">
+      <h1>{startPage.title}</h1>
+    </div>
 
-    <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={LinkComponent}
-        >{startPage.content}</ReactMarkdown>
+
+    <div className='section-body rounded p-3 border color-bg-default'>
+      <div className='section-description'>
+        <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={LinkComponent}
+            >{startPage.content}</ReactMarkdown>
+
+      </div>
+
+    </div>
 
   </div>
+
 }
 export default withTranslation()(HomePage)

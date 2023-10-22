@@ -128,7 +128,7 @@ function App() {
                 <PageLayout.Content>
                   {/* to have a sticky header, it needs to be placed here
                   in the content */}
-                    <main id="main-content" className='p-4 px-md-6'>
+                    <main id="main-content" className='p-3'>
                       <Routes>
                           <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
                           <Route path="/impressum" element={<ImpressumPage />} />
@@ -141,7 +141,7 @@ function App() {
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
                   hidden={{narrow: true, regular: true, wide: false}}
-                  offsetHeader={48}
+                  offsetHeader={64}
                 >
                   <SidebarNav startPageMenuName={'start'} variant='full'/>
                 </PageLayout.Pane>

@@ -35,7 +35,6 @@ function Section(props: Props) {
     }).map(function (chapter: ChapterT) {
         return <Chapter key={chapter.title} data={chapter}></Chapter>
     })
-    let classes=`section-title section-${props.section.sorting}`;
     const root = document.documentElement;
     if(props.section.color_primary){
         root.style.setProperty('--color-primary', props.section.color_primary);
@@ -47,21 +46,25 @@ function Section(props: Props) {
     }
 
 
-    return <div className='content'>
+    return <section className='content'>
         <Helmet><title>{props.section['title']}</title></Helmet>
-        <div id="section-title" className={classes}>
+        <div id="section-title" className={`section-title section-${props.section.sorting} mb-2`}>
             <h1>
                 {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
                 {props.section['title']}
             </h1>
         </div>
-        <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={LinkComponent}
-        >{props.section.content ?? ''}</ReactMarkdown>
+        <div className='section-body rounded p-3 border color-bg-default'>
+            <div className='section-description'>
+                <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={LinkComponent}
+                >{props.section.content ?? ''}
+                </ReactMarkdown>
+            </div>
+        </div>
         {chapters}
-    </div>
-
+    </section>
 }
 
 export default withTranslation()(Section)
