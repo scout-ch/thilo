@@ -44,7 +44,7 @@
     scroll-margin-top: 128px;
   }
   h2, h3, h4, h5, h6 {
-    scroll-margin-top: 32px;
+    scroll-margin-top: calc(64px + var(--base-size-16, 16px) + 10px);
   }
   h1, h2, h3 {
     color: var(--color-primary);
