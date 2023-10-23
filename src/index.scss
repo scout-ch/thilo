@@ -68,6 +68,12 @@
       color: var(--color-primary);
     }
   }
+
+  p {
+    text-align: justify;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 
 .bg-primary {
