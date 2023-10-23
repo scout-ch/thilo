@@ -2,7 +2,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import type { SectionT } from './Section';
 import { Button, ButtonGroup, Truncate } from '@primer/react';
-import { ArrowLeftIcon, ArrowRightIcon, ArrowUpIcon } from '@primer/octicons-react'
+import { ArrowLeftIcon, ArrowRightIcon, IterationsIcon } from '@primer/octicons-react'
 import ScrollButton from './ScrollButton';
 import { withTranslation } from 'react-i18next';
 
@@ -52,7 +52,7 @@ function Footer({ t }: Props) {
             <Button 
               className='btn-nav btn-footer py-5' 
               onClick={() => navigate(`/${prevSlug}`)}
-              leadingIcon={prevSection? ArrowLeftIcon: ArrowUpIcon} 
+              leadingIcon={prevSection? ArrowLeftIcon: IterationsIcon} 
             >
               {prevSection &&
                 <>{t('footer.prevButtonText')}<br/>
@@ -66,7 +66,7 @@ function Footer({ t }: Props) {
             <Button 
               className='btn-nav btn-footer py-5'
               onClick={() => navigate(`/${nextSlug}`)}
-              trailingIcon={nextSection? ArrowRightIcon: ArrowUpIcon} 
+              trailingIcon={nextSection? ArrowRightIcon: IterationsIcon} 
             >
               {nextSection &&
                 <>{t('footer.nextButtonText')}<br/>
@@ -83,7 +83,7 @@ function Footer({ t }: Props) {
           <Button 
             className='btn-nav btn-footer' 
             onClick={() => navigate(`/${prevSlug}`)}
-            leadingIcon={ArrowUpIcon} 
+            leadingIcon={IterationsIcon} 
             >
             {t('footer.homeButtonText')}
           </Button>
