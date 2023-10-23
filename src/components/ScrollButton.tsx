@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { ChevronUpIcon } from '@primer/octicons-react'
+import { MoveToTopIcon } from '@primer/octicons-react'
 import { withTranslation } from 'react-i18next'
 
 export type ScrollButtonPropsT = {
@@ -49,7 +49,7 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
         style={{ width: 40, height: 40 }}
         aria-label={t("scrollButton.tooltip")}
       >
-        <ChevronUpIcon />
+        <MoveToTopIcon />
       </button>
     </div>
   )
