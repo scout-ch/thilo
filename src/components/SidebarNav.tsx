@@ -6,15 +6,18 @@ import { NavList, Truncate, Link} from '@primer/react'
 import cx from 'classnames'
 
 import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon } from '@primer/octicons-react'
+import { withTranslation } from 'react-i18next'
 // icons related to books:
 // RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon 
 
 type Props = {
+    t?: any
     startPageMenuName?: String
     variant?: 'full' | 'overlay'
 }
 
 function SidebarNav(props: Props) {
+    const { t } = props
 
     // location and navigate for browsing sections and chapters via hash links
     const location = useLocation()
@@ -136,4 +139,4 @@ function SidebarNav(props: Props) {
     )
 }
 
-export default SidebarNav
+export default withTranslation()(SidebarNav)
