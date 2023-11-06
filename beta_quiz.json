@@ -1,0 +1,82 @@
+{
+  "quizTitle": "BETA Erste Hilfe Quiz",
+  "questions": [
+    {
+      "question": "Welches Schema hilft in Notsituationen den Überblick zu behalten und richtig zu handeln?",
+      "questionType": "text",
+      "answers": [
+        "Farbkreisschema",
+        "Ampelschema",
+        "Zahlenmatrix",
+        "Kreisdiagramm"
+      ],
+      "correctAnswer": "2"
+    },
+    {
+      "question": "Welche der folgenden Nummern ist die Notrufnummer für die Polizei in der Schweiz?",
+      "questionType": "text",
+      "answers": [
+        "112",
+        "117",
+        "144",
+        "118"
+      ],
+      "correctAnswer": "2"
+    },
+    {
+      "question": "Was ist das erste, was du tun solltest, wenn du eine starke Blutung bei jemandem siehst?",
+      "questionType": "text",
+      "answers": [
+        "Druck auf die Wunde ausüben",
+        "Beachte den Selbstschutz und ziehe Handschuhe an",
+        "Die Wunde desinfizieren",
+        "Den Patienten in die stabile Seitenlage bringen"
+      ],
+      "correctAnswer": "1"
+    },
+    {
+      "question": "Welche Symptome deuten auf einen Zeckenstich hin?",
+      "answers": [
+        "Rötung, Juckreiz, Schwellung, Schmerzen, grippeähnlichen Symptomen",
+        "Blutung und Fieber",
+        "Gänsehaut und Schüttelfrost",
+        "Nasenbluten und Kopfschmerzen"
+      ],
+      "correctAnswer": "1",
+      "questionType": "text"
+    },
+    {
+      "question": "Was ist die beste Methode, um eine Person mit einem Verdacht auf eine Hirnerschütterung zu behandeln?",
+      "questionType": "text",
+      "answers": [
+        "Eiskompressen auf die Stirn legen",
+        "Die Person auf den Bauch legen",
+        " Eine feste Kopfbandage anlegen",
+        "Sofort medizinische Hilfe suchen"
+      ],
+      "correctAnswer": "4"
+    },
+    {
+      "question": "Welche Nummer sollte angerufen werden, wenn eine Person bewusstlos ist und Hilfe benötigt?",
+      "answers": [
+        "144",
+        "112",
+        "145",
+        "118"
+      ],
+      "correctAnswer": "1",
+      "questionType": "text"
+    },
+    {
+      "question": "Welche Hygienemaßnahme wird empfohlen, um Krankheiten zu vermeiden?",
+      "answers": [
+        "Regelmäßiges Händewaschen",
+        "Tragen von dicken Kleidern",
+        " Verzehr von verderblichen Lebensmitteln",
+        " Trinken von ungefiltertem Bachwasser"
+      ],
+      "questionType": "text",
+      "correctAnswer": "1"
+    }
+  ]
+}
