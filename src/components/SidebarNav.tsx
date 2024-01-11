@@ -44,7 +44,6 @@ function SidebarNav(props: Props) {
                     // aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
-                    style={{color: section.color_primary}}
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
                         {/* fill has to be added to the parent, as the prop isn't
