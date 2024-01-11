@@ -39,17 +39,21 @@ function SidebarNav(props: Props) {
             const id = `subnav_item_${chapter.sorting}_${chapter.slug_with_section}`;
             return (
                 <NavList.Item 
-                    className={cx('ml-4 fg-primary', `${chapter.slug_with_section}`)} 
+                    className={cx('ml-4', `${chapter.slug_with_section}`)} 
+                    style={{color: section.color_primary}}
                     // aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
+                    style={{color: section.color_primary}}
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
                         {/* fill has to be added to the parent, as the prop isn't
                         working on the Icon objects */}
                         {isActive ? <BookmarkFillIcon/> : <BookmarkIcon/>}
                     </NavList.LeadingVisual>
-                    <span className={cx(isActive && 'text-bold')}>
+                    <span className={cx(isActive && 'text-bold')}
+                    style={{color: section.color_primary}}
+                    >
                       {chapter.menu_name}
 
                     </span>
@@ -66,7 +70,7 @@ function SidebarNav(props: Props) {
             aria-expanded={sectionActive}
             as={ReactRouterLink} to={section.slug}
             >
-                <NavList.LeadingVisual>
+                <NavList.LeadingVisual style={{color: section.color_primary}}>
                     {/* <DynamicIcon/> */}
                     {section.icon && 
                         (<img className='icon' src={section.icon.url} alt="icon" style={{width: '18px'}} />)
@@ -79,13 +83,15 @@ function SidebarNav(props: Props) {
                     ? 
                     <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name} as='span' 
-                        className={cx('d-inline-block fg-primary', sectionActive && 'text-bold')} maxWidth={200}
+                        className={cx('d-inline-block', sectionActive && 'text-bold')} maxWidth={200}
+                        style={{color: section.color_primary}}
                         >
                             {section.menu_name}
                         </Truncate>
                     </Link>
                     : <Truncate title={section.menu_name} as='span' 
-                    className={cx('d-inline-block fg-default', sectionActive && 'text-bold')} maxWidth={200}
+                    className={cx('d-inline-block', sectionActive && 'text-bold')} maxWidth={200}
+                    style={{color: section.color_primary}}
                     >
                         {section.menu_name}
                     </Truncate>
