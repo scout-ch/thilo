@@ -49,10 +49,10 @@ function Section(props: Props) {
     return <section className='content'>
         <Helmet><title>{props.section['title']}</title></Helmet>
         <div id="section-title" className={`section-title section-${props.section.sorting} mb-2`}>
-            <h1>
-                {props.section.icon && (<img className='icon' src={props.section.icon.url} alt="icon" />)}
+            <h1 className={`bg-primary`}>
                 {props.section['title']}
             </h1>
+            {props.section.icon && (<img className='icon pl-2' src={props.section.icon.url} alt="icon" />)}
         </div>
         <div className='section-body rounded p-3 color-bg-default'>
             <div className='section-description'>

@@ -11,7 +11,6 @@
 
 // @import './styles/fonts/fonts.css';
 @import './styles/section.scss';
-@import './styles/chapter.scss';
 // @import './styles/nav.scss';
 @import './styles/header.scss';
 @import './styles/table.scss';
@@ -51,12 +50,6 @@
   }
   h4 {
     color: var(--color-primary-light);
-  }
-  .icon {
-    align-self:center; // height: 100%;
-    // margin: 0em 1.5em 0em -1.5em;
-    padding-right: 0.5em;
-    width: 80px;
   }
   img {
     max-width: 100%;
