@@ -28,7 +28,7 @@ function HomePage(props: Props) {
     </Helmet>
     
     <div id="section-title" className="section-title section-1 mb-2">
-      <h1>{startPage.title}</h1>
+      <h1 class="bg-primary px-2">{startPage.title}</h1>
     </div>
 
 

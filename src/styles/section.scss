@@ -7,18 +7,18 @@
     display: block;
   }
   .section-title {
+    display: flex;
     h1 {
       color: white;
-      background-color: var(--color-primary);
       display: inline-block;
-      width: calc(100% - 80px);
-      margin-top: -10px;
+      border-radius: 6px;
+      flex-grow: 1;
+      height: fit-content;
+      align-self: center;
     }
     .icon {
-      align-self:center; // height: 100%;
-      // margin: 0em 1.5em 0em -1.5em;
+      align-self:center; 
       width: 80px;
-      margin-top: 20px;
     }
   }
 
