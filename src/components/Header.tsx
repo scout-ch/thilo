@@ -137,13 +137,13 @@ const Header = ({ t }: Props) => {
         <header
           className={cx(
             'AppHeader',
-            'p-3 z-1 sections position-sticky top-0',
+            'z-1 sections position-sticky top-0',
             // scroll && 'color-shadow-small',
           )}
           role='banner'
           aria-label='Main'
         >
-          <div className={cx('d-flex flex-items-center')}>
+          <div className={cx('d-flex flex-items-center p-3')}>
           <IconButton
             className={cx(
               "AppHeader-button hide-xxl mr-3 color-fg-muted",
