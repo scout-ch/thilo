@@ -39,8 +39,8 @@ function SidebarNav(props: Props) {
             const id = `subnav_item_${chapter.sorting}_${chapter.slug_with_section}`;
             return (
                 <NavList.Item 
-                    className={cx('ml-4', `${chapter.slug_with_section}`)} 
-                    aria-current={isActive && "location"}
+                    className={cx('ml-4 fg-primary', `${chapter.slug_with_section}`)} 
+                    // aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
                 >
@@ -79,13 +79,13 @@ function SidebarNav(props: Props) {
                     ? 
                     <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name} as='span' 
-                        className={cx('d-inline-block color-fg-default', sectionActive && 'text-bold')} maxWidth={200}
+                        className={cx('d-inline-block fg-primary', sectionActive && 'text-bold')} maxWidth={200}
                         >
                             {section.menu_name}
                         </Truncate>
                     </Link>
                     : <Truncate title={section.menu_name} as='span' 
-                    className={cx('d-inline-block color-fg-default', sectionActive && 'text-bold')} maxWidth={200}
+                    className={cx('d-inline-block fg-default', sectionActive && 'text-bold')} maxWidth={200}
                     >
                         {section.menu_name}
                     </Truncate>

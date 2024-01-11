@@ -43,8 +43,10 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
       <button
         onClick={onClick}
         className={cx(
-          'tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0',
+          'tooltipped tooltipped-n tooltipped-no-delay color-fg-on-emphasis circle border-0',
           'd-flex flex-items-center flex-justify-center',
+          'bg-primary',
+          'inverted'
         )}
         style={{ width: 40, height: 40 }}
         aria-label={t("scrollButton.tooltip")}

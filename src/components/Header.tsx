@@ -36,7 +36,7 @@ const Header = ({ t }: Props) => {
   ]
   const {setColorMode} = useTheme();
 
-  const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemes[0])
+  const [selectedColorScheme, setSelectedColorScheme] = useState(colorSchemes[1])
 
   const location = useLocation()
   const navigate = useNavigate()

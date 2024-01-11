@@ -45,7 +45,7 @@ function Chapter(props: ChapterProps) {
 
     // render chapter
     // slug is used for anchor links
-    return <div className='chapter rounded p-3 border color-bg-default' style={style}>
+    return <div className='chapter rounded p-3 color-bg-default' style={style}>
         <div id={data.slug}>
             <div className="chapter-title pb-3">
                 <h2 id={data.slug}>
@@ -53,7 +53,7 @@ function Chapter(props: ChapterProps) {
                     {data.title}
                 </h2>
             </div>
-            <div className='chapter-body rounded p-3 color-bg-subtle'>
+            <div className='chapter-body'>
                 <Target targets={data.responsible} />
                 <ReactMarkdown remarkPlugins={[remarkGfm]}
                     components={LinkComponent}>{data.content}</ReactMarkdown>

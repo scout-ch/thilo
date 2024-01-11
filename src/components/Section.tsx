@@ -54,7 +54,7 @@ function Section(props: Props) {
                 {props.section['title']}
             </h1>
         </div>
-        <div className='section-body rounded p-3 border color-bg-default'>
+        <div className='section-body rounded p-3 color-bg-default'>
             <div className='section-description'>
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}

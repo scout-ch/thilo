@@ -49,7 +49,7 @@ function SearchInput({ t, keyword, onChange, onKeyDown, tooltipDirection }: Prop
         onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
         placeholder={t('searchPage.searchPlaceholder')}
         maxLength={512}
-        className="color-bg-transparent color-fg-muted"
+        // className="color-bg-transparent color-fg-muted"
         sx={{
           width: '100%',
           height: '2rem',

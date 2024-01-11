@@ -1,8 +1,9 @@
 .AppHeader {
-    --AppHeader-bg: var(--bgColor-inset, var(--color-canvas-inset));
+    --AppHeader-bg: var(--color-primary);
     color: var(--fgColor-default, var(--color-fg-default));
     background: var(--AppHeader-bg);
-    box-shadow: inset 0 calc(var(--borderWidth-thin, 1px)*-1) var(--color-border-default);
+    filter: invert(1);
+    // box-shadow: inset 0 calc(var(--borderWidth-thin, 1px)*-1) var(--color-border-default);
     @media (prefers-color-scheme: dark) {
         .AppHeader-button {
             position: relative;
@@ -10,9 +11,9 @@
             grid-auto-columns: max-content;
             width: var(--base-size-32, 32px);
             height: var(--base-size-32, 32px);
-            color: var(--fgColor-muted, var(--color-fg-muted));
-            background: transparent;
-              background-color: transparent;
+            // color: var(--fgColor-muted, var(--color-fg-muted));
+            // background: transparent;
+            //   background-color: transparent;
             border: var(--borderWidth-thin, 1px) solid var(--color-border-default);
             border-radius: var(--borderRadius-medium, 6px);
             align-items: center;
@@ -21,5 +22,8 @@
                 background: var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg));
             }
         }
+    }
+    > * {
+        filter: invert(1);
     }
 }

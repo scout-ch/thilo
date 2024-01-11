@@ -79,7 +79,19 @@
 .bg-primary {
   background-color: var(--color-primary) !important;
 }
+.fg-primary {
+  color: var(--color-primary) !important;
+}
+
 
 .bg-secondary {
   background-color: var(--color-primary-light) !important;
+}
+
+.inverted {
+  filter: invert(1);
+  // HACK: undo the inversion for all children to only invert background color
+  > * {
+    filter: invert(1);
+  }
 }
