@@ -24,10 +24,14 @@ function SectionPage(props: Props) {
 
   // scroll to chapter if hash in url is set
   useEffect(() => {
-    const id = location.hash.replace('#', '');
-    if (id) {
+    const hash = location.hash
+    const id = hash.replace('#', '');
+    if (hash && id) {
         const element = document.getElementById(id)?.getElementsByTagName('h2')[0];
         if (element) element.scrollIntoView()
+    } else {
+        const title = document.getElementById('section-title')?.getElementsByTagName('h1')[0]
+        if (title) title.scrollIntoView()
     }
   });
   if (!section) return null
