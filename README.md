@@ -76,7 +76,7 @@ Der `caption` tag erlaubt die ursprüngliche alt-tag funktionalität noch zu nut
 
 Alle möglichen HTML Einheiten funktionieren für die `width` und `height` tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
 
-Für einen weitere Details, siehe die [Erfassungsrichtlinien](./Erfassungs-Richtlinien.md).
+Für weitere Infos, siehe die [Erfassungsrichtlinien](./Erfassungs-Richtlinien.md) des Hering Projekts, auf dem das Thilo basiert.
 
 ## Production
 The frontend is deployed to GitHub pages.
