@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LinksContext } from '../App';
 import Loading from '../components/Loading';
-import Warning from '../components/Warning';
+import Blockquote from '../components/Blockquote';
 //@ts-ignore
 import Quiz from 'react-quiz-component'
 
@@ -19,7 +19,7 @@ export const LinkComponent = {
     // blockquotes used for warnings
     // @ts-ignore
     blockquote({node, children, ...props}) {
-        return <Warning content={children}/>
+        return <Blockquote content={children}/>
     },
     
     // @ts-ignore
