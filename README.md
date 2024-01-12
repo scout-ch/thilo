@@ -66,6 +66,7 @@ Ihr auf folgenden Seiten:
 - https://remarkjs.github.io/react-markdown/
 - https://commonmark.org/help/
 - https://github.com/remarkjs/remark-gfm#use
+
 #### Projektspezifisches Markdown:
 Die Bildgestaltung und die Bildunterschrift können über das Alt-Attribut eines Bildes spezifiziert werden, wie folgt:
 ```md
@@ -75,9 +76,7 @@ Der `caption` tag erlaubt die ursprüngliche alt-tag funktionalität noch zu nut
 
 Alle möglichen HTML Einheiten funktionieren für die `width` und `height` tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
 
-Des weiteren werden auch HTML tags akzeptiert. Dies erfordet mehr Hintergrund-
-wissen und erfordert vertraulichen Zugang zum Backend, da dieses Feature 
-missbraucht werden könnte. 
+Für einen weitere Details, siehe die [Erfassungsrichtlinien](./Erfassungs-Richtlinien.md).
 
 ## Production
 The frontend is deployed to GitHub pages.
