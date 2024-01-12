@@ -143,12 +143,12 @@ function SearchForm({ t, sections, minKeyWordLength = 3 }: Props) {
                     // render results
                     return searchResults.map(result => {
                         return <div key={result.id} className='search-result border rounded'>
-                            <div className='title-match'>
-                                <Link to={`/${result.section.slug}`}> 
+                            <div className='title-match'  style={{color: result.section.color_primary}}>
+                                <Link to={`/${result.section.slug}`} className='color-fg-inherit'> 
                                     {result.section.title}
                                 </Link>
                                 &nbsp;/&nbsp;
-                                <Link to={`/${result.slug_with_section}`}>
+                                <Link to={`/${result.slug_with_section}`}  className='color-fg-inherit'>
                                     {result.title}
                                 </Link>
                             </div>
