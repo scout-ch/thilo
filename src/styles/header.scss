@@ -2,7 +2,6 @@
     --AppHeader-bg: var(--color-primary);
     color: var(--fgColor-default, var(--color-fg-default));
     background: var(--AppHeader-bg);
-    filter: invert(1);
     // box-shadow: inset 0 calc(var(--borderWidth-thin, 1px)*-1) var(--color-border-default);
     @media (prefers-color-scheme: dark) {
         .AppHeader-button {
@@ -22,8 +21,5 @@
                 background: var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg));
             }
         }
-    }
-    > * {
-        filter: invert(1);
     }
 }
