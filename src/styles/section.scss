@@ -1,4 +1,62 @@
 .content {
+  h1 {
+    scroll-margin-top: 128px;
+  }
+  h2, h3, h4, h5, h6 {
+    scroll-margin-top: calc(64px + var(--base-size-16, 16px) + 10px);
+  }
+  h1, h2, h3 {
+    color: var(--color-primary);
+  }
+  h4 {
+    color: var(--color-primary-light);
+  }
+  img {
+    max-width: 100%;
+  }
+  
+  ul, ol {
+    padding-left: 1em;
+    li::marker {
+      color: var(--color-primary);
+    }
+  }
+
+  p {
+    text-align: justify;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  address, article, aside, blockquote, canvas, 
+  dd, div, dl, dt, fieldset, figcaption, figure, footer, form, 
+  ol, p, pre, section, table, tfoot, ul, video {
+    margin-bottom: 8px;
+  }
+  p + ul, p + ol {
+    margin-top: -4px;
+  }
+
+  
+  .bg-primary {
+    background-color: var(--color-primary) !important;
+  }
+  .fg-primary {
+    color: var(--color-primary) !important;
+  }
+  
+  
+  .bg-secondary {
+    background-color: var(--color-primary-light) !important;
+  }
+  
+  .inverted {
+    filter: invert(1);
+    // HACK: undo the inversion for all children to only invert background color
+    > * {
+      filter: invert(1);
+    }
+  }
   strong {
     color: var(--color-primary);
     filter: brightness(--lightness);
