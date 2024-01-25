@@ -5,6 +5,7 @@ import Loading from '../components/Loading';
 import Blockquote from '../components/Blockquote';
 //@ts-ignore
 import Quiz from 'react-quiz-component'
+import cx from 'classnames'
 
 
 // // @ts-ignore
@@ -132,9 +133,23 @@ export const LinkComponent = {
                     }
                 }
             });
+            
+            let width = styles['width'];
+            let height = styles['height'];
+            console.log(styles);
+            delete styles['width'];
+            delete styles['height'];
+            let margin_class = 'mb-2';
+            if (styles['float']) {
+                if (styles['float'] === 'right') {
+                    margin_class = cx(margin_class, 'ml-2');
+                } else if (styles['float'] === 'left') {
+                    margin_class = cx(margin_class, 'mr-2');
+                }
+            }
             // console.log(styles);
-            return <span className="md-img mb-4" style={styles}> 
-                <img src={props.src} alt={caption}/> <br></br>
+            return <span className={cx("md-img", margin_class)} style={styles}> 
+                <img src={props.src} alt={caption} width={width} height={height}/> <br></br>
                 <span className='text-small text-italic'>{caption}</span>
             </span>
         } else {
