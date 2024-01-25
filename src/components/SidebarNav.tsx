@@ -72,7 +72,7 @@ function SidebarNav(props: Props) {
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
                     {/* <DynamicIcon/> */}
                     {section.icon && 
-                        (<img className='icon' src={section.icon.url} alt="icon" style={{width: '18px'}} />)
+                        (<img className='icon' src={section.icon.url} alt="icon" width='16px' height='16px' />)
                     }
                     {!section.icon && 
                         <RepoIcon />
