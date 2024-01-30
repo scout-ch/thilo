@@ -134,9 +134,13 @@ export const LinkComponent = {
                 }
             });
             
-            let width = styles['width'];
+            const discardNonNum = (str: string) => +str.replace(/[^0-9]/g, '');
+            let width  = styles['width'];
             let height = styles['height'];
-            console.log(styles);
+            if (width)  width = discardNonNum(width);
+            if (height) height = discardNonNum(height);
+            
+            // console.log(styles);
             delete styles['width'];
             delete styles['height'];
             let margin_class = 'mb-2';
