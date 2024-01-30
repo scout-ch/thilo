@@ -45,7 +45,7 @@ function Chapter(props: ChapterProps) {
 
     // render chapter
     // slug is used for anchor links
-    return <div className='chapter rounded p-3 color-bg-default' style={style}>
+    return <article className='chapter rounded p-3 color-bg-default' style={style}>
         <div id={data.slug}>
             <div className="chapter-title pb-3">
                 <h2 id={data.slug}>
@@ -60,7 +60,7 @@ function Chapter(props: ChapterProps) {
                 
             </div>
         </div>
-    </div>
+    </article>
 }
 
 export default withTranslation()(Chapter)
