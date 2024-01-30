@@ -321,7 +321,7 @@ const Header = ({ t }: Props) => {
                       <ActionList.Group>
                         <ActionList.Item as={ReactRouterLink} to="/impressum"
                           >
-                          Impressum
+                          {t('header.imprint')}
                         </ActionList.Item>
                         <ActionList.Item disabled>
                           © 2024 Pfadibewegung Schweiz

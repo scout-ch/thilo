@@ -7,8 +7,20 @@
         "AL": "Responsabile di Reparto"
       }
     },
+    "header": {
+      "imprint": "Impronta",
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Leggera",
+      "theme_dark_name": "Buia"
+    },
     "homePage": {
       "title": "Home"
+    },
+    "startPage": {
+      "menuName": ""
+    },
+    "sidebar": {
+      "home": "Home"
     },
     "searchPage": {
       "tooltip": "Cercare",
@@ -26,6 +38,9 @@
       "prevButtonText": "Capitolo Precedente",
       "nextButtonText": "Prossimo Capitolo",
       "homeButtonText": "Ritorno all' Inizio"
+    },
+    "sideBarNav": {
+      "title": "Thilo Online"
     }
   }
 }
