@@ -1,3 +1,13 @@
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+.fg-primary {
+  color: var(--color-primary) !important;
+}
+.bg-secondary {
+  background-color: var(--color-primary-light) !important;
+}
+
 .content {
   h1 {
     scroll-margin-top: 128px;
@@ -35,19 +45,6 @@
   }
   p + ul, p + ol {
     margin-top: -4px;
-  }
-
-  
-  .bg-primary {
-    background-color: var(--color-primary) !important;
-  }
-  .fg-primary {
-    color: var(--color-primary) !important;
-  }
-  
-  
-  .bg-secondary {
-    background-color: var(--color-primary-light) !important;
   }
   
   .inverted {
