@@ -1,4 +1,6 @@
 footer {
+  max-width: 100%;
+  overflow-x: auto;
   .btn-nav {
     background: var(--color-primary) !important;
     // filter: brightness(var(--lightness));
