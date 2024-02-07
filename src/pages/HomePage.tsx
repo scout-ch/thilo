@@ -28,11 +28,11 @@ function HomePage(props: Props) {
     </Helmet>
     
     <div id="section-title" className="section-title section-1 mb-2">
-      <h1 class="bg-primary px-2">{startPage.title}</h1>
+      <h1 className="bg-primary px-2">{startPage.title}</h1>
     </div>
 
 
-    <div className='section-body rounded p-3 border color-bg-default'>
+    <div className='section-body rounded p-2 color-bg-default'>
       <div className='section-description'>
         <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
