@@ -22,7 +22,10 @@ export const LinkComponent = {
     blockquote({node, children, ...props}) {
         return <Blockquote content={children}/>
     },
-    
+    // @ts-ignore
+    table({node, children, ...props}) {
+        return <div className='table-wrapper'><table>{children}</table></div>
+    },
     // @ts-ignore
     a({node, children, ...props}) {
         /* eslint-disable */

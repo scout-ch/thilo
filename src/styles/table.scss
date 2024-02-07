@@ -1,4 +1,8 @@
 .content {
+  .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
   table {
     box-shadow: inset 0px 0px 0px 1px var(--color-primary);
     border-radius: var(--borderRadius-medium, 6px);
