@@ -50,7 +50,7 @@ function Footer({ t }: Props) {
         {(prevSection || nextSection) && <>
           {/* <ButtonGroup> */}
             <Button 
-              className='btn-nav btn-footer py-5' 
+              className='btn-nav btn-footer px-sm-2 px-md-3 py-5' 
               onClick={() => navigate(`/${prevSlug}`)}
               leadingIcon={prevSection? ArrowLeftIcon: IterationsIcon} 
             >
@@ -64,7 +64,7 @@ function Footer({ t }: Props) {
               }
             </Button>
             <Button 
-              className='btn-nav btn-footer py-5'
+              className='btn-nav btn-footer px-sm-2 px-md-3 py-5'
               onClick={() => navigate(`/${nextSlug}`)}
               trailingIcon={nextSection? ArrowRightIcon: IterationsIcon} 
             >
