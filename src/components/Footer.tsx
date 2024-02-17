@@ -41,10 +41,11 @@ function Footer({ t }: Props) {
   var nextSlug = nextSection && nextSection.slug;
   if (!prevSection) prevSlug = '';
   if (!nextSection) nextSlug = '';
-
+  
   // render the footer with the localized navigation buttons
   return <>
-    <footer data-container="footer" className='py-6'>
+    <ScrollButton className="position-sticky bottom-0 right-0 pb-3 ml-auto"/>
+    <footer data-container="footer" className='mb-3'>
       <nav className="footer-nav d-flex flex-justify-between">
         {/* <div className='footer-logo hide-sm mr-6 mb-1 d-inline-flex'><img alt='PBSLogo' src={PBSLogo}></img></div> */}
         {(prevSection || nextSection) && <>
@@ -88,8 +89,8 @@ function Footer({ t }: Props) {
             {t('footer.homeButtonText')}
           </Button>
         </>}
-        <ScrollButton className="position-fixed bottom-0 mb-4 right-0 mr-5 z-1"/>
       </nav>
+
 
     </footer>
   </>

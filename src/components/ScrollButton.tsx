@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import cx from 'classnames'
 import { MoveToTopIcon } from '@primer/octicons-react'
 import { withTranslation } from 'react-i18next'
+import { use } from 'i18next'
 
 export type ScrollButtonPropsT = {
   className?: string
@@ -18,12 +19,13 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
     const observer = new IntersectionObserver(
       function (entries) {
         if (entries[0].isIntersecting === false) {
+          console.log(entries)
           setShow(true)
         } else {
           setShow(false)
         }
       },
-      { threshold: [0] },
+      { threshold: [1] },
     )
     observer.observe(document.getElementsByTagName('h1')[0])
     return () => {
@@ -32,13 +34,15 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
   }, [])
 
   const onClick = () => {
-    document?.getElementById('root')?.scrollIntoView({ behavior: "smooth" })
+    document?.getElementsByTagName('h1')[0].scrollIntoView( { behavior: 'smooth' } );
+    setShow(false)
   }
 
   return (
     <div
       role="tooltip"
-      className={cx(className, 'transition-200', show ? 'opacity-100' : 'opacity-0')}
+      className={cx(className, 'no-print', 'transition-200', show ? 'opacity-100' : 'opacity-0')}
+      style={{width: "fit-content"}}
     >
       <button
         onClick={onClick}
