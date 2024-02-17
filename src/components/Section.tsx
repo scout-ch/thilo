@@ -54,15 +54,15 @@ function Section(props: Props) {
             </h1>
             {props.section.icon && (<img className='icon pl-2' src={props.section.icon.url} alt="icon" />)}
         </div>
-        <div className='section-body rounded p-3 color-bg-default'>
+        {props.section.content && (<div className='section-body rounded p-3 color-bg-default'>
             <div className='section-description'>
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={LinkComponent}
-                >{props.section.content ?? ''}
+                >{props.section.content}
                 </ReactMarkdown>
             </div>
-        </div>
+        </div>)}
         {chapters}
     </section>
 }
