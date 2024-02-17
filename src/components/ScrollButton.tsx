@@ -10,28 +10,21 @@ export type ScrollButtonPropsT = {
 }
 
 const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
-  const [show, setShow] = useState(false)
 
+  const [show, setShow] = useState(false)
   useEffect(() => {
-    // We cannot determine document.documentElement.scrollTop height because we set the height: 100vh and set overflow to auto to keep the header sticky
-    // That means window.scrollTop height is always 0
-    // Using IntersectionObserver we can determine if the h1 header is in view or not. If not, we show the scroll to top button, if so, we hide it
-    const observer = new IntersectionObserver(
-      function (entries) {
-        if (entries[0].isIntersecting === false) {
-          console.log(entries)
-          setShow(true)
-        } else {
-          setShow(false)
-        }
-      },
-      { threshold: [1] },
-    )
-    observer.observe(document.getElementsByTagName('h1')[0])
-    return () => {
-      observer.disconnect()
+    const onScroll = () => {
+      if (window.scrollY > 100) {
+        setShow(true)
+      } else {
+        setShow(false)
+      }
     }
-  }, [])
+    window.addEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  })
 
   const onClick = () => {
     document?.getElementsByTagName('h1')[0].scrollIntoView( { behavior: 'smooth' } );
@@ -41,7 +34,7 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
   return (
     <div
       role="tooltip"
-      className={cx(className, 'no-print', 'transition-200', show ? 'opacity-100' : 'opacity-0')}
+      className={cx(className, 'no-print', 'transition-200', show ? 'opacity-100' : 'opacity-0 d-none')}
       style={{width: "fit-content"}}
     >
       <button
