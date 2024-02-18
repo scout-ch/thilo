@@ -34,13 +34,13 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
   return (
     <div
       role="tooltip"
-      className={cx(className, 'no-print', 'transition-200', show ? 'opacity-100' : 'opacity-0 d-none')}
+      className={cx(className, 'no-print', '', 'transition-200', show ? 'opacity-100' : 'opacity-0 d-none')}
       style={{width: "fit-content"}}
     >
       <button
         onClick={onClick}
         className={cx(
-          'tooltipped tooltipped-n tooltipped-no-delay color-fg-on-emphasis circle border-0',
+          'tooltipped tooltipped-nw tooltipped-no-delay color-fg-on-emphasis circle border-0',
           'd-flex flex-items-center flex-justify-center',
           'bg-primary',
         )}
