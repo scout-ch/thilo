@@ -126,18 +126,17 @@ function App() {
               <Header />
               <PageLayout sx={{padding: '0'}}>
                 <PageLayout.Content>
-                  {/* to have a sticky header, it needs to be placed here
-                  in the content */}
-                    <main id="main-content" className='p-3'>
-                      <Routes>
-                          <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-                          <Route path="/impressum" element={<ImpressumPage />} />
-                          <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
-                          <Route path="/" element={<HomePage page={startPage}/>} />
-                          <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
-                        </Routes>
+                  <div className='position-fixed d-none'>{/* to fix position sticky with auto hiding url bars on mobile*/}</div> 
+                  <main id="main-content" className='p-3'>
+                    <Routes>
+                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                        <Route path="/impressum" element={<ImpressumPage />} />
+                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
+                        <Route path="/" element={<HomePage page={startPage}/>} />
+                        <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                      </Routes>
                     <Footer />
-                    </main>
+                  </main>
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
                   hidden={{narrow: true, regular: true, wide: false}}
