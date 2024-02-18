@@ -120,7 +120,7 @@ function App() {
         <Helmet>
           <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>
         </Helmet>
-        <div className='App'>
+        <div className='App position-fixed'>
           <Router basename="/">
             <LinksContext.Provider value={links}>
               <Header />
