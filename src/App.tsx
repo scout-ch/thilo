@@ -126,7 +126,6 @@ function App() {
               <Header />
               <PageLayout sx={{padding: '0'}}>
                 <PageLayout.Content>
-                  <div className='position-fixed d-none'>{/* to fix position sticky with auto hiding url bars on mobile*/}</div> 
                   <main id="main-content" className='p-3'>
                     <Routes>
                         <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />

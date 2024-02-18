@@ -34,7 +34,7 @@ const ScrollButton = ({ className, t }: ScrollButtonPropsT) => {
   return (
     <div
       role="tooltip"
-      className={cx(className, 'no-print', '', 'transition-200', show ? 'opacity-100' : 'opacity-0 d-none')}
+      className={cx(className, 'no-print', '', 'transition-200', show ? 'opacity-100' : 'opacity-0')}
       style={{width: "fit-content"}}
     >
       <button
