@@ -19,9 +19,10 @@
     }
     th {
       background-color: var(--color-primary-light);
-    }
-    td, th {
       padding: 10px;
+    }
+    td {
+      padding: 10px 6px;
     }
     tbody {
       td, th {
