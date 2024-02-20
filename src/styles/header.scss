@@ -25,10 +25,13 @@
 }
 
 .primary-nav {
-   :has(a[aria-current="location"])::after, button::after {
-     content:none;
-   }
-   :not(:has([aria-current="location"])):not(:has(.text-bold)) {
+    button::after, li::after {
+        // HACK: hide the blue marker on selected items
+        content:none;
+    }
+    :not(:has([aria-current="location"])):not(:has(.text-bold)) {
+        // FIX: remove background highlight for elements not in current page or location scope
+        // TODO: investigate if this is possible by resetting the aria-current properly
         background-color: transparent;
-   }
+    }
 }
