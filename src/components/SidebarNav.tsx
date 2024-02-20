@@ -67,8 +67,10 @@ function SidebarNav(props: Props) {
             <NavList.Item 
             id={id} key={id}
             className={cx(section.slug, sectionActive && 'active')} 
+            // TODO: expand current section on page load works using aria-current
+            // but it is a bit hacky, and requires a few css overrides 
+            // in ./src/styles/header.scss
             aria-current={sectionActive && "page"}
-            // FIXME: expand current section on page load does not work comme ca 
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
@@ -106,14 +108,9 @@ function SidebarNav(props: Props) {
         )
     });
 
-    const isHome = location.pathname === '/'
-    // special case for the home page which is not a section
-    var classHome = isHome ? 'home active' : 'home' 
+ 
     const variant = props.variant;
 
-    /* HACK: move to this?
-        https://primer.style/react/TreeView
-    */
 
     return (
         <div data-container="nav"
@@ -122,8 +119,9 @@ function SidebarNav(props: Props) {
         >
             <NavList className={cx("primary-nav")}>
                 <NavList.Item as={ReactRouterLink} to='/'
+                    aria-current={location.pathname === '/' && "page"}
                     className={cx(
-                    classHome,
+                    location.pathname === '/' && 'text-bold'
                     )}
                 >
                     <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
