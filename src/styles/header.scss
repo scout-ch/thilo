@@ -23,3 +23,12 @@
         }
     }
 }
+
+.primary-nav {
+   :has(a[aria-current="location"])::after, button::after {
+     content:none;
+   }
+   :not(:has([aria-current="location"])):not(:has(.text-bold)) {
+        background-color: transparent;
+   }
+}

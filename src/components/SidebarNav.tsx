@@ -44,7 +44,7 @@ function SidebarNav(props: Props) {
                 <NavList.Item 
                     className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     style={{color: section.color_primary}}
-                    // aria-current={isActive && "location"} // for primer color highlight
+                    aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
                 >
@@ -69,7 +69,6 @@ function SidebarNav(props: Props) {
             className={cx(section.slug, sectionActive && 'active')} 
             aria-current={sectionActive && "page"}
             // FIXME: expand current section on page load does not work comme ca 
-            aria-expanded={sectionActive}
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
@@ -121,7 +120,7 @@ function SidebarNav(props: Props) {
             style={{minWidth: '261px', minHeight: 'var(--sticky-pane-height)'}}
             className={cx(variant === 'full' ? 'position-sticky d-xxl-block d-lg-block d-none border-right height-full color-border-subtle' : '')}
         >
-            <NavList>
+            <NavList className={cx("primary-nav")}>
                 <NavList.Item as={ReactRouterLink} to='/'
                     className={cx(
                     classHome,
