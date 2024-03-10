@@ -53,7 +53,7 @@ jobs:
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
-          name: build-cache
+          name: build-cache-gp
           path: ./build
 
   deployGHPages:
@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: build-cache
+          name: build-cache-gp
           path: ./build
       - uses: peaceiris/actions-gh-pages@v3
         with:
@@ -87,7 +87,7 @@ jobs:
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
-          name: build-cache
+          name: build-cache-prod
           path: ./build
 
   deployProd:
@@ -99,7 +99,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: build-cache
+          name: build-cache-prod
           path: ./build
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
