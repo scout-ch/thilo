@@ -39,7 +39,7 @@ jobs:
             ghcr.io/scout-ch/thilo/thilo_frontend:latest
 
   buildGHPages:
-    name: Build Thilo App
+    name: Build Thilo App GHPages
     runs-on: ubuntu-latest
     env:
       REACT_APP_PUBLIC_URL: /thilo/
@@ -57,7 +57,7 @@ jobs:
           path: ./build
 
   deployGHPages:
-    name: Deploy Thilo App
+    name: Deploy Thilo App GHPages
     needs: buildGHPages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
@@ -73,7 +73,7 @@ jobs:
           publish_dir: ./build
 
   buildProd:
-    name: Build Thilo App
+    name: Build Thilo App Prod
     runs-on: ubuntu-latest
     env:
       REACT_APP_PUBLIC_URL: /
@@ -91,7 +91,7 @@ jobs:
           path: ./build
 
   deployProd:
-    name: Deploy Thilo App
+    name: Deploy Thilo App Prod
     needs: buildProd
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
@@ -109,6 +109,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           server-dir: /webroot/ROOT/
+          local-dir: ./build
           exclude: |
             **/.devcontainer*
             **/.devcontainer*/**
