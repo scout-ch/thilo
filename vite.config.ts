@@ -7,11 +7,11 @@ import sass from 'sass'
 export default defineConfig({
   build: {
     outDir: 'build'
-  }, 
-  base: '/thilo/', 
-  plugins: [react(), 
-    VitePWA(
-      {registerType: 'autoUpdate'}
+  },
+  base: process.env.REACT_APP_PUBLIC_URL,
+  plugins: [react(),
+  VitePWA(
+    { registerType: 'autoUpdate' }
   )],
   css: {
     preprocessorOptions: {

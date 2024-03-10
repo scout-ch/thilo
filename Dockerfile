@@ -26,7 +26,7 @@ COPY --chown=node:node [ "src", "src"]
 ############################################
 # Building Application
 ############################################
-ENV PUBLIC_URL=/
+ENV REACT_APP_PUBLIC_URL=/
 RUN sed -i "s|base: '/thilo/',|base: '/',|g" vite.config.ts
 RUN npm install
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build

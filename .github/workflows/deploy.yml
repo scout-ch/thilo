@@ -38,11 +38,11 @@ jobs:
           tags: |
             ghcr.io/scout-ch/thilo/thilo_frontend:latest
 
-  build:
+  buildGHPages:
     name: Build Thilo App
     runs-on: ubuntu-latest
     env:
-      PUBLIC_URL: /thilo
+      REACT_APP_PUBLIC_URL: /thilo/
 
     steps:
       - uses: actions/checkout@v4
@@ -56,9 +56,9 @@ jobs:
           name: build-cache
           path: ./build
 
-  deploy:
+  deployGHPages:
     name: Deploy Thilo App
-    needs: build
+    needs: buildGHPages
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
 
@@ -71,3 +71,48 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+
+  buildProd:
+    name: Build Thilo App
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_PUBLIC_URL: /
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-cache
+          path: ./build
+
+  deployProd:
+    name: Deploy Thilo App
+    needs: buildProd
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-cache
+          path: ./build
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: /webroot/ROOT/
+          exclude: |
+            **/.devcontainer*
+            **/.devcontainer*/**
+            **/.git*
+            **/.git*/**
+            **/.github*
+            **/.github*/**
