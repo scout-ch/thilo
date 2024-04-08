@@ -64,7 +64,7 @@ dependencies:
     version: 5.0.1
   vite:
     specifier: ^4.5.2
-    version: 4.5.2(@types/node@18.19.17)(sass@1.71.0)
+    version: 4.5.2(@types/node@20.12.5)(sass@1.71.0)
   web-vitals:
     specifier: ^3.5.2
     version: 3.5.2
@@ -72,10 +72,10 @@ dependencies:
 devDependencies:
   '@craco/craco':
     specifier: 7.1.0
-    version: 7.1.0(@types/node@18.19.17)(postcss@8.4.35)(react-scripts@5.0.1)(typescript@4.9.5)
+    version: 7.1.0(@types/node@20.12.5)(postcss@8.4.35)(react-scripts@5.0.1)(typescript@4.9.5)
   '@types/node':
-    specifier: ^18.19.17
-    version: 18.19.17
+    specifier: ^20.12.5
+    version: 20.12.5
   '@types/react':
     specifier: ^18.2.56
     version: 18.2.56
@@ -1574,7 +1574,7 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@craco/craco@7.1.0(@types/node@18.19.17)(postcss@8.4.35)(react-scripts@5.0.1)(typescript@4.9.5):
+  /@craco/craco@7.1.0(@types/node@20.12.5)(postcss@8.4.35)(react-scripts@5.0.1)(typescript@4.9.5):
     resolution: {integrity: sha512-oRAcPIKYrfPXp9rSzlsDNeOaVtDiKhoyqSXUoqiK24jCkHr4T8m/a2f74yXIzCbIheoUWDOIfWZyRgFgT+cpqA==}
     engines: {node: '>=6'}
     hasBin: true
@@ -1583,7 +1583,7 @@ packages:
     dependencies:
       autoprefixer: 10.4.17(postcss@8.4.35)
       cosmiconfig: 7.1.0
-      cosmiconfig-typescript-loader: 1.0.9(@types/node@18.19.17)(cosmiconfig@7.1.0)(typescript@4.9.5)
+      cosmiconfig-typescript-loader: 1.0.9(@types/node@20.12.5)(cosmiconfig@7.1.0)(typescript@4.9.5)
       cross-spawn: 7.0.3
       lodash: 4.17.21
       react-scripts: 5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.56.0)(react@18.2.0)(sass@1.71.0)(typescript@4.9.5)(webpack-cli@4.10.0)
@@ -3058,6 +3058,11 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
+  /@types/node@20.12.5:
+    resolution: {integrity: sha512-BD+BjQ9LS/D8ST9p5uqBxghlN+S42iuNxjsUGjeZobe/ciXzk2qb1B6IXc6AnRLS+yFJRpN2IPEHMzwspfDJNw==}
+    dependencies:
+      undici-types: 5.26.5
+
   /@types/parse-json@4.0.2:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
     dev: true
@@ -3389,7 +3394,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.9)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 4.5.2(@types/node@18.19.17)(sass@1.71.0)
+      vite: 4.5.2(@types/node@20.12.5)(sass@1.71.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -4602,7 +4607,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader@1.0.9(@types/node@18.19.17)(cosmiconfig@7.1.0)(typescript@4.9.5):
+  /cosmiconfig-typescript-loader@1.0.9(@types/node@20.12.5)(cosmiconfig@7.1.0)(typescript@4.9.5):
     resolution: {integrity: sha512-tRuMRhxN4m1Y8hP9SNYfz7jRwt8lZdWxdjg/ohg5esKmsndJIn4yT96oJVcf5x0eA11taXl+sIp+ielu529k6g==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -4610,9 +4615,9 @@ packages:
       cosmiconfig: '>=7'
       typescript: '>=3'
     dependencies:
-      '@types/node': 18.19.17
+      '@types/node': 20.12.5
       cosmiconfig: 7.1.0
-      ts-node: 10.9.2(@types/node@18.19.17)(typescript@4.9.5)
+      ts-node: 10.9.2(@types/node@20.12.5)(typescript@4.9.5)
       typescript: 4.9.5
     transitivePeerDependencies:
       - '@swc/core'
@@ -11370,7 +11375,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node@10.9.2(@types/node@18.19.17)(typescript@4.9.5):
+  /ts-node@10.9.2(@types/node@20.12.5)(typescript@4.9.5):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
@@ -11389,7 +11394,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 18.19.17
+      '@types/node': 20.12.5
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -11756,14 +11761,14 @@ packages:
       debug: 4.3.4(supports-color@5.5.0)
       fast-glob: 3.3.2
       pretty-bytes: 6.1.1
-      vite: 4.5.2(@types/node@18.19.17)(sass@1.71.0)
+      vite: 4.5.2(@types/node@20.12.5)(sass@1.71.0)
       workbox-build: 7.0.0
       workbox-window: 7.0.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@4.5.2(@types/node@18.19.17)(sass@1.71.0):
+  /vite@4.5.2(@types/node@20.12.5)(sass@1.71.0):
     resolution: {integrity: sha512-tBCZBNSBbHQkaGyhGCDUGqeo2ph8Fstyp6FMSvTtsXeZSPpSMGlviAOav2hxVTqFcx8Hj/twtWKsMJXNY0xI8w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -11791,7 +11796,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.19.17
+      '@types/node': 20.12.5
       esbuild: 0.18.20
       postcss: 8.4.35
       rollup: 3.29.4
@@ -12310,6 +12315,7 @@ packages:
 
   /workbox-google-analytics@6.6.0:
     resolution: {integrity: sha512-p4DJa6OldXWd6M9zRl0H6vB9lkrmqYFkRQ2xEiNdBFp9U0LhsGO7hsBscVEyH9H2/3eZZt8c97NB2FD9U2NJ+Q==}
+    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
     dependencies:
       workbox-background-sync: 6.6.0
       workbox-core: 6.6.0
@@ -12319,6 +12325,7 @@ packages:
 
   /workbox-google-analytics@7.0.0:
     resolution: {integrity: sha512-MEYM1JTn/qiC3DbpvP2BVhyIH+dV/5BjHk756u9VbwuAhu0QHyKscTnisQuz21lfRpOwiS9z4XdqeVAKol0bzg==}
+    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
     dependencies:
       workbox-background-sync: 7.0.0
       workbox-core: 7.0.0
