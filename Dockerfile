@@ -1,4 +1,4 @@
-FROM node:21.7.1-alpine
+FROM node:21.7.3-alpine
 
 ############################################
 # General Docker image configuration
