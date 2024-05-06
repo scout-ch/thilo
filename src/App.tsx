@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './globals'
 import {
-  HashRouter as Router,
+  BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -121,7 +121,7 @@ function App() {
           <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>
         </Helmet>
         <div className='App'>
-          <Router basename="/">
+          <BrowserRouter basename="/">
             <LinksContext.Provider value={links}>
               <Header />
               <PageLayout sx={{padding: '0'}}>
@@ -146,7 +146,7 @@ function App() {
               </PageLayout>
 
             </LinksContext.Provider>
-          </Router>
+          </BrowserRouter>
         </div>
       </HelmetProvider>
     </ThemeProvider>
