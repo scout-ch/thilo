@@ -60,35 +60,22 @@ export const LinkComponent = {
                 </span>
             );
         }
-
-        var found = link.match('\\$(.*)\\$');
-        // if link is a link to another page, we render a react router link
-        if (found) {
-            //@ts-ignore
-            const foundLink = links.find((l) => {return l['key'] == found[1]})
-            if (foundLink) {
-                if (foundLink['link']) {
-                    return <a href={foundLink['link']} target="_blank" rel="noreferrer">{children}</a>
-                } else if(foundLink['slug']) {
-                    return <Link to={foundLink['slug']}>{children}</Link>
-                } else {
-                    return <Link to={props.href || ''}>{children}</Link>
-                }
-            } else {
-               return <Link to={props.href || ''}>{children}</Link>
-            }
-        } else {
-            // if link is a mailto link, we render it as a mailto link and prevent default
-            var mailto = link.match('(mailto:)')
-            if (mailto?.length >= 0 && mailto[1]) {
-                return <Link to='#' onClick={(e) => {
-                    window.location = props.href;
-                    e.preventDefault();
-                }}>{children}</Link>
-            }
-            return <Link to={props.href || ''}>{children}</Link>
+        // if link is a mailto link, we render it as a mailto link and prevent default
+        var mailto = link.match('(mailto:)')
+        if (mailto?.length >= 0 && mailto[1]) {
+            return <Link to='#' onClick={(e) => {
+                window.location = props.href;
+                e.preventDefault();
+            }}>{children}</Link>
         }
-        /* eslint-enable */
+        // external links begin with http or https
+        if(link.match(/^(http|https):/)) {
+            return <Link to={link} target='_blank' rel='noopener noreferrer'>{children}</Link>
+        } else {
+            // internal links are resolved using the links context
+            const link = links.find((l) => l.slug === props.href);
+            return <Link to={link!.slug || props.href}>{children}</Link> 
+        }
     },
     // @ts-ignore
     img({node, children, ...props}) {
