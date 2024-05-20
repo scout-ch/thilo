@@ -11,7 +11,7 @@
     "@primer/css": "^21.2.2",
     "@primer/react": "^35.32.2",
     "@vitejs/plugin-react": "^4.2.1",
-    "axios": "^1.6.8",
+    "axios": "^1.7.1",
     "classnames": "^2.5.1",
     "i18next": "^22.5.1",
     "i18next-browser-languagedetector": "^7.2.1",
