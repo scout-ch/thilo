@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-03-11T17:29:50.140Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0" etag="9LuBZTrKQ0CN_0gdDswj" version="24.0.1" type="device" pages="2">
+<mxfile host="app.diagrams.net" modified="2024-06-14T11:50:40.170Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0" etag="fbSAelYyBeeUXtLW04JY" version="24.2.5" type="device" pages="2">
   <diagram id="uOsoa1zXK509N2_YLro7" name="Architecture">
-    <mxGraphModel dx="2253" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1799" dy="517" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,13 +10,13 @@
         <mxCell id="GDJU-_h7cvTp5wzcLNWm-17" value="Client" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="150" y="549" width="210" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="GDJU-_h7cvTp5wzcLNWm-18" value="&lt;b&gt;Web UI - React JS&lt;/b&gt;&lt;br&gt;thilo.scout.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
+        <mxCell id="GDJU-_h7cvTp5wzcLNWm-18" value="&lt;b&gt;Web UI - React JS&lt;/b&gt;&lt;br&gt;thilo.scouts.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
           <mxGeometry x="220" y="559" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="GDJU-_h7cvTp5wzcLNWm-19" value="Server" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="150" y="660" width="210" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="GDJU-_h7cvTp5wzcLNWm-20" value="&lt;b&gt;Strapi API&lt;br&gt;&lt;/b&gt;api.thilo.scout.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
+        <mxCell id="GDJU-_h7cvTp5wzcLNWm-20" value="&lt;b&gt;Strapi API&lt;br&gt;&lt;/b&gt;api.thilo.scouts.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
           <mxGeometry x="220" y="670" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="GDJU-_h7cvTp5wzcLNWm-21" value="REST (https)" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="GDJU-_h7cvTp5wzcLNWm-20" target="GDJU-_h7cvTp5wzcLNWm-18" edge="1">
@@ -59,7 +59,7 @@
         <mxCell id="51C_-ku2XXWJB70NUWzl-1" value="Server" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="-80" y="660" width="210" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="51C_-ku2XXWJB70NUWzl-2" value="&lt;b&gt;Link Shortner&lt;br&gt;&lt;/b&gt;link.thilo.scout.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
+        <mxCell id="51C_-ku2XXWJB70NUWzl-2" value="&lt;b&gt;Link Shortner&lt;br&gt;&lt;/b&gt;link.thilos.scout.ch" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
           <mxGeometry x="-10" y="670" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="51C_-ku2XXWJB70NUWzl-3" value="TCP&amp;nbsp;27017&amp;nbsp;" style="endArrow=none;html=1;rounded=0;entryX=0.555;entryY=0.99;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="51C_-ku2XXWJB70NUWzl-2" edge="1">

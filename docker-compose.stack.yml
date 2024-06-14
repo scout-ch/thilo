@@ -31,32 +31,10 @@ services:
       - DATABASE_PASSWORD=admin
 
   linkshortner:
-    image: shlinkio/shlink:3.6.4
+    image: ghcr.io/scout-ch/thilo-shortener/thilo_shortener:latest
     restart: always
-    networks:
-      - internal
     ports:
-      - 8080:8080
-    depends_on:
-      - database
-    environment:
-      - DB_DRIVER=postgres
-      - DB_HOST=database
-      - DB_NAME=shlink
-      - DB_USER=postgres
-      - DB_PASSWORD=admin
-      - DEFAULT_DOMAIN=thilo.cloud
-      - IS_HTTPS_ENABLED=true
-
-  linkshortner-webgui:
-    image: shlinkio/shlink-web-client:3.10.2
-    restart: always
-    networks:
-      - internal
-    ports:
-      - 8081:80
-    depends_on:
-      - linkshortner
+      - 8080:80
 
   feedback:
     image: getfider/fider:main
