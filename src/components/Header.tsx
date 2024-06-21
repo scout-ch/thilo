@@ -16,6 +16,8 @@ import styles from './Header.module.scss'
 import { withTranslation } from 'react-i18next'
 import { ColorModeWithAuto } from '@primer/react/lib/ThemeProvider'
 
+import { useLanguageChangeHandler } from '../i18n/LanguageChanger'
+
 type Props = {
     t?: any
 }
@@ -131,6 +133,8 @@ const Header = ({ t }: Props) => {
 
     return width
   }
+
+  useLanguageChangeHandler();
 
   return (
     <>

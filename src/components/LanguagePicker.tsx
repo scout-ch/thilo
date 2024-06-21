@@ -1,10 +1,8 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { GlobeIcon } from '@primer/octicons-react'
 
 import { ActionList, ActionMenu, IconButton, Tooltip } from '@primer/react'
 
 import i18n from '../i18n'
-import { SectionT } from './Section'
 import { withTranslation } from 'react-i18next'
 
 type Props = {
@@ -14,8 +12,6 @@ type Props = {
 }
 
 const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
-  const navigate = useNavigate()
-  const location = useLocation();
   const languages = {
     "de": {name: "Deutsch"},
     "fr": {name: "Français"},
@@ -23,75 +19,38 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
     // "en": {name:"English (not implemented)"},
   };
   
-  const langs = Object.keys(languages)
+  const lngs = Object.keys(languages)
   
   const locale = i18n.language;
   const selectedLang = languages[locale as keyof typeof languages];
 
-  if (langs.length < 2) {
+  if (lngs.length < 2) {
     return null
   }
 
-  const changeLanguage = (lang: string, location: any, oldSections: SectionT[]) => {
-    let redirect = false
-    const path = location.pathname.replace('/', '')
-    const currentSection = oldSections.find((s) => { return s['slug'] === path })
-    i18n.changeLanguage(lang).then((_t) => {
-      // we need to reload if we are on the impressum page
-      if (path === 'impressum') {
-        redirect = true
-        return
-      }
-      // else we need to get the new sections and check if the current section has a translation
-      let sectionsLocal = window.localStorage.getItem(`sections_${lang}`);
-      let newSections: SectionT[] = [];
-      if(sectionsLocal !== null) {
-        newSections = JSON.parse(sectionsLocal)
-      } else {
-        console.error('No sections found in local storage')
-        return
-      }
-      if (currentSection) {
-        // TODO: Explore method using localizations by i18n instead of new requests
-        // const localizedSection = currentSection['localizations'].find((l: any) => { return l.locale === lang })
-        const localizedSection = newSections.find((s: any) => { return s['sorting'] === currentSection['sorting'] })
-
-        // if the current section has the requested localization, we need to redirect to the new section
-        if(newSections && localizedSection) {
-          const newCurrentSection = newSections.find((s: any) => { return s['sorting'] === localizedSection['sorting'] })
-          if (newCurrentSection) {
-            redirect = true
-            navigate('/' + newCurrentSection.slug)
-          }
-        }
-      }
-      // if no localized section is found, we need to redirect to the start page
-      if (!redirect) {
-        navigate('/')
-      }
-    });
-  }
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+}
 
 
   // languageList is specifically <ActionList.Item>'s which are reused
   // for menus that behave differently at the breakpoints.
-  const languageList = langs.map((lang) => (
+  const languageList = lngs.map((lng) => (
     <ActionList.Item
-      key={`/${lang}`}
-      selected={lang === locale}
+      key={`/${lng}`}
+      selected={lng === locale}
       onSelect={() => {
-        if (lang) {
+        if (lng) {
           try {
-            changeLanguage(lang, location, window.sections)
+            console.log('LanguagePicker change to: ' + lng)
+            changeLanguage(lng)
           } catch (err) {
             console.warn('Unable to set preferred language', err)
           }
         }
       }}
     >
-      <span>
-        <Link to={lang} className="color-fg-default">{languages[lang as keyof typeof languages].name}</Link>
-      </span>
+      <span>{languages[lng as keyof typeof languages].name}</span>
     </ActionList.Item>
   ))
 
