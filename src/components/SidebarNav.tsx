@@ -23,7 +23,6 @@ function SidebarNav(props: Props) {
     const location = useLocation()
     const sections = window.sections;
 
-    
     const sectionListNavItems = sections.map(function (section: SectionT, index: number) {
         const sectionActive = location.pathname.replace('/', '') === section.slug;
         const id = `nav_item_${section.sorting}_${section.slug}`;
@@ -71,6 +70,7 @@ function SidebarNav(props: Props) {
             // but it is a bit hacky, and requires a few css overrides 
             // in ./src/styles/header.scss
             aria-current={sectionActive && "page"}
+            defaultOpen={sectionActive}
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
