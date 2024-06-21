@@ -65,12 +65,10 @@ function SidebarNav(props: Props) {
         return (
             <NavList.Item 
             id={id} key={id}
-            className={cx(section.slug, sectionActive && 'active')} 
-            // TODO: expand current section on page load works using aria-current
-            // but it is a bit hacky, and requires a few css overrides 
-            // in ./src/styles/header.scss
+            className={cx(section.slug, sectionActive && 'active')}
             aria-current={sectionActive && "page"}
-            defaultOpen={sectionActive}
+            // hack to open active section on page load, null if false to avoid console error
+            defaultOpen={sectionActive ? true: null}
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
