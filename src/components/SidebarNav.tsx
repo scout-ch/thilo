@@ -67,8 +67,8 @@ function SidebarNav(props: Props) {
             id={id} key={id}
             className={cx(section.slug, sectionActive && 'active')}
             aria-current={sectionActive && "page"}
-            // hack to open active section on page load, null if false to avoid console error
-            defaultOpen={sectionActive ? true: null}
+            // hack to open active section on page load, if to avoid error when no subnav
+            {... chapterNavItems.length > 0 ? {defaultOpen: sectionActive} : {}}
             as={ReactRouterLink} to={section.slug}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
