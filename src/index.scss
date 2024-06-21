@@ -4,7 +4,8 @@
 // Global requirements: Must come second
 @import '@primer/css/core/index.scss';
 
-@import '@primer/primitives/dist/scss/colors/_light.scss';
+@import '@primer/primitives/dist/css/functional/themes/light.css';
+@import '@primer/primitives/dist/css/functional/themes/dark.css';
 
 // Primer components
 @import "@primer/css/layout/index.scss";
