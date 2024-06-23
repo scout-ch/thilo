@@ -60,7 +60,7 @@ function SidebarNav(props: Props) {
                     style={{color: section.color_primary}}
                     aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
-                    as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
+                    as={ReactRouterLink} to={chapter.slug_with_section}
                     onClick={handleNavItemClick}
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
@@ -77,7 +77,6 @@ function SidebarNav(props: Props) {
                 </NavList.Item>
             )
         })
-
         return (
             <NavList.Item 
             id={id} key={id}
