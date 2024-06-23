@@ -16,6 +16,22 @@ type Props = {
     variant?: 'full' | 'overlay'
 }
 
+function handleNavItemClick(e: React.MouseEvent<HTMLElement>) {
+        let opened = document.querySelectorAll('button:has(.nav-item-title)[aria-expanded="true"]');
+        opened.forEach(el => {
+            let eh = el as HTMLElement;
+            // we close the opened subnavs, if the click is on a different nav item
+            // or inside of a different nav item's list (they are siblings, so we use parentElement)
+            if (!eh.parentElement!.contains(e.target as Node)) {
+                eh.click()
+            }
+            else {
+                // don't close the subnav on navigating to it
+                e.stopPropagation();
+            }
+        })
+}
+
 function SidebarNav(props: Props) {
     const { t } = props
 
@@ -46,6 +62,7 @@ function SidebarNav(props: Props) {
                     aria-current={isActive && "location"} // for primer color highlight
                     key={id} id={id}
                     as={ReactRouterLink} to={(`${chapter.slug_with_section}`)}
+                    onClick={handleNavItemClick}
                 >
                     <NavList.LeadingVisual style={{color: section.color_primary}}>
                         {/* fill has to be added to the parent, as the prop isn't
@@ -84,8 +101,9 @@ function SidebarNav(props: Props) {
                     ? 
                     <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name} as='span' 
-                        className={cx('d-inline-block', sectionActive && 'text-bold')} maxWidth={200}
+                        className={cx('nav-item-title', 'd-inline-block', sectionActive && 'active text-bold')} maxWidth={200}
                         style={{color: section.color_primary}}
+                        onClick={handleNavItemClick}
                         >
                             {section.menu_name}
                         </Truncate>
