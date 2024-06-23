@@ -42,7 +42,7 @@ services:
     networks:
       - internal
     ports:
-      - "9000:3000"
+      - 9000:3000
     depends_on:
       - database
     environment:
