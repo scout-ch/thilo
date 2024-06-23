@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { LinkComponent } from '../utils/MarkdownComponents';
+import { LinkComponent } from '../components/markdown/MarkdownComponents';
 import { withTranslation } from 'react-i18next'
 import type { IconT } from '../components/Section';
 import SearchForm from '../components/SearchForm';

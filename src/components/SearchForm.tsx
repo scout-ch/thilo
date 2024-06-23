@@ -10,7 +10,7 @@ import remarkGfm from 'remark-gfm';
 import strip_md from 'strip-markdown';
 import { remark } from 'remark';
 
-import { LinkComponent } from '../utils/MarkdownComponents';
+import { LinkComponent } from './markdown/MarkdownComponents';
 import SearchInput from './SearchInput';
 import { Link } from 'react-router-dom';
 

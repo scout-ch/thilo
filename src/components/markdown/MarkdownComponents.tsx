@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LinksContext } from '../App';
-import Loading from '../components/Loading';
-import Blockquote from '../components/markdown/Blockquote';
+import { LinksContext } from '../../App';
+import Loading from '../Loading';
+import Blockquote from './Blockquote';
 //@ts-ignore
 import Quiz from 'react-quiz-component'
 import cx from 'classnames'

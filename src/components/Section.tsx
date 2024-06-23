@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { withTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { LinkComponent } from '../utils/MarkdownComponents'
+import { LinkComponent } from './markdown/MarkdownComponents'
 import Chapter from './Chapter'
 import type { ChapterT } from './Chapter'
 
