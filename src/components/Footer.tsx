@@ -10,9 +10,14 @@ type Props = {
   t?: any;
 }
 
+function handleFooterButtonClick(slug: string) {
+  let query = `[data-link=${slug}]`
+  if (slug == '') query = '[data-link]';
+  (document.querySelector(query) as HTMLElement).click();
+}
+
+
 function Footer({ t }: Props) {
-  // to change the language, we need to set the language in the url and reload the page
-  const navigate = useNavigate();
   const sections = window.sections;
 
   const location = useLocation();
@@ -37,11 +42,9 @@ function Footer({ t }: Props) {
     prevSection = sections[sections.length-1];
   }
   
-  var prevSlug = prevSection && prevSection.slug;
-  var nextSlug = nextSection && nextSection.slug;
-  if (!prevSection) prevSlug = '';
-  if (!nextSection) nextSlug = '';
-  
+  var prevSlug = (prevSection && prevSection.slug) || '';
+  var nextSlug = (nextSection && nextSection.slug) || '';
+
   // render the footer with the localized navigation buttons
   return <>
     <ScrollButton className="position-sticky bottom-0 right-0 pb-3 ml-auto"/>
@@ -52,7 +55,7 @@ function Footer({ t }: Props) {
           {/* <ButtonGroup> */}
             <Button 
               className='btn-nav btn-footer px-sm-2 px-md-3 py-5' 
-              onClick={() => navigate(`/${prevSlug}`)}
+              onClick={() => handleFooterButtonClick(prevSlug)}
               leadingIcon={prevSection? ArrowLeftIcon: IterationsIcon} 
             >
               {prevSection &&
@@ -66,7 +69,7 @@ function Footer({ t }: Props) {
             </Button>
             <Button 
               className='btn-nav btn-footer px-sm-2 px-md-3 py-5'
-              onClick={() => navigate(`/${nextSlug}`)}
+              onClick={() => handleFooterButtonClick(nextSlug)}
               trailingIcon={nextSection? ArrowRightIcon: IterationsIcon} 
             >
               {nextSection &&
@@ -83,7 +86,7 @@ function Footer({ t }: Props) {
         {(!prevSection && !nextSection) && <>
           <Button 
             className='btn-nav btn-footer' 
-            onClick={() => navigate(`/${prevSlug}`)}
+            onClick={() => handleFooterButtonClick(prevSlug)}
             leadingIcon={IterationsIcon} 
             >
             {t('footer.homeButtonText')}

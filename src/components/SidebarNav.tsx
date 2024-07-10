@@ -5,7 +5,7 @@ import type { SectionT } from './Section'
 import { NavList, Truncate, Link} from '@primer/react'
 import cx from 'classnames'
 
-import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon } from '@primer/octicons-react'
+import { HomeIcon, BookmarkIcon, BookmarkFillIcon, RepoIcon, HomeFillIcon } from '@primer/octicons-react'
 import { withTranslation } from 'react-i18next'
 // icons related to books:
 // RepoIcon, RepoCloneIcon, RepoPullIcon, RepoPushIcon, RepoLockedIcon, RepoForkedIcon, RepoDeletedIcon, RepoTemplateIcon 
@@ -81,6 +81,7 @@ function SidebarNav(props: Props) {
             <NavList.Item 
             id={id} key={id}
             className={cx(section.slug, sectionActive && 'active')}
+            data-link={section.slug}
             aria-current={sectionActive && "page"}
             // hack to open active section on page load, if to avoid error when no subnav
             {... chapterNavItems.length > 0 ? {defaultOpen: sectionActive} : {}}
@@ -100,7 +101,8 @@ function SidebarNav(props: Props) {
                     <Link as={ReactRouterLink} to={section.slug}>
                         <Truncate title={section.menu_name}
                             as='span' 
-                            className={cx('nav-item-title', 'd-inline-block', sectionActive && 'active text-bold')}
+                            className={cx(section.slug,'nav-item-title', 'd-inline-block', sectionActive && 'active text-bold')}
+                            data-link={section.slug}
                             maxWidth={200}
                             style={{color: section.color_primary}}
                             onClick={handleNavItemClick}
@@ -138,12 +140,15 @@ function SidebarNav(props: Props) {
             <NavList className={cx("primary-nav")}>
                 <NavList.Item as={ReactRouterLink} to='/'
                     aria-current={location.pathname === '/' && "page"}
-                    className={cx(
-                    location.pathname === '/' && 'text-bold'
-                    )}
+                    data-link=''
                 >
-                    <NavList.LeadingVisual><HomeIcon/></NavList.LeadingVisual> 
-                    {t('sidebar.home')}
+                    <NavList.LeadingVisual>
+                        {location.pathname === '/' && <HomeFillIcon/>}
+                        {location.pathname !== '/' && <HomeIcon/>}
+                    </NavList.LeadingVisual>
+                    <span className={cx(location.pathname === '/' && 'text-bold')}>
+                        {t('sidebar.home')}
+                    </span> 
                 </NavList.Item>
                 {sectionListNavItems}
             </NavList>
