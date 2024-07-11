@@ -21,6 +21,8 @@ import Header from './components/Header';
 import SidebarNav from './components/SidebarNav';
 import { Helmet } from 'react-helmet-async';
 
+import { slugify } from "modern-diacritics";
+
 export type LinkT = {
   title: string
   link: string | undefined
@@ -104,6 +106,7 @@ function App() {
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
   const sectionsByKey = sections.reduce(function (map, section: SectionT) {
+    section.slug = slugify(section.title, {trim: true, forceSingleSpace: true})
     map[section.slug] = section
     return map
   }, {})

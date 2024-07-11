@@ -12,7 +12,7 @@ export type SectionT = {
     sorting: number
     title: string
     content: string | null
-    slug: string
+    slug?: string
     menu_name: string
     localizations: any
     color_primary?: string
