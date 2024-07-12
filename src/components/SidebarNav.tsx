@@ -56,10 +56,10 @@ function SidebarNav(props: Props) {
             const id = `subnav_item_${chapter.sorting}_${chapter.slug_with_section}`;
             return (
                 <NavList.Item 
+                    id={id} key={id}
                     className={cx('ml-4', `${chapter.slug_with_section}`)} 
                     style={{color: section.color_primary}}
                     aria-current={isActive && "location"} // for primer color highlight
-                    key={id} id={id}
                     as={ReactRouterLink} to={chapter.slug_with_section}
                     onClick={handleNavItemClick}
                 >
@@ -85,7 +85,7 @@ function SidebarNav(props: Props) {
             aria-current={sectionActive && "page"}
             // hack to open active section on page load, if to avoid error when no subnav
             {... chapterNavItems.length > 0 ? {defaultOpen: sectionActive} : {}}
-            as={ReactRouterLink} to={section.slug}
+            as={ReactRouterLink} to={section.slug!}
             >
                 <NavList.LeadingVisual style={{color: section.color_primary}}>
                     {/* <DynamicIcon/> */}
@@ -98,7 +98,7 @@ function SidebarNav(props: Props) {
                 </NavList.LeadingVisual>
                 { chapterNavItems.length > 0
                     ? 
-                    <Link as={ReactRouterLink} to={section.slug}>
+                    <Link as={ReactRouterLink} to={section.slug!}>
                         <Truncate title={section.menu_name}
                             as='span' 
                             className={cx(section.slug,'nav-item-title', 'd-inline-block', sectionActive && 'active text-bold')}
