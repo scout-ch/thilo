@@ -132,7 +132,7 @@ function App() {
           <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>
         </Helmet>
         <div className='App'>
-          <Router basename="/">
+          <Router basename={import.meta.env.BASE_URL}>
             <LinksContext.Provider value={links}>
               <Header />
               <PageLayout sx={{padding: '0'}}>
