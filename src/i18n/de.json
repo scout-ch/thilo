@@ -42,6 +42,10 @@
     },
     "sideBarNav": {
       "title": "Thilo Online"
+    },
+    "noMatch": {
+      "title": "Seite nicht gefunden",
+      "body": "Die Seite unter diesem Link exisitert nicht (mehr)."
     }
   }
 }

@@ -13,6 +13,7 @@ import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
 import { checkLinks } from './utils/LinkChecker';
 import SearchPage from './pages/SearchPage';
+import NoMatch from './pages/NoMatch';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -138,11 +139,14 @@ function App() {
                 <PageLayout.Content>
                   <div id="main-content" className='p-3'>
                     <Routes>
-                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
-                        <Route path="/impressum" element={<ImpressumPage />} />
-                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey} />} />
                         <Route path="/" element={<HomePage page={startPage}/>} />
                         <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
+                        <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
+                        <Route path="/impressum" element={<ImpressumPage />} />
+                        {/* TODO: currently, 404 page is called by Section component because otherwise won't work */}
+                        <Route path="/:slug"  element={<SectionPage sections={sectionsByKey}/>} />
+                        {/* TODO: Below does not really do anyting, because :slug matches everything */}
+                        <Route path="*" element={<NoMatch />} />
                       </Routes>
                     <Footer />
                   </div>

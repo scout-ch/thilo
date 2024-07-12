@@ -3,6 +3,7 @@ import Section from '../components/Section'
 import type { SectionT } from '../components/Section'
 import { useLocation, useParams } from 'react-router'
 import { withTranslation } from 'react-i18next'
+import NoMatch from './NoMatch'
 
 type Params = {
   slug: string
@@ -34,7 +35,8 @@ function SectionPage(props: Props) {
         if (title) title.scrollIntoView()
     }
   });
-  if (!section) return null
+  // TODO: rethink the routing so a 404 page does not have to be serve here, but in App.tsx
+  if (!section) return <NoMatch />
   return <Section section={section} />
 }
 export default withTranslation()(SectionPage)
