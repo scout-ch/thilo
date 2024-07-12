@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './globals'
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
