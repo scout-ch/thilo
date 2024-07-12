@@ -23,6 +23,8 @@ import { Helmet } from 'react-helmet-async';
 
 import { slugify } from "modern-diacritics";
 
+import { ChapterT } from './components/Chapter';
+import { SectionT } from './components/Section';
 export type LinkT = {
   title: string
   link: string | undefined
@@ -107,9 +109,14 @@ function App() {
   //@ts-ignore
   const sectionsByKey = sections.reduce(function (map, section: SectionT) {
     section.slug = slugify(section.title, {trim: true, forceSingleSpace: true})
+    section.chapters = section.chapters.map(function (chapter: ChapterT) {
+      chapter.slug = slugify(chapter.title, {trim: true, forceSingleSpace: true})
+      chapter.slug_with_section = `${section.slug}#${chapter.slug}`
+      return chapter
+    });
     map[section.slug] = section
     return map
-  }, {})
+  }, {});
 
   checkLinks(sections, links)
 
@@ -129,7 +136,7 @@ function App() {
               <Header />
               <PageLayout sx={{padding: '0'}}>
                 <PageLayout.Content>
-                  <main id="main-content" className='p-3'>
+                  <div id="main-content" className='p-3'>
                     <Routes>
                         <Route path="/search" element={<SearchPage page={searchPage} sections = {sections} />} />
                         <Route path="/impressum" element={<ImpressumPage />} />
@@ -138,7 +145,7 @@ function App() {
                         <Route path="/thilo/" element={ <HomePage page={startPage}/>} />
                       </Routes>
                     <Footer />
-                  </main>
+                  </div>
                 </PageLayout.Content>
                 <PageLayout.Pane position={'start'} sticky  //resizable
                   hidden={{narrow: true, regular: true, wide: false}}
