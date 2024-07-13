@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import i18n from 'i18next';
+import { slugify } from 'modern-diacritics';
 
 
 
@@ -36,7 +37,7 @@ export const useLanguageChangeHandler = () => {
             if (newSections && localizedSection) {
                 const newCurrentSection = newSections.find((s: any) => { return s['sorting'] === localizedSection['sorting'] })
                 if (newCurrentSection) {
-                    navigate('/' + newCurrentSection.slug)
+                    navigate('/' + slugify(newCurrentSection.title))
                     return;
                 }
             }
