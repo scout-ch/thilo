@@ -21,7 +21,7 @@ export const useLanguageChangeHandler = () => {
             return
         }
         // else we need to get the new sections and check if the current section has a translation
-        let sectionsLocal = window.localStorage.getItem(`sections_${lng}`);
+        let sectionsLocal = window.localStorage.getItem(`sections-${lng}`);
         // @ts-ignore
         let newSections: SectionT[] = [];
         // TODO: Explore method using localizations by i18n instead of new requests

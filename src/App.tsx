@@ -66,8 +66,8 @@ function App() {
         data = data.filter((e:any) => e.published_at !== null)
       }
       setterFunc(data)
-      window.localStorage.setItem(`${source}_${lang}`, JSON.stringify(data));
-      console.info(`pulled from strapi - ${source}_${lang}`)
+      window.localStorage.setItem(`${source}-${lang}`, JSON.stringify(data));
+      console.info(`pulled from strapi - ${source}-${lang}`)
     })
   }
 
@@ -75,9 +75,9 @@ function App() {
   // TODO: check if data is up to date
   function oldDataSolution() {
   // load data from local storage
-  let startPageLocal = window.localStorage.getItem(`start-page_${lang}`)
-  let sectionsLocal = window.localStorage.getItem(`sections_${lang}`)
-  let linksLocal = window.localStorage.getItem(`links_${lang}`)
+  let startPageLocal = window.localStorage.getItem(`start-page-${lang}`)
+  let sectionsLocal = window.localStorage.getItem(`sections-${lang}`)
+  let linksLocal = window.localStorage.getItem(`links-${lang}`)
   // unless you are currently editing the data... a dev can set this in the console
   let alwaysReload = window.localStorage.getItem(`always-reload`)
 
@@ -123,6 +123,7 @@ function App() {
     if(data) {
       (data as any[]).forEach((d) => {
         let key = Object.keys(d)[0]
+        localStorage.setItem(`${key}`, JSON.stringify(d[key]))
         if (key.includes(lang)) {
           console.log('setting data', lang)
           if(key.includes('links')) {
