@@ -121,10 +121,11 @@ function App() {
 
   useEffect(() => {
     if(data) {
-      console.log('setting local data');
+      console.log('setting local data', data);
       (data as any[]).forEach((d) => {
         let key = Object.keys(d)[0]
-        localStorage.setItem(`${key}`, JSON.stringify(d[key]))
+        console.log('set', key)
+        localStorage.setItem(key, JSON.stringify(d[key]))
         if (key.includes(lang)) {
           if(key.includes('links')) {
             setLinks(d[key]);
