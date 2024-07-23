@@ -36,12 +36,27 @@ export type LinkT = {
 export const LinksContext = React.createContext<LinkT[]>([])
 
 function App() {
-
+  const [data, setData] = React.useState(null);
   const [sections, setSections] = React.useState(null);
   const [links, setLinks] = React.useState(null);
   const [startPage, setStartPage] = React.useState(null);
   const [searchPage, setSearchPage] = React.useState(null);
   const lang = i18n.language
+
+  //Importing your data 
+  const rawImport = import.meta.glob(`../exports/*.json`)
+
+  async function parseLocalData(setDataFunction: Function) {
+    let imported: { [x: string]: unknown; }[] = []
+    for (const path in rawImport) {
+      await rawImport[path]().then((mod) => { 
+        let name = path.replace('../exports/', '').replace('.json', '')
+        //@ts-ignore
+        imported.push({[name]: mod.default})
+      })
+    }
+    setDataFunction(imported)
+  }
 
   async function pullData(source: string, lang: string, setterFunc: Function) {
     const dataPromise = client.get(`/${source}?_locale=${lang}`)
@@ -58,52 +73,80 @@ function App() {
 
   // get data from strapi or local storage if available
   // TODO: check if data is up to date
-  useEffect(() => {
-    // load data from local storage
-    let startPageLocal = window.localStorage.getItem(`start-page_${lang}`)
-    let sectionsLocal = window.localStorage.getItem(`sections_${lang}`)
-    let linksLocal = window.localStorage.getItem(`links_${lang}`)
-    // unless you are currently editing the data... a dev can set this in the console
-    let alwaysReload = window.localStorage.getItem(`always-reload`)
+  function oldDataSolution() {
+  // load data from local storage
+  let startPageLocal = window.localStorage.getItem(`start-page_${lang}`)
+  let sectionsLocal = window.localStorage.getItem(`sections_${lang}`)
+  let linksLocal = window.localStorage.getItem(`links_${lang}`)
+  // unless you are currently editing the data... a dev can set this in the console
+  let alwaysReload = window.localStorage.getItem(`always-reload`)
 
-    alwaysReload = 'not-null-during-dev'
+  alwaysReload = 'not-null-during-dev'
 
-    if(alwaysReload === null) {
-      // parse data from local storage or pull from strapi
-      if(startPageLocal !== null) {
-        setStartPage(JSON.parse(startPageLocal))
-        console.info('loaded from local storage - start-page')
-      } else {
-        pullData('start-page', lang, setStartPage);
-      }
-      if(sectionsLocal !== null && sectionsLocal !== '[]') {
-        setSections(JSON.parse(sectionsLocal))
-        setSearchPage(JSON.parse(sectionsLocal))
-        console.info('loaded from local storage - sections')
-      } else {
-        pullData('sections', lang, setSections);
-        // TODO: Is this setSearchPage call necessary?
-        pullData('sections', lang, setSearchPage);
-      }
-      if(linksLocal !== null && linksLocal !== '[]') {
-        setLinks(JSON.parse(linksLocal))
-        console.info('loaded from local storage - links')
-      } else {
-        pullData('links', lang, setLinks);
-      }
+  if(alwaysReload === null) {
+    // parse data from local storage or pull from strapi
+    if(startPageLocal !== null) {
+      setStartPage(JSON.parse(startPageLocal))
+      console.info('loaded from local storage - start-page')
     } else {
-      console.log('always reload is not null! reloading data from strapi...')
       pullData('start-page', lang, setStartPage);
+    }
+    if(sectionsLocal !== null && sectionsLocal !== '[]') {
+      setSections(JSON.parse(sectionsLocal))
+      setSearchPage(JSON.parse(sectionsLocal))
+      console.info('loaded from local storage - sections')
+    } else {
       pullData('sections', lang, setSections);
+      // TODO: Is this setSearchPage call necessary?
       pullData('sections', lang, setSearchPage);
+    }
+    if(linksLocal !== null && linksLocal !== '[]') {
+      setLinks(JSON.parse(linksLocal))
+      console.info('loaded from local storage - links')
+    } else {
       pullData('links', lang, setLinks);
     }
+  } else {
+    console.log('always reload is not null! reloading data from strapi...')
+    pullData('start-page', lang, setStartPage);
+    pullData('sections', lang, setSections);
+    pullData('sections', lang, setSearchPage);
+    pullData('links', lang, setLinks);
+  }
+}
+
+  useEffect(() => {
+    parseLocalData(setData);
   }, [lang])
+
+  useEffect(() => {
+    if(data) {
+      (data as any[]).forEach((d) => {
+        let key = Object.keys(d)[0]
+        if (key.includes(lang)) {
+          console.log('setting data', lang)
+          if(key.includes('links')) {
+            setLinks(d[key])
+          } else if(key.includes('start-page')) {
+            setStartPage(d[key])
+          } else if(key.includes('sections')) {
+            setSections(d[key])
+            setSearchPage(d[key])
+          }
+        }
+      })
+    }
+  }, [data, lang])
 
   // disable scroll restoration
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, []);
+
+  // TODO: REMOVE THIS, MOVE TO LOCAL DATA ONLY
+  if (!data) {
+    oldDataSolution()
+  }
 
   // check if data is available
   if (!sections || !links || !startPage || !searchPage) return null
