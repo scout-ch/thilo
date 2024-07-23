@@ -130,8 +130,10 @@ function App() {
           } else if(key.includes('start-page')) {
             setStartPage(d[key])
           } else if(key.includes('sections')) {
-            setSections(d[key])
-            setSearchPage(d[key])
+            let sections = d[key]
+            setSections(sections)
+            setSearchPage(sections)
+            window.sections = sections;
           }
         }
       })
