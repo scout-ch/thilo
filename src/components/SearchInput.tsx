@@ -23,7 +23,7 @@ function SearchInput({ t, keyword, onChange, onKeyDown, tooltipDirection }: Prop
           onSubmit={(event) => {
             event.preventDefault()
             inputRef.current?.focus()
-            console.log(inputRef.current)
+            // console.log(inputRef.current)
             // FIXME: Enter keydown does not seem to reach the input.
             inputRef.current?.dispatchEvent(new KeyboardEvent('keypress', {
                 key: 'Enter',

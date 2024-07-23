@@ -11,7 +11,7 @@ export const useLanguageChangeHandler = () => {
     const oldSections = window.sections;
     
     const handleLanguageChange = (lng: string) => {
-        console.log('Language changed to: ' + lng)
+        // console.log('Language changed to: ' + lng)
 
         const path = location.pathname.replace('/', '')
         const currentSection = oldSections.find((s) => { return s['slug'] === path })

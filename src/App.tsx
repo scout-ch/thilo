@@ -121,19 +121,19 @@ function App() {
 
   useEffect(() => {
     if(data) {
+      console.log('setting local data');
       (data as any[]).forEach((d) => {
         let key = Object.keys(d)[0]
         localStorage.setItem(`${key}`, JSON.stringify(d[key]))
         if (key.includes(lang)) {
-          console.log('setting data', lang)
           if(key.includes('links')) {
-            setLinks(d[key])
+            setLinks(d[key]);
           } else if(key.includes('start-page')) {
-            setStartPage(d[key])
+            setStartPage(d[key]);
           } else if(key.includes('sections')) {
-            let sections = d[key]
-            setSections(sections)
-            setSearchPage(sections)
+            let sections = d[key];
+            setSections(sections);
+            setSearchPage(sections);
             window.sections = sections;
           }
         }

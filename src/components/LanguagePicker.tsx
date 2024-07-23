@@ -42,7 +42,7 @@ const LanguagePicker = ({ t, xs, mediumOrLower }: Props) => {
       onSelect={() => {
         if (lng) {
           try {
-            console.log('LanguagePicker change to: ' + lng)
+            // console.log('LanguagePicker change to: ' + lng)
             changeLanguage(lng)
           } catch (err) {
             console.warn('Unable to set preferred language', err)
