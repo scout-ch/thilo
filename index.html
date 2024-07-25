@@ -17,6 +17,16 @@
         BACKEND_URL: '${BACKEND_URL}',
       };
     </script>
+    <script>
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+          console.log('Redirecting to', redirect);
+        }
+        })();
+    </script>
     
     <script type="module" crossorigin src="/thilo/assets/index-3cc6efec.js"></script>
     <link rel="stylesheet" href="/thilo/assets/index-246691aa.css">
