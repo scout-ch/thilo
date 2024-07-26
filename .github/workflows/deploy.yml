@@ -60,7 +60,7 @@ jobs:
       - run: pnpm run build
 
       # Create backend export
-      - run: node src/scripts/strapiToJson.py
+      - run: node src/scripts/strapiToJson.js
       - run: mv exports build/export
 
       - uses: actions/upload-artifact@v4
@@ -108,7 +108,7 @@ jobs:
       - run: echo "$(envsubst < build/index.html)" > build/index.html
 
       # Create backend export
-      - run: node src/scripts/strapiToJson.py
+      - run: node src/scripts/strapiToJson.js
       - run: mv exports build/export
 
       - uses: actions/upload-artifact@v4
