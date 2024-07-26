@@ -55,9 +55,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm run build
+
+      # Create backend export
+      - run: node scripts/strapiToJson.py
+      - run: mv exports build/export
+
       - uses: actions/upload-artifact@v4
         with:
           name: build-cache-gp
@@ -97,10 +102,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm run build
       - run: echo "$(envsubst < build/index.html)" > build/index.html
+
+      # Create backend export
+      - run: node scripts/strapiToJson.py
+      - run: mv exports build/export
+
       - uses: actions/upload-artifact@v4
         with:
           name: build-cache-prod

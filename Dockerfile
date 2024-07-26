@@ -30,6 +30,11 @@ ENV REACT_APP_PUBLIC_URL=/
 RUN sed -i "s|base: '/thilo/',|base: '/',|g" vite.config.ts
 RUN npm install
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+
+# Create backend export
+RUN node src/scripts/strapiToJson.js
+RUN mv exports build/exports
+
 RUN chmod +x entrypoint.sh
 RUN dos2unix entrypoint.sh
 
