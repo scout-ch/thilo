@@ -61,7 +61,7 @@ jobs:
 
       # Create backend export
       - run: node src/scripts/strapiToJson.js
-      - run: mv exports build/export
+      - run: mv exports build/exports
 
       - uses: actions/upload-artifact@v4
         with:
@@ -109,7 +109,7 @@ jobs:
 
       # Create backend export
       - run: node src/scripts/strapiToJson.js
-      - run: mv exports build/export
+      - run: mv exports build/exports
 
       - uses: actions/upload-artifact@v4
         with:
