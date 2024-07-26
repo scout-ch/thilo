@@ -1,0 +1,27 @@
+{
+    "id": 2,
+    "title": "Thilo",
+    "content": "### Thilo BETA (INTRO by GBT)\n\nWillkommen auf unserer Seite, die speziell für Schweizer Pfadfinderinnen und Pfadfinder entwickelt wurde! Hier finden Sie alles, was Sie über das Pfadfinden wissen müssen, von grundlegenden Fähigkeiten bis hin zu fortgeschrittenen Techniken und Aktivitäten. Unser Ziel ist es, Ihnen alle erforderlichen Informationen und Werkzeuge zur Verfügung zu stellen, um eine erfolgreiche Pfadfinderin oder ein erfolgreicher Pfadfinder zu werden.\n\n\n\n",
+    "menu_name": "THILO",
+    "locale": "de",
+    "published_at": "2022-10-08T13:07:36.095Z",
+    "created_at": "2022-10-08T13:07:34.878Z",
+    "updated_at": "2023-11-08T06:41:03.895Z",
+    "localizations": [
+        {
+            "id": 1,
+            "locale": "en",
+            "published_at": "2022-10-08T13:06:51.870Z"
+        },
+        {
+            "id": 3,
+            "locale": "fr",
+            "published_at": "2022-10-08T13:11:12.337Z"
+        },
+        {
+            "id": 4,
+            "locale": "it",
+            "published_at": "2022-10-08T13:11:31.106Z"
+        }
+    ]
+}
