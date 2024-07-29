@@ -57,11 +57,11 @@ jobs:
           node-version: 20
           cache: "pnpm"
       - run: pnpm install
+      - name: Create backend export
+        run: node src/scripts/strapiToJson.js
+      # - name: Move backend export
+      #   run: mv exports build/exports
       - run: pnpm run build
-
-      # Create backend export
-      - run: node src/scripts/strapiToJson.js
-      - run: mv exports build/exports
 
       - uses: actions/upload-artifact@v4
         with:
