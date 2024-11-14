@@ -8,12 +8,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@primer/css": "^21.5.1",
-    "@primer/octicons-react": "^19.12.0",
-    "@primer/primitives": "^8.2.4",
+    "@primer/css": "^21.3.6",
+    "@primer/octicons-react": "^19.11.0",
+    "@primer/primitives": "^8.2.3",
     "@primer/react": "^35.32.2",
-    "@vitejs/plugin-react": "^4.3.3",
-    "axios": "^1.7.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "i18next": "^22.5.1",
     "i18next-browser-languagedetector": "^7.2.1",
@@ -24,23 +24,23 @@
     "react-i18next": "^12.3.1",
     "react-markdown": "^8.0.7",
     "react-quiz-component": "^0.5.1",
-    "react-router": "^6.28.0",
-    "react-router-dom": "^6.28.0",
+    "react-router": "^6.24.1",
+    "react-router-dom": "^6.24.1",
     "remark": "^14.0.3",
     "remark-gfm": "^3.0.1",
     "strip-markdown": "^5.0.1",
-    "vite": "^4.5.5",
+    "vite": "^4.5.3",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
     "@craco/craco": "7.1.0",
-    "@types/node": "^18.19.64",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/node": "^18.19.39",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
-    "sass": "^1.80.7",
-    "serve": "^14.2.4",
+    "sass": "^1.77.8",
+    "serve": "^14.2.3",
     "typescript": "^4.9.5",
     "vite-plugin-pwa": "^0.16.7"
   },
@@ -53,20 +53,10 @@
     "react-error-overlay": "6.0.9"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "extends": ["react-app"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

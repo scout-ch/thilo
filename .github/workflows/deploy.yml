@@ -1,4 +1,4 @@
-name: Build & deploy
+name: Build
 
 on:
   push:
@@ -6,136 +6,26 @@ on:
       - master
 
 jobs:
-  build-and-push-container:
-    name: Build and Push Thilo Container
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build docker container
-        uses: docker/build-push-action@v5
-        with:
-          context: ./
-          load: true
-          tags: |
-            ghcr.io/scout-ch/thilo/thilo_frontend:latest
-      - name: Push docker container
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          context: ./
-          tags: |
-            ghcr.io/scout-ch/thilo/thilo_frontend:latest
-
-  buildGHPages:
-    name: Build Thilo App GHPages
-    runs-on: ubuntu-latest
-    env:
-      REACT_APP_PUBLIC_URL: /thilo/
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-      - run: pnpm install
-      - name: Create backend export
-        run: node src/scripts/strapiToJson.js
-      - run: pnpm run build
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build-cache-gp
-          path: ./build
-
-  deployGHPages:
-    name: Deploy Thilo App GHPages
-    needs: buildGHPages
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-cache-gp
-          path: ./build
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-
-  buildProd:
+  build:
     name: Build Thilo App Prod
     runs-on: ubuntu-latest
     env:
       REACT_APP_PUBLIC_URL: /
-      BACKEND_URL: ${{ secrets.BACKEND_URL }}
+      BACKEND_URL: https://thilo-backend.herokuapp.com
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
-      - run: pnpm install
+      - run: npm install
       - name: Create backend export
         run: node src/scripts/strapiToJson.js
-      - run: pnpm run build
+      - run: npm run build
       - run: echo "$(envsubst < build/index.html)" > build/index.html
 
       - uses: actions/upload-artifact@v4
         with:
           name: build-cache-prod
           path: ./build
-
-  deployProd:
-    name: Deploy Thilo App Prod
-    needs: buildProd
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-cache-prod
-          path: ./build
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          server-dir: /webroot/ROOT/
-          local-dir: ./build/
-          exclude: |
-            **/.devcontainer*
-            **/.devcontainer*/**
-            **/.git*
-            **/.git*/**
-            **/.github*
-            **/.github*/**
