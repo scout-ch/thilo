@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_PUBLIC_URL: /
-      BACKEND_URL: https://thilo-backend.herokuapp.com
+      BACKEND_URL: https://api.thilo.scouts.ch/
 
     steps:
       - uses: actions/checkout@v4
