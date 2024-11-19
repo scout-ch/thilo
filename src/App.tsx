@@ -176,7 +176,7 @@ function App() {
     <ThemeProvider colorMode='light'>
       <HelmetProvider>
         <Helmet>
-          <script defer data-domain="scout-ch.github.io/thilo" src={'https://plausible.io/js/script.js'}></script>
+          <script defer data-domain="thilo.scouts.ch" src={'https://plausible.io/js/script.js'}></script>
         </Helmet>
         <div className='App'>
           <Router basename={import.meta.env.BASE_URL}>
