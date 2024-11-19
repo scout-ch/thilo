@@ -1,0 +1,4 @@
+const c=3,t="Thilo",e=`Nous te souhaitons beaucoup de plaisir à mettre en pratique les nombreux conseils et astuces et espérons qu’ils enrichiront ton quotidien scout.
+
+![width:700px;Thilo_Cover_F_20221014.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1731599367/thilo/Thilo_Cover_F_20221014_b5ffe94dfb.png)
+`,o="THILO",i="fr",a="2022-10-08T13:11:12.337Z",n="2022-10-08T13:11:11.032Z",s="2024-11-14T15:51:33.603Z",l=[{id:1,locale:"en",published_at:"2022-10-08T13:06:51.870Z"},{id:2,locale:"de",published_at:"2022-10-08T13:07:36.095Z"},{id:4,locale:"it",published_at:"2022-10-08T13:11:31.106Z"}],d={id:3,title:t,content:e,menu_name:o,locale:i,published_at:a,created_at:n,updated_at:s,localizations:l};export{e as content,n as created_at,d as default,c as id,i as locale,l as localizations,o as menu_name,a as published_at,t as title,s as updated_at};
