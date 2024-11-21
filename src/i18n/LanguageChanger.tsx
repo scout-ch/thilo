@@ -14,7 +14,7 @@ export const useLanguageChangeHandler = () => {
         // console.log('Language changed to: ' + lng)
 
         const path = location.pathname.replace('/', '')
-        const currentSection = oldSections.find((s) => { return s['slug'] === path })
+        let currentSection = oldSections.find((s) => { return s['slug'] === path })
         // we need to reload if we are on the impressum page
         if (path === 'impressum') {
             navigate('/impressum')
@@ -37,7 +37,8 @@ export const useLanguageChangeHandler = () => {
             if (newSections && localizedSection) {
                 const newCurrentSection = newSections.find((s: any) => { return s['sorting'] === localizedSection['sorting'] })
                 if (newCurrentSection) {
-                    navigate('/' + slugify(newCurrentSection.title))
+                    navigate('/' + slugify(newCurrentSection.title, { forceSingleSpace: true, trim: true }))
+                    currentSection = newCurrentSection
                     return;
                 }
             }

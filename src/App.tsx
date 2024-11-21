@@ -156,9 +156,9 @@ function App() {
   if (!sections || !links || !startPage || !searchPage) return null
   //@ts-ignore
   const sectionsByKey = sections.reduce(function (map, section: SectionT) {
-    section.slug = slugify(section.title, {trim: true, forceSingleSpace: true})
+    section.slug = slugify(section.title, {forceSingleSpace: true, trim: true})
     section.chapters = section.chapters.map(function (chapter: ChapterT) {
-      chapter.slug = slugify(chapter.title, {trim: true, forceSingleSpace: true})
+      chapter.slug = slugify(chapter.title, {forceSingleSpace: true, trim: true})
       chapter.slug_with_section = `${section.slug}#${chapter.slug}`
       return chapter
     });
