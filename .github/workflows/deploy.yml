@@ -82,8 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_PUBLIC_URL: /
-      # update ${{ secrets.BACKEND_URL }} !!!
-      BACKEND_URL: https://api.thilo.scouts.ch/
+      BACKEND_URL: ${{ secrets.BACKEND_URL }}
 
     steps:
       - uses: actions/checkout@v4
