@@ -45,17 +45,42 @@ const t = getTranslations(locale);
       
       <!-- Right side actions -->
       <div class="flex items-center space-x-3">
-        <!-- Search button -->
-        <button 
-          type="button"
-          id="search-toggle"
-          class="p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
-          aria-label="Search"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </button>
+        <!-- Search component -->
+        <div class="relative">
+          <!-- Search input (hidden by default) -->
+          <div id="search-input-container" class="hidden absolute right-0 top-1/2 transform -translate-y-1/2">
+            <div class="flex items-center bg-gray-800 rounded-md border border-gray-600 focus-within:ring-2 focus-within:ring-blue-500">
+              <input 
+                type="text" 
+                id="header-search-input"
+                placeholder="Suchen..."
+                class="bg-transparent text-white placeholder-gray-400 px-3 py-2 w-64 text-sm focus:outline-none"
+              />
+              <button 
+                type="button"
+                id="search-close"
+                class="p-2 text-gray-400 hover:text-white"
+                aria-label="Close search"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Search button -->
+          <button 
+            type="button"
+            id="search-toggle"
+            class="p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+            aria-label="Search"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </div>
         
         <!-- Language selector -->
         <div class="relative">
@@ -142,9 +167,52 @@ const t = getTranslations(locale);
   mobileMenuClose?.addEventListener('click', closeMobileMenu);
   mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
 
-  // Search toggle functionality
+  // Search functionality
   const searchToggle = document.getElementById('search-toggle');
-  searchToggle?.addEventListener('click', () => {
-    window.location.href = '/search';
+  const searchInputContainer = document.getElementById('search-input-container');
+  const searchInput = document.getElementById('header-search-input') as HTMLInputElement | null;
+  const searchClose = document.getElementById('search-close');
+
+  function openSearch() {
+    searchToggle?.classList.add('hidden');
+    searchInputContainer?.classList.remove('hidden');
+    searchInput?.focus();
+  }
+
+  function closeSearch() {
+    searchInputContainer?.classList.add('hidden');
+    searchToggle?.classList.remove('hidden');
+    if (searchInput) searchInput.value = '';
+  }
+
+  function performSearch(query: string) {
+    if (query.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+    } else {
+      window.location.href = '/search';
+    }
+  }
+
+  searchToggle?.addEventListener('click', openSearch);
+  searchClose?.addEventListener('click', closeSearch);
+  
+  searchInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && searchInput.value) {
+      performSearch(searchInput.value);
+    } else if (e.key === 'Escape') {
+      closeSearch();
+    }
+  });
+
+  // Close search when clicking outside
+  document.addEventListener('click', (e) => {
+    const searchContainer = document.querySelector('#search-input-container');
+    const searchButton = document.querySelector('#search-toggle');
+    
+    if (searchContainer && !searchContainer.classList.contains('hidden')) {
+      if (!searchContainer.contains(e.target as Node) && !searchButton?.contains(e.target as Node)) {
+        closeSearch();
+      }
+    }
   });
 </script>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { getSections } from '../utils/data';
+
+export interface Props {
+  title: string;
+  lang?: string;
+  currentSection?: any;
+}
+
+const { title, lang = 'de', currentSection } = Astro.props;
+
+let sections: any[] = [];
+try {
+  sections = await getSections(lang);
+} catch (e) {
+  console.error('Error loading sections for ToC:', e);
+  sections = [];
+}
+---
+
+<BaseLayout title={title} lang={lang}>
+  <Header locale={lang as 'de' | 'fr' | 'it'} />
+  
+  <div class="flex min-h-screen">
+    <!-- Table of Contents Sidebar -->
+    <TableOfContents 
+      sections={sections} 
+      currentSection={currentSection}
+    />
+    
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-x-hidden">
+      <slot />
+    </main>
+  </div>
+  
+  <Footer locale={lang as 'de' | 'fr' | 'it'} />
+</BaseLayout>
+
+<style lang="scss">
+@import "src/styles/variables.scss";
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+}
+
+.section-title {
+  margin-bottom: $spacing-lg;
+  
+  h1 {
+    font-size: $font-size-3xl;
+    color: $primary-color;
+    text-align: center;
+    padding: $spacing-md;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    color: white;
+    border-radius: $border-radius-md;
+    margin: 0;
+  }
+}
+
+.section-body {
+  background: $background-light;
+  padding: $spacing-lg;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+}
+
+.sections-section {
+  margin-top: $spacing-xl;
+  
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+  }
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-lg;
+  margin-top: $spacing-lg;
+}
+
+.section-card {
+  display: block;
+  padding: $spacing-lg;
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  text-decoration: none;
+  color: inherit;
+  transition: all $transition-normal;
+  border-left: 4px solid transparent;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  .section-color {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: $spacing-md;
+  }
+  
+  h3 {
+    margin: 0 0 $spacing-sm 0;
+    color: $primary-color;
+    font-size: $font-size-lg;
+  }
+  
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+  }
+}
+
+.error-message {
+  text-align: center;
+  padding: $spacing-xl;
+  
+  h1 {
+    color: $danger-color;
+    margin-bottom: $spacing-md;
+  }
+  
+  p {
+    color: $text-secondary;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: $spacing-md;
+  }
+  
+  .sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

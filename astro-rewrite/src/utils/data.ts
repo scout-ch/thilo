@@ -190,7 +190,7 @@ export function formatDate(date: string | Date): string {
 }
 
 // Get article by ID (placeholder - articles not implemented yet)
-export async function getArticleById(id: string): Promise<Article | null> {
+export async function getArticleById(_id: string): Promise<Article | null> {
   // This would fetch from Strapi when articles are implemented
   return null;
 }
@@ -201,7 +201,7 @@ export async function getSectionById(id: string, locale: string = 'de'): Promise
 }
 
 // Get articles by section (placeholder - articles not implemented yet)
-export async function getArticlesBySection(sectionId: string): Promise<Article[]> {
+export async function getArticlesBySection(_sectionId: string): Promise<Article[]> {
   // This would fetch from Strapi when articles are implemented
   return [];
 }

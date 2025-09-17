@@ -54,49 +54,60 @@ const currentHash = Astro.url.hash;
         
         return (
           <li>
-            <!-- Section Link -->
-            <a 
-              href={sectionPath}
-              class={`flex items-center px-3 py-2 text-sm rounded-md transition-colors group ${
-                isActivePage
-                  ? 'bg-blue-100 text-blue-900 font-medium border-l-4 border-blue-500'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-              style={section.color_primary ? `--section-color: ${section.color_primary}` : ''}
-            >
-              <!-- Section Icon -->
-              {section.icon ? (
-                <img 
-                  src={section.icon.url} 
-                  alt="icon" 
-                  class="w-4 h-4 mr-3 flex-shrink-0"
-                />
-              ) : (
-                <svg class="w-4 h-4 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              )}
+            <!-- Section header with link and toggle -->
+            <div class={`flex items-center px-3 py-2 text-sm rounded-md transition-colors group ${
+              isActivePage
+                ? 'bg-blue-100 text-blue-900 font-medium border-l-4 border-blue-500'
+                : 'text-gray-700 hover:bg-gray-100'
+            }`}>
+              <!-- Section Link -->
+              <a 
+                href={sectionPath}
+                class="flex items-center flex-1 min-w-0"
+                style={section.color_primary ? `--section-color: ${section.color_primary}` : ''}
+              >
+                <!-- Section Icon -->
+                {section.icon ? (
+                  <img 
+                    src={section.icon.url} 
+                    alt="icon" 
+                    class="w-4 h-4 mr-3 flex-shrink-0"
+                  />
+                ) : (
+                  <svg class="w-4 h-4 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                )}
+                
+                <span class="flex-1 min-w-0 truncate">{section.menu_name}</span>
+              </a>
               
-              <span class="flex-1 min-w-0 truncate">{section.menu_name}</span>
-              
-              <!-- Chapter indicator -->
+              <!-- Chapter toggle button (outside the link) -->
               {section.chapters && section.chapters.length > 0 && (
-                <svg 
-                  class={`w-4 h-4 ml-2 transform transition-transform ${
-                    isCurrentSection ? 'rotate-90' : ''
-                  }`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
+                <button 
+                  class="w-6 h-6 ml-2 flex items-center justify-center transform transition-transform hover:bg-gray-200 rounded chapter-toggle"
+                  data-section={section.slug}
+                  aria-label="Toggle chapters"
                 >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+                  <svg 
+                    class="w-3 h-3 transition-transform" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               )}
-            </a>
+            </div>
 
-            <!-- Chapters submenu (only show if current section) -->
-            {isCurrentSection && section.chapters && section.chapters.length > 0 && (
-              <ul class="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+            <!-- Chapters submenu (expandable) -->
+            {section.chapters && section.chapters.length > 0 && (
+              <ul 
+                class={`mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4 chapters-list transition-all duration-200 ${
+                  isCurrentSection ? '' : 'hidden'
+                }`}
+                data-chapters={section.slug}>
                 {section.chapters
                   .sort((a: any, b: any) => a.sorting - b.sorting)
                   .map((chapter: any) => {
@@ -238,5 +249,39 @@ const currentHash = Astro.url.hash;
     if (e.key === 'Escape') {
       closeSidebar();
     }
+  });
+
+  // Chapter toggle functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.chapter-toggle').forEach((toggle: Element) => {
+      toggle.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Chapter toggle clicked!');
+        
+        const button = e.currentTarget as HTMLElement;
+        const sectionSlug = button.getAttribute('data-section');
+        const chaptersList = document.querySelector(`[data-chapters="${sectionSlug}"]`);
+        const arrow = button.querySelector('svg');
+        
+        console.log('Section slug:', sectionSlug);
+        console.log('Chapters list:', chaptersList);
+        console.log('Arrow:', arrow);
+        
+        if (chaptersList && arrow) {
+          const isHidden = chaptersList.classList.contains('hidden');
+          console.log('Is hidden:', isHidden);
+          
+          if (isHidden) {
+            chaptersList.classList.remove('hidden');
+            arrow.style.transform = 'rotate(90deg)';
+          } else {
+            chaptersList.classList.add('hidden');
+            arrow.style.transform = 'rotate(0deg)';
+          }
+        }
+      });
+    });
   });
 </script>

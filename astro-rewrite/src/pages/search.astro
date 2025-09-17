@@ -6,6 +6,10 @@ import { getTranslations } from '../i18n';
 const locale = Astro.currentLocale || 'de';
 const t = getTranslations(locale as any);
 
+// Get the search query from URL parameters
+const url = new URL(Astro.request.url);
+const initialQuery = url.searchParams.get('q') || '';
+
 let sections: any[] = [];
 
 try {
@@ -33,6 +37,7 @@ try {
             type="text" 
             id="search-input"
             placeholder={t.translation.searchPage.placeholder}
+            value={initialQuery}
             class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
           />
         </div>
@@ -58,7 +63,7 @@ try {
   </div>
 </MainLayout>
 
-<script define:vars={{ sections, t }} is:inline>
+<script define:vars={{ sections, t, initialQuery }} is:inline>
   // Search functionality with Strapi data
   const searchInput = document.getElementById('search-input');
   const searchButton = document.getElementById('search-button');
@@ -202,4 +207,9 @@ try {
       performSearch(e.target.value);
     }, 300);
   });
+
+  // Perform initial search if query parameter exists
+  if (initialQuery && initialQuery.trim()) {
+    performSearch(initialQuery);
+  }
 </script>

@@ -12,13 +12,5 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "src/styles/variables.scss";`
-        }
-      }
-    }
-  }
+  // CSS preprocessing removed - using Tailwind CSS
 });

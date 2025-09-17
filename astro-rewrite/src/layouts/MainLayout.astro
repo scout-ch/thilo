@@ -18,10 +18,3 @@ const { title, lang = 'de' } = Astro.props;
   </main>
   <Footer locale={lang as 'de' | 'fr' | 'it'} />
 </BaseLayout>
-
-<style lang="scss">
-  main {
-    min-height: calc(100vh - 120px); // Adjust based on header/footer height
-    padding: 1rem;
-  }
-</style>
