@@ -1,0 +1,110 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Über uns - Thilo">
+  <div class="about-page">
+    <section class="hero">
+      <h1>Über Thilo</h1>
+      <p>Das offizielle Magazin der Pfadibewegung Schweiz</p>
+    </section>
+    
+    <section class="content">
+      <div class="about-content">
+        <div class="about-section">
+          <h2>Unsere Mission</h2>
+          <p>
+            Thilo ist das offizielle Magazin der Pfadibewegung Schweiz und richtet sich an 
+            Leitende aller Stufen. Wir bieten inspirierende Inhalte, praktische Tipps und 
+            kreative Ideen für die Pfadiarbeit.
+          </p>
+        </div>
+        
+        <div class="about-section">
+          <h2>Was wir bieten</h2>
+          <ul>
+            <li>Spannende Artikel rund um die Pfadibewegung</li>
+            <li>Praktische Aktivitäten und Spiele</li>
+            <li>Tipps für Leitende aller Erfahrungsstufen</li>
+            <li>Hintergrundwissen zur Pfadimethodik</li>
+            <li>Berichte aus anderen Abteilungen</li>
+          </ul>
+        </div>
+        
+        <div class="about-section">
+          <h2>Kontakt</h2>
+          <p>
+            <strong>Pfadibewegung Schweiz</strong><br />
+            Speichergasse 31<br />
+            3011 Bern<br />
+            <br />
+            E-Mail: <a href="mailto:thilo@pfadi.swiss">thilo@pfadi.swiss</a><br />
+            Telefon: +41 31 328 05 45
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  .about-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 1.2rem;
+    }
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+
+    h2 {
+      color: #0066cc;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+    }
+
+    p {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>

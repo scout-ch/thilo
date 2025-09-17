@@ -1,0 +1,144 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import MarkdownRenderer from '../components/MarkdownRenderer.astro';
+import { getStartPage, getSections } from '../utils/data';
+
+const locale = Astro.currentLocale || 'de';
+
+let startPage;
+let sections;
+let error = null;
+
+try {
+  startPage = await getStartPage(locale);
+  sections = await getSections(locale);
+} catch (e) {
+  console.error('Error loading data:', e);
+  error = e;
+}
+---
+
+<MainLayout title={startPage?.title || "Thilo - Scout Magazin"} lang={locale}>
+  {error ? (
+    <div class="content">
+      <div class="error-message">
+        <h1>Fehler beim Laden der Daten</h1>
+        <p>Die Inhalte konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</p>
+      </div>
+    </div>
+  ) : (
+    <div class="content">
+      <div id="section-title" class="section-title section-1 mb-2">
+        <h1 class="bg-primary px-2">{startPage?.title || 'Thilo'}</h1>
+      </div>
+
+      <div class="section-body rounded p-2 color-bg-default">
+        <div class="section-description">
+          <MarkdownRenderer content={startPage?.content || ''} />
+        </div>
+      </div>
+
+      {sections && sections.length > 0 && (
+        <div class="sections-section">
+          <h2>Stufenbereiche</h2>
+          <div class="sections-grid">
+            {sections.map(section => (
+              <a href={`/${section.slug}`} class="section-card">
+                <div 
+                  class="section-color" 
+                  style={`background-color: ${section.color_primary || '#0066cc'}`}
+                ></div>
+                <h3>{section.title}</h3>
+                <p>{section.menu_name}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )}
+</MainLayout>
+
+<style lang="scss">
+  .home-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #0066cc, #004499);
+    color: white;
+    margin: -1rem -1rem 2rem -1rem;
+    border-radius: 0 0 1rem 1rem;
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+  }
+
+  .featured-section,
+  .sections-section {
+    margin-bottom: 3rem;
+    
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .section-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .section-color {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+    }
+
+    h3 {
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+</style>

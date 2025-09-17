@@ -1,0 +1,36 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+import Section from '../components/Section.astro';
+import { getSections } from '../utils/data';
+
+export async function getStaticPaths() {
+  const locales = ['de', 'fr', 'it'];
+  const paths = [];
+  
+  for (const locale of locales) {
+    try {
+      const sections = await getSections(locale);
+      for (const section of sections) {
+        paths.push({
+          params: { slug: section.slug },
+          props: { section, locale }
+        });
+      }
+    } catch (error) {
+      console.error(`Error loading sections for ${locale}:`, error);
+    }
+  }
+  
+  return paths;
+}
+
+const { section, locale } = Astro.props;
+
+if (!section) {
+  return Astro.redirect('/404');
+}
+---
+
+<SectionLayout title={section.title} lang={locale} currentSection={section}>
+  <Section section={section} />
+</SectionLayout>

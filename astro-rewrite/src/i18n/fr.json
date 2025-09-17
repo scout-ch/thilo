@@ -1,0 +1,42 @@
+{
+  "translation": {
+    "target": {
+      "role": {
+        "LL": "Chef de camp",
+        "C": "Coach",
+        "AL": "Chef de groupe"
+      }
+    },
+    "header": {
+      "imprint": "Mentions légales",
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Clair",
+      "theme_dark_name": "Sombre"
+    },
+    "homePage": {
+      "title": "Accueil"
+    },
+    "startPage": {
+      "menuName": ""
+    },
+    "searchPage": {
+      "title": "Rechercher",
+      "description": "Rechercher dans tous les contenus",
+      "placeholder": "Entrer un terme de recherche...",
+      "noResults": "Aucun résultat trouvé",
+      "results": "Résultats"
+    },
+    "section": {
+      "backToTop": "Retour en haut"
+    },
+    "footer": {
+      "copyright": "© 2023 Mouvement Scout de Suisse"
+    },
+    "language": {
+      "de": "Deutsch",
+      "fr": "Français", 
+      "it": "Italiano",
+      "en": "English"
+    }
+  }
+}

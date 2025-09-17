@@ -1,0 +1,55 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticleById } from '../../utils/data';
+
+export async function getStaticPaths() {
+  // Since articles are not implemented yet, return empty array
+  // This will be populated when articles are added to Strapi
+  return [];
+}
+
+const { id } = Astro.params;
+const article = await getArticleById(id as string);
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+---
+
+<MainLayout title={`${article.title} - Thilo`}>
+  <div class="article-page">
+    <article class="article-full">
+      <ArticleCard article={article} showFullContent={true} />
+    </article>
+    
+    <nav class="article-nav">
+      <a href="/" class="back-link">← Zurück zur Startseite</a>
+    </nav>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  .article-page {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .article-full {
+    margin-bottom: 2rem;
+  }
+
+  .article-nav {
+    text-align: center;
+    
+    .back-link {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>

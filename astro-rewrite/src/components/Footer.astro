@@ -1,0 +1,150 @@
+---
+import { getTranslations } from '../i18n';
+
+export interface Props {
+  year?: number;
+  locale?: string;
+}
+
+const { year = new Date().getFullYear(), locale = 'de' } = Astro.props;
+const t = getTranslations(locale as any);
+---
+
+<!-- GitHub Primer styled footer -->
+<footer class="bg-gray-50 border-t border-gray-200 mt-auto">
+  <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Brand section -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center space-x-3 mb-4">
+          <img src="/logo.svg" alt="Thilo Logo" class="h-8 w-8" />
+          <span class="text-xl font-semibold text-gray-900">Thilo Scout Magazin</span>
+        </div>
+        <p class="text-gray-600 text-sm max-w-md">
+          Das offizielle Magazin der Pfadibewegung Schweiz mit allem Wissen für Leiter*innen und Coaches.
+        </p>
+      </div>
+      
+      <!-- Navigation links -->
+      <div class="lg:col-span-2 grid grid-cols-2 gap-8">
+        <div>
+          <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Navigation</h4>
+          <ul class="space-y-3">
+            <li>
+              <a 
+                href="/" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                {t.translation.homePage.title}
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/search" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                {t.translation.searchPage.title}
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/impressum" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                {t.translation.header.imprint}
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Sprachen</h4>
+          <ul class="space-y-3">
+            <li>
+              <a 
+                href="/?lang=de" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Deutsch
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/?lang=fr" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Français
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/?lang=it" 
+                class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Italiano
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom border -->
+  <div class="border-t border-gray-200">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+        <p class="text-sm text-gray-500">
+          &copy; {year} Pfadibewegung Schweiz. Alle Rechte vorbehalten.
+        </p>
+          <a 
+            href="/datenschutz" 
+            class="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            Datenschutz
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top button -->
+  <button 
+    id="back-to-top" 
+    class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 invisible z-50"
+    aria-label="Nach oben scrollen"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7" />
+    </svg>
+  </button>
+</footer>
+
+<script>
+  // Back to top functionality
+  const backToTopBtn = document.getElementById('back-to-top');
+  
+  function toggleBackToTopButton() {
+    if (window.scrollY > 300) {
+      backToTopBtn?.classList.remove('opacity-0', 'invisible');
+      backToTopBtn?.classList.add('opacity-100', 'visible');
+    } else {
+      backToTopBtn?.classList.add('opacity-0', 'invisible');
+      backToTopBtn?.classList.remove('opacity-100', 'visible');
+    }
+  }
+
+  // Show/hide button on scroll
+  window.addEventListener('scroll', toggleBackToTopButton);
+  
+  // Scroll to top when clicked
+  backToTopBtn?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Check on page load
+  toggleBackToTopButton();
+</script>

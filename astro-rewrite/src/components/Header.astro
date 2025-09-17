@@ -1,0 +1,150 @@
+---
+import { getTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'de' } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<!-- GitHub Primer styled header -->
+<header class="bg-gray-900 text-white border-b border-gray-700 sticky top-0 z-40">
+  <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo and brand -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center space-x-3 text-white hover:text-gray-200 transition-colors">
+          <img src="/logo.svg" alt="Thilo Logo" class="h-8 w-8" />
+          <span class="text-xl font-semibold">Thilo</span>
+        </a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a 
+          href="/" 
+          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.homePage.title}
+        </a>
+        <a 
+          href="/search" 
+          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.searchPage.title}
+        </a>
+        <a 
+          href="/impressum" 
+          class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.header.imprint}
+        </a>
+      </nav>
+      
+      <!-- Right side actions -->
+      <div class="flex items-center space-x-3">
+        <!-- Search button -->
+        <button 
+          type="button"
+          id="search-toggle"
+          class="p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+          aria-label="Search"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        
+        <!-- Language selector -->
+        <div class="relative">
+          <select 
+            id="language-select" 
+            class="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="de" selected={locale === 'de'}>DE</option>
+            <option value="fr" selected={locale === 'fr'}>FR</option>
+            <option value="it" selected={locale === 'it'}>IT</option>
+          </select>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button 
+          type="button"
+          id="mobile-menu-toggle"
+          class="md:hidden p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+          aria-label="Open menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu-overlay" class="md:hidden fixed inset-0 z-50 hidden">
+    <div class="fixed inset-0 bg-black bg-opacity-50" id="mobile-menu-backdrop"></div>
+    <div class="fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-xl">
+      <div class="flex items-center justify-between p-4 border-b border-gray-700">
+        <span class="text-lg font-semibold text-white">Menu</span>
+        <button 
+          id="mobile-menu-close"
+          class="p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <nav class="px-4 py-6 space-y-2">
+        <a 
+          href="/" 
+          class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.homePage.title}
+        </a>
+        <a 
+          href="/search" 
+          class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.searchPage.title}
+        </a>
+        <a 
+          href="/impressum" 
+          class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+        >
+          {t.translation.header.imprint}
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu functionality
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+
+  function openMobileMenu() {
+    mobileMenuOverlay?.classList.remove('hidden');
+  }
+
+  function closeMobileMenu() {
+    mobileMenuOverlay?.classList.add('hidden');
+  }
+
+  mobileMenuToggle?.addEventListener('click', openMobileMenu);
+  mobileMenuClose?.addEventListener('click', closeMobileMenu);
+  mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
+
+  // Search toggle functionality
+  const searchToggle = document.getElementById('search-toggle');
+  searchToggle?.addEventListener('click', () => {
+    window.location.href = '/search';
+  });
+</script>

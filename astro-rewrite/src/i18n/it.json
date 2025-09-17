@@ -1,0 +1,42 @@
+{
+  "translation": {
+    "target": {
+      "role": {
+        "LL": "Capo campo",
+        "C": "Coach",
+        "AL": "Capo sezione"
+      }
+    },
+    "header": {
+      "imprint": "Colophon",
+      "theme_auto_name": "Sync",
+      "theme_light_name": "Chiaro",
+      "theme_dark_name": "Scuro"
+    },
+    "homePage": {
+      "title": "Home"
+    },
+    "startPage": {
+      "menuName": ""
+    },
+    "searchPage": {
+      "title": "Cercare",
+      "description": "Cerca in tutti i contenuti",
+      "placeholder": "Inserisci termine di ricerca...",
+      "noResults": "Nessun risultato trovato",
+      "results": "Risultati"
+    },
+    "section": {
+      "backToTop": "Torna in alto"
+    },
+    "footer": {
+      "copyright": "© 2023 Movimento Scout Svizzero"
+    },
+    "language": {
+      "de": "Deutsch",
+      "fr": "Français", 
+      "it": "Italiano",
+      "en": "English"
+    }
+  }
+}

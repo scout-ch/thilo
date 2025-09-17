@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "Kreative Spiele für den Herbst",
+    "excerpt": "Entdecke spannende Aktivitäten für die kälteren Monate.",
+    "content": "Der Herbst bietet viele Möglichkeiten für kreative Pfadiaktivitäten...",
+    "author": "Maria Müller",
+    "date": "2024-09-15",
+    "category": "Aktivitäten",
+    "section": "biber",
+    "tags": ["spiele", "herbst", "kreativität"],
+    "featured": true,
+    "image": "/images/herbst-spiele.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Lagerfeuer-Sicherheit: Was Leitende wissen müssen",
+    "excerpt": "Wichtige Sicherheitstipps für das Lagerfeuer.",
+    "content": "Lagerfeuer sind ein wichtiger Bestandteil des Pfadialltags...",
+    "author": "Peter Schmidt",
+    "date": "2024-09-10",
+    "category": "Sicherheit",
+    "section": "rover",
+    "tags": ["sicherheit", "lagerfeuer", "outdoor"],
+    "featured": false,
+    "image": "/images/lagerfeuer.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Pfadimethodik: Die Grundlagen",
+    "excerpt": "Ein Überblick über die wichtigsten Prinzipien der Pfadimethodik.",
+    "content": "Die Pfadimethodik basiert auf verschiedenen Elementen...",
+    "author": "Sarah Weber",
+    "date": "2024-09-05",
+    "category": "Methodik",
+    "section": "pfadi",
+    "tags": ["methodik", "grundlagen", "ausbildung"],
+    "featured": true,
+    "image": "/images/methodik.jpg"
+  }
+]

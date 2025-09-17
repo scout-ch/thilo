@@ -1,0 +1,242 @@
+---
+import type { SectionT } from '../utils/data';
+
+interface Props {
+  sections: SectionT[];
+  currentSection?: SectionT;
+}
+
+const { sections, currentSection } = Astro.props;
+const currentPath = Astro.url.pathname;
+const currentHash = Astro.url.hash;
+---
+
+<nav class="w-72 h-screen sticky top-0 bg-white border-r border-gray-200 overflow-y-auto" id="sidebar-nav">
+  <!-- Header -->
+  <div class="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
+    <h3 class="text-sm font-semibold text-gray-900">Navigation</h3>
+    <button 
+      class="lg:hidden p-1 rounded hover:bg-gray-100" 
+      id="sidebar-close"
+      aria-label="Close navigation"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Navigation List -->
+  <div class="p-2">
+    <ul class="space-y-1">
+      <!-- Home Link -->
+      <li>
+        <a 
+          href="/" 
+          class={`flex items-center px-3 py-2 text-sm rounded-md transition-colors ${
+            currentPath === '/' 
+              ? 'bg-blue-100 text-blue-900 font-medium border-l-4 border-blue-500' 
+              : 'text-gray-700 hover:bg-gray-100'
+          }`}
+        >
+          <svg class="w-4 h-4 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span>Start</span>
+        </a>
+      </li>
+
+      <!-- Sections -->
+      {sections.map((section: SectionT) => {
+        const isCurrentSection = currentSection?.slug === section.slug;
+        const sectionPath = `/${section.slug}`;
+        const isActivePage = currentPath === sectionPath || currentPath.startsWith(sectionPath);
+        
+        return (
+          <li>
+            <!-- Section Link -->
+            <a 
+              href={sectionPath}
+              class={`flex items-center px-3 py-2 text-sm rounded-md transition-colors group ${
+                isActivePage
+                  ? 'bg-blue-100 text-blue-900 font-medium border-l-4 border-blue-500'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+              style={section.color_primary ? `--section-color: ${section.color_primary}` : ''}
+            >
+              <!-- Section Icon -->
+              {section.icon ? (
+                <img 
+                  src={section.icon.url} 
+                  alt="icon" 
+                  class="w-4 h-4 mr-3 flex-shrink-0"
+                />
+              ) : (
+                <svg class="w-4 h-4 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              )}
+              
+              <span class="flex-1 min-w-0 truncate">{section.menu_name}</span>
+              
+              <!-- Chapter indicator -->
+              {section.chapters && section.chapters.length > 0 && (
+                <svg 
+                  class={`w-4 h-4 ml-2 transform transition-transform ${
+                    isCurrentSection ? 'rotate-90' : ''
+                  }`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              )}
+            </a>
+
+            <!-- Chapters submenu (only show if current section) -->
+            {isCurrentSection && section.chapters && section.chapters.length > 0 && (
+              <ul class="mt-1 ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                {section.chapters
+                  .sort((a: any, b: any) => a.sorting - b.sorting)
+                  .map((chapter: any) => {
+                    const chapterHash = `#${chapter.slug}`;
+                    const isActiveChapter = currentHash === chapterHash;
+                    
+                    return (
+                      <li>
+                        <a 
+                          href={`${sectionPath}${chapterHash}`}
+                          class={`flex items-center px-3 py-2 text-sm rounded-md transition-colors ${
+                            isActiveChapter
+                              ? 'bg-blue-50 text-blue-800 font-medium border-l-4 border-blue-400'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          }`}
+                        >
+                          <svg class="w-3 h-3 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 7H7c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H7V9h10v6z"/>
+                          </svg>
+                          <span class="flex-1 min-w-0 truncate">{chapter.title}</span>
+                        </a>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden" id="sidebar-overlay"></div>
+
+<!-- Mobile toggle button -->
+<button 
+  class="fixed top-20 left-4 z-50 lg:hidden bg-white border border-gray-300 rounded-md p-2 shadow-lg hover:bg-gray-50"
+  id="sidebar-toggle"
+  aria-label="Open navigation"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button>
+
+<script>
+  // Mobile sidebar functionality
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarClose = document.getElementById('sidebar-close');
+  const sidebarNav = document.getElementById('sidebar-nav');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+  function openSidebar() {
+    sidebarNav?.classList.remove('hidden');
+    sidebarNav?.classList.add('fixed', 'inset-y-0', 'left-0', 'z-50');
+    sidebarOverlay?.classList.remove('hidden');
+  }
+
+  function closeSidebar() {
+    sidebarNav?.classList.add('hidden');
+    sidebarNav?.classList.remove('fixed', 'inset-y-0', 'left-0', 'z-50');
+    sidebarOverlay?.classList.add('hidden');
+  }
+
+  sidebarToggle?.addEventListener('click', openSidebar);
+  sidebarClose?.addEventListener('click', closeSidebar);
+  sidebarOverlay?.addEventListener('click', closeSidebar);
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href*="#"]').forEach((anchor: Element) => {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+      const href = this.getAttribute('href');
+      if (href?.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Close mobile sidebar after navigation
+          if (window.innerWidth < 1024) {
+            closeSidebar();
+          }
+        }
+      }
+    });
+  });
+
+  // Update active chapter based on scroll position
+  function updateActiveChapter() {
+    const chapters = document.querySelectorAll('[id^="chapter-"], [id]');
+    const scrollPosition = window.scrollY + 100;
+    
+    let activeChapter = '';
+    chapters.forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top + window.scrollY;
+      
+      if (elementTop <= scrollPosition) {
+        activeChapter = element.id;
+      }
+    });
+    
+    // Update active states in navigation
+    document.querySelectorAll('#sidebar-nav a').forEach((link: Element) => {
+      const href = (link as HTMLAnchorElement).getAttribute('href');
+      if (href?.includes('#')) {
+        const hash = href.split('#')[1];
+        if (hash === activeChapter) {
+          link.classList.add('bg-blue-50', 'text-blue-800', 'font-medium', 'border-l-4', 'border-blue-400');
+          link.classList.remove('text-gray-600', 'hover:bg-gray-50');
+        } else {
+          link.classList.remove('bg-blue-50', 'text-blue-800', 'font-medium', 'border-l-4', 'border-blue-400');
+          link.classList.add('text-gray-600', 'hover:bg-gray-50');
+        }
+      }
+    });
+  }
+
+  // Throttled scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveChapter();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Handle escape key for mobile
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSidebar();
+    }
+  });
+</script>

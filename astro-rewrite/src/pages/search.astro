@@ -1,0 +1,205 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getSections } from '../utils/data';
+import { getTranslations } from '../i18n';
+
+const locale = Astro.currentLocale || 'de';
+const t = getTranslations(locale as any);
+
+let sections: any[] = [];
+
+try {
+  sections = await getSections(locale);
+} catch (e) {
+  console.error('Error loading sections for search:', e);
+  sections = [];
+}
+---
+
+<MainLayout title={t.translation.searchPage.title + " - Thilo"} lang={locale}>
+  <!-- GitHub Primer styled search page -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">{t.translation.searchPage.title}</h1>
+      <p class="text-lg text-gray-600">{t.translation.searchPage.description}</p>
+    </div>
+    
+    <!-- Search Form -->
+    <div class="mb-8">
+      <div class="flex flex-col sm:flex-row gap-3 max-w-2xl">
+        <div class="flex-1">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder={t.translation.searchPage.placeholder}
+            class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+          />
+        </div>
+        <button 
+          type="button" 
+          id="search-button"
+          class="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+        >
+          Suchen
+        </button>
+      </div>
+    </div>
+    
+    <!-- Search Results -->
+    <div id="search-results">
+      <div class="text-center py-12 text-gray-500">
+        <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <p>Geben Sie einen Suchbegriff ein, um zu beginnen</p>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<script define:vars={{ sections, t }} is:inline>
+  // Search functionality with Strapi data
+  const searchInput = document.getElementById('search-input');
+  const searchButton = document.getElementById('search-button');
+  const searchResults = document.getElementById('search-results');
+
+  // Helper function to strip markdown
+  function stripMarkdown(text) {
+    if (!text) return '';
+    return text
+      .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Convert links to text
+      .replace(/#{1,6}\s+/g, '') // Remove headers
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+      .replace(/\*(.*?)\*/g, '$1') // Remove italic
+      .replace(/`(.*?)`/g, '$1') // Remove inline code
+      .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+      .replace(/>\s+/g, '') // Remove blockquotes
+      .replace(/^\s*[-*+]\s+/gm, '') // Remove list markers
+      .replace(/^\s*\d+\.\s+/gm, '') // Remove numbered list markers
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .replace(/\n{2,}/g, '\n') // Replace multiple newlines with single
+      .trim();
+  }
+
+  function performSearch(query) {
+    if (!query.trim()) {
+      searchResults.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <p>Geben Sie einen Suchbegriff ein, um zu beginnen</p>
+        </div>
+      `;
+      return;
+    }
+
+    const lowercaseQuery = query.toLowerCase();
+    const results = [];
+
+    // Search in sections
+    sections.forEach(section => {
+      // Search in section title and content
+      if (section.title && section.title.toLowerCase().includes(lowercaseQuery) || 
+          (section.content && section.content.toLowerCase().includes(lowercaseQuery))) {
+        results.push({
+          type: 'section',
+          title: section.title || '',
+          content: section.content || '',
+          url: `/${section.slug}`,
+          section: section
+        });
+      }
+
+      // Search in chapters
+      if (section.chapters && Array.isArray(section.chapters)) {
+        section.chapters.forEach(chapter => {
+          if ((chapter.title && chapter.title.toLowerCase().includes(lowercaseQuery)) || 
+              (chapter.content && chapter.content.toLowerCase().includes(lowercaseQuery))) {
+            results.push({
+              type: 'chapter',
+              title: chapter.title || '',
+              content: chapter.content || '',
+              url: `/${section.slug}#${chapter.slug}`,
+              section: section,
+              chapter: chapter
+            });
+          }
+        });
+      }
+    });
+
+    if (results.length === 0) {
+      searchResults.innerHTML = `
+        <div class="text-center py-8">
+          <svg class="w-8 h-8 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <p class="text-gray-600">Keine Ergebnisse für "${query}" gefunden</p>
+        </div>
+      `;
+      return;
+    }
+
+    const resultsHTML = results.map(result => {
+      const cleanContent = stripMarkdown(result.content);
+      const excerpt = cleanContent.length > 200 ? cleanContent.substring(0, 200) + '...' : cleanContent;
+      
+      return `
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <h3 class="text-lg font-semibold mb-2">
+            <a href="${result.url}" class="text-blue-600 hover:text-blue-800 hover:underline">
+              ${result.title}
+            </a>
+          </h3>
+          <p class="text-gray-700 leading-relaxed mb-3">${excerpt}</p>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              ${result.type === 'section' ? 'Bereich' : 'Kapitel'}
+            </span>
+            <span class="text-gray-500">${result.section.title}</span>
+            <a href="${result.url}" class="inline-flex items-center text-blue-600 hover:text-blue-800 ml-auto">
+              Lesen
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    searchResults.innerHTML = `
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">Suchergebnisse</h2>
+        <p class="text-sm text-gray-600">${results.length} Ergebnis${results.length !== 1 ? 'se' : ''} für "${query}" gefunden</p>
+      </div>
+      <div class="space-y-4">
+        ${resultsHTML}
+      </div>
+    `;
+  }
+
+  searchButton?.addEventListener('click', () => {
+    if (searchInput) {
+      performSearch(searchInput.value);
+    }
+  });
+
+  searchInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      performSearch(searchInput.value);
+    }
+  });
+
+  // Auto-search as user types (debounced)
+  let searchTimeout;
+  searchInput?.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      performSearch(e.target.value);
+    }, 300);
+  });
+</script>

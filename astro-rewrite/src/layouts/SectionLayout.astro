@@ -1,0 +1,194 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { getSections } from '../utils/data';
+
+export interface Props {
+  title: string;
+  lang?: string;
+  currentSection?: any;
+}
+
+const { title, lang = 'de', currentSection } = Astro.props;
+
+// Get all sections for the table of contents
+let sections: any[] = [];
+try {
+  sections = await getSections(lang);
+} catch (e) {
+  console.error('Error loading sections for TOC:', e);
+  sections = [];
+}
+---
+
+<BaseLayout title={title} lang={lang}>
+  <Header locale={lang as 'de' | 'fr' | 'it'} />
+  
+
+  
+  <div class="flex min-h-screen">
+    <!-- Table of Contents Sidebar -->
+    <TableOfContents 
+      sections={sections} 
+      currentSection={currentSection}
+      locale={lang}
+    />
+    
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-x-hidden">
+      <slot />
+    </main>
+  </div>
+  
+  <Footer locale={lang as 'de' | 'fr' | 'it'} />
+</BaseLayout>
+
+<script>
+  // Mobile TOC toggle functionality
+  const mobileToggle = document.getElementById('toc-mobile-toggle');
+  const tocSidebar = document.getElementById('toc-sidebar');
+  const tocOverlay = document.getElementById('toc-overlay');
+  
+  function openTOC() {
+    tocSidebar?.classList.add('open');
+    tocOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeTOC() {
+    tocSidebar?.classList.remove('open');
+    tocOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  mobileToggle?.addEventListener('click', openTOC);
+  tocOverlay?.addEventListener('click', closeTOC);
+  
+  // Close TOC on mobile when clicking a link
+  document.querySelectorAll('.toc-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        closeTOC();
+      }
+    });
+  });
+  
+  // Handle escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && tocSidebar?.classList.contains('open')) {
+      closeTOC();
+    }
+  });
+</script>
+
+<style lang="scss">
+  .page-container {
+    display: flex;
+    min-height: calc(100vh - 120px);
+    position: relative;
+  }
+  
+  .toc-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 1rem;
+    background: var(--color-canvas-default, #ffffff);
+    
+    @media (max-width: 1024px) {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 300px;
+      height: 100vh;
+      z-index: 1000;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      
+      &.open {
+        left: 0;
+      }
+    }
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+    min-width: 0; // Prevent flex item from growing beyond container
+    
+    @media (max-width: 1024px) {
+      padding: 1rem 0.5rem;
+    }
+  }
+  
+  .toc-mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    z-index: 1001;
+    background: var(--color-btn-bg, #f6f8fa);
+    border: 1px solid var(--color-border-default, #e1e4e8);
+    border-radius: 6px;
+    padding: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 1.2rem;
+    color: var(--color-fg-default, #24292f);
+    
+    &:hover {
+      background: var(--color-btn-hover-bg, #f3f4f6);
+    }
+    
+    @media (max-width: 1024px) {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      top: 80px;
+      left: 15px;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+  
+  .toc-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    &.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    @media (min-width: 1025px) {
+      display: none !important;
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 1200px) {
+    .toc-sidebar {
+      width: 280px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      padding: 0.75rem 0.5rem;
+    }
+    
+    .page-container {
+      min-height: calc(100vh - 100px);
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getTranslations } from '../i18n';
+
+const locale = Astro.currentLocale || 'de';
+const t = getTranslations(locale as any);
+---
+
+<MainLayout title={t.translation.header.imprint + " - Thilo"} lang={locale}>
+  <div class="content">
+    <div class="section-title mb-2">
+      <h1 class="bg-primary px-2">{t.translation.header.imprint}</h1>
+    </div>
+
+    <div class="section-body rounded p-2 color-bg-default">
+      <div class="impressum-content">
+        <h2>Verantwortlich für den Inhalt</h2>
+        <p>
+          <strong>Pfadibewegung Schweiz (PBS)</strong><br/>
+          Speichergasse 31<br/>
+          3011 Bern<br/>
+          Schweiz
+        </p>
+
+        <p>
+          <strong>Telefon:</strong> +41 31 328 05 45<br/>
+          <strong>E-Mail:</strong> <a href="mailto:info@scouts.ch">info@scouts.ch</a><br/>
+          <strong>Website:</strong> <a href="https://www.scouts.ch" target="_blank" rel="noopener">www.scouts.ch</a>
+        </p>
+
+        <h2>Redaktion Thilo</h2>
+        <p>
+          Das Thilo-Magazin wird von der Pfadibewegung Schweiz herausgegeben und 
+          von ehrenamtlichen Redakteur*innen und Expert*innen aus der Pfadibewegung erstellt.
+        </p>
+
+        <h2>Urheberrecht</h2>
+        <p>
+          Die Inhalte dieser Website sind urheberrechtlich geschützt. 
+          Sie dürfen für den persönlichen Gebrauch und für nicht-kommerzielle 
+          Zwecke im Rahmen der Pfadibewegung verwendet werden.
+        </p>
+
+        <h2>Haftungsausschluss</h2>
+        <p>
+          Die Pfadibewegung Schweiz übernimmt keine Gewähr für die Richtigkeit, 
+          Vollständigkeit und Aktualität der bereitgestellten Informationen. 
+          Haftungsansprüche gegen die Pfadibewegung Schweiz, die sich auf Schäden 
+          materieller oder ideeller Art beziehen, sind grundsätzlich ausgeschlossen.
+        </p>
+
+        <h2>Datenschutz</h2>
+        <p>
+          Diese Website verwendet keine Cookies zur Verfolgung des Nutzerverhaltens. 
+          Für die Analyse der Webseitennutzung verwenden wir Plausible Analytics, 
+          ein datenschutzfreundliches Tool, das keine personenbezogenen Daten sammelt.
+        </p>
+
+        <h2>Externe Links</h2>
+        <p>
+          Diese Website enthält Links zu externen Websites Dritter. 
+          Auf deren Inhalte haben wir keinen Einfluss. Deshalb können wir für diese 
+          fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten 
+          Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+        </p>
+
+        <h2>Kontakt für Feedback und Fragen</h2>
+        <p>
+          Bei Fragen oder Anregungen zu Thilo wenden Sie sich bitte an:<br/>
+          <strong>E-Mail:</strong> <a href="mailto:thilo@scouts.ch">thilo@scouts.ch</a>
+        </p>
+
+        <div class="last-updated">
+          <p><small>Letzte Aktualisierung: September 2024</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  .impressum-content {
+    line-height: 1.6;
+
+    h2 {
+      color: var(--color-primary, #0066cc);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--color-primary, #0066cc);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .last-updated {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border-default, #dee2e6);
+      color: var(--color-text-muted, #868e96);
+    }
+  }
+</style>

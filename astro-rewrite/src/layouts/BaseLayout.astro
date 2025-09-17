@@ -1,0 +1,26 @@
+---
+export interface Props {
+  title: string;
+  lang?: string;
+}
+
+const { title, lang = 'de' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Thilo - Scout Magazin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  @import '../styles/global.scss';
+</style>

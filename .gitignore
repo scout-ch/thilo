@@ -29,3 +29,11 @@ Digital-Export
 
 # Strapi Exports
 exports
+
+
+astro-rewrite/node_modules
+astro-rewrite/.pnp
+astro-rewrite/.pnp.js
+astro-rewrite/coverage
+astro-rewrite/build
+astro-rewrite/dist

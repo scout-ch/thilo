@@ -1,0 +1,32 @@
+[
+  {
+    "id": "biber",
+    "name": "Biber",
+    "description": "Für die Kleinsten (4-6 Jahre)",
+    "color": "#FF6B35"
+  },
+  {
+    "id": "woelfli",
+    "name": "Wölfli",
+    "description": "Für Kinder (7-10 Jahre)",
+    "color": "#4ECDC4"
+  },
+  {
+    "id": "pfadi",
+    "name": "Pfadi",
+    "description": "Für Jugendliche (11-14 Jahre)",
+    "color": "#45B7D1"
+  },
+  {
+    "id": "pio",
+    "name": "Pio",
+    "description": "Für Teenager (15-17 Jahre)",
+    "color": "#F7DC6F"
+  },
+  {
+    "id": "rover",
+    "name": "Rover",
+    "description": "Für junge Erwachsene (18+ Jahre)",
+    "color": "#BB8FCE"
+  }
+]
