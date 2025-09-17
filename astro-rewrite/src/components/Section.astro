@@ -21,7 +21,9 @@ const { section } = Astro.props;
 
     {section.chapters && section.chapters.length > 0 && (
       <div class="chapters">
-        {section.chapters.map(chapter => (
+        {section.chapters
+          .sort((a, b) => (a.sorting || 0) - (b.sorting || 0))
+          .map(chapter => (
           <div id={chapter.slug} class="chapter">
             <h2>{chapter.title}</h2>
             <div class="chapter-content">

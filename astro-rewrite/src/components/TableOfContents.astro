@@ -48,9 +48,9 @@ const currentHash = Astro.url.hash;
 
       <!-- Sections -->
       {sections.map((section: SectionT) => {
-        const isCurrentSection = currentSection?.slug === section.slug;
         const sectionPath = `/${section.slug}`;
         const isActivePage = currentPath === sectionPath || currentPath.startsWith(sectionPath);
+        const isCurrentSection = isActivePage; // Only expand if we're actually on this section's page
         
         return (
           <li>
@@ -90,10 +90,11 @@ const currentHash = Astro.url.hash;
                   aria-label="Toggle chapters"
                 >
                   <svg 
-                    class="w-3 h-3 transition-transform" 
+                    class={`w-3 h-3 transition-transform ${isCurrentSection ? 'rotate-90' : ''}`}
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
+                    style={isCurrentSection ? 'transform: rotate(90deg)' : ''}
                   >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
@@ -109,8 +110,8 @@ const currentHash = Astro.url.hash;
                 }`}
                 data-chapters={section.slug}>
                 {section.chapters
-                  .sort((a: any, b: any) => a.sorting - b.sorting)
-                  .map((chapter: any) => {
+                  .sort((a, b) => (a.sorting || 0) - (b.sorting || 0))
+                  .map((chapter) => {
                     const chapterHash = `#${chapter.slug}`;
                     const isActiveChapter = currentHash === chapterHash;
                     
@@ -156,7 +157,7 @@ const currentHash = Astro.url.hash;
   </svg>
 </button>
 
-<script>
+<script is:inline>
   // Mobile sidebar functionality
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebarClose = document.getElementById('sidebar-close');
@@ -180,10 +181,10 @@ const currentHash = Astro.url.hash;
   sidebarOverlay?.addEventListener('click', closeSidebar);
 
   // Smooth scroll for anchor links
-  document.querySelectorAll('a[href*="#"]').forEach((anchor: Element) => {
-    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+  document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href?.startsWith('#')) {
+      if (href && href.startsWith('#')) {
         e.preventDefault();
         const targetId = href.slice(1);
         const targetElement = document.getElementById(targetId);
@@ -217,9 +218,9 @@ const currentHash = Astro.url.hash;
     });
     
     // Update active states in navigation
-    document.querySelectorAll('#sidebar-nav a').forEach((link: Element) => {
-      const href = (link as HTMLAnchorElement).getAttribute('href');
-      if (href?.includes('#')) {
+    document.querySelectorAll('#sidebar-nav a').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href && href.includes('#')) {
         const hash = href.split('#')[1];
         if (hash === activeChapter) {
           link.classList.add('bg-blue-50', 'text-blue-800', 'font-medium', 'border-l-4', 'border-blue-400');
@@ -253,14 +254,14 @@ const currentHash = Astro.url.hash;
 
   // Chapter toggle functionality
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.chapter-toggle').forEach((toggle: Element) => {
-      toggle.addEventListener('click', (e: Event) => {
+    document.querySelectorAll('.chapter-toggle').forEach((toggle) => {
+      toggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         
         console.log('Chapter toggle clicked!');
         
-        const button = e.currentTarget as HTMLElement;
+        const button = e.currentTarget;
         const sectionSlug = button.getAttribute('data-section');
         const chaptersList = document.querySelector(`[data-chapters="${sectionSlug}"]`);
         const arrow = button.querySelector('svg');

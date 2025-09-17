@@ -110,15 +110,17 @@ export async function getStartPage(locale: string = 'de'): Promise<StartPageT> {
 export async function getSections(locale: string = 'de'): Promise<SectionT[]> {
   const sections = await fetchFromStrapi<SectionT[]>('sections', locale);
   
-  // Add slugs to sections and chapters
+  // Add slugs to sections and chapters, and sort chapters by sorting field
   return sections.map(section => ({
     ...section,
     slug: slugify(section.title),
-    chapters: section.chapters.map(chapter => ({
-      ...chapter,
-      slug: slugify(chapter.title),
-      slug_with_section: `${slugify(section.title)}#${slugify(chapter.title)}`
-    }))
+    chapters: section.chapters
+      .sort((a, b) => (a.sorting || 0) - (b.sorting || 0))
+      .map(chapter => ({
+        ...chapter,
+        slug: slugify(chapter.title),
+        slug_with_section: `${slugify(section.title)}#${slugify(chapter.title)}`
+      }))
   }));
 }
 
