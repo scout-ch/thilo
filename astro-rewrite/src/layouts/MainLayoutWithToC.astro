@@ -23,13 +23,14 @@ try {
 ---
 
 <BaseLayout title={title} lang={lang}>
-  <Header locale={lang as 'de' | 'fr' | 'it'} />
+  <Header locale={lang as 'de' | 'fr' | 'it'} currentSection={currentSection} />
   
   <div class="flex min-h-screen">
     <!-- Table of Contents Sidebar -->
     <TableOfContents 
       sections={sections} 
       currentSection={currentSection}
+      lang={lang}
     />
     
     <!-- Main Content -->

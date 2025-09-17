@@ -32,7 +32,7 @@ const t = getTranslations(locale as any);
           <ul class="space-y-3">
             <li>
               <a 
-                href="/" 
+                href={locale === 'de' ? '/' : `/${locale}/`}
                 class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
               >
                 {t.translation.homePage.title}
@@ -40,7 +40,7 @@ const t = getTranslations(locale as any);
             </li>
             <li>
               <a 
-                href="/search" 
+                href={locale === 'de' ? '/search' : `/${locale}/search`}
                 class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
               >
                 {t.translation.searchPage.title}

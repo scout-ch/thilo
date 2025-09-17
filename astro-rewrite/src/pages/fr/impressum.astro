@@ -1,0 +1,17 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getTranslations } from '../../i18n';
+
+const locale = 'fr';
+const t = getTranslations(locale);
+---
+
+<MainLayout title={t.translation.header.imprint} lang={locale}>
+  <div class="prose max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-6">{t.translation.header.imprint}</h1>
+    <div>
+      <!-- Impressum content would go here -->
+      <p>Impressum content in French...</p>
+    </div>
+  </div>
+</MainLayout>

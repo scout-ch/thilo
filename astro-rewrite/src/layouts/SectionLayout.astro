@@ -24,7 +24,7 @@ try {
 ---
 
 <BaseLayout title={title} lang={lang}>
-  <Header locale={lang as 'de' | 'fr' | 'it'} />
+  <Header locale={lang as 'de' | 'fr' | 'it'} currentSection={currentSection} />
   
 
   
@@ -33,6 +33,7 @@ try {
     <TableOfContents 
       sections={sections} 
       currentSection={currentSection}
+      lang={lang}
     />
     
     <!-- Main Content -->

@@ -1,12 +1,12 @@
 ---
-import MainLayoutWithToC from '../layouts/MainLayoutWithToC.astro';
-import Section from '../components/Section.astro';
-import { getSections } from '../utils/data';
-import { getAllSlugsForSection } from '../utils/slugMapping';
-import { slugify } from '../utils/slugify';
+import MainLayoutWithToC from '../../layouts/MainLayoutWithToC.astro';
+import Section from '../../components/Section.astro';
+import { getSections } from '../../utils/data';
+import { getAllSlugsForSection } from '../../utils/slugMapping';
+import { slugify } from '../../utils/slugify';
 
 export async function getStaticPaths() {
-  const locale = 'de'; // German is the default for root level
+  const locale = 'fr';
   const paths = [];
   
   try {
@@ -15,15 +15,15 @@ export async function getStaticPaths() {
       const sectionId = section.id.toString();
       // Get all possible slugs for this section
       const slugVariants = getAllSlugsForSection(sectionId);
-      const germanSlug = slugVariants.find(s => s.locale === 'de')?.slug;
+      const frenchSlug = slugVariants.find(s => s.locale === 'fr')?.slug;
       
-      if (germanSlug) {
+      if (frenchSlug) {
         paths.push({
-          params: { slug: germanSlug },
+          params: { slug: frenchSlug },
           props: { section, locale }
         });
       } else {
-        // Fallback to generated slug if no custom mapping
+        // Fallback: also try to create routes with the generated slug
         paths.push({
           params: { slug: section.slug },
           props: { section, locale }
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
     console.error(`Error loading sections for ${locale}:`, error);
   }
   
-  console.log(`Total German paths generated:`, paths.length, paths.map(p => p.params.slug));
+
   return paths;
 }
 

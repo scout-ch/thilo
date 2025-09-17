@@ -1,12 +1,24 @@
 ---
 import { getTranslations, type Locale } from '../i18n';
+import { getSectionUrlForLocale } from '../utils/slugMapping';
 
 interface Props {
   locale?: Locale;
+  currentSection?: any;
 }
 
-const { locale = 'de' } = Astro.props;
+const { locale = 'de', currentSection } = Astro.props;
 const t = getTranslations(locale);
+
+// Generate language alternatives for dropdown
+let languageAlternatives = [];
+if (currentSection) {
+  for (const locale of ['fr', 'it']) {
+    const url = getSectionUrlForLocale(currentSection.id.toString(), locale);
+    languageAlternatives.push({ locale, url });
+  }
+  console.log(`Language alternatives for section ${currentSection.id} (${currentSection.title}):`, languageAlternatives);
+}
 ---
 
 <!-- GitHub Primer styled header -->
@@ -15,7 +27,7 @@ const t = getTranslations(locale);
     <div class="flex items-center justify-between h-16">
       <!-- Logo and brand -->
       <div class="flex items-center">
-        <a href="/" class="flex items-center space-x-3 text-white hover:text-gray-200 transition-colors">
+        <a href={locale === 'de' ? '/' : `/${locale}/`} class="flex items-center space-x-3 text-white hover:text-gray-200 transition-colors">
           <img src="/logo.svg" alt="Thilo Logo" class="h-8 w-8" />
           <span class="text-xl font-semibold">Thilo</span>
         </a>
@@ -24,19 +36,19 @@ const t = getTranslations(locale);
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center space-x-1">
         <a 
-          href="/" 
+          href={locale === 'de' ? '/' : `/${locale}/`}
           class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.homePage.title}
         </a>
         <a 
-          href="/search" 
+          href={locale === 'de' ? '/search' : `/${locale}/search`}
           class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.searchPage.title}
         </a>
         <a 
-          href="/impressum" 
+          href={locale === 'de' ? '/impressum' : `/${locale}/impressum`}
           class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.header.imprint}
@@ -87,6 +99,8 @@ const t = getTranslations(locale);
           <select 
             id="language-select" 
             class="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            data-current-locale={locale}
+            data-alternatives={JSON.stringify(languageAlternatives)}
           >
             <option value="de" selected={locale === 'de'}>DE</option>
             <option value="fr" selected={locale === 'fr'}>FR</option>
@@ -126,19 +140,19 @@ const t = getTranslations(locale);
       </div>
       <nav class="px-4 py-6 space-y-2">
         <a 
-          href="/" 
+          href={locale === 'de' ? '/' : `/${locale}/`}
           class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.homePage.title}
         </a>
         <a 
-          href="/search" 
+          href={locale === 'de' ? '/search' : `/${locale}/search`}
           class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.searchPage.title}
         </a>
         <a 
-          href="/impressum" 
+          href={locale === 'de' ? '/impressum' : `/${locale}/impressum`}
           class="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
         >
           {t.translation.header.imprint}
@@ -212,6 +226,34 @@ const t = getTranslations(locale);
     if (searchContainer && !searchContainer.classList.contains('hidden')) {
       if (!searchContainer.contains(e.target as Node) && !searchButton?.contains(e.target as Node)) {
         closeSearch();
+      }
+    }
+  });
+
+  // Language switching functionality
+  const languageSelect = document.getElementById('language-select') as HTMLSelectElement | null;
+  
+  languageSelect?.addEventListener('change', (e) => {
+    const selectedLocale = (e.target as HTMLSelectElement).value;
+    const currentLocale = languageSelect.dataset.currentLocale;
+    const alternatives = languageSelect.dataset.alternatives ? JSON.parse(languageSelect.dataset.alternatives) : [];
+    
+    if (selectedLocale === currentLocale) {
+      return; // No change needed
+    }
+    
+    // Find the URL for the selected language
+    const targetUrl = alternatives.find((alt: any) => alt.locale === selectedLocale)?.url;
+    
+    if (targetUrl) {
+      // Navigate to the same section in the selected language
+      window.location.href = targetUrl;
+    } else {
+      // Fallback to home page in selected language
+      if (selectedLocale === 'de') {
+        window.location.href = '/';
+      } else {
+        window.location.href = `/${selectedLocale}/`;
       }
     }
   });
