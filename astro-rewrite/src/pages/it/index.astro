@@ -1,16 +1,63 @@
 ---
 import MainLayoutWithToC from '../../layouts/MainLayoutWithToC.astro';
-import { getStartPage } from '../../utils/data';
+import MarkdownRenderer from '../../components/MarkdownRenderer.astro';
+import { getStartPage, getSections } from '../../utils/data';
 import { getTranslations } from '../../i18n';
 
 const locale = 'it';
-const startPage = await getStartPage(locale);
+
+let startPage;
+let sections;
+let error = null;
+
+try {
+  startPage = await getStartPage(locale);
+  sections = await getSections(locale);
+} catch (e) {
+  console.error('Error loading data:', e);
+  error = e;
+}
+
 const t = getTranslations(locale);
 ---
 
-<MainLayoutWithToC title={startPage.title} lang={locale}>
-  <div class="prose max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold mb-6">{startPage.title}</h1>
-    <div set:html={startPage.content}></div>
-  </div>
+<MainLayoutWithToC title={startPage?.title || "Thilo - Scout Magazin"} lang={locale}>
+  {error ? (
+    <div class="content">
+      <div class="error-message">
+        <h1>Errore nel caricamento dei dati</h1>
+        <p>I contenuti non sono riusciti a caricare. Riprova più tardi.</p>
+      </div>
+    </div>
+  ) : (
+    <div class="content">
+      <div id="section-title" class="section-title section-1 mb-2">
+        <h1 class="bg-primary px-2">{startPage?.title || 'Thilo'}</h1>
+      </div>
+
+      <div class="section-body rounded p-2 color-bg-default">
+        <div class="section-description">
+          <MarkdownRenderer content={startPage?.content || ''} />
+        </div>
+      </div>
+
+      {sections && sections.length > 0 && (
+        <div class="sections-section">
+          <h2>Aree di branca</h2>
+          <div class="sections-grid">
+            {sections.map(section => (
+              <a href={`/it/${section.slug}`} class="section-card">
+                <div 
+                  class="section-color" 
+                  style={`background-color: ${section.color_primary || '#0066cc'}`}
+                ></div>
+                <h3>{section.title}</h3>
+                <p>{section.menu_name}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )}
 </MainLayoutWithToC>

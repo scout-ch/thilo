@@ -31,8 +31,29 @@ renderer.link = function(token: any): string {
 
 renderer.image = function(token: any): string {
   const { href, title, text } = token;
-  let imgTag = `<img src="${href}" alt="${text || ''}"`;
-  if (title) {
+  
+  // Parse size specifications from alt text
+  let altText = text || '';
+  let styleFromAlt = '';
+  
+  // Look for size specifications in alt text like "Description {width: 300px; height: 200px}"
+  const sizeMatch = altText.match(/^(.*?)\s*\{([^}]+)\}\s*$/);
+  if (sizeMatch) {
+    altText = sizeMatch[1].trim();
+    const styleSpecs = sizeMatch[2].trim();
+    
+    // Validate that it contains CSS-like properties
+    if (styleSpecs.match(/\b(width|height|max-width|max-height|float|margin|padding|border-radius)\s*:\s*[^;]+/)) {
+      styleFromAlt = styleSpecs;
+    }
+  }
+  
+  let imgTag = `<img src="${href}" alt="${altText}"`;
+  
+  // Handle style from alt text first (higher priority)
+  if (styleFromAlt) {
+    imgTag += ` style="${styleFromAlt}"`;
+  } else if (title) {
     // Check if title contains style information (from Strapi)
     if (title.includes('width:') || title.includes('height:') || title.includes('float:')) {
       imgTag += ` style="${title}"`;
@@ -40,6 +61,7 @@ renderer.image = function(token: any): string {
       imgTag += ` title="${title}"`;
     }
   }
+  
   imgTag += ' />';
   return imgTag;
 };
@@ -50,4 +72,3 @@ const processedContent = marked(content || '');
 ---
 
 <div class={`markdown-content ${className}`} set:html={processedContent} />
-

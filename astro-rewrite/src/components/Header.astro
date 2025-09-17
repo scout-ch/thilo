@@ -10,14 +10,51 @@ interface Props {
 const { locale = 'de', currentSection } = Astro.props;
 const t = getTranslations(locale);
 
+// Get current URL to determine page type
+const url = Astro.url;
+const pathname = url.pathname;
+
 // Generate language alternatives for dropdown
 let languageAlternatives = [];
+
 if (currentSection) {
-  for (const locale of ['fr', 'it']) {
-    const url = getSectionUrlForLocale(currentSection.id.toString(), locale);
-    languageAlternatives.push({ locale, url });
+  // For section pages, use section-based language switching
+  for (const targetLocale of ['de', 'fr', 'it']) {
+    if (targetLocale === locale) continue; // Skip current locale
+    
+    const url = getSectionUrlForLocale(currentSection.id.toString(), targetLocale);
+    languageAlternatives.push({ locale: targetLocale, url });
   }
-  console.log(`Language alternatives for section ${currentSection.id} (${currentSection.title}):`, languageAlternatives);
+
+} else {
+  // For other pages (index, search, etc.), determine equivalent URLs
+  let basePath = pathname;
+  
+  // Remove locale prefix if present
+  if (pathname.startsWith('/fr/')) {
+    basePath = pathname.substring(3) || '/';
+  } else if (pathname.startsWith('/it/')) {
+    basePath = pathname.substring(3) || '/';
+  }
+  
+  // Ensure basePath starts with /
+  if (!basePath.startsWith('/')) {
+    basePath = '/' + basePath;
+  }
+  
+  // Generate URLs for all locales
+  for (const targetLocale of ['de', 'fr', 'it']) {
+    if (targetLocale === locale) continue; // Skip current locale
+    
+    let targetUrl;
+    if (targetLocale === 'de') {
+      targetUrl = basePath === '/' ? '/' : basePath;
+    } else {
+      targetUrl = basePath === '/' ? `/${targetLocale}/` : `/${targetLocale}${basePath}`;
+    }
+    languageAlternatives.push({ locale: targetLocale, url: targetUrl });
+  }
+
 }
 ---
 
@@ -233,23 +270,30 @@ if (currentSection) {
   // Language switching functionality
   const languageSelect = document.getElementById('language-select') as HTMLSelectElement | null;
   
-  languageSelect?.addEventListener('change', (e) => {
+  languageSelect?.addEventListener('change', async (e) => {
     const selectedLocale = (e.target as HTMLSelectElement).value;
     const currentLocale = languageSelect.dataset.currentLocale;
     const alternatives = languageSelect.dataset.alternatives ? JSON.parse(languageSelect.dataset.alternatives) : [];
     
     if (selectedLocale === currentLocale) {
-      return; // No change needed
+      return;
     }
     
-    // Find the URL for the selected language
     const targetUrl = alternatives.find((alt: any) => alt.locale === selectedLocale)?.url;
     
     if (targetUrl) {
-      // Navigate to the same section in the selected language
-      window.location.href = targetUrl;
+      const currentHash = window.location.hash;
+      if (currentHash) {
+        try {
+          const mappedHash = await mapChapterAnchor(currentHash, currentLocale || 'de', selectedLocale);
+          window.location.href = targetUrl + (mappedHash ? `#${mappedHash}` : '');
+        } catch (error) {
+          window.location.href = targetUrl;
+        }
+      } else {
+        window.location.href = targetUrl;
+      }
     } else {
-      // Fallback to home page in selected language
       if (selectedLocale === 'de') {
         window.location.href = '/';
       } else {
@@ -257,4 +301,67 @@ if (currentSection) {
       }
     }
   });
+
+  // Function to map chapter anchors between languages
+  async function mapChapterAnchor(currentHash: string, fromLocale: string, toLocale: string): Promise<string> {
+    const chapterSlug = currentHash.replace('#', '');
+    
+    // Get current section slug from URL
+    const currentPath = window.location.pathname;
+    let sectionSlug = '';
+    
+    if (currentPath.startsWith('/fr/')) {
+      sectionSlug = currentPath.substring(4);
+    } else if (currentPath.startsWith('/it/')) {
+      sectionSlug = currentPath.substring(4);
+    } else {
+      sectionSlug = currentPath.substring(1);
+    }
+    
+    // Remove trailing slash
+    sectionSlug = sectionSlug.replace(/\/$/, '');
+    
+    try {
+      // Fetch sections for both languages to find the chapter mapping
+      const [fromSections, toSections] = await Promise.all([
+        fetch(`https://api.thilo.scouts.ch/sections?_locale=${fromLocale}`).then(r => r.json()),
+        fetch(`https://api.thilo.scouts.ch/sections?_locale=${toLocale}`).then(r => r.json())
+      ]);
+      
+      // Helper function to generate slug (matching Astro's slugify utility)
+      function generateSlug(text: string): string {
+        return text.toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+          .replace(/[äöü]/g, (match: string) => ({ 'ä': 'ae', 'ö': 'oe', 'ü': 'ue' })[match] || match)
+          .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+          .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+      }
+      
+      // Find current section in source language
+      const fromSection = fromSections.find((s: any) => {
+        return generateSlug(s.title) === sectionSlug;
+      });
+      
+      if (!fromSection) return '';
+      
+      const toSection = toSections.find((s: any) => s.sorting === fromSection.sorting);
+      if (!toSection) return '';
+      
+      const fromChapter = fromSection.chapters?.find((c: any) => {
+        return generateSlug(c.title) === chapterSlug;
+      });
+      if (!fromChapter) return '';
+      
+      const toChapter = toSection.chapters?.find((c: any) => c.sorting === fromChapter.sorting);
+      if (!toChapter) return '';
+      
+      return generateSlug(toChapter.title);
+      
+    } catch (error) {
+      return '';
+    }
+  }
 </script>
