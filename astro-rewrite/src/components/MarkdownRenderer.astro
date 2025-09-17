@@ -32,23 +32,60 @@ renderer.link = function(token: any): string {
 renderer.image = function(token: any): string {
   const { href, title, text } = token;
   
-  // Parse size specifications from alt text
+  // Parse CSS specifications and caption from alt text
   let altText = text || '';
   let styleFromAlt = '';
+  let finalAltText = '';
   
-  // Look for size specifications in alt text like "Description {width: 300px; height: 200px}"
-  const sizeMatch = altText.match(/^(.*?)\s*\{([^}]+)\}\s*$/);
-  if (sizeMatch) {
-    altText = sizeMatch[1].trim();
-    const styleSpecs = sizeMatch[2].trim();
-    
-    // Validate that it contains CSS-like properties
-    if (styleSpecs.match(/\b(width|height|max-width|max-height|float|margin|padding|border-radius)\s*:\s*[^;]+/)) {
-      styleFromAlt = styleSpecs;
+  // First, look for caption specification like "caption: Logo OMMS;"
+  const captionMatch = altText.match(/caption:\s*([^;]+);/i);
+  if (captionMatch) {
+    finalAltText = captionMatch[1].trim();
+    // Remove the caption part from altText for CSS processing
+    altText = altText.replace(/caption:\s*[^;]+;\s*/i, '').trim();
+  }
+  
+  // Look for CSS specifications directly in remaining alt text like "width: 300px; height: 200px;"
+  const parsedStyles = parseCSSProperties(altText);
+  if (parsedStyles) {
+    styleFromAlt = parsedStyles;
+  }
+  
+  // If no caption was specified and we only had CSS properties, alt should be empty
+  if (!captionMatch && parsedStyles) {
+    finalAltText = '';
+  } else if (!captionMatch) {
+    // If no caption and no CSS properties, use original alt text
+    finalAltText = altText;
+  }
+  
+  // Helper function to parse and validate CSS properties
+  function parseCSSProperties(cssText: string): string | null {
+    try {
+      // Split by semicolon and process each property
+      const properties = cssText.split(';').map(prop => prop.trim()).filter(prop => prop.length > 0);
+      const validProperties: string[] = [];
+      
+      for (const property of properties) {
+        // Match CSS property: value pattern
+        const propMatch = property.match(/^\s*([\w-]+)\s*:\s*(.+)\s*$/);
+        if (propMatch) {
+          const [, propName, propValue] = propMatch;
+          
+          // Basic validation: property name should be valid CSS property format
+          if (/^[\w-]+$/.test(propName) && propValue.trim().length > 0) {
+            validProperties.push(`${propName}: ${propValue.trim()}`);
+          }
+        }
+      }
+      
+      return validProperties.length > 0 ? validProperties.join('; ') : null;
+    } catch (error) {
+      return null;
     }
   }
   
-  let imgTag = `<img src="${href}" alt="${altText}"`;
+  let imgTag = `<img src="${href}" alt="${finalAltText}"`;
   
   // Handle style from alt text first (higher priority)
   if (styleFromAlt) {
