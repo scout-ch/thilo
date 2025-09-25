@@ -96,19 +96,18 @@ if (currentSection) {
       <div class="flex items-center space-x-3">
         <!-- Search component -->
         <div class="relative">
-          <!-- Search input (hidden by default) -->
-          <div id="search-input-container" class="hidden absolute right-0 top-1/2 transform -translate-y-1/2">
-            <div class="flex items-center bg-gray-800 rounded-md border border-gray-600 focus-within:ring-2 focus-within:ring-blue-500">
+          <div id="search-input-container" class="max-lg:hidden absolute right-0 top-1/2 transform -translate-y-1/2">
+            <div class="flex items-center rounded-md focus-within:ring-2">
               <input 
                 type="text" 
                 id="header-search-input"
-                placeholder="Suchen..."
+                placeholder={t.translation.searchPage.placeholder}
                 class="bg-transparent text-white placeholder-gray-400 px-3 py-2 w-64 text-sm focus:outline-none"
               />
               <button 
                 type="button"
                 id="search-close"
-                class="p-2 text-gray-400 hover:text-white"
+                class="hidden p-2 text-gray-400 hover:text-white"
                 aria-label="Close search"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
