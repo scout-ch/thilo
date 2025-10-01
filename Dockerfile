@@ -35,6 +35,9 @@ RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
 RUN node src/scripts/strapiToJson.js
 RUN mv exports build/exports
 
+# Copy 404.html to build directory
+RUN cp 404.html build/404.html
+
 RUN chmod +x entrypoint.sh
 RUN dos2unix entrypoint.sh
 
