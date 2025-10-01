@@ -12,6 +12,7 @@
     "@primer/octicons-react": "^19.11.0",
     "@primer/primitives": "^8.2.3",
     "@primer/react": "^35.32.2",
+    "@primer/view-components": "^0.44.1",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
@@ -53,10 +54,20 @@
     "react-error-overlay": "6.0.9"
   },
   "eslintConfig": {
-    "extends": ["react-app"]
+    "extends": [
+      "react-app"
+    ]
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
