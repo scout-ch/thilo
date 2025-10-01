@@ -5,7 +5,7 @@ FROM node:22.2.0-alpine
 ############################################
 WORKDIR /srv/app
 EXPOSE 3000
-CMD [ "npm", "run", "serve" ]
+CMD [ "npx", "serve", "-s", "build", "-l", "3000" ]
 ENTRYPOINT [ "./entrypoint.sh" ]
 
 ############################################
