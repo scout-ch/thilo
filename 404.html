@@ -8,14 +8,20 @@
 
   <script>
     sessionStorage.redirect = location.href;
+    
+    // Extract base path from current URL
+    // If URL is like /thilo/something, base is /thilo/
+    // If URL is like /something, base is /
+    // .filter(Boolean) removes empty strings from the array
+    var pathParts = location.pathname.split('/').filter(Boolean);
+    var base = pathParts.length > 0 ? '/' + pathParts[0] + '/' : '/';
+    
+    window.location.href = base;
   </script>
-
-  <meta http-equiv="refresh" content="0;URL='/thilo'" />
 </head>
 
 <body>
 redirecting...
 </body>
-
 
 </html>
