@@ -1,4 +1,16 @@
-const e=[{id:18,title:"Die Pfadi",content:null,slug:"Die-Pfadi",sorting:1,menu_name:"Die Pfadi ",locale:"de",published_at:"2024-02-17T10:47:44.838Z",created_at:"2023-04-24T14:38:15.733Z",updated_at:"2024-11-14T11:58:32.552Z",color_primary:"#632949",color_primary_light:"#0F0F0F",icon:{id:314,name:"Thilo_Icon-Logo_1.png",alternativeText:"",caption:"",width:427,height:967,formats:{small:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632188/thilo/small_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"small_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"small_Thilo_Icon-Logo_1.png",path:null,size:34.26,width:221,height:500,provider_metadata:{public_id:"thilo/small_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},medium:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632187/thilo/medium_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"medium_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"medium_Thilo_Icon-Logo_1.png",path:null,size:56.85,width:331,height:750,provider_metadata:{public_id:"thilo/medium_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},thumbnail:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632186/thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"thumbnail_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"thumbnail_Thilo_Icon-Logo_1.png",path:null,size:7.72,width:69,height:156,provider_metadata:{public_id:"thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}}},hash:"Thilo_Icon_Logo_1_13f4d297a8",ext:".png",mime:"image/png",size:16.56,url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632185/thilo/Thilo_Icon_Logo_1_13f4d297a8.png",previewUrl:null,provider:"cloudinary",provider_metadata:{public_id:"thilo/Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"},created_at:"2024-11-03T11:09:48.361Z",updated_at:"2024-11-03T11:09:48.365Z"},chapters:[{id:96,title:"Unsere Werte",content:`### Bibergesetz
+const e=[{id:18,title:"Die Pfadi",content:null,slug:"Die-Pfadi",sorting:1,menu_name:"Die Pfadi ",locale:"de",published_at:"2024-02-17T10:47:44.838Z",created_at:"2023-04-24T14:38:15.733Z",updated_at:"2024-11-14T11:58:32.552Z",color_primary:"#632949",color_primary_light:"#0F0F0F",icon:{id:314,name:"Thilo_Icon-Logo_1.png",alternativeText:"",caption:"",width:427,height:967,formats:{small:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632188/thilo/small_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"small_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"small_Thilo_Icon-Logo_1.png",path:null,size:34.26,width:221,height:500,provider_metadata:{public_id:"thilo/small_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},medium:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632187/thilo/medium_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"medium_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"medium_Thilo_Icon-Logo_1.png",path:null,size:56.85,width:331,height:750,provider_metadata:{public_id:"thilo/medium_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},thumbnail:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632186/thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"thumbnail_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"thumbnail_Thilo_Icon-Logo_1.png",path:null,size:7.72,width:69,height:156,provider_metadata:{public_id:"thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}}},hash:"Thilo_Icon_Logo_1_13f4d297a8",ext:".png",mime:"image/png",size:16.56,url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632185/thilo/Thilo_Icon_Logo_1_13f4d297a8.png",previewUrl:null,provider:"cloudinary",provider_metadata:{public_id:"thilo/Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"},created_at:"2024-11-03T11:09:48.361Z",updated_at:"2024-11-03T11:09:48.365Z"},chapters:[{id:94,title:"Lilie und Kleeblatt",content:`Die drei Blätter der Lilie und des Kleeblatts symbolisieren die Suche nach dem Sinn und Ziel des Lebens, die Verantwortung gegenüber den Mitmenschen und eine stetige Auseinandersetzung mit sich selbst. Der Strich im mittleren Blatt stellt eine Kompassnadel dar, die den Pfadis immer den richtigen Weg weisen soll. Der Kreis um die Symbole steht für die Zusammengehörigkeit aller Mitglieder der Pfadibewegung. Die beiden Sterne erinnern an das Gesetz und Versprechen und ihre Bedeutung für die Pfadi. Das Kleeblatt steht für den Weltbund der Pfadfinderinnen, die Lilie für den Weltbund der Pfadfinder. 
+
+Die Pfadibewegung Schweiz ist beiden Weltverbänden angeschlossen und trägt deshalb beide Erkennungszeichen in ihrem Logo. Die Lilie steht für die Knaben und Männer, das Kleeblatt für die Mädchen und Frauen unseres Verbandes.
+
+![width: 300px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731652115/thilo/Pfadibewegung_Schweiz_CD_Logo_D_quer_RGB_d3fc98a064.png)
+`,section:18,slug:"Lilie-und-Kleeblatt",sorting:3,link:null,slug_with_section:"Die-Pfadi#Lilie-und-Kleeblatt",menu_name:"Lilie und Kleeblatt",locale:"de",published_at:"2024-11-03T10:01:46.155Z",created_at:"2024-11-03T10:01:03.203Z",updated_at:"2024-11-15T06:31:41.131Z",line_height:null,responsible:[],icon:null},{id:93,title:"Pfadi international",content:`Die beiden Organisationen «World Organization of the Scout Movement» (**WOSM**) und «World Association of Girl Guides and Girl Scouts» (**WAGGGS**) sind die Dachverbände der internationalen Pfadis. Weltweit zählen 171 Länder und über 67 Millionen Mitglieder zur Pfadibewegung. 
+
+Mit Kandersteg (KISC) und Adelboden (Our Chalet) befinden sich zwei der sechs internationalen Pfadizentren von WAGGGS und WOSM in der Schweiz.
+
+
+![caption: WOSM-Logo; width: 144px; height:144px; float: left;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633829/thilo/01_05_Lilie_neu_web_450b7f8fb8.png)
+![caption: WAGGGS-Logo; width: 144px; height:144px; float: left;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633832/thilo/01_06_Kleeblatt_web_41e39f7bc0.png)
+`,section:18,slug:"Pfadi-international",sorting:2,link:null,slug_with_section:"Die-Pfadi#Pfadi-international",menu_name:"Pfadi international",locale:"de",published_at:"2024-11-03T09:59:45.625Z",created_at:"2024-11-03T09:59:42.361Z",updated_at:"2024-11-14T11:58:32.550Z",line_height:null,responsible:[],icon:null},{id:96,title:"Unsere Werte",content:`### Bibergesetz
 **Wir Biber…**
 - … möchten Freunde kennen lernen und mit ihnen spielen. 
 - … sind neugierig und möchten Neues entdecken. 
@@ -18,19 +30,36 @@ Ich will bei den Wölfen mitmachen. Ich gebe mir Mühe, mein Bestes zu geben un
 
 ![width: 400px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633838/thilo/01_07_Pfadigesetz_D_web_88f90515fb.png)
 
+Dieses Pfadigesetz verbindet uns mit allen Pfadi der Welt.
 
+Wir ergänzen es für uns persönlich und für unsere Gruppe:
+- ...
+- ...
+
+### Eintrittsversprechen
+**Ich will mich für meine Gruppe einsetzen und mein Bestes tun, nach dem Pfadigesetz zu leben.**
+
+**Ich bitte Gott und Euch alle, mir dabei zu helfen.**
+
+*oder*
+
+**Ich bitte Euch alle, mir dabei zu helfen.**
 
 ### Pfadiversprechen
 
-**Ich verspreche, mein Möglichstes zu tun, um...**
-- …mich immer von neuem mit dem Pfadigesetz auseinander zu setzen, 
-- ... nach dem Sinn und Ziel meines Lebens zu suchen, 
-- … mich in jeder Gemeinschaft einzusetzen, in der ich lebe Zusammen mit euch allen, versuche ich, nach diesem Versprechen zu leben.
+**Ich verspreche, mein Möglichstes zu tun, um**
+- mich immer von neuem mit dem Pfadigesetz auseinander zu setzen, 
+- nach dem Sinn und Ziel meines Lebens zu suchen, 
+- mich in jeder Gemeinschaft einzusetzen, in der ich lebe,
+- ...
 
-Das Pfadigesetz gilt, so wie es hier steht, auch für die Pio- und Roverstufe.
+**Im Vertrauen auf Gott und zusammen mit Euch allen versuche ich, nach diesem Versprechen zu leben.**
 
+*oder*
 
+**Zusammen mit Euch allen, versuche ich, nach diesem Versprechen zu leben.**
 
+Pfadigesetz und -versprechen gelten, so wie sie hier stehen, auch für die Pio- und Roverstufe.
 
 ![width: 100px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633836/thilo/01_08_Wolfversprechen_web_6c6ffee767.png)
 ![width: 100px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_09_Pfadiversprechen_web_2d8e2c5f54.png)
@@ -40,19 +69,7 @@ Das Pfadigesetz gilt, so wie es hier steht, auch für die Pio- und Roverstufe.
 *Die Abzeichen des Wölfli-, Pfadi-, Pio- und Roverversprechens.*
 
 
-`,section:18,slug:"Unsere-Werte",sorting:5,link:null,slug_with_section:"Die-Pfadi#Unsere-Werte",menu_name:"Unsere Werte",locale:"de",published_at:"2024-11-03T10:09:32.458Z",created_at:"2024-11-03T10:09:17.336Z",updated_at:"2024-11-14T15:18:09.986Z",line_height:null,responsible:[],icon:null},{id:94,title:"Lilie und Kleeblatt",content:`Die drei Blätter der Lilie und des Kleeblatts symbolisieren die Suche nach dem Sinn und Ziel des Lebens, die Verantwortung gegenüber den Mitmenschen und eine stetige Auseinandersetzung mit sich selbst. Der Strich im mittleren Blatt stellt eine Kompassnadel dar, die den Pfadis immer den richtigen Weg weisen soll. Der Kreis um die Symbole steht für die Zusammengehörigkeit aller Mitglieder der Pfadibewegung. Die beiden Sterne erinnern an das Gesetz und Versprechen und ihre Bedeutung für die Pfadi. Das Kleeblatt steht für den Weltbund der Pfadfinderinnen, die Lilie für den Weltbund der Pfadfinder. 
-
-Die Pfadibewegung Schweiz ist beiden Weltverbänden angeschlossen und trägt deshalb beide Erkennungszeichen in ihrem Logo. Die Lilie steht für die Knaben und Männer, das Kleeblatt für die Mädchen und Frauen unseres Verbandes.
-
-![width: 300px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731652115/thilo/Pfadibewegung_Schweiz_CD_Logo_D_quer_RGB_d3fc98a064.png)
-`,section:18,slug:"Lilie-und-Kleeblatt",sorting:3,link:null,slug_with_section:"Die-Pfadi#Lilie-und-Kleeblatt",menu_name:"Lilie und Kleeblatt",locale:"de",published_at:"2024-11-03T10:01:46.155Z",created_at:"2024-11-03T10:01:03.203Z",updated_at:"2024-11-15T06:31:41.131Z",line_height:null,responsible:[],icon:null},{id:93,title:"Pfadi international",content:`Die beiden Organisationen «World Organization of the Scout Movement» (**WOSM**) und «World Association of Girl Guides and Girl Scouts» (**WAGGGS**) sind die Dachverbände der internationalen Pfadis. Weltweit zählen 171 Länder und über 67 Millionen Mitglieder zur Pfadibewegung. 
-
-Mit Kandersteg (KISC) und Adelboden (Our Chalet) befinden sich zwei der sechs internationalen Pfadizentren von WAGGGS und WOSM in der Schweiz.
-
-
-![caption: WOSM-Logo; width: 144px; height:144px; float: left;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633829/thilo/01_05_Lilie_neu_web_450b7f8fb8.png)
-![caption: WAGGGS-Logo; width: 144px; height:144px; float: left;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633832/thilo/01_06_Kleeblatt_web_41e39f7bc0.png)
-`,section:18,slug:"Pfadi-international",sorting:2,link:null,slug_with_section:"Die-Pfadi#Pfadi-international",menu_name:"Pfadi international",locale:"de",published_at:"2024-11-03T09:59:45.625Z",created_at:"2024-11-03T09:59:42.361Z",updated_at:"2024-11-14T11:58:32.550Z",line_height:null,responsible:[],icon:null},{id:92,title:"Geschichte",content:`Der Gründer der Pfadi ist Sir Robert Stephenson Smyth Baden-Powell (kurz **BiPi**). Er kam am 22. Februar 1857 in London zur Welt. Dieser Tag wird auf der ganzen Welt als «Thinking Day» gefeiert. 
+`,section:18,slug:"Unsere-Werte",sorting:5,link:null,slug_with_section:"Die-Pfadi#Unsere-Werte",menu_name:"Unsere Werte",locale:"de",published_at:"2024-11-03T10:09:32.458Z",created_at:"2024-11-03T10:09:17.336Z",updated_at:"2025-09-11T11:30:51.638Z",line_height:null,responsible:[],icon:null},{id:92,title:"Geschichte",content:`Der Gründer der Pfadi ist Sir Robert Stephenson Smyth Baden-Powell (kurz **BiPi**). Er kam am 22. Februar 1857 in London zur Welt. Dieser Tag wird auf der ganzen Welt als «Thinking Day» gefeiert. 
 
 BiPi war Offizier in der Armee der britischen Kolonien und bildete dort die «Scouts» aus. Das waren Jugendliche, die den Soldaten bei einfacheren Aufgaben halfen. Er nutzte dafür seinen Leitsatz «Learning by Doing» («Lernen durch Tun»). Dadurch erkannte er, dass auch junge Menschen Verantwortung übernehmen können. So entstand die Idee, die Pfadfinderbewegung ins Leben zu rufen. Im Jahr 1907 organisierte BiPi **das erste Pfadilager auf Brownsea Island in England**. Dieses Jahr gilt deshalb als Gründungsjahr der Pfadibewegung. Mithilfe seiner Schwester Agnes gründete er im Jahr 1910 die «Girl Guides». Später übernahm BiPis Frau Olave St Claire Baden- Powell die Leitung der Mädchenpfadi. Olave hat zufälligerweise am gleichen Tag Geburtstag wie BiPi.
 

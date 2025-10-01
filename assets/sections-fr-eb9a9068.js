@@ -12,11 +12,7 @@ Le Mouvement Scout de Suisse est affilié aux deux associations mondiales et com
 ![width:280px;height:101px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731574978/thilo/01_04_02_PBS_fr_19fc979faa.svg)`,section:37,slug:"Lys-et-trefle",sorting:3,link:null,slug_with_section:"Le-scoutisme#Lys-et-trefle",menu_name:"Lys et trèfle",locale:"fr",published_at:"2024-11-14T14:32:07.605Z",created_at:"2024-11-14T12:47:05.341Z",updated_at:"2024-11-14T14:32:07.647Z",line_height:null,responsible:[],icon:null},{id:140,title:"Le scoutisme international",content:`Les deux organisations « Organisation Mondiale du Mouvement Scout » (**OMMS**) et « Association Mondiale des Guides et des Eclaireuses »  (**AMGE**) sont les associations faîtières du scoutisme international. Le mouvement scout international réunit 171 pays et plus de 67 millions de membres dans le monde entier.
 
 Le KISC (Kandersteg) et Our Chalet (Adelboden), deux des six centres scouts internationaux de l’AMGE et de l’OMMS se trouvent en Suisse.
-`,section:37,slug:"Le-scoutisme-international",sorting:2,link:null,slug_with_section:"Le-scoutisme#Le-scoutisme-international",menu_name:"Le scoutisme international",locale:"fr",published_at:"2024-11-12T13:06:50.330Z",created_at:"2024-11-12T13:06:49.466Z",updated_at:"2024-11-14T15:16:58.418Z",line_height:null,responsible:[],icon:null},{id:141,title:"Le scoutisme en Suisse",content:`Peu après la fondation du scoutisme en Angleterre, les premiers groupes scouts se sont réunis en Suisse. C’est ainsi que sont nées la Fédération des Eclaireurs suisses (FES) et la Fédération des Eclaireuses suisses (FEesS). Toutes deux ont participé à la mise en place de « Jeunesse et Sport » (J+S) dans les années 1970. En 1987, la FES et la FEesS ont fusionné pour former le **Mouvement Scout de Suisse (MSdS)** que nous connaissons aujourd’hui.
-
-En Suisse, le scoutisme répartit ses membres dans les cinq branches d’âge suivantes : **Castors, Louveteaux, Éclais, Picos et Route**. Ce modèle de branche est la base d’un programme adapté à chaque âge. Pour les enfants et les jeunes ayant des besoins particuliers, les **Scouts Malgré Tout (SMT)** proposent des activités qui leur sont adaptées. Ainsi, le scoutisme conçoit un programme adapté au développement et aux besoins de tou·te·s les jeunes.
-
-Les ancien·ne·s scout·e·s peuvent se rencontrer et s’engager aux Silver Scouts ou dans des associations locales d’ancien·ne·s scout·e·s. Ils·elles restent ainsi en contact avec le scoutisme.`,section:37,slug:"Le-scoutisme-en-Suisse",sorting:4,link:null,slug_with_section:"Le-scoutisme#Le-scoutisme-en-Suisse",menu_name:"Le scoutisme en Suisse",locale:"fr",published_at:"2024-11-12T13:13:32.047Z",created_at:"2024-11-12T13:13:21.251Z",updated_at:"2024-11-14T12:47:21.123Z",line_height:null,responsible:[],icon:null},{id:142,title:"Nos valeurs",content:`### Loi de la branche Castors
+`,section:37,slug:"Le-scoutisme-international",sorting:2,link:null,slug_with_section:"Le-scoutisme#Le-scoutisme-international",menu_name:"Le scoutisme international",locale:"fr",published_at:"2024-11-12T13:06:50.330Z",created_at:"2024-11-12T13:06:49.466Z",updated_at:"2024-11-14T15:16:58.418Z",line_height:null,responsible:[],icon:null},{id:142,title:"Nos valeurs",content:`### Loi de la branche Castors
 **Nous, castors, …**
 - … nous voulons rencontrer de nouveaux·elles ami·e·s et jouer avec eux·elles.
 - … nous sommes curieux·euses et nous voulons découvrir de nouvelles choses.
@@ -35,23 +31,43 @@ Les ancien·ne·s scout·e·s peuvent se rencontrer et s’engager aux Silver Sc
 ### Loi scoute
 ![width:400px;height:565px](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_07_Pfadigesetz_F_web_a0e6f8783b.png)
 
-La Loi scoute, telle qu’elle est écrite ici, est valable pour les branches Eclais, Picos et Route.
+Cette loi nous lie à tous les scouts du monde. Dans le même esprit nous voulons en particulier :
+- ...
+- ...
+
+### Premier engagement
+**Je veux m'engager pour mon groupe et vivre de mon mieux la loi scoute.**
+
+**Je demande à Dieu et à vous tous de m'y aider.**
+
+*ou*
+
+**Je demande à vous tous de m'y aider.**
+
 ### Promesse scoute
-**Avec (l’aide de Dieu,) votre aide et dans la joie, je promets de faire tout mon possible pour…**
-- … approfondir le sens de notre Loi scoute.
-- … développer les valeurs spirituelles de ma vie.
-- … m’engager dans chaque communauté où je vis.
+**Avec l’aide de Dieu, avec votre aide et dans la joie**
 
-Je veux m’engager pour mon groupe et vivre de mon mieux la Loi scoute. Je demande (à Dieu et) à vous tous de m’y aider.
+*ou*
 
+**Avec votre aide et dans la joie, je promets de faire tout mon possible pour :**
+- approfondir le sens de notre Loi scoute
+- développer les valeurs spirituelles de ma vie
+- m’engager dans chaque communauté où je vis
+- ...
+
+La Loi et la promesse scoutes, telles qu’elles sont écrites ici, sont valables pour les branches Eclais, Picos et Route.
 
 ![width:100px;height:152px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633836/thilo/01_08_Wolfversprechen_web_6c6ffee767.png)
 ![width:100px;height:152px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_09_Pfadiversprechen_web_2d8e2c5f54.png)
 ![width:100px;height:152px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_10_Pioversprechen_web_ba5906d293.png)
 ![width:100px;height:152px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_11_Roverversprechen_web_81f90713f0.png)
 
-*Les insignes des promesses des branches Louveteaux, Eclais, Picos et Route*
-`,section:37,slug:"Nos-valeurs",sorting:5,link:null,slug_with_section:"Le-scoutisme#Nos-valeurs",menu_name:"Nos valeurs",locale:"fr",published_at:"2024-11-12T13:14:43.666Z",created_at:"2024-11-12T13:14:14.876Z",updated_at:"2024-11-14T12:57:01.637Z",line_height:null,responsible:[],icon:null},{id:139,title:"Histoire",content:`Le fondateur du scoutisme est Sir Robert Stephenson Smyth Baden-Powell (BiPi en abrégé). Il est né le 22 février 1857 à Londres. Ce jour est fêté dans le monde entier comme le « Thinking Day ».
+*Les insignes des promesses des branches Louveteaux, Eclais, Picos et Route.*
+`,section:37,slug:"Nos-valeurs",sorting:5,link:null,slug_with_section:"Le-scoutisme#Nos-valeurs",menu_name:"Nos valeurs",locale:"fr",published_at:"2024-11-12T13:14:43.666Z",created_at:"2024-11-12T13:14:14.876Z",updated_at:"2025-09-11T11:29:38.322Z",line_height:null,responsible:[],icon:null},{id:141,title:"Le scoutisme en Suisse",content:`Peu après la fondation du scoutisme en Angleterre, les premiers groupes scouts se sont réunis en Suisse. C’est ainsi que sont nées la Fédération des Eclaireurs suisses (FES) et la Fédération des Eclaireuses suisses (FEesS). Toutes deux ont participé à la mise en place de « Jeunesse et Sport » (J+S) dans les années 1970. En 1987, la FES et la FEesS ont fusionné pour former le **Mouvement Scout de Suisse (MSdS)** que nous connaissons aujourd’hui.
+
+En Suisse, le scoutisme répartit ses membres dans les cinq branches d’âge suivantes : **Castors, Louveteaux, Éclais, Picos et Route**. Ce modèle de branche est la base d’un programme adapté à chaque âge. Pour les enfants et les jeunes ayant des besoins particuliers, les **Scouts Malgré Tout (SMT)** proposent des activités qui leur sont adaptées. Ainsi, le scoutisme conçoit un programme adapté au développement et aux besoins de tou·te·s les jeunes.
+
+Les ancien·ne·s scout·e·s peuvent se rencontrer et s’engager aux Silver Scouts ou dans des associations locales d’ancien·ne·s scout·e·s. Ils·elles restent ainsi en contact avec le scoutisme.`,section:37,slug:"Le-scoutisme-en-Suisse",sorting:4,link:null,slug_with_section:"Le-scoutisme#Le-scoutisme-en-Suisse",menu_name:"Le scoutisme en Suisse",locale:"fr",published_at:"2024-11-12T13:13:32.047Z",created_at:"2024-11-12T13:13:21.251Z",updated_at:"2024-11-14T12:47:21.123Z",line_height:null,responsible:[],icon:null},{id:139,title:"Histoire",content:`Le fondateur du scoutisme est Sir Robert Stephenson Smyth Baden-Powell (BiPi en abrégé). Il est né le 22 février 1857 à Londres. Ce jour est fêté dans le monde entier comme le « Thinking Day ».
 BiPi était officier dans l’armée des colonies britanniques, où il formait les « Scouts ». Il s’agissait de jeunes qui aidaient les soldats à effectuer des tâches simples. Il utilisait pour cela son principe le plus important « Learning by Doing » (« l’apprentissage par l’action »). Il se rendit ainsi compte que les jeunes pouvaient aussi prendre des responsabilités. C’est ainsi qu’est née l’idée de créer le mouvement scout.
 En 1907, BiPi organisa le premier camp scout sur l’île de Brownsea en Angleterre. Cette année est donc considérée comme l’année de fondation du mouvement scout.
 Avec l’aide de sa sœur Agnes, il fonda en 1910 les « Girl Guides ». Plus tard, sa femme, Olave St Claire Baden-Powell, reprit la direction du scoutisme pour les filles. Il se trouve que le jour de l’anniversaire d’Olave est le même que celui de BiPi.

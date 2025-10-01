@@ -1,22 +1,7 @@
 const e=[{id:44,title:"Lo scoutismo",content:null,slug:"Lo-scoutismo",sorting:1,menu_name:"Lo scoutismo",locale:"it",published_at:"2024-11-03T11:21:25.669Z",created_at:"2024-11-03T11:21:24.677Z",updated_at:"2024-11-03T11:21:25.686Z",color_primary:"#632949",color_primary_light:"#632949",icon:{id:314,name:"Thilo_Icon-Logo_1.png",alternativeText:"",caption:"",width:427,height:967,formats:{small:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632188/thilo/small_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"small_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"small_Thilo_Icon-Logo_1.png",path:null,size:34.26,width:221,height:500,provider_metadata:{public_id:"thilo/small_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},medium:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632187/thilo/medium_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"medium_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"medium_Thilo_Icon-Logo_1.png",path:null,size:56.85,width:331,height:750,provider_metadata:{public_id:"thilo/medium_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}},thumbnail:{ext:".png",url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632186/thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8.png",hash:"thumbnail_Thilo_Icon_Logo_1_13f4d297a8",mime:"image/png",name:"thumbnail_Thilo_Icon-Logo_1.png",path:null,size:7.72,width:69,height:156,provider_metadata:{public_id:"thilo/thumbnail_Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"}}},hash:"Thilo_Icon_Logo_1_13f4d297a8",ext:".png",mime:"image/png",size:16.56,url:"https://res.cloudinary.com/dsii0i72y/image/upload/v1730632185/thilo/Thilo_Icon_Logo_1_13f4d297a8.png",previewUrl:null,provider:"cloudinary",provider_metadata:{public_id:"thilo/Thilo_Icon_Logo_1_13f4d297a8",resource_type:"image"},created_at:"2024-11-03T11:09:48.361Z",updated_at:"2024-11-03T11:09:48.365Z"},chapters:[{id:201,title:"Scoutismo internazionale",content:`Le due organizzazioni «World Organization of the Scout Movement» (**WOSM**) e «World Association of Girl Guides and Girl Scouts» (**WAGGGS**) sono le organizzazioni ombrello degli scout internazionali. Il movimento scout comprende 171 paesi e oltre 67 milioni di membri in tutto il mondo.
 
 Con Kandersteg (KISC) e Adelboden (Our Chalet) due dei sei centri scout internazionali WAGGGS e WOSM si trovano in Svizzera.
-`,section:44,slug:"Scoutismo-internazionale",sorting:2,link:null,slug_with_section:"Lo-scoutismo#Scoutismo-internazionale",menu_name:"Scoutismo internazionale",locale:"it",published_at:"2024-11-14T12:46:11.287Z",created_at:"2024-11-14T12:45:59.044Z",updated_at:"2024-11-14T12:46:11.301Z",line_height:null,responsible:[],icon:null},{id:203,title:"Giglio e trifoglio",content:`Le tre foglie del giglio e del trifoglio simboleggiano la ricerca del senso e dello scopo della vita, la responsabilità verso il prossimo e una continua riflessione su sé stessi. La linea sulla foglia centrale rappresenta l’ago della bussola che dovrebbe sempre indicare agli scout la strada giusta. Il cerchio attorno ai simboli rappresenta l’appartenenza di tutti i membri al movimento scout. Le due stelle ricordano la legge e la promessa e il loro significato per il movimento scout.
-
-Il trifoglio è il simbolo della federazione mondiale delle esploratrici, il giglio degli esploratori.
-
-![width:140;caption:Logo WOSM;01-05_Lilie_neu_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633829/thilo/01_05_Lilie_neu_web_450b7f8fb8.png)
-![width:140;caption:Logo WAGGGS;01-06_Kleeblatt_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633832/thilo/01_06_Kleeblatt_web_41e39f7bc0.png)
-
-Il Movimento Scout Svizzero è membro di entrambe le associazioni mondiali e porta così entrambi i simboli nel suo logo. Il giglio rappresenta i ragazzi e gli uomini, il trifoglio le ragazze e le donne della nostra associazione.
-
-![width:280;01-04-03_PBS_it.svg](https://res.cloudinary.com/dsii0i72y/image/upload/v1731574994/thilo/01_04_03_PBS_it_7ee7ebd11b.svg)
-`,section:44,slug:"Giglio-e-trifoglio",sorting:3,link:null,slug_with_section:"Lo-scoutismo#Giglio-e-trifoglio",menu_name:"Giglio e trifoglio",locale:"it",published_at:"2024-11-14T12:49:55.636Z",created_at:"2024-11-14T12:49:50.201Z",updated_at:"2024-11-14T12:50:20.384Z",line_height:null,responsible:[],icon:null},{id:204,title:"Lo scoutismo in Svizzera",content:`Poco dopo la sua fondazione in Inghilterra, i primi scout si riunirono anche in Svizzera. Nacquero così la Federazione degli Esploratori Svizzeri (FES) e la Federazione delle Esploratrici Svizzere (FESes). Entrambe hanno partecipato alla creazione di «Gioventù e Sport» (G+S) negli anni Settanta. Nel 1987, la FES e la FESes si unirono per formare quello che oggi è noto come **Movimento Scout Svizzero (MSS)**.
-
-Gli scout in Svizzera dividono i propri attivi nelle seguenti cinque fasce di età: **castori, lupetti, esploratori, pionieri e rover**. Questo modello delle branche è la base per un programma adatto all’età dei partecipanti. Per bambini e giovani con bisogni particolari, gli **Scout ad ogni costo (SOC)** offrono delle attività adeguate. In questo modo gli scout creano un programma adeguato allo sviluppo e orientato ai bisogni di tutti i giovani.
-
-Gli ex scout possono creare una rete di contatti e impegnarsi nei Silver Scout oppure aderire a un clan rover locale. In questo modo rimangono legati allo scoutismo.
-`,section:44,slug:"Lo-scoutismo-in-Svizzera",sorting:4,link:null,slug_with_section:"Lo-scoutismo#Lo-scoutismo-in-Svizzera",menu_name:"Lo scoutismo in Svizzera",locale:"it",published_at:"2024-11-14T12:51:33.868Z",created_at:"2024-11-14T12:51:32.935Z",updated_at:"2024-11-14T12:51:33.882Z",line_height:null,responsible:[],icon:null},{id:205,title:"I nostri valori",content:`### La legge dei castori
+`,section:44,slug:"Scoutismo-internazionale",sorting:2,link:null,slug_with_section:"Lo-scoutismo#Scoutismo-internazionale",menu_name:"Scoutismo internazionale",locale:"it",published_at:"2024-11-14T12:46:11.287Z",created_at:"2024-11-14T12:45:59.044Z",updated_at:"2024-11-14T12:46:11.301Z",line_height:null,responsible:[],icon:null},{id:205,title:"I nostri valori",content:`### La legge dei castori
 **Noi castori e castore …**
 - … vogliamo conoscere amici e giocare con loro
 - … siamo curiosi e vogliamo scoprire cose nuove
@@ -34,24 +19,60 @@ Gli ex scout possono creare una rete di contatti e impegnarsi nei Silver Scout o
 ### Legge scout.
 ![width:400px;01-07_Pfadigesetz_I_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633838/thilo/01_07_Pfadigesetz_I_web_73232f432b.png)
 
+Questa è la nostra legge, che ci lega agli scout di tutto il mondo.
+
+Completiamo per noi personalmente e per il nostro gruppo:
+- ...
+- ...
+
 ### Promessa scout
-Con gioia prometto di fare tutto il possibile …
-- … per approfondire i valori della nostra legge,
-- … per cercare di dare un senso alla mia vita,
-- … per impegnarmi a favore di ogni comunità in cui vivo,
-- … per …
-confidando (nell’aiuto di Dio e) nel vostro aiuto.
+**Voglio impegnarmi nella mia pattuglia/nel mio reparto e fare del mio meglio per vivere secondo la legge scout.**
 
-La legge scout indicata sopra, vale anche per la branca pionieri e la branca rover.
+**Chiedo a Dio e a voi tutti di aiutarmi**
 
-*I distintivi della promessa lupetti, esploratori, pionieri e rover.*
+*oppure*
+
+**Chiedo a voi tutti di aiutarmi.**
+
+### Promessa
+
+**Con gioia prometto di fare tutto il possibile**
+- per approfondire i valori della nostra legge,
+- per cercare di dare un senso alla mia vita,
+- per impegnarmi a favore di ogni comunità in cui vivo,
+- e per …
+
+**confidando nell’aiuto di Dio e nel vostro aiuto.**
+
+*Oppure*
+
+**confindando nel vostro aiuto.**
+
+
+La legge e la promessa scout indicate sopra, valgono anche per la branca pionieri e la branca rover.
 
 ![width:100px;01-08_Wolfversprechen_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633836/thilo/01_08_Wolfversprechen_web_6c6ffee767.png)
 ![width:100px;01-09_Pfadiversprechen_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_09_Pfadiversprechen_web_2d8e2c5f54.png)
 ![width:100px;01-10_Pioversprechen_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_10_Pioversprechen_web_ba5906d293.png)
 ![width:100px;01-11_Roverversprechen_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633837/thilo/01_11_Roverversprechen_web_81f90713f0.png)
 
-`,section:44,slug:"I-nostri-valori",sorting:5,link:null,slug_with_section:"Lo-scoutismo#I-nostri-valori",menu_name:"I nostri valori",locale:"it",published_at:"2024-11-14T12:58:27.679Z",created_at:"2024-11-14T12:54:39.093Z",updated_at:"2024-11-14T12:59:05.374Z",line_height:null,responsible:[],icon:null},{id:200,title:"Storia",content:`Il fondatore degli Scout è Sir Robert Stephenson Smyth Baden-Powell (**B. P.** in breve). Nacque il 22 febbraio 1857 a Londra. Questa giornata è celebrata in tutto il mondo come «Thinking Day».
+*I distintivi della promessa lupetti, esploratori, pionieri e rover.*
+`,section:44,slug:"I-nostri-valori",sorting:5,link:null,slug_with_section:"Lo-scoutismo#I-nostri-valori",menu_name:"I nostri valori",locale:"it",published_at:"2024-11-14T12:58:27.679Z",created_at:"2024-11-14T12:54:39.093Z",updated_at:"2025-09-11T11:31:56.189Z",line_height:null,responsible:[],icon:null},{id:203,title:"Giglio e trifoglio",content:`Le tre foglie del giglio e del trifoglio simboleggiano la ricerca del senso e dello scopo della vita, la responsabilità verso il prossimo e una continua riflessione su sé stessi. La linea sulla foglia centrale rappresenta l’ago della bussola che dovrebbe sempre indicare agli scout la strada giusta. Il cerchio attorno ai simboli rappresenta l’appartenenza di tutti i membri al movimento scout. Le due stelle ricordano la legge e la promessa e il loro significato per il movimento scout.
+
+Il trifoglio è il simbolo della federazione mondiale delle esploratrici, il giglio degli esploratori.
+
+![width:140;caption:Logo WOSM;01-05_Lilie_neu_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633829/thilo/01_05_Lilie_neu_web_450b7f8fb8.png)
+![width:140;caption:Logo WAGGGS;01-06_Kleeblatt_web.png](https://res.cloudinary.com/dsii0i72y/image/upload/v1730633832/thilo/01_06_Kleeblatt_web_41e39f7bc0.png)
+
+Il Movimento Scout Svizzero è membro di entrambe le associazioni mondiali e porta così entrambi i simboli nel suo logo. Il giglio rappresenta i ragazzi e gli uomini, il trifoglio le ragazze e le donne della nostra associazione.
+
+![width:280;01-04-03_PBS_it.svg](https://res.cloudinary.com/dsii0i72y/image/upload/v1731574994/thilo/01_04_03_PBS_it_7ee7ebd11b.svg)
+`,section:44,slug:"Giglio-e-trifoglio",sorting:3,link:null,slug_with_section:"Lo-scoutismo#Giglio-e-trifoglio",menu_name:"Giglio e trifoglio",locale:"it",published_at:"2024-11-14T12:49:55.636Z",created_at:"2024-11-14T12:49:50.201Z",updated_at:"2024-11-14T12:50:20.384Z",line_height:null,responsible:[],icon:null},{id:204,title:"Lo scoutismo in Svizzera",content:`Poco dopo la sua fondazione in Inghilterra, i primi scout si riunirono anche in Svizzera. Nacquero così la Federazione degli Esploratori Svizzeri (FES) e la Federazione delle Esploratrici Svizzere (FESes). Entrambe hanno partecipato alla creazione di «Gioventù e Sport» (G+S) negli anni Settanta. Nel 1987, la FES e la FESes si unirono per formare quello che oggi è noto come **Movimento Scout Svizzero (MSS)**.
+
+Gli scout in Svizzera dividono i propri attivi nelle seguenti cinque fasce di età: **castori, lupetti, esploratori, pionieri e rover**. Questo modello delle branche è la base per un programma adatto all’età dei partecipanti. Per bambini e giovani con bisogni particolari, gli **Scout ad ogni costo (SOC)** offrono delle attività adeguate. In questo modo gli scout creano un programma adeguato allo sviluppo e orientato ai bisogni di tutti i giovani.
+
+Gli ex scout possono creare una rete di contatti e impegnarsi nei Silver Scout oppure aderire a un clan rover locale. In questo modo rimangono legati allo scoutismo.
+`,section:44,slug:"Lo-scoutismo-in-Svizzera",sorting:4,link:null,slug_with_section:"Lo-scoutismo#Lo-scoutismo-in-Svizzera",menu_name:"Lo scoutismo in Svizzera",locale:"it",published_at:"2024-11-14T12:51:33.868Z",created_at:"2024-11-14T12:51:32.935Z",updated_at:"2024-11-14T12:51:33.882Z",line_height:null,responsible:[],icon:null},{id:200,title:"Storia",content:`Il fondatore degli Scout è Sir Robert Stephenson Smyth Baden-Powell (**B. P.** in breve). Nacque il 22 febbraio 1857 a Londra. Questa giornata è celebrata in tutto il mondo come «Thinking Day».
 
 B. P. era un ufficiale dell’esercito delle colonie britanniche, dove addestrò gli «scouts». Si trattava di giovani ragazzi che aiutavano i soldati nei compiti più semplici. A tale scopo utilizzò il suo principio guida «Learning-by-Doing» («imparare facendo»). In questo modo capì che anche i giovani possono assumersi delle responsabilità. Nacque così l’idea di creare il movimento scout.
 
