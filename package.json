@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "vite",
-    "serve": "vite preview --port=3000 --host",
+    "preview": "vite preview --port=3000 --host",
     "build": "vite build"
   },
   "resolutions": {
