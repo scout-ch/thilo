@@ -8,7 +8,7 @@ import {
 import HomePage from './pages/HomePage';
 import i18n from './i18n';
 import { withTranslation } from 'react-i18next';
-import Footer from './components/Footer';
+import Footer from './components/Footer.barebones';
 import SectionPage from './pages/SectionPage';
 import ImpressumPage from './pages/ImpressumPage';
 import { checkLinks } from './utils/LinkChecker';
@@ -17,9 +17,10 @@ import NoMatch from './pages/NoMatch';
 import client from "./client";
 import { HelmetProvider } from 'react-helmet-async';
 
-import { PageLayout, ThemeProvider } from '@primer/react'
-import Header from './components/Header';
-import SidebarNav from './components/SidebarNav';
+import PageLayout from './components/PageLayout.barebones'
+import { ThemeProvider } from './components/ThemeProvider.barebones'
+import Header from './components/Header.barebones';
+import SidebarNav from './components/SidebarNav.barebones';
 import { Helmet } from 'react-helmet-async';
 
 import { slugify } from "modern-diacritics";
@@ -182,7 +183,7 @@ function App() {
           <Router basename={import.meta.env.BASE_URL}>
             <LinksContext.Provider value={links}>
               <Header />
-              <PageLayout sx={{padding: '0'}}>
+              <PageLayout>
                 <PageLayout.Content>
                   <div id="main-content" className='p-3'>
                     <Routes>

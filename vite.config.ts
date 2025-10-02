@@ -18,14 +18,7 @@ export default defineConfig({
   plugins: [react(),
   VitePWA(
     { registerType: 'autoUpdate' }
-  )],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        implementation: sass,
-      },
-    },
-  },
+  )]
 });
 
 import { join, parse, resolve } from "path";
