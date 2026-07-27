@@ -110,47 +110,97 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
 <script>
   import { registerSW } from 'virtual:pwa-register';
 
-  const toast = document.getElementById('pwa-update-toast') as HTMLElement;
-  const message = document.getElementById('pwa-update-message') as HTMLElement;
-  const buttons = toast?.querySelector('.pwa-toast-buttons') as HTMLElement;
-  const reloadBtn = document.getElementById('pwa-update-reload') as HTMLButtonElement;
-  const dismissBtn = document.getElementById('pwa-update-dismiss') as HTMLButtonElement;
+  const UPDATE_CHECK_INTERVAL = 15 * 60 * 1000;
+  const OFFLINE_READY_TOAST_DURATION = 4000;
 
-  const UPDATE_CHECK_INTERVAL = 60 * 60 * 1000; // 1 hour
+  // Runtime caches filled before the <img> tags requested images with CORS.
+  // Their opaque entries can never satisfy a crossorigin request and each one
+  // costs several MB of storage quota, so they are dead weight (see the
+  // versioned cache names in astro.config.mjs).
+  const LEGACY_IMAGE_CACHES = ['cloudinary-image-cache', 'image-cache'];
+
+  type ToastState = 'update-available' | 'offline-ready';
+
+  // This module runs once per full page load, but the ClientRouter replaces the
+  // toast element on every client-side navigation. Nothing may hold on to those
+  // nodes: the pending state lives here and is re-rendered into whatever
+  // markup is current.
+  let pendingState: ToastState | null = null;
+  let offlineReadyTimeout: number | undefined;
+  let registration: ServiceWorkerRegistration | undefined;
+
+  function showToast(state: ToastState) {
+    const toast = document.getElementById('pwa-update-toast');
+    const message = document.getElementById('pwa-update-message');
+    const buttons = toast?.querySelector<HTMLElement>('.pwa-toast-buttons');
+    if (!toast || !message || !buttons) return;
+
+    const isUpdate = state === 'update-available';
+    message.textContent =
+      (isUpdate ? toast.dataset.updateText : toast.dataset.offlineReadyText) ?? '';
+    buttons.hidden = !isUpdate;
+    toast.hidden = false;
+  }
+
+  function hideToast() {
+    pendingState = null;
+    const toast = document.getElementById('pwa-update-toast');
+    if (toast) toast.hidden = true;
+  }
+
+  function checkForUpdate() {
+    registration?.update().catch(() => {});
+  }
+
+  async function deleteLegacyImageCaches() {
+    if (!('caches' in window)) return;
+    await Promise.all(LEGACY_IMAGE_CACHES.map(name => caches.delete(name)));
+  }
 
   // registerSW returns an updateSW function; the onNeedRefresh callback fires
   // when a new service worker is installed and waiting to activate.
   const updateSW = registerSW({
-    onRegisteredSW(_swUrl: string, registration?: ServiceWorkerRegistration) {
-      if (!registration) return;
+    // Register without waiting for the window load event, so the worker can
+    // claim this page early enough to route its own images through the cache
+    immediate: true,
+    onRegisteredSW(_swUrl: string, swRegistration?: ServiceWorkerRegistration) {
+      if (!swRegistration) return;
+      registration = swRegistration;
       // The precached content only refreshes when the service worker sees a
       // new build, so poll periodically and when the tab regains focus to
       // surface content updates without waiting for a manual reload.
-      const checkForUpdate = () => registration.update().catch(() => {});
       setInterval(checkForUpdate, UPDATE_CHECK_INTERVAL);
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') checkForUpdate();
       });
+      void deleteLegacyImageCaches();
     },
     onNeedRefresh() {
-      message.textContent = toast.dataset.updateText ?? '';
-      buttons.hidden = false;
-      toast.hidden = false;
+      pendingState = 'update-available';
+      showToast('update-available');
     },
     onOfflineReady() {
-      message.textContent = toast.dataset.offlineReadyText ?? '';
-      buttons.hidden = true;
-      toast.hidden = false;
-      setTimeout(() => { toast.hidden = true; }, 4000);
+      pendingState = 'offline-ready';
+      showToast('offline-ready');
+      clearTimeout(offlineReadyTimeout);
+      offlineReadyTimeout = window.setTimeout(hideToast, OFFLINE_READY_TOAST_DURATION);
     },
   });
 
-  reloadBtn?.addEventListener('click', () => {
-    toast.hidden = true;
-    updateSW(true); // Skip waiting + reload
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    if (target?.closest('#pwa-update-reload')) {
+      hideToast();
+      updateSW(true); // Skip waiting + reload
+    } else if (target?.closest('#pwa-update-dismiss')) {
+      hideToast();
+    }
   });
 
-  dismissBtn?.addEventListener('click', () => {
-    toast.hidden = true;
+  // Client-side navigation swaps in a fresh toast element and skips the
+  // browser's own service worker byte-check, so both have to be redone here
+  document.addEventListener('astro:after-swap', () => {
+    if (pendingState === 'update-available') showToast(pendingState);
+    checkForUpdate();
   });
 </script>

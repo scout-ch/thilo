@@ -66,6 +66,11 @@ export default defineConfig({
         // Precache all build output (HTML, JS, CSS, fonts, assets)
         globPatterns: ['**/*.{html,js,css,svg,png,ico,woff,woff2,ttf,json}'],
         cleanupOutdatedCaches: true,
+        // Take over the page that installed the worker instead of waiting for
+        // the next navigation, so a first visit's images already go through
+        // the runtime caches below. skipWaiting stays off: updates are still
+        // gated behind the PWAUpdatePrompt toast.
+        clientsClaim: true,
         // Strip all query params from precache lookups so ?q=... doesn't break the search page match
         ignoreURLParametersMatching: [/.*/],
         // Do not add `manifestTransforms` here: @vite-pwa/astro only installs
