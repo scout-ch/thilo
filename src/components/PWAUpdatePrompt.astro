@@ -113,6 +113,9 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
 
   const UPDATE_CHECK_INTERVAL = 15 * 60 * 1000;
   const OFFLINE_READY_TOAST_DURATION = 4000;
+  // Shared across page loads and tabs, so navigating or reopening the site
+  // does not restart the window
+  const LAST_UPDATE_CHECK_KEY = 'thilo-sw-last-update-check';
 
   // Runtime caches filled before the <img> tags requested images with CORS.
   // Their opaque entries can never satisfy a crossorigin request and each one
@@ -149,8 +152,30 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
     if (toast) toast.hidden = true;
   }
 
+  function lastUpdateCheck(): number {
+    try {
+      return Number(localStorage.getItem(LAST_UPDATE_CHECK_KEY)) || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function rememberUpdateCheck() {
+    try {
+      localStorage.setItem(LAST_UPDATE_CHECK_KEY, String(Date.now()));
+    } catch {
+      // Storage denied: the interval below still paces the checks within a page
+    }
+  }
+
+  // Registering already makes the browser fetch and compare sw.js, so every
+  // page load is a check in itself and a reload is always one. These are the
+  // extra checks on top of that, and they wait out the full window.
   function checkForUpdate() {
-    registration?.update().catch(() => {});
+    if (!registration) return;
+    if (Date.now() - lastUpdateCheck() < UPDATE_CHECK_INTERVAL) return;
+    rememberUpdateCheck();
+    registration.update().catch(() => {});
   }
 
   async function deleteLegacyImageCaches() {
@@ -167,6 +192,8 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
     onRegisteredSW(_swUrl: string, swRegistration?: ServiceWorkerRegistration) {
       if (!swRegistration) return;
       registration = swRegistration;
+      // register() just checked; start the window from here
+      rememberUpdateCheck();
       // The precached content only refreshes when the service worker sees a
       // new build, so poll periodically and when the tab regains focus to
       // surface content updates without waiting for a manual reload.
@@ -199,8 +226,8 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
     }
   });
 
-  // Client-side navigation swaps in a fresh toast element and skips the
-  // browser's own service worker byte-check, so both have to be redone here
+  // Client-side navigation swaps in a fresh toast element and never reaches
+  // the browser's own service worker byte-check, since no page is loaded
   document.addEventListener('astro:after-swap', () => {
     if (pendingState === 'update-available') showToast(pendingState);
     checkForUpdate();
