@@ -109,6 +109,7 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
 
 <script>
   import { registerSW } from 'virtual:pwa-register';
+  import { scheduleImageCacheWarming } from '../utils/warmImageCache';
 
   const UPDATE_CHECK_INTERVAL = 15 * 60 * 1000;
   const OFFLINE_READY_TOAST_DURATION = 4000;
@@ -174,6 +175,7 @@ const pwaText = getTranslations(locale as Locale).translation.pwa;
         if (document.visibilityState === 'visible') checkForUpdate();
       });
       void deleteLegacyImageCaches();
+      scheduleImageCacheWarming();
     },
     onNeedRefresh() {
       pendingState = 'update-available';
