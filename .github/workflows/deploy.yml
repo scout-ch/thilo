@@ -5,6 +5,11 @@ on:
     branches:
       - master
   workflow_dispatch:
+    inputs:
+      show_drafts:
+        description: 'Include unpublished sections and chapters in the GitHub Pages build'
+        type: boolean
+        default: false
 
 concurrency:
   group: pages
@@ -55,6 +60,7 @@ jobs:
         run: pnpm astro build --base ${{ steps.pages.outputs.base_path }}
         env:
           SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/thilo', github.repository_owner) }}
+          SHOW_DRAFTS: ${{ inputs.show_drafts }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -33,8 +33,10 @@ COPY --chown=node:node [ "src", "src"]
 ############################################
 ARG BACKEND_URL=https://api.thilo.scouts.ch/
 ARG SITE_URL=https://thilo.scouts.ch
+ARG SHOW_DRAFTS=false
 ENV BACKEND_URL=$BACKEND_URL
 ENV SITE_URL=$SITE_URL
+ENV SHOW_DRAFTS=$SHOW_DRAFTS
 
 RUN pnpm install --frozen-lockfile
 RUN pnpm build

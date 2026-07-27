@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
   /** Strapi backend base URL; defaults to https://api.thilo.scouts.ch/ */
   readonly BACKEND_URL?: string;
+  /** Set to "true" to include unpublished sections and chapters in the build */
+  readonly SHOW_DRAFTS?: string;
 }
 
 interface ImportMeta {

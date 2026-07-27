@@ -59,7 +59,7 @@
   - [x] Alt text is being consumed as a carrier for caption/CSS directives rather than left as
         accessible description text, compare to the old code's handling and fix
 - [x] Match the GitHub Actions deploy workflow to the old site's, then hand off to James
-- [ ] hide draft chapters
+- [x] hide draft chapters
 
 ## not for now
 - [ ] future todos:

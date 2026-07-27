@@ -12,6 +12,8 @@ The frontend is a static site built with [Astro](https://astro.build): all conte
 - **Frontend** (this repo): Astro SSG, deployed to GitHub Pages under the `/thilo/` base path
 - **Backend**: [Strapi Backend](https://github.com/scout-ch/thilo-api) at `https://api.thilo.scouts.ch/` (override with the `BACKEND_URL` env var)
 
+Unpublished (draft) sections and chapters are left out of the build. Set `SHOW_DRAFTS=true` to include them, or run the "Build & Deploy" workflow manually with the *show drafts* input enabled.
+
 Key traits:
 
 - **i18n**: German (unprefixed), French and Italian (`/fr/`, `/it/`) pages are generated per locale; the language switcher maps sections across locales

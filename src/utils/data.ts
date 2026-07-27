@@ -4,6 +4,13 @@ import { slugify } from './slugify';
 
 const BACKEND_URL = import.meta.env.BACKEND_URL || 'https://api.thilo.scouts.ch/';
 
+const SHOW_DRAFTS = import.meta.env.SHOW_DRAFTS === 'true';
+
+const PUBLICATION_STATE = {
+  LIVE: 'live',
+  PREVIEW: 'preview'
+} as const;
+
 export interface IconT {
   id: number;
   name: string;
@@ -21,6 +28,7 @@ export interface ChapterT {
   slug?: string;
   slug_with_section?: string;
   targets?: TargetT[];
+  published_at?: string | null;
 }
 
 export interface TargetT {
@@ -42,6 +50,7 @@ export interface SectionT {
   color_primary_light?: string;
   icon?: IconT;
   chapters: ChapterT[];
+  published_at?: string | null;
   // Optional SEO overrides: not in the Strapi schema yet, but picked up
   // automatically for meta tags once the fields are added to the backend
   seo_title?: string;
@@ -68,7 +77,10 @@ async function fetchFromStrapi<T>(endpoint: string, locale: string = 'de'): Prom
     return cached.data as T;
   }
 
-  const url = `${BACKEND_URL}${endpoint}?_locale=${locale}`;
+  // Strapi's default publication state is not guaranteed to be "live", so it is
+  // always sent explicitly
+  const publicationState = SHOW_DRAFTS ? PUBLICATION_STATE.PREVIEW : PUBLICATION_STATE.LIVE;
+  const url = `${BACKEND_URL}${endpoint}?_locale=${locale}&_publicationState=${publicationState}`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -90,12 +102,18 @@ export async function getStartPage(locale: string = 'de'): Promise<StartPageT> {
   return fetchFromStrapi<StartPageT>('start-page', locale);
 }
 
+// Backstop for _publicationState: the backend applies it to sections and their
+// populated chapters, but an unpublished entry must never reach a live build
+function isVisible(entry: { published_at?: string | null }): boolean {
+  return SHOW_DRAFTS || Boolean(entry.published_at);
+}
+
 // Get all sections
 export async function getSections(locale: string = 'de'): Promise<SectionT[]> {
   const sections = await fetchFromStrapi<SectionT[]>('sections', locale);
-  
+
   // Add slugs to sections and chapters, and sort chapters by sorting field
-  return sections.map(section => {
+  return sections.filter(isVisible).map(section => {
     const generatedSlug = slugify(section.title);
     // Use custom slug if available, otherwise use generated slug
     const customSlug = getSlugForLocale(section.id.toString(), locale);
@@ -105,6 +123,7 @@ export async function getSections(locale: string = 'de'): Promise<SectionT[]> {
       ...section,
       slug,
       chapters: section.chapters
+        .filter(isVisible)
         .sort((a, b) => (a.sorting || 0) - (b.sorting || 0))
         .map(chapter => ({
           ...chapter,
