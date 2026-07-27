@@ -407,7 +407,136 @@ Die folgenden Abbildungen dienen dir zur Inspiration und zeigen dir auf, was mit
 
 ![width: 600px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/J_S_Abseilen_web_02b565ebd8.png)
 
-`,section:31,slug:"Seilkonstruktionen",sorting:4,link:null,slug_with_section:"Seiltechnik-und-Bauten#Seilkonstruktionen",menu_name:"Seilkonstruktionen",locale:"de",published_at:"2024-11-10T11:25:42.615Z",created_at:"2024-11-10T11:25:40.527Z",updated_at:"2024-11-17T09:38:46.692Z",line_height:null,responsible:[],icon:null},{id:107,title:"Bauten",content:`Für viele Einheiten sind die Lagerbauten der Höhepunkt des Lagers. Das Bauen der meisten Konstruktionen beinhaltet im Wesentlichen die gleichen grundlegenden Arbeitsschritte. Wenn du diese beherrschst, hast du das Rüstzeug für die Umsetzung aller möglichen Lagerbauten. 
+`,section:31,slug:"Seilkonstruktionen",sorting:4,link:null,slug_with_section:"Seiltechnik-und-Bauten#Seilkonstruktionen",menu_name:"Seilkonstruktionen",locale:"de",published_at:"2024-11-10T11:25:42.615Z",created_at:"2024-11-10T11:25:40.527Z",updated_at:"2024-11-17T09:38:46.692Z",line_height:null,responsible:[],icon:null},{id:105,title:"Knoten und Bünde",content:`Knoten sind die Grundlage der Pfaditechnik und für die Lagerbauten unerlässlich. Mit ihnen kannst du Schnüre oder Seile miteinander verbinden und befestigen. Die Vielseitigkeit reicht vom dekorativen Foulardknoten bis zu funktionalen Verbindungen.
+
+### Knoten 
+
+#### Samariter 
+Der Samariter ist ein flacher Knoten und wird deshalb häufig zum Befestigen von Verbänden eingesetzt. Er darf nicht zum Verbinden zweier Seile verwendet werden, da er sich bei starkem Zug von alleine lösen kann. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_10_Samariter_web_862e89c4c7.png)
+
+
+
+#### Päckli-, Zauber- oder Flaschenknoten 
+Der Flaschenknoten wird für das Zusammenbinden von Zeitungsbündeln oder zum Knüpfen von Strickleitern verwendet. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_11_Paeckli_web_5cc6d01f35.png)
+
+
+#### Fischer oder Spierenstich 
+Der Fischerknoten eignet sich zum Verbinden von zwei Seilen mit gleichem oder unterschiedlichem Durchmesser.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_12_Fischer_web_01436c1e80.png)
+
+
+
+#### Weber 
+Der Weberknoten wird verwendet, um unterschiedlich dicke Seile miteinander zu verbinden. Das dickere Seil bildet dabei die Schlaufe, auch «Auge» genannt, durch welche das dünnere Seil geknüpft wird.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_13_Weber_web_1e62c84d39.png)
+
+
+#### Brezel- oder Schifferknoten 
+Der Brezel- oder Schifferknoten eignet sich zum Befestigen eines Seils an einem dünnen Gegenstand – zum Beispiel an einem Ring, einem Ast oder einer Öse. Er wird auch im Lagerbau verwendet, um ein Seilende abzuspannen und zu befestigen. Meistens werden mehrere Schlaufen geknotet, um das Seilende «abzubrezeln».
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_14_Bretzel_web_7cdf27ba75.png)
+
+
+#### Fuhrmann 
+Der Fuhrmannsknoten wird häufig zum Spannen von Seilen benutzt und ist ein wichtiges Element des Spannerknotens. Der Fuhrmann besteht aus einem Flaschenknoten, der mehrmals verdreht wird. Überlege dir vor dem Knüpfen, welches Ende du zum Spannen benutzen möchtest.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_15_Fuhrmann_web_07f2cc3791.png)
+
+
+#### Mastwurf 
+Der Mastwurfknoten wird vor allem zum Befestigen der Seilmitte verwendet. Dieser Knoten hält gut und rutscht nicht bei schrägem Zug oder Zug auf einem Seilende. Es kann jedoch mühsam sein, ihn wieder zu lösen. Der Knoten kann gelegt oder gesteckt werden.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_16_Mastwurf_D_web_d58b783831.png)
+
+
+#### Achterknoten 
+Der Achterknoten wird zur Verdickung des Seilendes verwendet, damit es sich nicht ausfädeln kann. Dieser Knoten kann für allerlei Zwecke verwendet werden, zum Beispiel als zusätzliche Absicherung des Maurerknotens.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_18_Endacht_web_16376ce103.png)
+
+
+#### Doppelter Achterknoten 
+Der doppelte Achterknoten wird verwendet, wenn man eine leicht zu lösende Schlaufe benötigt. Er kann auch zum Verbinden von zwei Seilen benutzt werden und ist eine Alternative zum Spierenstich.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_19_Doppelendacht_web_daa6c5748b.png)
+
+
+#### Anker 
+Der Ankerknoten wird zur Befestigung einer Schlaufe verwendet. Die Belastung muss an beiden Seilen gleich gross sein. Er kann jedoch seitlich verrutschen. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_20_Anker_web_f03d27a573.png)
+
+
+#### Prusik 
+Mit einer weiteren Wicklung des Ankers erhält man einen Prusikknoten. Damit kann man ein dünneres Seil mit einem Hauptseil verbinden. Der Knoten verrutscht bei Zug nicht zur Seite. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_21_Prusik_web_837286585a.png)
+
+
+#### Maurer 
+Der Maurerknoten ist einfach zu machen und schnell gelöst. Er muss am Seilanfang gemacht werden und hält nur bei gleichmässig starkem Zug. Die Befestigung des Seils mit diesem Knoten eignet sich nur für dicke Gegenstände. Es sollten mindestens sieben Windungen geknüpft werden. Er ist für den Lagerbau gut geeignet, jedoch nicht für sicherheitsrelevante Bauten. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_22_Maurer_web_89fe1b2690.png)
+
+
+#### Spanner 
+Der Spannerknoten wird zum Festbinden von Ladungen oder zum Abspannen von Seilen oder Zeltschnüren an Bauten verwendet. Der zentrale Teil des Spanners bildet der Flaschenknoten. Zum Spannen wird das Seil um das feste Objekt geführt und durch die Schlaufe des Flaschenknotens angezogen. Nach dem Spannen brezelst du den Knoten ab, damit er sich nicht mehr löst. Um den Knoten beim Abbau leichter zu lösen, kannst du durch den Flaschenknoten einen Ast stecken oder den Flaschenknoten mit einem Fuhrmann ersetzen. Um die Seilreibung zu verringern, kannst du die beiden Schlaufen mit einem Karabiner verbinden. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_23_Spanner_web_5848bc638b.png)
+
+
+#### Palstek oder Rettungsschlinge 
+Mit dem Palstek oder der Rettungsschlinge kannst du schnell eine Schlinge machen. Da sich der Knoten nicht zuzieht, lässt er sich schnell wieder lösen. Bei einer Wechselbelastung kann er sich jedoch von selbst lösen. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_24_Rettungsschlinge_web_4f4cdeb506.png)
+
+
+#### Foulardknoten oder Pfadiknopf 
+Der Foulardknoten oder Pfadiknopf wird als Zierknoten im Foulard verwendet. Bei gewissen Pfadis ist es Tradition, dass man sich den Knopf von einem guten Pfadigspändli binden lässt.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_25_Pfadiknopf_web_0671b74876.png)
+
+
+### Bünde 
+Bünde werden zum Verbinden von Kanthölzern, Rundhölzern und Stämmen verwendet. Achte darauf, die Bünde jeweils sorgfältig auszuführen und bei jeder Wicklung festzuziehen. 
+
+
+
+#### Kreisbund oder Gerüstbund
+Der Kreisbund wird verwendet, um zwei Stämme oder Hölzer in einem rechten Winkel zu verbinden. Beginne mit einem Mastwurf am senkrechten Balken unterhalb des Bundes und wickle das Seil mindestens fünfmal um beide Hölzer herum. Wickle das Seil zum Abschluss drei Mal straff um den Bund und schliesse mit einem Samariterknoten ab. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_26_Kreisbund_web_e56d83f1ab.png)
+
+
+#### Kreuzbund 
+Der Kreuzbund wird übers Kreuz und nicht im Kreis gewickelt. Im Vergleich zum Kreisbund hält er weniger gut, dafür müssen die Balken nicht zwingend im rechten Winkel zueinander stehen.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_27_Kreuzbund_web_4d702fd84a.png)
+
+
+#### Parallelbund 
+Der Parallelbund wird verwendet, um zwei nebeneinander liegende Hölzer miteinander zu verbinden. So kannst du Hölzer verlängern oder verstärken. Für eine sichere Verbindung solltest du zwei Parallelbünde mit möglichst grossem Abstand knoten. Der Parallelbund kann auch zum Sichern eines aufgerollten Seils oder mit wenigen Wicklungen zum Befestigen eines Seiles an einer Blachenecke verwendet werden. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_28_Paralellbund_web_2b4f8cf95a.png)
+
+
+#### Schiefer Parallelbund 
+Der schiefe Parallelbund eignet sich zum Zusammenbinden von zwei Stangen in einem beliebigen Winkel. Beginne in der Mitte mit einem Mastwurfknoten und arbeite dich auf beide Seiten raus. Wickle das Seil zum Abschluss drei Mal straff um den Bund und schliesse mit einem Samariterknoten ab. 
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_29_Schiefer_Parallelbund_web_146e5bbe9f.png)
+
+
+#### Dreibeinbund 
+Der Dreibeinbund wird verwendet, um drei Stöcke zu einem Dreibein zu verbinden. Durch das Aufstellen und das Verdrehen der Stangen entsteht eine stabile Verbindung.
+
+![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_30_Dreibeinbund_web_ae3d5c0314.png)
+`,section:31,slug:"Knoten-und-Bunde",sorting:3,link:null,slug_with_section:"Seiltechnik-und-Bauten#Knoten-und-Bunde",menu_name:"Knoten und Bünde",locale:"de",published_at:"2024-11-10T11:20:53.524Z",created_at:"2024-11-10T11:19:09.817Z",updated_at:"2026-06-16T13:49:19.322Z",line_height:null,responsible:[],icon:null},{id:107,title:"Bauten",content:`Für viele Einheiten sind die Lagerbauten der Höhepunkt des Lagers. Das Bauen der meisten Konstruktionen beinhaltet im Wesentlichen die gleichen grundlegenden Arbeitsschritte. Wenn du diese beherrschst, hast du das Rüstzeug für die Umsetzung aller möglichen Lagerbauten. 
 
 ### Graben von Löchern 
 Wenn du ein Loch oder einen Graben aushebst, musst du immer zuerst die Grasnarben – das Pflanzenstück mit Erde und Wurzelwerk – ausstechen und mit der Rasenseite nach unten im Schatten lagern. Du kannst die Grasnarben auch in Jutesäcke oder Folie einpacken, um sie zu schützen. Die Grasnarben sollten nicht austrocknen und am Ende wieder an derselben Stelle eingesetzt werden. So trägst du beim Zeltbau Sorge zur Natur und zum Boden. 
@@ -701,136 +830,7 @@ Bauten Sicherheit geht immer vor. Deshalb müssen alle (Seil-)Konstruktionen un
 ![width: 500px; ](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568968/thilo/Sicherheitsrelevante_bauten_064314205c.png)
 
 
-`,section:31,slug:"Allgemeines",sorting:1,link:null,slug_with_section:"Seiltechnik-und-Bauten#Allgemeines",menu_name:"Allgemeines",locale:"de",published_at:"2024-11-10T10:59:31.463Z",created_at:"2024-11-10T10:53:19.188Z",updated_at:"2024-11-14T15:24:43.037Z",line_height:null,responsible:[],icon:null},{id:105,title:"Knoten und Bünde",content:`Knoten sind die Grundlage der Pfaditechnik und für die Lagerbauten unerlässlich. Mit ihnen kannst du Schnüre oder Seile miteinander verbinden und befestigen. Die Vielseitigkeit reicht vom dekorativen Foulardknoten bis zu funktionalen Verbindungen.
-
-### Knoten 
-
-#### Samariter 
-Der Samariter ist ein flacher Knoten und wird deshalb häufig zum Befestigen von Verbänden eingesetzt. Er darf nicht zum Verbinden zweier Seile verwendet werden, da er sich bei starkem Zug von alleine lösen kann. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_10_Samariter_web_862e89c4c7.png)
-
-
-
-#### Päckli-, Zauber- oder Flaschenknoten 
-Der Flaschenknoten wird für das Zusammenbinden von Zeitungsbündeln oder zum Knüpfen von Strickleitern verwendet. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_11_Paeckli_web_5cc6d01f35.png)
-
-
-#### Fischer oder Spierenstich 
-Der Fischerknoten eignet sich zum Verbinden von zwei Seilen mit gleichem oder unterschiedlichem Durchmesser.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_12_Fischer_web_01436c1e80.png)
-
-
-
-#### Weber 
-Der Weberknoten wird verwendet, um unterschiedlich dicke Seile miteinander zu verbinden. Das dickere Seil bildet dabei die Schlaufe, auch «Auge» genannt, durch welche das dünnere Seil geknüpft wird.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_13_Weber_web_1e62c84d39.png)
-
-
-#### Brezel- oder Schifferknoten 
-Der Brezel- oder Schifferknoten eignet sich zum Befestigen eines Seils an einem dünnen Gegenstand – zum Beispiel an einem Ring, einem Ast oder einer Öse. Er wird auch im Lagerbau verwendet, um ein Seilende abzuspannen und zu befestigen. Meistens werden mehrere Schlaufen geknotet, um das Seilende «abzubrezeln».
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_15_Fuhrmann_web_07f2cc3791.png)
-
-
-#### Fuhrmann 
-Der Fuhrmannsknoten wird häufig zum Spannen von Seilen benutzt und ist ein wichtiges Element des Spannerknotens. Der Fuhrmann besteht aus einem Flaschenknoten, der mehrmals verdreht wird. Überlege dir vor dem Knüpfen, welches Ende du zum Spannen benutzen möchtest.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_15_Fuhrmann_web_07f2cc3791.png)
-
-
-#### Mastwurf 
-Der Mastwurfknoten wird vor allem zum Befestigen der Seilmitte verwendet. Dieser Knoten hält gut und rutscht nicht bei schrägem Zug oder Zug auf einem Seilende. Es kann jedoch mühsam sein, ihn wieder zu lösen. Der Knoten kann gelegt oder gesteckt werden.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_16_Mastwurf_D_web_d58b783831.png)
-
-
-#### Achterknoten 
-Der Achterknoten wird zur Verdickung des Seilendes verwendet, damit es sich nicht ausfädeln kann. Dieser Knoten kann für allerlei Zwecke verwendet werden, zum Beispiel als zusätzliche Absicherung des Maurerknotens.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_18_Endacht_web_16376ce103.png)
-
-
-#### Doppelter Achterknoten 
-Der doppelte Achterknoten wird verwendet, wenn man eine leicht zu lösende Schlaufe benötigt. Er kann auch zum Verbinden von zwei Seilen benutzt werden und ist eine Alternative zum Spierenstich.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_19_Doppelendacht_web_daa6c5748b.png)
-
-
-#### Anker 
-Der Ankerknoten wird zur Befestigung einer Schlaufe verwendet. Die Belastung muss an beiden Seilen gleich gross sein. Er kann jedoch seitlich verrutschen. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_20_Anker_web_f03d27a573.png)
-
-
-#### Prusik 
-Mit einer weiteren Wicklung des Ankers erhält man einen Prusikknoten. Damit kann man ein dünneres Seil mit einem Hauptseil verbinden. Der Knoten verrutscht bei Zug nicht zur Seite. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_21_Prusik_web_837286585a.png)
-
-
-#### Maurer 
-Der Maurerknoten ist einfach zu machen und schnell gelöst. Er muss am Seilanfang gemacht werden und hält nur bei gleichmässig starkem Zug. Die Befestigung des Seils mit diesem Knoten eignet sich nur für dicke Gegenstände. Es sollten mindestens sieben Windungen geknüpft werden. Er ist für den Lagerbau gut geeignet, jedoch nicht für sicherheitsrelevante Bauten. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_22_Maurer_web_89fe1b2690.png)
-
-
-#### Spanner 
-Der Spannerknoten wird zum Festbinden von Ladungen oder zum Abspannen von Seilen oder Zeltschnüren an Bauten verwendet. Der zentrale Teil des Spanners bildet der Flaschenknoten. Zum Spannen wird das Seil um das feste Objekt geführt und durch die Schlaufe des Flaschenknotens angezogen. Nach dem Spannen brezelst du den Knoten ab, damit er sich nicht mehr löst. Um den Knoten beim Abbau leichter zu lösen, kannst du durch den Flaschenknoten einen Ast stecken oder den Flaschenknoten mit einem Fuhrmann ersetzen. Um die Seilreibung zu verringern, kannst du die beiden Schlaufen mit einem Karabiner verbinden. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_23_Spanner_web_5848bc638b.png)
-
-
-#### Palstek oder Rettungsschlinge 
-Mit dem Palstek oder der Rettungsschlinge kannst du schnell eine Schlinge machen. Da sich der Knoten nicht zuzieht, lässt er sich schnell wieder lösen. Bei einer Wechselbelastung kann er sich jedoch von selbst lösen. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_24_Rettungsschlinge_web_4f4cdeb506.png)
-
-
-#### Foulardknoten oder Pfadiknopf 
-Der Foulardknoten oder Pfadiknopf wird als Zierknoten im Foulard verwendet. Bei gewissen Pfadis ist es Tradition, dass man sich den Knopf von einem guten Pfadigspändli binden lässt.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_25_Pfadiknopf_web_0671b74876.png)
-
-
-### Bünde 
-Bünde werden zum Verbinden von Kanthölzern, Rundhölzern und Stämmen verwendet. Achte darauf, die Bünde jeweils sorgfältig auszuführen und bei jeder Wicklung festzuziehen. 
-
-
-
-#### Kreisbund oder Gerüstbund
-Der Kreisbund wird verwendet, um zwei Stämme oder Hölzer in einem rechten Winkel zu verbinden. Beginne mit einem Mastwurf am senkrechten Balken unterhalb des Bundes und wickle das Seil mindestens fünfmal um beide Hölzer herum. Wickle das Seil zum Abschluss drei Mal straff um den Bund und schliesse mit einem Samariterknoten ab. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_26_Kreisbund_web_e56d83f1ab.png)
-
-
-#### Kreuzbund 
-Der Kreuzbund wird übers Kreuz und nicht im Kreis gewickelt. Im Vergleich zum Kreisbund hält er weniger gut, dafür müssen die Balken nicht zwingend im rechten Winkel zueinander stehen.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_27_Kreuzbund_web_4d702fd84a.png)
-
-
-#### Parallelbund 
-Der Parallelbund wird verwendet, um zwei nebeneinander liegende Hölzer miteinander zu verbinden. So kannst du Hölzer verlängern oder verstärken. Für eine sichere Verbindung solltest du zwei Parallelbünde mit möglichst grossem Abstand knoten. Der Parallelbund kann auch zum Sichern eines aufgerollten Seils oder mit wenigen Wicklungen zum Befestigen eines Seiles an einer Blachenecke verwendet werden. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568626/thilo/03_28_Paralellbund_web_2b4f8cf95a.png)
-
-
-#### Schiefer Parallelbund 
-Der schiefe Parallelbund eignet sich zum Zusammenbinden von zwei Stangen in einem beliebigen Winkel. Beginne in der Mitte mit einem Mastwurfknoten und arbeite dich auf beide Seiten raus. Wickle das Seil zum Abschluss drei Mal straff um den Bund und schliesse mit einem Samariterknoten ab. 
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_29_Schiefer_Parallelbund_web_146e5bbe9f.png)
-
-
-#### Dreibeinbund 
-Der Dreibeinbund wird verwendet, um drei Stöcke zu einem Dreibein zu verbinden. Durch das Aufstellen und das Verdrehen der Stangen entsteht eine stabile Verbindung.
-
-![width: 350px;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731568627/thilo/03_30_Dreibeinbund_web_ae3d5c0314.png)
-`,section:31,slug:"Knoten-und-Bunde",sorting:3,link:null,slug_with_section:"Seiltechnik-und-Bauten#Knoten-und-Bunde",menu_name:"Knoten und Bünde",locale:"de",published_at:"2024-11-10T11:20:53.524Z",created_at:"2024-11-10T11:19:09.817Z",updated_at:"2024-11-15T06:41:39.890Z",line_height:null,responsible:[],icon:null}],localizations:[]},{id:24,title:"Erste Hilfe",content:`![04-01_Selbstsicherheit_web.png; width: 150px; float: right;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731572591/thilo/04_01_Selbstsicherheit_web_e80bca4211.png)
+`,section:31,slug:"Allgemeines",sorting:1,link:null,slug_with_section:"Seiltechnik-und-Bauten#Allgemeines",menu_name:"Allgemeines",locale:"de",published_at:"2024-11-10T10:59:31.463Z",created_at:"2024-11-10T10:53:19.188Z",updated_at:"2024-11-14T15:24:43.037Z",line_height:null,responsible:[],icon:null}],localizations:[]},{id:24,title:"Erste Hilfe",content:`![04-01_Selbstsicherheit_web.png; width: 150px; float: right;](https://res.cloudinary.com/dsii0i72y/image/upload/v1731572591/thilo/04_01_Selbstsicherheit_web_e80bca4211.png)
 
 Wenn ein Unfall passiert, ist es gut zu wissen, wie du richtig reagierst. Doch die meisten Zwischenfälle sind zum Glück nicht schwerwiegend. Dann reichen meistens ein paar aufmunternde Worte und hie und da ein Pflaster. Am einfachsten minimierst du das Risiko, indem du vorsichtig bist, dich korrekt verhältst und die geltenden Regeln befolgst.
 
