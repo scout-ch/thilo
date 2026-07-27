@@ -103,9 +103,11 @@ if (allSectionsData) {
     <link rel="preload" href={fontRegular} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={fontBold} as="font" type="font/woff2" crossorigin />
 
-    <!-- Preload section icons -->
+    <!-- Preload section icons. crossorigin must match the <img> tags that
+         consume them, or the preload lands in a separate cache partition and
+         the icon is fetched twice -->
     {iconUrls.map(url => (
-      <link rel="preload" href={url} as="image" />
+      <link rel="preload" href={url} as="image" crossorigin="anonymous" />
     ))}
 
     <meta name="theme-color" content="#521d3a" />

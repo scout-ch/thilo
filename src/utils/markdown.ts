@@ -172,7 +172,10 @@ function createRenderer(base: string, locale: string) {
       explicitHeight
     );
 
-    let imgTag = `<img src="${escapeHtml(src)}" alt="${escapeHtml(caption)}" loading="lazy" decoding="async"`;
+    // crossorigin makes the service worker store a real response instead of an
+    // opaque one; opaque entries are padded to several MB each against the
+    // origin's storage quota (see the image caches in astro.config.mjs).
+    let imgTag = `<img src="${escapeHtml(src)}" alt="${escapeHtml(caption)}" loading="lazy" decoding="async" crossorigin="anonymous"`;
     if (width) imgTag += ` width="${width}"`;
     if (height) imgTag += ` height="${height}"`;
     if (title) {

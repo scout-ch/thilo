@@ -4,6 +4,20 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import AstroPWA from '@vite-pwa/astro';
 
+// Image runtime caches carry a version suffix because their entries were once
+// written from no-cors requests: an opaque response can never satisfy the
+// crossorigin request the <img> tags now make, so the old caches have to be
+// abandoned rather than reused. PWAUpdatePrompt deletes the unsuffixed ones.
+const CLOUDINARY_IMAGE_CACHE = 'cloudinary-image-cache-v2';
+const REMOTE_IMAGE_CACHE = 'image-cache-v2';
+
+// One locale's content is roughly 300 images; the headroom covers section
+// icons plus a reader who switches language mid-session.
+const CLOUDINARY_IMAGE_CACHE_MAX_ENTRIES = 600;
+const REMOTE_IMAGE_CACHE_MAX_ENTRIES = 200;
+
+const THIRTY_DAYS_IN_SECONDS = 60 * 60 * 24 * 30;
+
 // react-quiz-component appends its entire stylesheet to <head> at import time
 // with no opt-out; blank the CSS payload so src/styles/quiz.css is the only
 // styling the quiz gets. Throws instead of degrading silently so a package
@@ -75,18 +89,22 @@ export default defineConfig({
               },
             },
           },
-          // Cache Cloudinary images (section content + icons)
+          // Cache Cloudinary images (section content + icons). Status 0 is
+          // deliberately not cacheable here: every image request carries
+          // crossorigin="anonymous", so a status 0 response means the CORS
+          // check failed and the entry would be useless anyway.
           {
             urlPattern: /^https:\/\/res\.cloudinary\.com\/.*/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'cloudinary-image-cache',
+              cacheName: CLOUDINARY_IMAGE_CACHE,
               expiration: {
-                maxEntries: 500,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                maxEntries: CLOUDINARY_IMAGE_CACHE_MAX_ENTRIES,
+                maxAgeSeconds: THIRTY_DAYS_IN_SECONDS,
+                purgeOnQuotaError: true,
               },
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [200],
               },
             },
           },
@@ -95,13 +113,14 @@ export default defineConfig({
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)(?:\?.*)?$/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'image-cache',
+              cacheName: REMOTE_IMAGE_CACHE,
               expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                maxEntries: REMOTE_IMAGE_CACHE_MAX_ENTRIES,
+                maxAgeSeconds: THIRTY_DAYS_IN_SECONDS,
+                purgeOnQuotaError: true,
               },
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [200],
               },
             },
           },
