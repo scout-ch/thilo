@@ -4,20 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import AstroPWA from '@vite-pwa/astro';
 
-// This looks for '--base /your-path/' in your build command line arguments.
-// If it finds it, it uses it. If not, it falls back to your default '/thilo/'.
-const getBaseUrl = () => {
-  const baseIndex = process.argv.indexOf('--base');
-  if (baseIndex !== -1 && process.argv[baseIndex + 1]) {
-    let flagValue = process.argv[baseIndex + 1];
-    // Ensure it starts and ends with a slash (e.g., /thilo/)
-    if (!flagValue.startsWith('/')) flagValue = '/' + flagValue;
-    if (!flagValue.endsWith('/')) flagValue = flagValue + '/';
-    return flagValue;
-  }
-  return '/thilo/'; // Your default fallback
-};
-
 // react-quiz-component appends its entire stylesheet to <head> at import time
 // with no opt-out; blank the CSS payload so src/styles/quiz.css is the only
 // styling the quiz gets. Throws instead of degrading silently so a package
@@ -68,17 +54,11 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         // Strip all query params from precache lookups so ?q=... doesn't break the search page match
         ignoreURLParametersMatching: [/.*/],
-        // Remap the root '/' precache entry to the actual base path so the
-        // SW can serve the homepage when navigating to /thilo/ (not just /)
-        manifestTransforms: [
-          async (entries) => {
-            const base = getBaseUrl();
-            return {
-              manifest: entries.map(e => e.url === '/' ? { ...e, url: base } : e),
-              warnings: [],
-            };
-          },
-        ],
+        // Do not add `manifestTransforms` here: @vite-pwa/astro only installs
+        // its own transform when the key is absent, and that transform is what
+        // maps index.html to `base` and strips `.html` off every other route.
+        // Without it nothing matches `navigateFallback` (which the integration
+        // also derives from `base`) and the SW dies on `non-precached-url`.
         // Cache Strapi API responses (sections, start-page) for offline use
         runtimeCaching: [
           {
