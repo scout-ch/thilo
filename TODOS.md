@@ -64,6 +64,7 @@
 ## not for now
 - [ ] future todos:
   - [ ] auto build 1/day
+  - [ ] PWA version indicator
   - [ ] mobileviewer.io / pixel 7a image viewing off
   - [ ] Own the quiz frontend, replace `react-quiz-component` with a custom component,
         see [docs/GAMIFICATION.md](./docs/GAMIFICATION.md#1-ai-generated-quizzes-per-chapter)
