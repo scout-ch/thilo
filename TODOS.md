@@ -59,12 +59,17 @@
   - [x] Alt text is being consumed as a carrier for caption/CSS directives rather than left as
         accessible description text, compare to the old code's handling and fix
 - [x] Match the GitHub Actions deploy workflow to the old site's, then hand off to James
+- [ ] hide draft chapters
 
 ## not for now
 - [ ] future todos:
+  - [ ] auto build 1/day
+  - [ ] mobileviewer.io / pixel 7a image viewing off
   - [ ] Own the quiz frontend, replace `react-quiz-component` with a custom component,
         see [docs/GAMIFICATION.md](./docs/GAMIFICATION.md#1-ai-generated-quizzes-per-chapter)
   - [ ] LLM-backed question generation, no account / tracking
   - [ ] How to verify and classify generated questions? -> manual verification!
   - [ ] IT Richtlinie
   - [ ] Strapi updates (James), prerequisite for quiz work
+  - [ ] images: click to enlarge / viewer
+  - [ ] continue where you left off - intelligent bookmark
