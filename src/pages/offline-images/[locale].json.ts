@@ -1,5 +1,5 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
-import { getSections } from '../../utils/data';
+import { getSections, getStartPage } from '../../utils/data';
 import { extractImageUrls } from '../../utils/markdown';
 import { supportedLocales } from '../../i18n';
 
@@ -12,8 +12,13 @@ export const getStaticPaths: GetStaticPaths = () =>
   supportedLocales.map(locale => ({ params: { locale } }));
 
 export const GET: APIRoute = async ({ params }) => {
-  const sections = await getSections(params.locale!);
+  const [sections, startPage] = await Promise.all([
+    getSections(params.locale!),
+    getStartPage(params.locale!),
+  ]);
   const urls = new Set<string>();
+
+  for (const url of extractImageUrls(startPage.content)) urls.add(url);
 
   for (const section of sections) {
     if (section.icon?.url) urls.add(section.icon.url);
