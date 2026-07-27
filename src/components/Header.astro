@@ -219,7 +219,7 @@ if (currentSection) {
     window.__headerController?.abort();
     window.__headerController = new AbortController();
     const { signal } = window.__headerController;
-    const base: string = (window as any).__headerBase ?? '';
+    const base = window.__headerBase ?? '';
 
     const sidebarToggleHeader = document.getElementById('sidebar-toggle-header');
     const menuDropdownToggle  = document.getElementById('menu-dropdown-toggle');

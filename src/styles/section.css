@@ -71,9 +71,12 @@ section {
       align-self: center;
     }
     .icon {
-      align-self:center; 
+      align-self:center;
       width: 72px;
       height: 72px;
+      /* Icons range from portrait to landscape; keep the square box the layout
+         reserves and letterbox them inside it instead of stretching */
+      object-fit: contain;
     }
   }
 
