@@ -66,6 +66,13 @@ export default defineConfig({
         // Precache all build output (HTML, JS, CSS, fonts, assets)
         globPatterns: ['**/*.{html,js,css,svg,png,ico,woff,woff2,ttf,json}'],
         cleanupOutdatedCaches: true,
+        // Ship the workbox runtime inside sw.js instead of importScripts-ing a
+        // hashed chunk beside it. On hosts where sw.js can be served stale (a
+        // CDN caching it by extension, which GitHub Pages leaves us no headers
+        // to prevent) that import points at a file the deploy already deleted,
+        // and the whole worker dies on a 404. Inlined, a stale sw.js is merely
+        // stale: it keeps working and updates when the cache entry expires.
+        inlineWorkboxRuntime: true,
         // Take over the page that installed the worker instead of waiting for
         // the next navigation, so a first visit's images already go through
         // the runtime caches below. skipWaiting stays off: updates are still
