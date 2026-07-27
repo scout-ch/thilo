@@ -25,6 +25,12 @@ import type { SimpleSectionsData } from '../utils/sectionMappings';
 import fontRegular from '../styles/fonts/SourceSansPro-Regular.woff2';
 import fontBold from '../styles/fonts/SourceSansPro-Bold.woff2';
 
+// Analytics only run on the production host, so preview deploys (GitHub Pages,
+// local builds) don't count towards the stats
+const PLAUSIBLE_DOMAIN = 'thilo.scouts.ch';
+const siteHostname = new URL(import.meta.env.SITE ?? `https://${PLAUSIBLE_DOMAIN}`).hostname;
+const analyticsEnabled = siteHostname === PLAUSIBLE_DOMAIN;
+
 // Collect the current locale's unique section icon URLs for preloading
 const iconUrls: string[] = [];
 for (const section of allSectionsData?.sections?.[lang] ?? []) {
@@ -88,6 +94,10 @@ if (allSectionsData) {
     <link rel="dns-prefetch" href="https://api.thilo.scouts.ch" />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
+    {analyticsEnabled && (
+      <script is:inline defer data-domain={PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
+    )}
 
     <!-- Preload the two above-the-fold font weights -->
     <link rel="preload" href={fontRegular} as="font" type="font/woff2" crossorigin />
