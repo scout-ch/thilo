@@ -4,7 +4,7 @@
 import { marked } from 'marked';
 import type { Token, Tokens } from 'marked';
 import { slugify } from './slugify';
-import { getCachedImageDimensions } from './imageDimensions';
+import { getCachedImageDimensions, type ImageDimensions } from './imageDimensions';
 
 const BACKEND_URL = import.meta.env.BACKEND_URL || 'https://api.thilo.scouts.ch/';
 
@@ -111,6 +111,25 @@ export function parseAltDirectives(alt: string): { caption: string; styles: Reco
   return { caption: captionParts.join('; '), styles };
 }
 
+// Both attributes must be present for the browser to derive an aspect ratio and
+// reserve the image's box, so a lone width/height directive gets its counterpart
+// computed from the probed intrinsic size instead of being emitted on its own.
+function resolveRenderedSize(
+  intrinsic: ImageDimensions | null,
+  explicitWidth: number | null,
+  explicitHeight: number | null
+): Partial<ImageDimensions> {
+  if (explicitWidth && explicitHeight) return { width: explicitWidth, height: explicitHeight };
+  if (!intrinsic) {
+    return { width: explicitWidth ?? undefined, height: explicitHeight ?? undefined };
+  }
+
+  const aspectRatio = intrinsic.width / intrinsic.height;
+  if (explicitWidth) return { width: explicitWidth, height: Math.round(explicitWidth / aspectRatio) };
+  if (explicitHeight) return { width: Math.round(explicitHeight * aspectRatio), height: explicitHeight };
+  return intrinsic;
+}
+
 function createRenderer(base: string, locale: string) {
   const renderer = new marked.Renderer();
 
@@ -145,12 +164,13 @@ function createRenderer(base: string, locale: string) {
     delete styles.float;
 
     const src = resolveImageSrc(href ?? '');
-    // An explicit width/height directive is an authoring decision and wins;
-    // only fall back to the build-time-probed intrinsic size (reserves space,
-    // no layout shift) when no directive overrides it.
-    const dimensions = (!explicitWidth && !explicitHeight) ? getCachedImageDimensions(src) : null;
-    const width = explicitWidth ?? dimensions?.width;
-    const height = explicitHeight ?? dimensions?.height;
+    // An explicit width/height directive is an authoring decision and wins; the
+    // build-time-probed intrinsic size supplies whatever the directive leaves out
+    const { width, height } = resolveRenderedSize(
+      getCachedImageDimensions(src),
+      explicitWidth,
+      explicitHeight
+    );
 
     let imgTag = `<img src="${escapeHtml(src)}" alt="${escapeHtml(caption)}" loading="lazy" decoding="async"`;
     if (width) imgTag += ` width="${width}"`;
