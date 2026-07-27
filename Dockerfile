@@ -51,28 +51,7 @@ FROM nginx:alpine
 
 COPY --from=builder /srv/app/build /usr/share/nginx/html
 COPY --from=builder /srv/app/entrypoint.sh /entrypoint.sh
-
-# astro.config.mjs sets build.format: 'file', so every route is <route>.html
-# (not <route>/index.html) - no SPA fallback needed, each route is a real file
-RUN echo 'server { \
-    listen 3000; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    \
-    location / { \
-        try_files $uri $uri.html $uri/ =404; \
-    } \
-    error_page 404 /404.html; \
-    \
-    gzip on; \
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript application/manifest+json image/svg+xml; \
-    \
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+COPY [ "./docker/nginx.conf", "/etc/nginx/conf.d/default.conf" ]
 
 RUN chmod +x /entrypoint.sh
 RUN dos2unix /entrypoint.sh
