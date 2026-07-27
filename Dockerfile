@@ -1,5 +1,5 @@
 # Multi-stage build for production
-FROM node:22.2.0-alpine as builder
+FROM node:26.5.0-alpine as builder
 
 ############################################
 # General Docker image configuration
