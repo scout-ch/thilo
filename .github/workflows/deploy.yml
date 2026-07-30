@@ -102,7 +102,7 @@ jobs:
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
           SITE_URL: https://thilo.scouts.ch
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
