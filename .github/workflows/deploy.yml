@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       show_drafts:
-        description: 'Include unpublished sections and chapters in the GitHub Pages build'
+        description: "Include unpublished sections and chapters in the GitHub Pages build"
         type: boolean
         default: false
 
@@ -57,10 +57,11 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
       - name: Build
-        run: pnpm astro build --base ${{ steps.pages.outputs.base_path }}
+        run: pnpm astro build
         env:
           SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/thilo', github.repository_owner) }}
           SHOW_DRAFTS: ${{ inputs.show_drafts }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -101,6 +102,7 @@ jobs:
         env:
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
           SITE_URL: https://thilo.scouts.ch
+          BASE_PATH: /
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:

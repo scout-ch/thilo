@@ -41,13 +41,15 @@ const stripQuizComponentCss = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE_URL || 'https://thilo.scouts.ch',
-  base: '/thilo/',
-  
+  // GitHub Pages serves this repo from a /thilo/ subpath; the production FTP
+  // deploy owns its whole domain root, so it sets BASE_PATH=/ to override.
+  base: process.env.BASE_PATH || '/thilo/',
+
   // This satisfies Workbox precaching perfectly across all i18n routes.
   build: {
     format: 'file',
   },
-  
+
   vite: {
     plugins: [tailwindcss(), stripQuizComponentCss()],
     // Pre-bundled deps skip transform plugins in dev; keep the quiz island
@@ -59,9 +61,9 @@ export default defineConfig({
   integrations: [
     react(),
     AstroPWA({
-      registerType: 'prompt', 
+      registerType: 'prompt',
       injectRegister: 'auto',
-      
+
       workbox: {
         // Precache all build output (HTML, JS, CSS, fonts, assets)
         globPatterns: ['**/*.{html,js,css,svg,png,ico,woff,woff2,ttf,json}'],
@@ -175,7 +177,7 @@ export default defineConfig({
         ]
       },
       devOptions: {
-        enabled: false, 
+        enabled: false,
       },
     }),
   ],
