@@ -1,0 +1,26 @@
+# Astro is built with `build.format: 'file'`, so every route is emitted as
+# `route.html` (e.g. src/pages/[slug].astro -> orientieren.html) instead of
+# `route/index.html`. Apache has no directory to fall into for a request
+# like /orientieren, so without this rewrite it 404s. This maps any
+# extensionless request to its matching .html file if one exists.
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Requests that already resolve to a real file or directory (assets,
+  # index.html, etc.) are served as-is.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise, if adding .html resolves to a real file, serve that
+  # (covers /orientieren, /fr/orientieren, /search, etc.).
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*[^/])$ $1.html [L]
+</IfModule>
+
+# Astro's 404.astro is built to 404.html and re-localizes itself client-side
+# based on the requested path (see src/pages/404.astro).
+ErrorDocument 404 /404.html
