@@ -1,0 +1,273 @@
+/* Complete styling for the quiz island. The stylesheet react-quiz-component
+   injects at runtime is stripped at build time (stripQuizComponentCss in
+   astro.config.mjs), so everything the quiz shows is styled here, on the
+   site's design tokens. Flat look: surfaces are distinguished by background
+   (white cards on the light container, tints for feedback), not borders. */
+
+.quiz-container,
+.quiz-loading {
+  display: block;
+  padding: var(--spacing-md);
+  /* Reserve roughly the hydrated quiz's start-screen height: the island is
+     server-rendered as a small loading stub, and growing on hydration shifts
+     all content below it (breaks anchor scrolling) */
+  min-height: 418px;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-md);
+
+  /* Correct/incorrect palette. Text mixes toward --mix-dark, backgrounds
+     toward --mix-light, like the primary ramp in colors.css, so both flip
+     correctly in dark mode while keeping the text readable on the tint */
+  --color-correct: color-mix(in srgb, #28a745 55%, var(--mix-dark));
+  --color-incorrect: color-mix(in srgb, #dc3545 55%, var(--mix-dark));
+  --background-correct: color-mix(in srgb, #28a745 15%, var(--mix-light));
+  --background-incorrect: color-mix(in srgb, #dc3545 15%, var(--mix-light));
+}
+
+.react-quiz-container {
+  max-width: 40rem;
+
+  h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  h3 {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  img {
+    max-width: 80%;
+    display: block;
+    margin-inline: auto;
+  }
+
+  /* Start screen */
+
+  .quiz-synopsis {
+    margin-block: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* Buttons */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-md);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font: inherit;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+
+    &:enabled:hover {
+      background-color: var(--color-primary-50);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    img {
+      max-width: 250px;
+    }
+  }
+
+  .startQuizBtn,
+  .nextQuestionBtn {
+    background-color: var(--color-primary);
+    color: white;
+
+    &:enabled:hover {
+      background-color: var(--color-primary-hover);
+    }
+  }
+
+  /* Question screen */
+
+  .questionWrapperBody > div:first-child {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .questionWrapper .answerBtn {
+    display: flex;
+    width: 100%;
+    min-width: 52px;
+    justify-content: flex-start;
+    text-align: start;
+    margin-block: var(--spacing-sm) 0;
+  }
+
+  .correct,
+  .incorrect {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .correct {
+    color: var(--color-correct);
+    background-color: var(--background-correct);
+  }
+
+  .incorrect {
+    color: var(--color-incorrect);
+    background-color: var(--background-incorrect);
+  }
+
+  /* Of the answer-type tags only the "pick N" hint carries information */
+  .tag-container *:not(.number-of-selection) {
+    display: none;
+  }
+
+  .tag-container .number-of-selection {
+    display: inline-block;
+    padding: 0 var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    color: var(--color-correct);
+    background-color: var(--background-correct);
+    font-size: var(--font-size-sm);
+    cursor: default;
+  }
+
+  .questionModal .alert {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-block: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+  }
+
+  .explanation {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-block: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    background-color: var(--background-light);
+  }
+
+  .questionBtnContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+  }
+
+  /* Result screen */
+
+  .quiz-result-filter {
+    position: relative;
+    margin-block: var(--spacing-sm) var(--spacing-md);
+    max-width: 16rem;
+
+    .filter-dropdown-select {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-sm);
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: none;
+      border-radius: var(--border-radius-md);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font: inherit;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--color-primary-50);
+      }
+
+      &::after {
+        content: '▾';
+        transition: transform var(--transition-fast);
+      }
+
+      &.open::after {
+        transform: rotate(180deg);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+    }
+
+    .dropdown-options {
+      position: absolute;
+      inset-inline: 0;
+      top: calc(100% + 4px);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--border-radius-md);
+      background-color: var(--background-color);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .dropdown-options-item {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: none;
+      background: none;
+      color: var(--text-color);
+      font: inherit;
+      text-align: start;
+      cursor: pointer;
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--color-primary-50);
+      }
+
+      &.selected {
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .result-answer-wrapper {
+    margin-block: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    background-color: var(--background-color);
+    overflow: hidden;
+
+    h3 {
+      padding: var(--spacing-sm) var(--spacing-md) 0;
+      margin: 0;
+      font-size: var(--font-size-base);
+    }
+
+    .result-answer {
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    /* Review mode: states must stay fully readable on disabled buttons */
+    *:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+
+    /* Neutral answers need a hint of surface on the white card */
+    .answerBtn:not(.correct):not(.incorrect) {
+      background-color: var(--background-light);
+    }
+
+    .tag-container {
+      padding-inline: var(--spacing-md);
+      padding-bottom: var(--spacing-sm);
+    }
+
+    .explanation {
+      margin: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+    }
+  }
+}

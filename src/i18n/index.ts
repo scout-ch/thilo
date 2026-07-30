@@ -1,28 +1,35 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import de from './de.json'
-import fr from './fr.json'
-import it from './it.json'
-import en from './en.json'
-import LanguageDetector from 'i18next-browser-languagedetector';
+// i18n utilities for Astro
+import de from './de.json';
+import fr from './fr.json';
+import it from './it.json';
 
-const resources = {
-  de: de,
-  fr: fr,
-  it: it,
-  en: en
+const translations = {
+  de,
+  fr,
+  it
 } as const;
 
-i18n
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .init({
-    resources,
-    supportedLngs: ['de', 'fr', 'it'],
-    fallbackLng: 'de',
-    interpolation: {
-      escapeValue: false
-    }
-  });
+export type Locale = keyof typeof translations;
 
-export default i18n;
+export function getTranslations(locale: Locale = 'de') {
+  return translations[locale] || translations.de;
+}
+
+export function t(key: string, locale: Locale = 'de'): string {
+  const translation = getTranslations(locale);
+  const keys = key.split('.');
+  
+  let result: unknown = translation.translation;
+  for (const k of keys) {
+    if (result && typeof result === 'object' && k in result) {
+      result = (result as Record<string, unknown>)[k];
+    } else {
+      return key; // Return key if translation not found
+    }
+  }
+
+  return typeof result === 'string' ? result : key;
+}
+
+export const supportedLocales: Locale[] = ['de', 'fr', 'it'];
+export const defaultLocale: Locale = 'de';

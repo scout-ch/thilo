@@ -1,0 +1,58 @@
+---
+import MainLayoutWithToC from '../layouts/MainLayoutWithToC.astro';
+import AstroLink from '../components/AstroLink.astro';
+import { getTranslations, supportedLocales, type Locale } from '../i18n';
+
+const locale = Astro.currentLocale || 'de';
+const t = getTranslations(locale as Locale);
+const notFound = t.translation.notFoundPage;
+const localePrefix = locale === 'de' ? '' : `/${locale}`;
+
+// Translations for the client-side re-localization below
+const allNotFound = Object.fromEntries(
+  supportedLocales.map((l) => [l, getTranslations(l).translation.notFoundPage])
+);
+---
+
+<MainLayoutWithToC title={notFound.title + ' | Thilo'} lang={locale}>
+  <div class="flex flex-col items-center text-center py-16">
+    <h1 class="text-6xl font-bold text-primary mb-6">404</h1>
+    <h2 class="text-2xl font-semibold mb-4" data-nf="title">{notFound.title}</h2>
+    <p class="text-gray-600 mb-8" data-nf="message">{notFound.message}</p>
+    <div class="flex gap-3">
+      <AstroLink
+        href={`${localePrefix}/`}
+        class="px-4 py-2 rounded-md bg-primary text-white hover:opacity-90 transition-opacity"
+        data-nf="home"
+      >{notFound.home}</AstroLink>
+      <AstroLink
+        href={`${localePrefix}/search`}
+        class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+        data-nf="search"
+      >{notFound.search}</AstroLink>
+    </div>
+  </div>
+</MainLayoutWithToC>
+
+<script is:inline define:vars={{ allNotFound, locale }}>
+  // Static hosts serve the German 404.html for every missing URL; if the
+  // requested path had a locale prefix, swap the text and link targets.
+  (function () {
+    const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '';
+    let path = window.location.pathname;
+    if (base && path.startsWith(base)) path = path.slice(base.length);
+    const match = path.match(/^\/(fr|it)(\/|$)/);
+    const target = match ? match[1] : 'de';
+    if (target === locale) return;
+    const notFound = allNotFound[target];
+    if (!notFound) return;
+    document.documentElement.lang = target;
+    const localePrefix = target === 'de' ? '' : '/' + target;
+    document.querySelectorAll('[data-nf]').forEach((el) => {
+      const text = notFound[el.getAttribute('data-nf')];
+      if (text) el.textContent = text;
+    });
+    document.querySelector('a[data-nf="home"]')?.setAttribute('href', base + localePrefix + '/');
+    document.querySelector('a[data-nf="search"]')?.setAttribute('href', base + localePrefix + '/search');
+  })();
+</script>

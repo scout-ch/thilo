@@ -1,0 +1,134 @@
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--color-primary);
+  padding: 0.6em 0;
+}
+
+/* Table of Contents */
+
+/* Sidebar visibility and positioning — JS only toggles .sidebar-open */
+#sidebar-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 50;
+
+  &.sidebar-open {
+    display: flex;
+  }
+
+  /* display:none -> flex can't transition, but a keyframe animation replays
+     each time the element becomes displayed */
+  @media (prefers-reduced-motion: no-preference) {
+    &.sidebar-open {
+      animation: sidebar-slide-in 0.2s ease-out;
+    }
+  }
+}
+
+@keyframes sidebar-slide-in {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes overlay-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (min-width: 1024px) {
+  #sidebar-nav {
+    display: flex;
+    position: sticky;
+    top: 52px;
+    height: calc(100vh - 52px);
+    z-index: auto;
+    left: auto;
+
+    /* A lingering .sidebar-open (mobile toggle, then resize) must not replay
+       the slide-in on desktop */
+    &.sidebar-open {
+      animation: none;
+    }
+  }
+}
+
+#sidebar-nav {
+  .section,
+  .chapters-list a.chapter {
+    position: relative;
+    cursor: pointer;
+
+    /* Extend hit area downward to bridge the space-y gap */
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0 0 -2px 0;
+      pointer-events: auto;
+      z-index: -1;
+    }
+  }
+
+  a {
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &.active {
+      background-color: color-mix(in srgb, var(--section-color, var(--color-primary)) 10%, var(--mix-light) 90%);
+      color: color-mix(in srgb, var(--section-color, var(--color-primary)) 70%, var(--mix-dark) 30%);
+      font-weight: 500;
+    }
+  }
+
+  a:not(.active):hover {
+    background-color: color-mix(in srgb, var(--section-color, var(--color-primary)) 5%, var(--mix-light) 95%);
+    color: color-mix(in srgb, var(--section-color, var(--color-primary)) 70%, var(--mix-dark) 30%);
+  }
+
+  /* Section rows highlight as a whole so the chapter-toggle arrow sits
+     inside the hover/active surface; the link's own background goes
+     transparent to avoid a narrower second highlight. Link navigation and
+     arrow toggling are unaffected. */
+  .section:has(> a.active) {
+    background-color: color-mix(in srgb, var(--section-color, var(--color-primary)) 10%, var(--mix-light) 90%);
+  }
+
+  .section:not(:has(> a.active)):hover {
+    background-color: color-mix(in srgb, var(--section-color, var(--color-primary)) 5%, var(--mix-light) 95%);
+  }
+
+  .section > a.active,
+  .section > a:not(.active):hover {
+    background-color: transparent;
+  }
+}
+
+/* Buttons default to cursor: default; the expand arrow must read as clickable */
+.chapter-toggle {
+  cursor: pointer;
+}
+
+.chapter-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+#sidebar-overlay {
+  backdrop-filter: blur(1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #sidebar-overlay:not(.hidden) {
+    animation: overlay-fade-in 0.2s ease-out;
+  }
+}
+
+/* Read chapters get a half-filled bookmark; the fully filled one stays
+   reserved for the active chapter (see layout.css nav .active rules) */
+#sidebar-nav a.chapter.read:not(.active) .bookmark-fill {
+  opacity: 0.35;
+}

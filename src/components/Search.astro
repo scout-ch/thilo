@@ -1,0 +1,547 @@
+---
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  initialQuery?: string;
+  locale: string;
+  inline?: boolean;
+  hideInput?: boolean;
+  noDropdown?: boolean;
+}
+
+const {
+  initialQuery = '',
+  locale,
+  inline = false,
+  hideInput = false,
+  noDropdown = false,
+} = Astro.props;
+
+const i18n = {
+  keepTyping:   t('searchPage.keepTyping',   locale as Locale),
+  noResults:    t('searchPage.noResults',    locale as Locale),
+  placeholder:  t('searchPage.placeholder', locale as Locale),
+  section:      t('searchPage.section',     locale as Locale),
+  chapter:      t('searchPage.chapter',     locale as Locale),
+  moreResults:  t('searchPage.moreResults', locale as Locale),
+  moreResultsHint: t('searchPage.moreResultsHint', locale as Locale),
+  loading:      t('searchPage.loading',     locale as Locale),
+  enterQuery:   t('searchPage.enterQuery',  locale as Locale),
+  noResultsFor: t('searchPage.noResultsFor', locale as Locale),
+};
+
+const inlineInputClass = `w-full rounded-md pl-4 pr-10 text-base focus:outline-none focus:ring-2 placeholder-opacity-70 bg-white text-gray-700 focus:ring-blue-500 h-8`;
+---
+
+<search-widget
+  data-locale={locale}
+  data-initial-query={initialQuery}
+  data-inline={String(inline)}
+  data-hide-input={String(hideInput)}
+  data-no-dropdown={String(noDropdown)}
+  data-i18n={JSON.stringify(i18n)}
+  class={inline ? 'relative w-full block' : 'block'}
+  style={!inline ? 'scroll-margin-top: 80px' : ''}
+>
+  {!hideInput && inline && (
+    <div class="relative w-full">
+      <input
+        type="text"
+        value={initialQuery}
+        placeholder={i18n.placeholder}
+        aria-label={i18n.placeholder}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="search-dropdown"
+        class={inlineInputClass}
+        autocomplete="off"
+        data-search-input
+      />
+      <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <div data-search-dropdown id="search-dropdown" role="listbox" class="search-dropdown absolute z-50 w-full mt-4 bg-white border border-gray-300 rounded-md shadow-lg max-h-96 overflow-y-auto"></div>
+    </div>
+  )}
+
+  {!hideInput && !inline && (
+    <div class="mb-8 relative">
+      <input
+        type="text"
+        value={initialQuery}
+        placeholder={i18n.placeholder}
+        aria-label={i18n.placeholder}
+        class="w-full pl-4 pr-10 py-3 text-base border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-primary-500 focus:outline-none"
+        autocomplete="off"
+        data-search-input
+      />
+      <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+  )}
+
+  {!inline && (
+    <div id="search-results" data-search-results aria-live="polite"></div>
+  )}
+</search-widget>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+  import { escapeHtml, highlightHtml, scoreResult, getExcerpt, type SearchIndexEntry } from '../utils/search';
+
+  interface SearchResult {
+    type: 'section' | 'chapter';
+    title: string;
+    content: string;
+    url: string;
+    chapterUrl: string;
+    sectionTitle: string;
+    color: string;
+    relevance: number;
+  }
+
+  // The heading/target chunk (if any) whose own text contains the query,
+  // so results can deep-link to the nearest match instead of just the
+  // containing section/chapter; falls back to the chapter/section itself.
+  function matchAnchor(entry: SearchIndexEntry, query: string): string | undefined {
+    const lowerQuery = query.toLowerCase();
+    const chunk = entry.headings?.find(h => h.text.toLowerCase().includes(lowerQuery));
+    return chunk?.anchor ?? entry.chapterSlug;
+  }
+
+  function baseUrl(): string {
+    return document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '';
+  }
+
+  // Carries the query along as ?q= (Header.astro already reads that on any
+  // page to pre-fill its search box) so the landing page can highlight it.
+  function getLocalizedUrl(locale: string, slug: string, hash?: string, query?: string): string {
+    const lp = locale === 'de' ? '' : `/${locale}`;
+    const qs = query ? `?q=${encodeURIComponent(query)}` : '';
+    return `${baseUrl()}${lp}/${slug}${qs}${hash ? '#' + hash : ''}`;
+  }
+
+  // The per-locale index is fetched once per session (module scope survives
+  // view transitions) and is precached by the service worker for offline use.
+  const indexPromises: Record<string, Promise<SearchIndexEntry[]>> = {};
+  function fetchSearchIndex(locale: string): Promise<SearchIndexEntry[]> {
+    indexPromises[locale] ??= fetch(`${baseUrl()}/search-index/${locale}.json`)
+      .then(response => (response.ok ? response.json() : []))
+      .catch(() => {
+        // Allow a later widget instance to retry after a transient failure
+        delete indexPromises[locale];
+        return [];
+      });
+    return indexPromises[locale];
+  }
+
+  // ─── Web Component ───────────────────────────────────────────────────────────
+
+  class SearchWidget extends HTMLElement {
+    private query = '';
+    private entries: SearchIndexEntry[] | null = null;
+    private loadingIndex = false;
+    private results: SearchResult[] = [];
+    private selectedIndex = -1;
+    private showDropdown = false;
+    private locale = 'de';
+    private inline = false;
+    private hideInput = false;
+    private noDropdown = false;
+    private i18n: Record<string, string> = {};
+    private input: HTMLInputElement | null = null;
+    private dropdown: HTMLElement | null = null;
+    private resultsContainer: HTMLElement | null = null;
+    private controller: AbortController | null = null;
+    private readonly MIN = 2;
+
+    connectedCallback() {
+      // The header instance is re-connected on every view transition (it sits
+      // in a transition:persist subtree that gets moved into the new page), so
+      // listeners are scoped to an AbortController to avoid duplicates.
+      this.controller?.abort();
+      this.controller = new AbortController();
+      const { signal } = this.controller;
+
+      this.locale    = this.dataset.locale    ?? 'de';
+      this.inline    = this.dataset.inline    === 'true';
+      this.hideInput = this.dataset.hideInput === 'true';
+      this.i18n      = JSON.parse(this.dataset.i18n     ?? '{}');
+      this.noDropdown= this.inline ? this.#isOnSearchPage() : this.dataset.noDropdown === 'true';
+      // read query from url if not provided via props
+      this.query     = new URLSearchParams(window.location.search).get('q') ?? this.dataset.initialQuery ?? '';
+
+      this.input           = this.querySelector('[data-search-input]');
+      this.dropdown        = this.querySelector('[data-search-dropdown]');
+      this.resultsContainer= this.querySelector('[data-search-results]');
+
+      if (this.input) {
+        this.input.value = this.query;
+        this.input.addEventListener('input',   this.#onInput.bind(this),   { signal });
+        this.input.addEventListener('keydown', this.#onKeyDown.bind(this), { signal });
+        this.input.addEventListener('focus',   this.#onFocus.bind(this),   { signal });
+        this.input.addEventListener('blur',    this.#onBlur.bind(this),    { signal });
+      }
+
+      if (this.hideInput) {
+        window.addEventListener('thilo:search', this.#onSearchEvent.bind(this) as EventListener, { signal });
+      }
+
+      // Keep page-dependent state (dropdown vs full-page mode, query) in sync
+      // after view transitions.
+      document.addEventListener('astro:page-load', this.#onPageLoad.bind(this), { signal });
+
+      this.#search();
+    }
+
+    disconnectedCallback() {
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    #isOnSearchPage(): boolean {
+      const path = window.location.pathname.replace(/\/$/, '');
+      return path.endsWith('/search');
+    }
+
+    #onPageLoad() {
+      if (!this.inline) {
+        // The full-page widget connects during the DOM swap, before the
+        // router has pushed the new URL, so the query it read then can be
+        // stale or empty; re-read it once navigation has settled.
+        this.query = new URLSearchParams(window.location.search).get('q') ?? '';
+        this.#search();
+        return;
+      }
+      const onSearchPage = this.#isOnSearchPage();
+      if (onSearchPage !== this.noDropdown) {
+        this.noDropdown = onSearchPage;
+        this.showDropdown = false;
+        this.selectedIndex = -1;
+        this.dropdown?.classList.remove('open');
+      }
+      if (onSearchPage && this.input) {
+        this.query = new URLSearchParams(window.location.search).get('q') ?? '';
+        this.input.value = this.query;
+        this.#search();
+      }
+    }
+
+    #onSearchEvent(e: CustomEvent<{ query: string }>) {
+      this.query = e.detail.query;
+      this.#search();
+    }
+
+    #onInput(e: Event) {
+      this.query = (e.target as HTMLInputElement).value;
+      this.selectedIndex = -1;
+      this.showDropdown = this.query.trim().length >= 1;
+      this.#search();
+      if (this.noDropdown) {
+        window.dispatchEvent(
+          new CustomEvent('thilo:search', { detail: { query: this.query } })
+        );
+      }
+    }
+
+    #onFocus() {
+      // Start fetching the index before the user finishes typing
+      this.#ensureIndex();
+      if (this.query.trim().length >= 1) {
+        this.showDropdown = true;
+        this.#renderDropdown();
+      }
+    }
+
+    #onBlur(e: FocusEvent) {
+      if (this.dropdown?.contains(e.relatedTarget as Node)) return;
+      setTimeout(() => {
+        this.showDropdown = false;
+        this.selectedIndex = -1;
+        this.#renderDropdown();
+      }, 200);
+    }
+
+    #onKeyDown(e: KeyboardEvent) {
+      const maxIdx = this.inline
+        ? Math.min(this.results.length - 1, 2)
+        : this.results.length - 1;
+
+      if (this.noDropdown || !this.showDropdown || this.results.length === 0) {
+        if (e.key === 'Enter') this.#navigateToSearch();
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          this.selectedIndex = this.selectedIndex < maxIdx ? this.selectedIndex + 1 : this.selectedIndex;
+          this.#renderDropdown();
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          this.selectedIndex = this.selectedIndex > 0 ? this.selectedIndex - 1 : -1;
+          this.#renderDropdown();
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (this.selectedIndex >= 0 && this.selectedIndex < this.results.length) {
+            navigate(this.results[this.selectedIndex].url);
+          } else {
+            this.#navigateToSearch();
+          }
+          break;
+        case 'Escape':
+          this.showDropdown = false;
+          this.selectedIndex = -1;
+          this.#renderDropdown();
+          this.input?.blur();
+          break;
+      }
+    }
+
+    #navigateToSearch() {
+      const base = baseUrl();
+      const searchUrl =
+        this.locale === 'de'
+          ? `${base}/search?q=${encodeURIComponent(this.query)}`
+          : `${base}/${this.locale}/search?q=${encodeURIComponent(this.query)}`;
+      const onSearch =
+        window.location.pathname.endsWith('/search') ||
+        window.location.pathname.endsWith('/search/');
+      if (onSearch) {
+        history.pushState({}, '', searchUrl);
+        window.dispatchEvent(new CustomEvent('thilo:search', { detail: { query: this.query } }));
+      } else {
+        navigate(searchUrl);
+      }
+    }
+
+    #renderAll() {
+      if (!this.noDropdown) this.#renderDropdown();
+      if (!this.inline) this.#renderResults();
+    }
+
+    // Ensure the index is loaded, then re-run the current query. Safe to call
+    // repeatedly: the fetch promise is cached at module scope.
+    #ensureIndex(): Promise<void> | undefined {
+      if (this.entries || this.loadingIndex) return;
+      this.loadingIndex = true;
+      return fetchSearchIndex(this.locale).then(entries => {
+        this.entries = entries;
+        this.loadingIndex = false;
+        if (this.query.trim().length >= this.MIN) {
+          this.#performSearch();
+          this.#renderAll();
+        }
+      });
+    }
+
+    #search() {
+      if (this.query.trim().length >= this.MIN && !this.entries) {
+        this.#ensureIndex();
+      }
+      this.#performSearch();
+      this.#renderAll();
+    }
+
+    #performSearch() {
+      if (this.query.trim().length < this.MIN || !this.entries) {
+        this.results = [];
+        return;
+      }
+      const out: SearchResult[] = [];
+      for (const entry of this.entries) {
+        const relevance = scoreResult(entry.title, entry.text, this.query);
+        if (relevance > 0) {
+          out.push({
+            type: entry.type,
+            title: entry.title,
+            content: entry.text,
+            url: getLocalizedUrl(this.locale, entry.slug, matchAnchor(entry, this.query), this.query),
+            chapterUrl: getLocalizedUrl(this.locale, entry.slug, entry.chapterSlug, this.query),
+            sectionTitle: entry.sectionTitle,
+            color: entry.color ?? '#521d3a',
+            relevance,
+          });
+        }
+      }
+      out.sort((a, b) => b.relevance - a.relevance);
+      this.results = out;
+    }
+
+    // ── Dropdown (inline / header) ──────────────────────────────────────────
+
+    #renderDropdown() {
+      if (!this.dropdown || this.noDropdown) return;
+      if (!this.showDropdown || !this.query.trim()) {
+        this.dropdown.classList.remove('open');
+        this.input?.setAttribute('aria-expanded', 'false');
+        this.input?.removeAttribute('aria-activedescendant');
+        return;
+      }
+      this.dropdown.classList.add('open');
+      this.input?.setAttribute('aria-expanded', 'true');
+
+      const MAX = 3;
+      let html = '';
+
+      if (this.query.trim().length < this.MIN) {
+        html = `<div class="px-4 py-3 text-gray-400 text-sm flex items-center gap-2">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 110 20A10 10 0 0112 2z"/>
+          </svg>
+          ${escapeHtml(this.i18n.keepTyping ?? '')}
+        </div>`;
+      } else if (this.loadingIndex) {
+        html = `<div class="px-4 py-3 text-gray-400 text-sm">${escapeHtml(this.i18n.loading ?? '')}</div>`;
+      } else if (this.results.length === 0) {
+        html = `<div class="px-4 py-3 text-gray-500 text-sm">${escapeHtml(this.i18n.noResults ?? '')}</div>`;
+      } else {
+        html = '<ul role="none">';
+        this.results.slice(0, MAX).forEach((result, idx) => {
+          const color = result.color;
+          const sel = idx === this.selectedIndex;
+          const bg = sel ? `background-color:color-mix(in srgb, ${color} 10%, var(--mix-light, white))` : '';
+          const excerpt = getExcerpt(result.content ?? '', this.query, 100);
+          html += `
+            <li role="none">
+              <button
+                role="option"
+                id="search-option-${idx}"
+                aria-selected="${sel}"
+                class="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors${sel ? ' bg-gray-100' : ''}"
+                style="${bg}"
+                data-result-url="${escapeHtml(result.url)}"
+                tabindex="0"
+              >
+                <div class="flex items-start gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="font-medium text-sm truncate" style="color:color-mix(in srgb, ${color} var(--accent-keep, 100%), var(--mix-dark, black))">
+                      ${highlightHtml(result.title, this.query, `color-mix(in srgb, ${color} 30%, var(--mix-light, white))`)}
+                    </div>
+                    ${excerpt ? `<p class="text-xs text-gray-600 mt-2 line-clamp-2 text-left">${highlightHtml(excerpt, this.query, `color-mix(in srgb, ${color} 30%, var(--mix-light, white))`)}</p>` : ''}
+                    <div class="flex items-center mt-2">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium truncate"
+                        style="background-color:color-mix(in srgb, ${color} 15%, var(--mix-light, white));color:color-mix(in srgb, ${color} var(--accent-keep, 100%), var(--mix-dark, black))">
+                        ${escapeHtml(result.type === 'section' ? (this.i18n.section ?? '') : (this.i18n.chapter ?? ''))}: ${escapeHtml(result.sectionTitle)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </li>`;
+        });
+        if (this.results.length > MAX) {
+          const extra = this.results.length - MAX;
+          const moreText = (this.i18n.moreResults ?? '').replace('{count}', String(extra));
+          html += `
+            <li role="none">
+              <button role="option" aria-selected="false" class="w-full px-4 py-2 text-xs text-gray-500 bg-gray-50 hover:bg-gray-100 text-center transition-colors" data-more-results>
+                ${escapeHtml(moreText)}
+                <span class="hidden sm:inline"> ${escapeHtml(this.i18n.moreResultsHint ?? '')}</span>
+              </button>
+            </li>`;
+        }
+        html += '</ul>';
+      }
+
+      this.dropdown.innerHTML = html;
+      this.dropdown.querySelectorAll<HTMLElement>('[data-result-url]').forEach((btn, idx) => {
+        btn.addEventListener('click',      () => { navigate(btn.dataset.resultUrl!); });
+        btn.addEventListener('mouseenter', () => {
+          this.selectedIndex = idx;
+          this.#updateDropdownSelection();
+        });
+      });
+      this.dropdown.querySelector('[data-more-results]')
+        ?.addEventListener('click', () => this.#navigateToSearch());
+      this.#updateDropdownSelection();
+    }
+
+    #updateDropdownSelection() {
+      this.dropdown?.querySelectorAll<HTMLElement>('[data-result-url]').forEach((btn, idx) => {
+        const selected = idx === this.selectedIndex;
+        const color = this.results[idx]?.color ?? '#521d3a';
+        btn.classList.toggle('bg-gray-100', selected);
+        btn.setAttribute('aria-selected', String(selected));
+        btn.style.backgroundColor = selected ? `color-mix(in srgb, ${color} 10%, var(--mix-light, white))` : '';
+      });
+      if (this.selectedIndex >= 0) {
+        this.input?.setAttribute('aria-activedescendant', `search-option-${this.selectedIndex}`);
+      } else {
+        this.input?.removeAttribute('aria-activedescendant');
+      }
+    }
+
+    // ── Full-page results list ──────────────────────────────────────────────
+
+    #renderResults() {
+      if (!this.resultsContainer) return;
+      let html = '';
+
+      if (this.query.trim().length < this.MIN) {
+        html = `<div class="text-center py-12 text-gray-500"><p>${escapeHtml(this.i18n.enterQuery ?? '')}</p></div>`;
+      } else if (this.loadingIndex) {
+        html = `<div class="text-center py-12 text-gray-500"><p>${escapeHtml(this.i18n.loading ?? '')}</p></div>`;
+      } else if (this.results.length === 0) {
+        html = `<div class="text-center py-8"><p>${escapeHtml((this.i18n.noResultsFor ?? '').replace('{query}', this.query))}</p></div>`;
+      } else {
+        html = '<div class="space-y-4">';
+        for (const result of this.results) {
+          const excerpt = getExcerpt(result.content ?? '', this.query);
+          const color   = result.color;
+          html += `
+            <div class="search-result-card border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
+              data-card-url="${escapeHtml(result.url)}"
+              style="--section-color:${color};border-color:${color};scroll-margin-top:80px">
+              <h3 class="text-lg font-semibold mb-4">
+                <a href="${escapeHtml(result.url)}" class="hover:underline" style="color:color-mix(in srgb, ${color} var(--accent-keep, 100%), var(--mix-dark, black))">
+                  ${highlightHtml(result.title, this.query, `color-mix(in srgb, ${color} 20%, var(--mix-light, white))`)}
+                </a>
+              </h3>
+              <p class="text-gray-700 leading-relaxed mb-6">
+                ${highlightHtml(excerpt, this.query, `color-mix(in srgb, ${color} 20%, var(--mix-light, white))`)}
+              </p>
+              <div class="flex items-center text-sm">
+                <a href="${escapeHtml(result.chapterUrl)}" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium hover:underline"
+                  style="background-color:color-mix(in srgb, ${color} 20%, var(--mix-light, white));color:color-mix(in srgb, ${color} var(--accent-keep, 100%), var(--mix-dark, black))">
+                  ${escapeHtml(result.type === 'section' ? (this.i18n.section ?? '') : (this.i18n.chapter ?? ''))}: ${escapeHtml(result.sectionTitle)}
+                </a>
+              </div>
+            </div>`;
+        }
+        html += '</div>';
+      }
+
+      this.resultsContainer.innerHTML = html;
+      // The card itself navigates to the exact match; the pill inside it is
+      // a real link to the containing chapter, so its own click must not
+      // also trigger the card's handler.
+      this.resultsContainer.querySelectorAll<HTMLElement>('[data-card-url]').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).closest('a')) return;
+          navigate(card.dataset.cardUrl!);
+        });
+      });
+    }
+  }
+
+  customElements.define('search-widget', SearchWidget);
+</script>
+
+<style is:global>
+  .search-dropdown {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .search-dropdown.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+</style>

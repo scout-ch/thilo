@@ -1,0 +1,57 @@
+@media print {
+  /* Hide navigation chrome */
+  header,
+  #sidebar-nav,
+  #sidebar-overlay,
+  footer,
+  #back-to-top,
+  search-widget {
+    display: none !important;
+  }
+
+  /* Full-width content */
+  body,
+  main,
+  .content {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Readable typography */
+  html {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    color: #000;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Avoid breaking inside code blocks and figures */
+  pre, blockquote, figure, img {
+    page-break-inside: avoid;
+  }
+
+  /* Show URLs for links */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  /* Don't annotate internal hash links */
+  a[href^="#"]::after {
+    content: "";
+  }
+}

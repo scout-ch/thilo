@@ -2,16 +2,20 @@
   "translation": {
     "target": {
       "role": {
-        "LL": "Responsabile del Magazzino",
-        "C": "Allenatore",
-        "AL": "Responsabile di Reparto"
+        "LL": "Capo campo",
+        "C": "Coach",
+        "AL": "Capo sezione"
       }
     },
     "header": {
-      "imprint": "Impronta",
-      "theme_auto_name": "Sync",
-      "theme_light_name": "Leggera",
-      "theme_dark_name": "Buia"
+      "imprint": "Colophon",
+      "language": "Lingua",
+      "theme": "Tema",
+      "theme_auto_name": "Auto",
+      "theme_light_name": "Chiaro",
+      "theme_dark_name": "Scuro",
+      "openMenu": "Apri il menu",
+      "toggleSidebar": "Mostra l'indice"
     },
     "homePage": {
       "title": "Home"
@@ -19,28 +23,65 @@
     "startPage": {
       "menuName": ""
     },
-    "sidebar": {
-      "home": "Home"
-    },
     "searchPage": {
-      "tooltip": "Cercare",
-      "searchPlaceholder": "Cerca nei Capitoli",
-      "noResults": "Nessun risultato trovato. Prova con un termine di ricerca diverso.",
-      "noKeyword": "Inserisci un termine di ricerca di almeno {{amountOfCharacters}} caratteri per avviare la ricerca."
+      "title": "Cercare",
+      "description": "Cerca in tutti i contenuti",
+      "placeholder": "Inserisci termine di ricerca...",
+      "noResults": "Nessun risultato trovato",
+      "results": "Risultati",
+      "keepTyping": "Inserisci almeno 2 caratteri…",
+      "section": "Sezione",
+      "chapter": "Capitolo",
+      "loading": "Caricamento dati di ricerca...",
+      "enterQuery": "Inserisci un termine di ricerca",
+      "noResultsFor": "Nessun risultato per \"{query}\"",
+      "moreResults": "+{count} altri risultati",
+      "moreResultsHint": "– Premi Invio per tutti i risultati"
     },
-    "languagePicker": {
-      "tooltip": "Seleziona Lingua"
-    },
-    "scrollButton": {
-      "tooltip": "Scorrere Verso l'Alto"
+    "section": {
+      "backToTop": "Torna in alto",
+      "targetGroup": "Gruppo target",
+      "skipToContent": "Vai al contenuto"
     },
     "footer": {
-      "prevButtonText": "Capitolo Precedente",
-      "nextButtonText": "Prossimo Capitolo",
-      "homeButtonText": "Ritorno all' Inizio"
+      "copyright": "© 2023 Movimento Scout Svizzero",
+      "prevButton": "Capitolo precedente",
+      "nextButton": "Capitolo successivo",
+      "homeButton": "Home",
+      "backToBeginning": "Torna all'inizio",
+      "lastChapter": "Ultimo capitolo",
+      "firstChapter": "Primo capitolo"
     },
-    "sideBarNav": {
-      "title": "Thilo Online"
+    "language": {
+      "de": "Deutsch",
+      "fr": "Français",
+      "it": "Italiano",
+      "en": "English"
+    },
+    "notFoundPage": {
+      "title": "Pagina non trovata",
+      "message": "Purtroppo la pagina richiesta non è stata trovata.",
+      "home": "Alla pagina iniziale",
+      "search": "Ricerca"
+    },
+    "imprintPage": {
+      "loadError": "Non è stato possibile caricare l'impressum."
+    },
+    "pwa": {
+      "updateAvailable": "È disponibile una nuova versione.",
+      "reload": "Aggiorna",
+      "later": "Più tardi",
+      "offlineReady": "Thilo è ora disponibile offline."
+    },
+    "quiz": {
+      "loading": "Caricamento del quiz…",
+      "error": "Impossibile caricare il quiz",
+      "empty": "Nessun dato del quiz disponibile"
+    },
+    "toc": {
+      "title": "Indice",
+      "close": "Chiudi l'indice",
+      "toggleChapters": "Mostra o nascondi i capitoli"
     }
   }
 }

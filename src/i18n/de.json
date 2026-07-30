@@ -9,9 +9,13 @@
     },
     "header": {
       "imprint": "Impressum",
-      "theme_auto_name": "Sync",
+      "language": "Sprache",
+      "theme": "Theme",
+      "theme_auto_name": "Auto",
       "theme_light_name": "Hell",
-      "theme_dark_name": "Dunkel"
+      "theme_dark_name": "Dunkel",
+      "openMenu": "Menü öffnen",
+      "toggleSidebar": "Inhaltsverzeichnis anzeigen"
     },
     "homePage": {
       "title": "Home"
@@ -19,33 +23,65 @@
     "startPage": {
       "menuName": ""
     },
-    "sidebar": {
-      "home": "Home"
-    },
     "searchPage": {
       "title": "Suchen",
-      "tooltip": "Suchen",
-      "searchPlaceholder": "Kapitel durchsuchen",
-      "noResults": "Keine Resultate gefunden. Bitte versuche es mit einem anderen Suchbegriff.",
-      "noKeyword": "Bitte gib einen Suchbegriff mit mindestens {{amountOfCharacters}} Zeichen ein, um die Suche zu starten. "
+      "description": "Durchsuche alle Inhalte",
+      "placeholder": "Suchbegriff eingeben...",
+      "noResults": "Keine Ergebnisse gefunden",
+      "results": "Ergebnisse",
+      "keepTyping": "Bitte mindestens 2 Zeichen eingeben…",
+      "section": "Bereich",
+      "chapter": "Kapitel",
+      "loading": "Lade Suchdaten...",
+      "enterQuery": "Geben Sie einen Suchbegriff ein",
+      "noResultsFor": "Keine Ergebnisse für \"{query}\" gefunden",
+      "moreResults": "+{count} weitere Ergebnisse",
+      "moreResultsHint": "– Enter drücken für alle Ergebnisse"
     },
-    "languagePicker": {
-      "tooltip": "Sprache wählen"
-    },
-    "scrollButton": {
-      "tooltip": "Nach Oben Scrollen"
+    "section": {
+      "backToTop": "Nach oben",
+      "targetGroup": "Zielgruppe",
+      "skipToContent": "Zum Inhalt springen"
     },
     "footer": {
-      "prevButtonText": "Vorheriges Kapitel",
-      "nextButtonText": "Nächstes Kapitel",
-      "homeButtonText": "Zurück zum Start"
+      "copyright": "© 2023 Pfadibewegung Schweiz",
+      "prevButton": "Vorheriges Kapitel",
+      "nextButton": "Nächstes Kapitel",
+      "homeButton": "Zur Übersicht",
+      "backToBeginning": "Zurück zum Anfang",
+      "lastChapter": "Letztes Kapitel",
+      "firstChapter": "Erstes Kapitel"
     },
-    "sideBarNav": {
-      "title": "Thilo Online"
+    "language": {
+      "de": "Deutsch",
+      "fr": "Français",
+      "it": "Italiano",
+      "en": "English"
     },
-    "noMatch": {
+    "notFoundPage": {
       "title": "Seite nicht gefunden",
-      "body": "Die Seite unter diesem Link exisitert nicht (mehr)."
+      "message": "Die gesuchte Seite konnte leider nicht gefunden werden.",
+      "home": "Zur Startseite",
+      "search": "Suche"
+    },
+    "imprintPage": {
+      "loadError": "Das Impressum konnte nicht geladen werden."
+    },
+    "pwa": {
+      "updateAvailable": "Eine neue Version ist verfügbar.",
+      "reload": "Aktualisieren",
+      "later": "Später",
+      "offlineReady": "Thilo ist jetzt offline verfügbar."
+    },
+    "quiz": {
+      "loading": "Quiz wird geladen…",
+      "error": "Quiz konnte nicht geladen werden",
+      "empty": "Keine Quizdaten verfügbar"
+    },
+    "toc": {
+      "title": "Inhaltsverzeichnis",
+      "close": "Inhaltsverzeichnis schliessen",
+      "toggleChapters": "Kapitel ein- oder ausklappen"
     }
   }
 }

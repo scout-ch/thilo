@@ -1,5 +1,7 @@
-# Multi-stage build for production
-FROM node:22.2.0-alpine as builder
+# Multi-stage build: Astro's SSG output is pure static files, so production
+# serves them via nginx (gzip + cached assets) instead of Astro's Node
+# preview server.
+FROM node:26-alpine AS builder
 
 ############################################
 # General Docker image configuration
@@ -9,14 +11,19 @@ WORKDIR /srv/app
 ############################################
 # System Dependencies
 ############################################
-RUN apk update && apk add --no-cache gettext dos2unix
+RUN apk update && apk add --no-cache dos2unix
+
+############################################
+# Install pnpm
+############################################
+RUN npm install -g pnpm@10
 
 ############################################
 # None root user
 ############################################
 RUN chown -R node:node /srv/app
 USER node
-COPY --chown=node:node [ "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json", "index.html", "404.html", "./"]
+COPY --chown=node:node [ "package.json", "pnpm-lock.yaml", "astro.config.mjs", "tsconfig.json", "./"]
 COPY --chown=node:node [ "./docker/entrypoint.sh", "./entrypoint.sh"]
 COPY --chown=node:node [ "public", "public"]
 COPY --chown=node:node [ "src", "src"]
@@ -24,14 +31,15 @@ COPY --chown=node:node [ "src", "src"]
 ############################################
 # Building Application
 ############################################
-ENV REACT_APP_PUBLIC_URL=/
-RUN sed -i "s|base: '/thilo/',|base: '/',|g" vite.config.ts
-RUN npm install
-RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+ARG BACKEND_URL=https://api.thilo.scouts.ch/
+ARG SITE_URL=https://thilo.scouts.ch
+ARG SHOW_DRAFTS=false
+ENV BACKEND_URL=$BACKEND_URL
+ENV SITE_URL=$SITE_URL
+ENV SHOW_DRAFTS=$SHOW_DRAFTS
 
-# Create backend export
-RUN node src/scripts/strapiToJson.js
-RUN mv exports build/exports
+RUN pnpm install --frozen-lockfile
+RUN pnpm build
 
 RUN chmod +x entrypoint.sh
 RUN dos2unix entrypoint.sh
@@ -41,37 +49,10 @@ RUN dos2unix entrypoint.sh
 ############################################
 FROM nginx:alpine
 
-# Copy built application
 COPY --from=builder /srv/app/build /usr/share/nginx/html
 COPY --from=builder /srv/app/entrypoint.sh /entrypoint.sh
+COPY [ "./docker/nginx.conf", "/etc/nginx/conf.d/default.conf" ]
 
-# Create nginx config for SPA routing
-RUN echo 'server { \
-    listen 3000; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    \
-    # Handle client-side routing \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-    \
-    # Gzip compression \
-    gzip on; \
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript; \
-    \
-    # Cache static assets \
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
-
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf.dpkg-old 2>/dev/null || true
-
-# Make entrypoint executable
 RUN chmod +x /entrypoint.sh
 RUN dos2unix /entrypoint.sh
 

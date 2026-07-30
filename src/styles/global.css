@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import './variables.css';
+@import './colors.css';
+@import './dark.css';
+@import './layout.css';
+@import './quiz.css';
+@import './table.css';
+@import './print.css';
+@import './fonts/fonts.css';
+
+* {
+  box-sizing: border-box;
+}
+
+/* Native form controls and scrollbars follow the active theme; also lets
+   extensions like Dark Reader detect built-in dark support */
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  /* position: sticky on header causes scroll on typing with scroll-padding-top, 
+  known bug */
+  /* scroll-padding-top: 52px; */
+  [id] {
+    scroll-margin-top: 52px;
+  }
+
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+}
+
+/* Section-colored text selection. Uses the same tint/text-color pairing as
+   every other section-colored surface (colors.css): --accent-keep and
+   --mix-light/--mix-dark flip together in dark mode (variables.css), so the
+   text color inverts automatically instead of needing a manual dark check. */
+::selection {
+  background-color: color-mix(in srgb, var(--color-primary) 30%, var(--mix-light, white));
+  /* color: color-mix(in srgb, var(--color-primary) var(--accent-keep, 100%), var(--mix-dark, black)); */
+}
+
+/* Remove the 300ms tap delay and mobile tap flash for a native-app feel */
+a,
+button,
+input,
+[role='button'] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}

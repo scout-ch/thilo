@@ -1,0 +1,32 @@
+---
+import SectionPage from '../components/SectionPage.astro';
+import { getStartPage } from '../utils/data';
+import type { SectionT } from '../utils/data';
+
+const locale = Astro.currentLocale || 'de';
+
+// Fetch start page content from Strapi - let it fail if it doesn't exist
+const startPage = await getStartPage(locale);
+
+// Convert startPage to section-like object for SectionPage component
+const homepageSection: SectionT = {
+  id: startPage.id,
+  title: startPage.title,
+  content: startPage.content,
+  sorting: 0,
+  menu_name: startPage.menu_name,
+  locale: startPage.locale,
+  color_primary: '#521d3a',
+  chapters: []
+};
+
+
+// Re-exported by the /[lang]/ pages; 'de' is unprefixed, so only fr/it get a lang param
+export async function getStaticPaths() {
+  const locales = ['fr', 'it'];
+  return locales.map(lang => ({ params: { lang } }));
+}
+
+---
+
+<SectionPage section={homepageSection} locale={locale} isIndex />

@@ -1,0 +1,23 @@
+---
+import MainLayoutWithToC from '../layouts/MainLayoutWithToC.astro';
+import Section from './Section.astro';
+import type { SectionT } from "../utils/data";
+
+
+interface Props {
+  section: SectionT;
+  locale: string;
+  isIndex?: boolean;
+}
+
+const { section, locale, isIndex = false } = Astro.props;
+
+if (!section) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return Astro.redirect(locale === 'de' ? `${base}/404` : `${base}/${locale}/404`);
+}
+---
+
+<MainLayoutWithToC title={isIndex ? section.title : section.title + ' | Thilo'} lang={locale} currentSection={section}>
+  <Section section={section} lang={locale} isIndex={isIndex} />
+</MainLayoutWithToC>

@@ -1,0 +1,30 @@
+---
+/**
+ * Astro Link component that automatically prepends the base path for internal links.
+ * Handles sites hosted on subpages like /thilo/
+ * 
+ * @example
+ * <AstroLink href="/search">Search</AstroLink>
+ * // If hosted at example.com/thilo/, renders: <a href="/thilo/search">Search</a>
+ */
+
+export interface Props {
+  href: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { href, class: className, ...rest } = Astro.props;
+
+// Use Astro's built-in BASE_URL (set by --base flag or astro.config base option)
+// Always has a trailing slash, e.g. "/" or "/thilo/"
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // remove trailing slash for clean joining
+
+// Only prepend base path for internal links (starting with /)
+const isInternalLink = href.startsWith('/');
+const fullHref = isInternalLink ? `${base}${href}` : href;
+---
+
+<a href={fullHref} class={className} {...rest}>
+  <slot />
+</a>

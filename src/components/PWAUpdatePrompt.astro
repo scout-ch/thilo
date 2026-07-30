@@ -1,0 +1,235 @@
+---
+// PWA update notification - shown when a new service worker is waiting
+import { getTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'de' } = Astro.props;
+const pwaText = getTranslations(locale as Locale).translation.pwa;
+---
+
+<div
+  id="pwa-update-toast"
+  class="pwa-toast"
+  aria-live="polite"
+  aria-atomic="true"
+  data-offline-ready-text={pwaText.offlineReady}
+  data-update-text={pwaText.updateAvailable}
+  hidden
+>
+  <p id="pwa-update-message">{pwaText.updateAvailable}</p>
+  <div class="pwa-toast-buttons">
+    <button id="pwa-update-reload" class="pwa-btn pwa-btn-primary">{pwaText.reload}</button>
+    <button id="pwa-update-dismiss" class="pwa-btn pwa-btn-ghost">{pwaText.later}</button>
+  </div>
+</div>
+
+<style>
+  .pwa-toast {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary, #521d3a);
+    color: #fff;
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    z-index: var(--z-index-modal);
+    max-width: calc(100vw - 2 * var(--spacing-md));
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+
+    &[hidden] {
+      display: none;
+    }
+
+    p {
+      margin: 0;
+      line-height: var(--line-height-normal);
+    }
+
+    .pwa-toast-buttons {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-shrink: 0;
+
+      /* display: flex would otherwise beat the UA's [hidden] rule, showing
+         the buttons on the button-less offline-ready toast */
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    .pwa-btn {
+      border: none;
+      border-radius: var(--border-radius-lg);
+      padding: 0.4rem var(--spacing-md);
+      font-family: var(--font-family);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: opacity var(--transition-fast), background-color var(--transition-fast);
+
+      &.pwa-btn-primary {
+        background-color: #fff;
+        color: var(--color-primary, #521d3a);
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      &.pwa-btn-ghost {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      align-items: flex-start;
+      bottom: var(--spacing-md);
+      gap: var(--spacing-sm);
+    }
+  }
+</style>
+
+<script>
+  import { registerSW } from 'virtual:pwa-register';
+  import { scheduleImageCacheWarming } from '../utils/warmImageCache';
+
+  const UPDATE_CHECK_INTERVAL = 15 * 60 * 1000;
+  const OFFLINE_READY_TOAST_DURATION = 4000;
+  // Shared across page loads and tabs, so navigating or reopening the site
+  // does not restart the window
+  const LAST_UPDATE_CHECK_KEY = 'thilo-sw-last-update-check';
+
+  // Runtime caches filled before the <img> tags requested images with CORS.
+  // Their opaque entries can never satisfy a crossorigin request and each one
+  // costs several MB of storage quota, so they are dead weight (see the
+  // versioned cache names in astro.config.mjs).
+  const LEGACY_IMAGE_CACHES = ['cloudinary-image-cache', 'image-cache'];
+
+  type ToastState = 'update-available' | 'offline-ready';
+
+  // This module runs once per full page load, but the ClientRouter replaces the
+  // toast element on every client-side navigation. Nothing may hold on to those
+  // nodes: the pending state lives here and is re-rendered into whatever
+  // markup is current.
+  let pendingState: ToastState | null = null;
+  let offlineReadyTimeout: number | undefined;
+  let registration: ServiceWorkerRegistration | undefined;
+
+  function showToast(state: ToastState) {
+    const toast = document.getElementById('pwa-update-toast');
+    const message = document.getElementById('pwa-update-message');
+    const buttons = toast?.querySelector<HTMLElement>('.pwa-toast-buttons');
+    if (!toast || !message || !buttons) return;
+
+    const isUpdate = state === 'update-available';
+    message.textContent =
+      (isUpdate ? toast.dataset.updateText : toast.dataset.offlineReadyText) ?? '';
+    buttons.hidden = !isUpdate;
+    toast.hidden = false;
+  }
+
+  function hideToast() {
+    pendingState = null;
+    const toast = document.getElementById('pwa-update-toast');
+    if (toast) toast.hidden = true;
+  }
+
+  function lastUpdateCheck(): number {
+    try {
+      return Number(localStorage.getItem(LAST_UPDATE_CHECK_KEY)) || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function rememberUpdateCheck() {
+    try {
+      localStorage.setItem(LAST_UPDATE_CHECK_KEY, String(Date.now()));
+    } catch {
+      // Storage denied: the interval below still paces the checks within a page
+    }
+  }
+
+  // Registering already makes the browser fetch and compare sw.js, so every
+  // page load is a check in itself and a reload is always one. These are the
+  // extra checks on top of that, and they wait out the full window.
+  function checkForUpdate() {
+    if (!registration) return;
+    if (Date.now() - lastUpdateCheck() < UPDATE_CHECK_INTERVAL) return;
+    rememberUpdateCheck();
+    registration.update().catch(() => {});
+  }
+
+  async function deleteLegacyImageCaches() {
+    if (!('caches' in window)) return;
+    await Promise.all(LEGACY_IMAGE_CACHES.map(name => caches.delete(name)));
+  }
+
+  // registerSW returns an updateSW function; the onNeedRefresh callback fires
+  // when a new service worker is installed and waiting to activate.
+  const updateSW = registerSW({
+    // Register without waiting for the window load event, so the worker can
+    // claim this page early enough to route its own images through the cache
+    immediate: true,
+    onRegisteredSW(_swUrl: string, swRegistration?: ServiceWorkerRegistration) {
+      if (!swRegistration) return;
+      registration = swRegistration;
+      // register() just checked; start the window from here
+      rememberUpdateCheck();
+      // The precached content only refreshes when the service worker sees a
+      // new build, so poll periodically and when the tab regains focus to
+      // surface content updates without waiting for a manual reload.
+      setInterval(checkForUpdate, UPDATE_CHECK_INTERVAL);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') checkForUpdate();
+      });
+      void deleteLegacyImageCaches();
+      scheduleImageCacheWarming();
+    },
+    onNeedRefresh() {
+      pendingState = 'update-available';
+      showToast('update-available');
+    },
+    onOfflineReady() {
+      pendingState = 'offline-ready';
+      showToast('offline-ready');
+      clearTimeout(offlineReadyTimeout);
+      offlineReadyTimeout = window.setTimeout(hideToast, OFFLINE_READY_TOAST_DURATION);
+    },
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    if (target?.closest('#pwa-update-reload')) {
+      hideToast();
+      updateSW(true); // Skip waiting + reload
+    } else if (target?.closest('#pwa-update-dismiss')) {
+      hideToast();
+    }
+  });
+
+  // Client-side navigation swaps in a fresh toast element and never reaches
+  // the browser's own service worker byte-check, since no page is loaded
+  document.addEventListener('astro:after-swap', () => {
+    if (pendingState === 'update-available') showToast(pendingState);
+    checkForUpdate();
+  });
+</script>

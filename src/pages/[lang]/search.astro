@@ -1,0 +1,14 @@
+---
+import MainLayoutWithToC from '../../layouts/MainLayoutWithToC.astro';
+import { getTranslations, type Locale } from '../../i18n';
+import SearchComponent from '../../components/Search.astro';
+
+export { getStaticPaths } from "../index.astro";
+
+const locale = Astro.currentLocale || 'de';
+const t = getTranslations(locale as Locale);
+---
+
+<MainLayoutWithToC title={t.translation.searchPage.title + " | Thilo"} lang={locale} currentSection={null} useFooter={false}>
+  <SearchComponent locale={locale} hideInput={true} />
+</MainLayoutWithToC>

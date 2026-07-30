@@ -1,0 +1,101 @@
+section {
+  /* One scale for every heading level: size steps down monotonically,
+     color and weight stay constant. Levels are set here even where only a
+     more specific selector below actually renders them (h1/h2 are chrome-
+     only in practice) so a stray in-content heading never falls back to the
+     browser-reset "font-size/weight: inherit" Tailwind's preflight applies. */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary);
+    text-wrap: balance;
+    font-weight: bold;
+  }
+  h1 { font-size: 32px; }
+  h2 { font-size: 24px; }
+  h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  h4 { font-size: 18px; }
+  h5 { font-size: 16px; }
+  h6 {
+    font-size: 16px;
+    font-style: italic;
+  }
+  img {
+    max-width: 100%;
+    /* Keep the width/height attributes' aspect ratio when max-width kicks in */
+    height: auto;
+  }
+  
+  ul, ol {
+    list-style: revert;
+    padding-left: 1.5em;
+  }
+
+  li::marker {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  p {
+    text-align: justify;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  address, article, aside, blockquote, canvas, 
+  dd, div, dl, dt, fieldset, figcaption, figure, footer, form, 
+  ol, p, pre, section, table, tfoot, ul, video {
+    margin-bottom: 8px;
+  }
+  p + ul, p + ol {
+    margin-top: -4px;
+  }
+  strong {
+    color: var(--color-primary);
+  }
+  .search-term-highlight {
+    background-color: color-mix(in srgb, var(--color-primary) 30%, var(--mix-light, white));
+    border-radius: 0.25rem;
+    padding: 0 0.125rem;
+  }
+  .section-title {
+    display: flex;
+    h1 {
+      color: white;
+      display: inline-block;
+      border-radius: 6px;
+      flex-grow: 1;
+      height: fit-content;
+      align-self: center;
+    }
+    .icon {
+      align-self:center;
+      width: 72px;
+      height: 72px;
+      /* Icons range from portrait to landscape; keep the square box the layout
+         reserves and letterbox them inside it instead of stretching */
+      object-fit: contain;
+    }
+  }
+
+  .chapter {
+    padding-top: 20px;
+    clear: both;
+
+    h2 {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      margin-top: 8px;
+    }
+    h4 {
+      margin-top: 4px;
+    }
+  }
+}

@@ -1,0 +1,410 @@
+---
+export interface Props {
+  title: string;
+  lang?: string;
+  allSectionsData?: SimpleSectionsData;
+  description?: string;
+  canonicalUrl?: string;
+  hreflangUrls?: Array<{ hreflang: string; url: string }>;
+  structuredData?: object[];
+}
+
+const { title, lang = 'de', allSectionsData, description, canonicalUrl, hreflangUrls, structuredData } = Astro.props;
+
+const OG_LOCALES: Record<string, string> = { de: 'de_CH', fr: 'fr_CH', it: 'it_CH' };
+const ogLocale = OG_LOCALES[lang] ?? 'de_CH';
+const ogLocaleAlternates = Object.entries(OG_LOCALES)
+  .filter(([locale]) => locale !== lang)
+  .map(([, value]) => value);
+
+import '../styles/global.css';
+import PWAUpdatePrompt from '../components/PWAUpdatePrompt.astro';
+import { ClientRouter } from 'astro:transitions';
+import { absoluteUrl } from '../utils/urls';
+import type { SimpleSectionsData } from '../utils/sectionMappings';
+import fontRegular from '../styles/fonts/SourceSansPro-Regular.woff2';
+import fontBold from '../styles/fonts/SourceSansPro-Bold.woff2';
+
+// Analytics only run on the production host, so preview deploys (GitHub Pages,
+// local builds) don't count towards the stats
+const PLAUSIBLE_DOMAIN = 'thilo.scouts.ch';
+const siteHostname = new URL(import.meta.env.SITE ?? `https://${PLAUSIBLE_DOMAIN}`).hostname;
+const analyticsEnabled = siteHostname === PLAUSIBLE_DOMAIN;
+
+// Collect the current locale's unique section icon URLs for preloading
+const iconUrls: string[] = [];
+for (const section of allSectionsData?.sections?.[lang] ?? []) {
+  if (section.icon?.url && !iconUrls.includes(section.icon.url)) {
+    iconUrls.push(section.icon.url);
+  }
+}
+
+// The all-sections meta only feeds the client-side language switcher, so
+// strip it down to the fields that lookup needs (see languageSwitcher.ts)
+let allSectionsMeta: string | null = null;
+if (allSectionsData) {
+  const sections = Object.fromEntries(
+    Object.entries(allSectionsData.sections).map(([locale, list]) => [
+      locale,
+      list.map(section => ({
+        id: section.id,
+        slug: section.slug,
+        chapters: (section.chapters ?? []).map(chapter => ({
+          slug: chapter.slug,
+          sorting: chapter.sorting,
+        })),
+      })),
+    ])
+  );
+  const mappings = Object.fromEntries(
+    Object.entries(allSectionsData.sectionMappings).map(([id, localeMap]) => [
+      id,
+      Object.fromEntries(
+        Object.entries(localeMap).map(([locale, entry]) => [
+          locale,
+          { slug: entry.slug, url: entry.url },
+        ])
+      ),
+    ])
+  );
+  allSectionsMeta = JSON.stringify({ sections, mappings });
+}
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      // Apply the stored theme before first paint to avoid a light flash
+      (function () {
+        try {
+          var theme = localStorage.getItem('thilo-theme') || 'sync';
+          var dark = theme === 'dark' ||
+            (theme === 'sync' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) { /* storage unavailable: stay light */ }
+      })();
+    </script>
+
+    <!-- Preconnect to API and CDN -->
+    <link rel="preconnect" href="https://api.thilo.scouts.ch" crossorigin />
+    <link rel="dns-prefetch" href="https://api.thilo.scouts.ch" />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
+    {analyticsEnabled && (
+      <script is:inline defer data-domain={PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
+    )}
+
+    <!-- Preload the two above-the-fold font weights -->
+    <link rel="preload" href={fontRegular} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fontBold} as="font" type="font/woff2" crossorigin />
+
+    <!-- Preload section icons. crossorigin must match the <img> tags that
+         consume them, or the preload lands in a separate cache partition and
+         the icon is fetched twice -->
+    {iconUrls.map(url => (
+      <link rel="preload" href={url} as="image" crossorigin="anonymous" />
+    ))}
+
+    <meta name="theme-color" content="#521d3a" />
+    <link rel="icon" type="image/x-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.ico`} />
+    <link rel="apple-touch-icon"         href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/apple-touch-icon.png`} />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Thilo" />
+    <meta name="base-url" content={import.meta.env.BASE_URL.replace(/\/$/, '')} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Thilo" />
+    <meta property="og:title" content={title} />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map(locale => (
+      <meta property="og:locale:alternate" content={locale} />
+    ))}
+    <meta property="og:image" content={absoluteUrl('/pwa-512.png')} />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    {description && <meta property="og:description" content={description} />}
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta name="twitter:card" content="summary" />
+    {hreflangUrls?.map(({ hreflang, url }) => (
+      <link rel="alternate" hreflang={hreflang} href={url} />
+    ))}
+    {structuredData?.map(entry => (
+      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
+    <ClientRouter />
+    {allSectionsMeta && <meta name="all-sections" content={allSectionsMeta} />}
+  </head>
+  <body>
+    <slot />
+    <PWAUpdatePrompt locale={lang} />
+  </body>
+</html>
+
+<script>
+  import {
+    getProgress,
+    isChapterRead,
+    markChapterRead,
+    getSectionReadCount,
+    onProgressChange,
+    PROGRESS_EVENT,
+  } from '../utils/progress';
+
+  // Progress API for inline scripts (e.g. the persisted ToC) and future
+  // gamification UI; see docs/GAMIFICATION.md
+  window.thiloProgress = {
+    getProgress,
+    isChapterRead,
+    markChapterRead,
+    getSectionReadCount,
+    onProgressChange,
+  };
+  // Inline scripts may have run before this module: let listeners re-decorate
+  window.dispatchEvent(new CustomEvent(PROGRESS_EVENT));
+
+  // Read tracking is built but not yet enabled for scouts; flip this on to
+  // start recording chapters as read (see docs/GAMIFICATION.md)
+  const READ_TRACKING_ENABLED = false;
+
+  // Mark a chapter as read once its heading is fully visible. The heading is
+  // observed instead of the chapter div because tall chapters never reach a
+  // meaningful intersection ratio.
+  function setupReadTracking(): void {
+    if (!READ_TRACKING_ENABLED) return;
+    (window as any).__readObserver?.disconnect();
+    const headings = document.querySelectorAll('section.content .chapter > h2');
+    if (headings.length === 0) return;
+
+    const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '';
+    let path = window.location.pathname;
+    if (base && path.startsWith(base)) path = path.slice(base.length);
+    path = path.replace(/^\/(fr|it)(?=\/|$)/, '');
+    const sectionSlug = path.replace(/\/$/, '').split('/').pop() ?? '';
+    if (!sectionSlug) return;
+
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const chapterSlug = (entry.target.closest('.chapter') as HTMLElement | null)?.id;
+        if (chapterSlug) markChapterRead(sectionSlug, chapterSlug);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 1 });
+    headings.forEach(heading => observer.observe(heading));
+    (window as any).__readObserver = observer;
+  }
+
+  function applyColor(): void {
+    const el = document.querySelector('section.content') as HTMLElement | null;
+    const color = el?.dataset?.color;
+    if (color) {
+      document.documentElement.style.setProperty('--color-primary', color);
+      // Tint the browser/PWA chrome to match the section
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color);
+    }
+  }
+
+  // After a programmatic scroll, content can still shift under the target:
+  // an image that outlived the wait timeout, a quiz island hydrating from its
+  // small stub, fonts swapping in. Watch the target for a few seconds and
+  // snap back whenever the scroll has settled off-position. Any user scroll
+  // input stops the correction immediately.
+  let alignController: AbortController | null = null;
+  function keepAnchorAligned(el: HTMLElement): void {
+    alignController?.abort();
+    const ctrl = new AbortController();
+    alignController = ctrl;
+    for (const type of ['wheel', 'touchstart', 'pointerdown', 'keydown']) {
+      window.addEventListener(type, () => ctrl.abort(), { signal: ctrl.signal, passive: true });
+    }
+    const expectedTop = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    const deadline = performance.now() + 4000;
+    let lastY = -1;
+    let stableFrames = 0;
+    const tick = () => {
+      if (ctrl.signal.aborted || performance.now() > deadline) return;
+      if (window.scrollY === lastY) {
+        stableFrames++;
+      } else {
+        stableFrames = 0;
+        lastY = window.scrollY;
+      }
+      // Only correct while the scroll is at rest, so a smooth scroll still in
+      // flight (which moves every frame) is never interrupted
+      if (stableFrames >= 2) {
+        const drift = el.getBoundingClientRect().top - expectedTop;
+        if (Math.abs(drift) > 4) window.scrollBy({ top: drift, behavior: 'instant' });
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  // Scroll an anchor target into view without the content shifting under the
+  // user: images above the target are forced to load first (lazy ones are
+  // flipped to eager), with a timeout so a stalled image can't block forever.
+  function scrollToAnchor(el: HTMLElement, behavior: ScrollBehavior): void {
+    const pending = (Array.from(document.querySelectorAll('section.content img')) as HTMLImageElement[])
+      .filter(img => !img.complete && (img.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING));
+    pending.forEach(img => { if (img.loading === 'lazy') img.loading = 'eager'; });
+    if (pending.length === 0) {
+      el.scrollIntoView({ behavior, block: 'start' });
+      keepAnchorAligned(el);
+      return;
+    }
+    const settled = Promise.all(pending.map(img => new Promise<void>(resolve => {
+      img.addEventListener('load',  () => resolve(), { once: true });
+      img.addEventListener('error', () => resolve(), { once: true });
+    })));
+    const timeout = new Promise<void>(resolve => setTimeout(resolve, 3000));
+    Promise.race([settled, timeout]).then(() => {
+      el.scrollIntoView({ behavior, block: 'start' });
+      keepAnchorAligned(el);
+    });
+  }
+  (window as any).thiloScrollToAnchor = scrollToAnchor;
+
+  // Search results link here with ?q=<term> (Search.astro's getLocalizedUrl).
+  // Highlight occurrences in the rendered content so the match is visible
+  // without needing to scroll to it precisely - the existing anchor-scroll
+  // already lands near it with surrounding context. A common term can occur
+  // many times on one page, so only the first MAX_HIGHLIGHTED_OCCURRENCES
+  // (in document order) are marked, fading out so the earliest - closest to
+  // where the anchor scroll lands - reads as the strongest.
+  const SEARCH_QUERY_MIN_LENGTH = 2; // keep in sync with Search.astro's MIN
+  const MAX_HIGHLIGHTED_OCCURRENCES = 10;
+  async function highlightSearchTerm(): Promise<void> {
+    const query = new URLSearchParams(location.search).get('q')?.trim();
+    if (!query || query.length < SEARCH_QUERY_MIN_LENGTH) return;
+
+    const root = document.querySelector('section.content');
+    if (!root) return;
+
+    // Yield past the paint-critical work above (color, anchor scroll) so
+    // walking/mutating the content never blocks them.
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const lowerQuery = query.toLowerCase();
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (node.parentElement?.closest('.react-quiz-container, script, style')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return node.textContent?.toLowerCase().includes(lowerQuery)
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_SKIP;
+      },
+    });
+    // Collect matches before mutating - replacing nodes mid-walk skips siblings
+    const matches: Text[] = [];
+    let node: Node | null;
+    while ((node = walker.nextNode())) matches.push(node as Text);
+
+    // CSS opacity on the mark's already-light tint barely reads (it fades
+    // toward the page background, which is close to the tint's own
+    // light-mix target already); scale the color-mix percentage itself
+    // instead for a fade that's actually visible.
+    const primaryColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-primary').trim() || '#521d3a';
+
+    let occurrence = 0; // counts across the whole page, in document order
+    for (const textNode of matches) {
+      if (occurrence >= MAX_HIGHLIGHTED_OCCURRENCES) break;
+      const text = textNode.textContent ?? '';
+      const lowerText = text.toLowerCase();
+      const frag = document.createDocumentFragment();
+      let cursor = 0;
+      let idx = lowerText.indexOf(lowerQuery);
+      while (idx !== -1 && occurrence < MAX_HIGHLIGHTED_OCCURRENCES) {
+        if (idx > cursor) frag.append(text.slice(cursor, idx));
+        const mark = document.createElement('mark');
+        mark.className = 'search-term-highlight';
+        const strength = 1 - occurrence * 0.1;
+        mark.style.backgroundColor =
+          `color-mix(in srgb, ${primaryColor} ${Math.round(30 * strength)}%, var(--mix-light, white))`;
+        mark.textContent = text.slice(idx, idx + query.length);
+        frag.append(mark);
+        cursor = idx + query.length;
+        occurrence++;
+        idx = lowerText.indexOf(lowerQuery, cursor);
+      }
+      frag.append(text.slice(cursor));
+      textNode.replaceWith(frag);
+    }
+
+    // Drop ?q= so a reload/share/back-navigation doesn't redo this or leave
+    // it in the address bar; the highlights themselves stay until the next
+    // navigation replaces the page.
+    const params = new URLSearchParams(location.search);
+    params.delete('q');
+    const qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
+  }
+
+  function applyStoredTheme(): void {
+    let theme = 'sync';
+    try { theme = localStorage.getItem('thilo-theme') || 'sync'; } catch { /* stay light */ }
+    const dark = theme === 'dark' ||
+      (theme === 'sync' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+  }
+  (window as any).thiloApplyStoredTheme = applyStoredTheme;
+
+  // View transitions replace <html> attributes, dropping the .dark class
+  document.addEventListener('astro:after-swap', applyStoredTheme);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyStoredTheme);
+
+  // Smooth-scroll in-content anchor links (e.g. markdown "[see below](#knoten)")
+  document.addEventListener('click', (e) => {
+    const anchor = (e.target as HTMLElement).closest?.('section.content a[href^="#"]') as HTMLAnchorElement | null;
+    if (!anchor) return;
+    const id = decodeURIComponent(anchor.getAttribute('href')!.slice(1));
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    history.pushState(null, '', '#' + id);
+    scrollToAnchor(target, 'smooth');
+  });
+
+  function setupBackToTop(): void {
+    (window as any).__sectionController?.abort();
+    const ctrl = new AbortController();
+    (window as any).__sectionController = ctrl;
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    let pastThreshold = false;
+    const refresh = (force: boolean) => {
+      const past = window.scrollY > 300;
+      if (!force && past === pastThreshold) return;
+      pastThreshold = past;
+      btn.classList.toggle('opacity-0', !past);
+      btn.classList.toggle('opacity-100', past);
+      // Invisible button must not swallow taps in the bottom-right corner
+      btn.classList.toggle('pointer-events-none', !past);
+    };
+    refresh(true);
+    window.addEventListener('scroll', () => refresh(false), { signal: ctrl.signal, passive: true });
+  }
+
+  // Apply color immediately after the DOM swap so the transition animation
+  // already shows the new section color while it's still animating.
+  document.addEventListener('astro:after-swap', applyColor);
+
+  // astro:page-load fires on initial load AND after every navigation.
+  // Handles the initial-load case (astro:after-swap doesn't fire then)
+  // and resets the back-to-top listener for the new page's button element.
+  document.addEventListener('astro:page-load', () => {
+    applyColor();
+    setupBackToTop();
+    setupReadTracking();
+    highlightSearchTerm();
+  });
+</script>

@@ -1,0 +1,323 @@
+---
+import { getTranslations, type Locale } from '../i18n';
+import { fetchAllSections, getSectionUrlForLocaleFromCache, type SimpleSectionsData } from '../utils/sectionMappings';
+import type { SectionT } from '../utils/data';
+import { localeHomeUrl } from '../utils/urls';
+import AstroLink from './AstroLink.astro';
+import SearchComponent from './Search.astro';
+
+interface Props {
+  locale?: Locale;
+  currentSection?: SectionT | null;
+}
+
+const { locale = 'de', currentSection } = Astro.props;
+const t = getTranslations(locale);
+
+
+// Get current URL to determine page type
+const url = Astro.url;
+const pathname = url.pathname;
+const isSearchPage = pathname === '/search' || pathname.endsWith('/search') || pathname.endsWith('/search/');
+
+// Fetch ALL section data at build time
+const allSectionsData: SimpleSectionsData = await fetchAllSections();
+
+// Generate language alternatives for dropdown
+let languageAlternatives = [];
+const allLocales = ['de', 'fr', 'it'];
+
+if (currentSection) {
+  // For section pages, use pre-built section mapping
+  for (const targetLocale of allLocales) {
+    // if (targetLocale === locale) continue; // Skip current locale
+    
+    const url = getSectionUrlForLocaleFromCache(
+      currentSection.id.toString(), 
+      targetLocale, 
+      allSectionsData.sectionMappings
+    );
+    languageAlternatives.push({ locale: targetLocale, url });
+  }
+} else {
+  // For other pages (index, search, etc.), determine equivalent URLs
+  // Strip the base path first since Astro.url.pathname includes it (e.g. /thilo/fr/search)
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+  let basePath = (baseUrl && pathname.startsWith(baseUrl))
+    ? pathname.slice(baseUrl.length)
+    : pathname;
+
+  // Remove locale prefix if present
+  if (basePath.startsWith('/fr/')) {
+    basePath = basePath.substring(3) || '/';
+  } else if (basePath.startsWith('/it/')) {
+    basePath = basePath.substring(3) || '/';
+  } else if (basePath === '/fr' || basePath === '/it') {
+    basePath = '/';
+  }
+
+  // Ensure basePath starts with /
+  if (!basePath.startsWith('/')) {
+    basePath = '/' + basePath;
+  }
+
+  // Generate URLs for all locales (including current, shown with checkmark)
+  for (const targetLocale of allLocales) {
+    let targetUrl;
+    if (targetLocale === 'de') {
+      targetUrl = basePath === '/' ? '/' : basePath;
+    } else {
+      targetUrl = basePath === '/' ? localeHomeUrl(targetLocale) : `/${targetLocale}${basePath}`;
+    }
+    languageAlternatives.push({ locale: targetLocale, url: targetUrl });
+  }
+}
+---
+
+<!-- Redesigned Header -->
+<header>
+  <div class="max-w-[1400px] mx-auto flex items-center">
+
+    <!-- Mirrors sidebar width (w-72 = 288px on desktop, just holds burger on mobile) -->
+    <div class="shrink-0 lg:w-72 pl-4 lg:px-0 flex items-center">
+      <button 
+        type="button"
+        id="sidebar-toggle-header"
+        class="lg:hidden p-1.5 rounded-md transition-colors bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+        aria-label={t.translation.header.toggleSidebar}
+        aria-controls="sidebar-nav"
+        aria-expanded="false"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mirrors <main class="flex-1"> exactly -->
+    <div class="flex-1 flex items-center min-w-0">
+      <!-- Mirrors <div class="px-4 lg:px-10 max-w-3xl"> — padding and max-width are on the SAME element -->
+      <div class="flex-1 min-w-0 px-4 lg:px-10 max-w-3xl">
+        <SearchComponent locale={locale} inline={true} noDropdown={isSearchPage} />
+      </div>
+
+      <!-- Menu button sits outside the content area, with its own right padding -->
+      <div class="flex items-center shrink-0 pr-4 lg:pr-4">
+        <div class="relative">
+          <!-- Menu dropdown toggle -->
+          <button 
+            type="button"
+            id="menu-dropdown-toggle"
+            class="p-1.5 rounded-md transition-colors bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+            aria-label={t.translation.header.openMenu}
+            aria-haspopup="true"
+            aria-controls="menu-dropdown"
+            aria-expanded="false"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+          </button>
+
+          <!-- Dropdown menu -->
+          <div 
+            id="menu-dropdown" 
+            class="hidden absolute right-0 xl:left-0 mt-4 w-56 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50"
+          >
+            <div class="px-4 py-2">
+              <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">
+                {t.translation.header.language}
+              </p>
+              
+              <!-- Language Options -->
+              <div class="languages-container my-1 border-b border-gray-200">
+                {languageAlternatives.map(({ locale: altLocale, url }) => (
+                  <AstroLink
+                    href={url}
+                    class="language-option last:mb-1 w-full flex items-center rounded-md px-4 py-2 text-sm transition-colors text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    data-locale={altLocale}
+                  >
+                    <span>
+                      {altLocale === 'de' ? 'Deutsch' : altLocale === 'fr' ? 'Français' : altLocale === 'it' ? 'Italiano' : altLocale}
+                    </span>
+                    <span class="ml-auto">{locale === altLocale ? '✓' : ''}</span>
+                  </AstroLink>
+                ))}
+              </div>
+              <!-- Theme Section: light/dark list; sync with the system until
+                   the user picks one, then that choice is stored -->
+              <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4 mt-2">
+                {t.translation.header.theme}
+              </p>
+              <div class="themes-container my-1 border-b border-gray-200">
+                {[
+                  { theme: 'light', label: t.translation.header.theme_light_name },
+                  { theme: 'dark', label: t.translation.header.theme_dark_name },
+                ].map(({ theme, label }) => (
+                  <button
+                    type="button"
+                    class="theme-option last:mb-1 w-full flex items-center rounded-md px-4 py-2 text-sm transition-colors text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-left"
+                    data-theme={theme}
+                    aria-pressed="false"
+                  >
+                    <span>{label}</span>
+                    <span class="ml-auto" data-theme-check></span>
+                    <span class="ml-auto text-xs text-gray-500 hidden" data-theme-auto>
+                      {t.translation.header.theme_auto_name}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <!-- Impressum Section -->
+              <div class="impressum-container">
+                <AstroLink 
+                  href={locale === 'de' ? '/impressum' : `/${locale}/impressum`}
+                  class="block px-4 py-2 text-sm rounded-md transition-colors text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  {t.translation.header.imprint}
+                </AstroLink>
+              </div>
+            </div>
+          </div>
+        </div><!-- end relative -->
+        </div><!-- end menu button -->
+      </div><!-- end flex-1 main mirror -->
+
+  </div><!-- end max-w-[1400px] -->
+</header>
+
+<style>
+  /* Prevent double-tap zoom and remove 300ms click delay on all interactive header elements */
+  header button,
+  header a,
+  header input {
+    touch-action: manipulation;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var q = new URLSearchParams(location.search).get('q');
+    if (!q) return;
+    // Populate the server-rendered search input immediately, before the
+    // search web component connects
+    document.querySelectorAll('header input[type="text"]').forEach(function (el) {
+      el.value = q;
+    });
+  })();
+</script>
+
+<script is:inline define:vars={{ base: import.meta.env.BASE_URL.replace(/\/$/, '') }}>
+  // Expose base URL for the module script below (define:vars forces is:inline)
+  window.__headerBase = base;
+</script>
+
+<script>
+  import { handleLanguageChange } from '../utils/languageSwitcher';
+
+  function setup() {
+    window.__headerController?.abort();
+    window.__headerController = new AbortController();
+    const { signal } = window.__headerController;
+    const base = window.__headerBase ?? '';
+
+    const sidebarToggleHeader = document.getElementById('sidebar-toggle-header');
+    const menuDropdownToggle  = document.getElementById('menu-dropdown-toggle');
+    const menuDropdown        = document.getElementById('menu-dropdown');
+
+    function openMenu()  {
+      menuDropdown?.classList.remove('hidden');
+      menuDropdownToggle?.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      menuDropdown?.classList.add('hidden');
+      menuDropdownToggle?.setAttribute('aria-expanded', 'false');
+    }
+
+    sidebarToggleHeader?.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('toggleSidebar'));
+    }, { signal });
+
+    menuDropdownToggle?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuDropdown?.classList.contains('hidden') ? openMenu() : closeMenu();
+    }, { signal });
+
+    document.addEventListener('click', (e) => {
+      if (menuDropdown && !menuDropdown.classList.contains('hidden')) {
+        if (!menuDropdown.contains(e.target as Node) && !menuDropdownToggle?.contains(e.target as Node)) {
+          closeMenu();
+        }
+      }
+    }, { signal });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menuDropdown?.classList.contains('hidden')) closeMenu();
+    }, { signal });
+
+    // The header persists across view transitions; an open menu must not
+    // carry over onto the next page
+    document.addEventListener('astro:before-swap', closeMenu, { signal });
+
+    // Theme options: while syncing with the system, the matching option shows
+    // a small "Auto" text instead of a checkmark. Clicking an option stores it
+    // as an explicit choice (checkmark); clicking the checked option reverts
+    // to syncing.
+    const themeOptions = document.querySelectorAll<HTMLElement>('.theme-option');
+
+    function storedThemeSetting(): string {
+      try { return localStorage.getItem('thilo-theme') || 'sync'; } catch { return 'sync'; }
+    }
+    function refreshThemeOptions() {
+      const setting = storedThemeSetting();
+      const isExplicit = setting === 'light' || setting === 'dark';
+      const active = isExplicit
+        ? setting
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      themeOptions.forEach(option => {
+        const isActive = option.dataset.theme === active;
+        option.setAttribute('aria-pressed', String(isActive && isExplicit));
+        const check = option.querySelector('[data-theme-check]');
+        if (check) check.textContent = isActive && isExplicit ? '✓' : '';
+        option.querySelector('[data-theme-auto]')
+          ?.classList.toggle('hidden', !(isActive && !isExplicit));
+      });
+    }
+    refreshThemeOptions();
+
+    themeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const next = storedThemeSetting() === option.dataset.theme
+          ? 'sync'
+          : option.dataset.theme ?? 'sync';
+        try { localStorage.setItem('thilo-theme', next); } catch { /* storage unavailable */ }
+        (window as any).thiloApplyStoredTheme?.();
+        refreshThemeOptions();
+      }, { signal });
+    });
+
+    // Keep the Auto badge on the right option if the OS theme changes while syncing
+    window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', refreshThemeOptions, { signal });
+
+    document.querySelectorAll<HTMLElement>('.language-option').forEach(option => {
+      option.addEventListener('click', (e) => {
+        // The anchor href is rendered at build time and goes stale because the
+        // header persists across view transitions; the JS switcher below is the
+        // source of truth, so suppress the default navigation.
+        e.preventDefault();
+        const selectedLocale = (e.currentTarget as HTMLElement)?.dataset?.locale;
+        const currentLocale  = document.documentElement.lang || 'de';
+        if (!selectedLocale || selectedLocale === currentLocale) { closeMenu(); return; }
+        handleLanguageChange(selectedLocale, base);
+        closeMenu();
+      }, { signal });
+    });
+  }
+
+  if (!window.__headerDocListeners) {
+    window.__headerDocListeners = true;
+    document.addEventListener('astro:page-load', setup);
+  }
+  setup();
+</script>

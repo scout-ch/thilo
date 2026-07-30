@@ -1,0 +1,32 @@
+/* Layout helpers on top of Tailwind: only classes Tailwind doesn't provide.
+   The dynamic primary palette lives in colors.css. */
+
+/* Section content surface follows the page background in both themes */
+.color-bg-default {
+  background-color: var(--background-color);
+}
+
+/* Dynamic primary color utilities (values change per section) */
+.bg-primary { background-color: var(--color-primary); }
+.hover\:bg-primary-hover:hover { background-color: var(--color-primary-hover); }
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* Sidebar active states (section accent aware) */
+nav {
+  .active {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-900);
+
+    &.chapter {
+      background-color: var(--color-primary-50);
+    }
+    .bookmark-fill {
+      fill: var(--color-primary-500);
+      stroke: var(--color-primary-500);
+      opacity: 1;
+    }
+  }
+}

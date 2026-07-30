@@ -1,117 +1,106 @@
-name: Build
+name: Build & Deploy
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      show_drafts:
+        description: 'Include unpublished sections and chapters in the GitHub Pages build'
+        type: boolean
+        default: false
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-and-push-container:
-    name: Build and Push Thilo Container
+  docker:
+    name: Build and Push Container
     runs-on: ubuntu-latest
-
+    if: github.repository == 'scout-ch/thilo'
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build docker container
+      - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           context: ./
-          load: true
-          tags: |
-            ghcr.io/scout-ch/thilo/thilo_frontend:latest
-      - name: Push docker container
-        uses: docker/build-push-action@v5
-        with:
           push: true
-          context: ./
-          tags: |
-            ghcr.io/scout-ch/thilo/thilo_frontend:latest
+          tags: ghcr.io/scout-ch/thilo/thilo_frontend:latest
 
-  buildGHPages:
-    name: Build Thilo App GHPages
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_PUBLIC_URL: /thilo/
-
     steps:
       - uses: actions/checkout@v4
-      - name: Install Node.js
-        uses: actions/setup-node@v7
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 20
-      - run: npm install
-      - name: Create backend export
-        run: node src/scripts/strapiToJson.js
-      - run: npm run build
-      - run: echo "$(envsubst < build/index.html)" > build/index.html
-
-      - uses: actions/upload-artifact@v4
+          version: 10
+      - uses: actions/setup-node@v4
         with:
-          name: build-cache-gp
+          node-version: 26
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build
+        run: pnpm astro build --base ${{ steps.pages.outputs.base_path }}
+        env:
+          SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/thilo', github.repository_owner) }}
+          SHOW_DRAFTS: ${{ inputs.show_drafts }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
           path: ./build
 
-  deployGHPages:
-    name: Deploy Thilo App GHPages
-    needs: buildGHPages
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/download-artifact@v8
-        with:
-          name: build-cache-gp
-          path: ./build
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
 
-  buildProd:
-    name: Build Thilo App Prod
+  production:
+    name: Deploy to Production (FTP)
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_PUBLIC_URL: /
-      BACKEND_URL: ${{ secrets.BACKEND_URL }}
-
+    if: github.ref == 'refs/heads/master' && github.repository == 'scout-ch/thilo'
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
-      - name: Install Node.js
-        uses: actions/setup-node@v7
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: 20
-      - run: npm install
-      - name: Create backend export
-        run: node src/scripts/strapiToJson.js
-      - run: npm run build
-      - run: echo "$(envsubst < build/index.html)" > build/index.html
-
-      - uses: actions/upload-artifact@v4
+          version: 10
+      - uses: actions/setup-node@v4
         with:
-          name: build-cache-prod
-          path: ./build
-
-  deployProd:
-    name: Deploy Thilo App Prod
-    needs: buildProd
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
-    steps:
-      - uses: actions/download-artifact@v8
-        with:
-          name: build-cache-prod
-          path: ./build
+          node-version: 26
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm astro build
+        env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          SITE_URL: https://thilo.scouts.ch
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:

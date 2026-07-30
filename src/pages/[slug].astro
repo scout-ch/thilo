@@ -1,0 +1,12 @@
+---
+import SectionPage from '../components/SectionPage.astro';
+import { generateSectionPaths } from '../utils/staticPaths';
+
+export async function getStaticPaths() {
+  return generateSectionPaths(['de'], false); // German only, no locale param
+}
+
+const { section, locale } = Astro.props;
+---
+
+<SectionPage section={section} locale={locale} />

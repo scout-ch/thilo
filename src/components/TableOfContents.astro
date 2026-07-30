@@ -1,0 +1,371 @@
+---
+import type { SectionData } from '../utils/sectionMappings';
+import { getTranslations, type Locale } from '../i18n';
+import { getAllSlugsForSection } from '../utils/slugMapping';
+import { localeHomeUrl } from '../utils/urls';
+import AstroLink from './AstroLink.astro';
+
+import '../styles/nav.css';
+
+interface Props {
+  sections: SectionData[];
+  lang?: string;
+}
+
+const { sections, lang = 'de' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// Strip the base prefix from pathname so it matches bare sectionPath values like /section-slug
+const currentPath = Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length) || '/'
+  : Astro.url.pathname;
+const currentHash = Astro.url.hash;
+
+const t = getTranslations(lang as Locale);
+
+
+// Helper function to generate section URL based on language (no base prefix — AstroLink adds it)
+function getSectionUrl(section: SectionData, locale: string): string {
+  const slugVariants = getAllSlugsForSection(section.id.toString());
+  const localeSlug = slugVariants.find(s => s.locale === locale)?.slug;
+  const slug = localeSlug || section.slug;
+
+  return locale === 'de' ? `/${slug}` : `/${locale}/${slug}`;
+}
+---
+
+<nav class="w-72 bg-white border-r border-gray-200 flex-col select-none" id="sidebar-nav">
+  <!-- Header on mobile only: Close button and 'Table of Contents' -->
+  <div class="flex items-center justify-between p-4 border-b border-gray-200 lg:hidden h-[52px] flex-shrink-0">
+    <h2 class="text-lg font-semibold">{t.translation.toc.title}</h2>
+    <button id="sidebar-toggle" class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500" aria-label={t.translation.toc.close}>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Navigation List -->
+  <div class="p-2 overflow-y-auto flex-1 min-h-0 overscroll-contain scrollbar-gutter-stable">
+    <ul class="space-y-0.5">
+      <!-- Home Link -->
+      <li>
+        <AstroLink
+          href={localeHomeUrl(lang)}
+          data-nav="home"
+          class={`flex items-center px-3 py-1 text-sm rounded-md transition-colors hover:bg-gray-100 ${
+            currentPath === localeHomeUrl(lang) ? 'active' : 'text-gray-700'
+          }`}
+        >
+          <svg class="w-4 h-4 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span>{t.translation.homePage.title}</span>
+        </AstroLink>
+      </li>
+
+      <!-- Sections -->
+      {sections.map((section) => {
+        const sectionPath = getSectionUrl(section, lang);
+        const isActivePage = currentPath === sectionPath || currentPath.startsWith(sectionPath);
+        const isCurrentSection = isActivePage; // Only expand if we're actually on this section's page
+        
+        return (
+          <li style={section.color_primary ? `--section-color: ${section.color_primary}` : ''}>
+            <!-- Section header: link wraps icon+text, toggle button sits alongside -->
+            <div class="section relative flex items-center text-sm rounded-md transition-colors group">
+              <AstroLink
+                href={sectionPath}
+                data-nav="section"
+                class={`flex items-center flex-1 min-w-0 px-3 py-1 rounded-md ${isActivePage ? 'active' : 'text-gray-700'}`}
+              >
+                {section.icon ? (
+                  <img
+                    src={section.icon.url}
+                    alt=""
+                    class="w-5 h-5 mr-3 flex-shrink-0 object-contain"
+                    crossorigin="anonymous"
+                  />
+                ) : (
+                  <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                )}
+                <span class="flex-1 min-w-0 truncate" style={section.color_primary ? `color: color-mix(in srgb, ${section.color_primary} var(--accent-keep, 100%), var(--mix-dark, black))` : ''}>{section.menu_name}</span>
+              </AstroLink>
+
+              {section.chapters && section.chapters.length > 0 && (
+                <button
+                  class="relative z-10 w-6 h-6 mr-1 flex-shrink-0 flex items-center justify-center transform transition-transform rounded-md chapter-toggle"
+                  data-section={section.slug}
+                  aria-label={t.translation.toc.toggleChapters}
+                  aria-expanded={isCurrentSection ? 'true' : 'false'}
+                >
+                  <svg
+                    class={`w-3 h-3 transition-transform ${isCurrentSection ? 'rotate-90' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            <!-- Chapters submenu (expandable) -->
+            {section.chapters && section.chapters.length > 0 && (
+              <ul 
+                class={`mt-2 ml-4 border-l-2 border-gray-200 pl-4 chapters-list transition-all duration-200 ${
+                  isCurrentSection ? '' : 'hidden'
+                }`}
+                data-chapters={section.slug}>
+                {section.chapters
+                  .sort((a, b) => (a.sorting || 0) - (b.sorting || 0))
+                  .map((chapter) => {
+                    const chapterHash = `#${chapter.slug}`;
+                    const isActiveChapter = currentHash === chapterHash;
+                    
+                    return (
+                      <li>
+                        <AstroLink
+                          href={`${sectionPath}${chapterHash}`}
+                          class={`chapter flex items-center lg:px-3 px-2 py-1 text-sm rounded-md transition-colors ${
+                            isActiveChapter ? 'active' : 'text-gray-600'
+                          }`}
+                        >
+                            <svg focusable="false" class="octicon octicon-bookmark h-3 mr-1" viewBox="0 0 16 16" width="16" height="16">
+                            <path class="bookmark-outline" d="M3 2.75C3 1.784 3.784 1 4.75 1h6.5C12.216 1 13 1.784 13 2.75v11.5a.75.75 0 0 1-1.227.579L8 11.722l-3.773 3.107A.751.751 0 0 1 3 14.25V2.75Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                            <path class="bookmark-fill" d="M4.75 1C3.784 1 3 1.784 3 2.75v11.5a.75.75 0 0 0 1.227.579L8 11.722l3.773 3.107A.75.75 0 0 0 13 14.25V2.75C13 1.784 12.216 1 11.25 1h-6.5Z" fill="currentColor" opacity="0"/>
+                            </svg>
+                          <span class="flex-1 min-w-0 truncate">{chapter.title}</span>
+                        </AstroLink>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</nav>
+
+<!-- Mobile/Tablet overlay -->
+<div class="fixed inset-0 z-40 hidden lg:hidden" id="sidebar-overlay"></div>
+
+
+<script is:inline>
+(function () {
+  // AbortController pattern — mirrors Header.astro's approach.
+  // window.__tocController persists the controller across is:inline re-executions.
+  function setup() {
+    window.__tocController?.abort();
+    window.__tocController = new AbortController();
+    const { signal } = window.__tocController;
+
+    const sidebarToggle  = document.getElementById('sidebar-toggle');
+    const sidebarNav     = document.getElementById('sidebar-nav');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function scrollToCurrentInToC(behavior) {
+      const hash = window.location.hash;
+      const path = window.location.pathname;
+      let activeLink = hash
+        ? chapterTargets.find(target => target.hash === hash.slice(1))?.link
+        : null;
+      if (!activeLink) activeLink = sidebarNav?.querySelector(`a[href="${path}"], a[href*="${path}"]`);
+      if (activeLink && sidebarNav) {
+        setTimeout(() => {
+          const scrollTop = activeLink.offsetTop - sidebarNav.clientHeight / 2 + activeLink.clientHeight / 2;
+          if (behavior === 'instant') {
+            const prev = sidebarNav.style.scrollBehavior;
+            sidebarNav.style.scrollBehavior = 'auto';
+            sidebarNav.scrollTop = Math.max(0, scrollTop);
+            sidebarNav.style.scrollBehavior = prev;
+          } else {
+            sidebarNav.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+
+    function openSidebar() {
+      sidebarNav?.classList.add('sidebar-open');
+      sidebarOverlay?.classList.remove('hidden');
+      document.getElementById('sidebar-toggle-header')?.setAttribute('aria-expanded', 'true');
+      scrollToCurrentInToC('smooth');
+      // Move focus for keyboard/screen-reader users; preventScroll because
+      // focus() otherwise honors the global [id] scroll-margin and nudges
+      // the page scroll position
+      sidebarToggle?.focus({ preventScroll: true });
+    }
+
+    function closeSidebar() {
+      const wasOpen = sidebarNav?.classList.contains('sidebar-open');
+      sidebarNav?.classList.remove('sidebar-open');
+      sidebarOverlay?.classList.add('hidden');
+      const headerToggle = document.getElementById('sidebar-toggle-header');
+      headerToggle?.setAttribute('aria-expanded', 'false');
+      if (wasOpen) headerToggle?.focus({ preventScroll: true });
+    }
+
+    // The sidebar persists across view transitions, so its server-rendered
+    // active/expanded states go stale after every navigation. Recompute them
+    // from the current URL.
+    function updateActiveNav() {
+      if (!sidebarNav) return;
+      const norm = (p) => (p || '').replace(/\/$/, '') || '/';
+      const path = norm(window.location.pathname);
+      sidebarNav.querySelectorAll('a[data-nav="home"], a[data-nav="section"]').forEach(link => {
+        const isActive = norm(link.getAttribute('href')) === path;
+        link.classList.toggle('active', isActive);
+        link.classList.toggle('text-gray-700', !isActive);
+        if (isActive) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+        if (link.dataset.nav === 'section') {
+          const li = link.closest('li');
+          li?.querySelector('.chapters-list')?.classList.toggle('hidden', !isActive);
+          li?.querySelector('.chapter-toggle svg')?.classList.toggle('rotate-90', isActive);
+          li?.querySelector('.chapter-toggle')?.setAttribute('aria-expanded', String(isActive));
+        }
+      });
+    }
+
+    // Resolved once per navigation so the scroll handler doesn't re-query the
+    // DOM on every frame; only links whose hash target exists on the current
+    // page carry an element.
+    let chapterTargets = [];
+    let activeChapterId = null;
+    function collectChapterTargets() {
+      chapterTargets = [];
+      activeChapterId = null;
+      document.querySelectorAll('#sidebar-nav a[href*="#"]').forEach(link => {
+        const hash = link.getAttribute('href')?.split('#')[1];
+        if (hash) chapterTargets.push({ link, hash, el: document.getElementById(hash) });
+      });
+    }
+
+    function updateActiveChapter() {
+      const viewportTop = window.scrollY;
+      let activeId = null, minDist = Infinity;
+      for (const target of chapterTargets) {
+        if (!target.el) continue;
+        const dist = Math.abs(target.el.offsetTop - viewportTop);
+        if (dist < minDist) { minDist = dist; activeId = target.hash; }
+      }
+      if (activeId === activeChapterId) return;
+      activeChapterId = activeId;
+      for (const target of chapterTargets) {
+        target.link.classList.toggle('active',        target.hash === activeId);
+        target.link.classList.toggle('text-gray-600', target.hash !== activeId);
+      }
+    }
+
+    // Show which chapters the scout has already read (bookmark partially filled).
+    // window.thiloProgress is exposed by BaseLayout's module script, which may
+    // load after this inline script; it dispatches 'thilo:progress' once ready.
+    function decorateReadChapters() {
+      const progress = window.thiloProgress;
+      if (!progress || !sidebarNav) return;
+      sidebarNav.querySelectorAll('a.chapter').forEach(link => {
+        const href = link.getAttribute('href') || '';
+        const hashIndex = href.indexOf('#');
+        if (hashIndex === -1) return;
+        const sectionSlug = href.slice(0, hashIndex).replace(/\/$/, '').split('/').pop() || '';
+        const chapterSlug = href.slice(hashIndex + 1);
+        link.classList.toggle('read', progress.isChapterRead(sectionSlug, chapterSlug));
+      });
+    }
+
+    updateActiveNav();
+    collectChapterTargets();
+    decorateReadChapters();
+    window.addEventListener('thilo:progress', decorateReadChapters, { signal });
+    setTimeout(() => scrollToCurrentInToC('instant'), 100);
+
+    window.addEventListener('hashchange',    () => scrollToCurrentInToC('smooth'), { signal });
+    window.addEventListener('toggleSidebar', () => {
+      sidebarNav?.classList.contains('sidebar-open') ? closeSidebar() : openSidebar();
+    }, { signal });
+
+    sidebarToggle?.addEventListener('click',  closeSidebar, { signal });
+    sidebarOverlay?.addEventListener('click', closeSidebar, { signal });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSidebar();
+    }, { signal });
+
+    // Shared shift-free scroll helper defined in BaseLayout
+    function scrollAfterImages(el, behavior) {
+      if (window.thiloScrollToAnchor) window.thiloScrollToAnchor(el, behavior);
+      else el.scrollIntoView({ behavior, block: 'start' });
+    }
+
+    // On load, if there's a hash in the URL re-scroll after images settle so
+    // content that loaded after the browser's native scroll doesn't push the
+    // target out of view.
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+      const target = document.getElementById(initialHash);
+      if (target) scrollAfterImages(target, 'instant');
+    }
+
+    // Smooth scroll for in-page anchor links
+    document.querySelectorAll('#sidebar-nav a[href*="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href      = this.getAttribute('href');
+        const hashIndex = href?.indexOf('#') ?? -1;
+        if (hashIndex === -1) return;
+        const path = href.slice(0, hashIndex) || window.location.pathname;
+        const hash = href.slice(hashIndex + 1);
+        // Normalize trailing slashes — Astro's static build serves pages at /slug/ but hrefs are /slug
+        const normalizedPath     = path.replace(/\/$/, '') || '/';
+        const normalizedPathname = window.location.pathname.replace(/\/$/, '') || '/';
+        if (normalizedPath === normalizedPathname || path === '') {
+          e.preventDefault();
+          const el = document.getElementById(hash);
+          if (el) scrollAfterImages(el, 'smooth');
+          history.pushState(null, '', '#' + hash);
+          scrollToCurrentInToC('smooth');
+          if (window.innerWidth < 1024) closeSidebar();
+        }
+      }, { signal });
+    });
+
+    // Throttled scroll → active chapter tracking
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateActiveChapter(); ticking = false; });
+        ticking = true;
+      }
+    }, { signal, passive: true });
+
+    // Chapter expand/collapse toggles
+    document.querySelectorAll('.chapter-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const sectionSlug  = e.currentTarget.getAttribute('data-section');
+        const chaptersList = document.querySelector(`[data-chapters="${sectionSlug}"]`);
+        const arrow        = e.currentTarget.querySelector('svg');
+        if (chaptersList && arrow) {
+          const hidden = chaptersList.classList.contains('hidden');
+          chaptersList.classList.toggle('hidden', !hidden);
+          arrow.classList.toggle('rotate-90', hidden);
+        }
+      }, { signal });
+    });
+  }
+
+  if (!window.__tocDocListeners) {
+    window.__tocDocListeners = true;
+    document.addEventListener('astro:page-load', setup);
+  }
+
+  setup();
+})();
+</script>

@@ -1,0 +1,23 @@
+/* Dynamic primary palette: --color-primary is set per section (Section.astro
+   sets it from Strapi data via BaseLayout's applyColor). Every step derives
+   from it with color-mix(), against --mix-light/--mix-dark so the whole ramp
+   flips correctly in dark mode (see variables.css).
+   Only steps with actual consumers are defined; extend the ramp as needed. */
+
+:root {
+  --color-primary: #521d3a; /* default; overridden per section */
+
+  /* Tints (toward the light mix target) */
+  --color-primary-50: color-mix(in srgb, var(--color-primary) 5%, var(--mix-light) 95%);
+  --color-primary-100: color-mix(in srgb, var(--color-primary) 10%, var(--mix-light) 90%);
+  --color-primary-200: color-mix(in srgb, var(--color-primary) 20%, var(--mix-light) 80%);
+  --color-primary-400: color-mix(in srgb, var(--color-primary) 60%, var(--mix-light) 40%);
+  --color-primary-500: var(--color-primary);
+  --color-primary-light: color-mix(in srgb, var(--color-primary) 30%, var(--mix-light));
+
+  /* Shades (toward the dark mix target) */
+  --color-primary-900: color-mix(in srgb, var(--color-primary) 60%, var(--mix-dark) 40%);
+
+  /* Interactive states */
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, var(--mix-dark) 15%);
+}

@@ -1,54 +1,47 @@
-# Thilo - Frontend of Thilo
+# Thilo - Frontend
+
 Schweizer Pfadibüchlein Thilo, das Original.
 
 The Thilo contains a lot of interesting and useful information about the Scouts and belongs on every Scout's bedside table and in his or her bag. Contents: The scout movement, the world we live in, scout techniques, first aid, nature and the environment, camp life, etc.
 
-Frontend written in React.
+The frontend is a static site built with [Astro](https://astro.build): all content is fetched from the Strapi backend at build time and shipped as plain HTML with a small amount of client JavaScript. It is installable as a PWA and fully usable offline after the first visit.
 
 ## Big Picture
-![Architecture](./documentation/architecture.png)
+![Architecture](./docs/architecture.png)
 
-## Components
-### Frontend
-[React Frontend](https://github.com/scout-ch/thilo/tree/master/src)
+- **Frontend** (this repo): Astro SSG, deployed to GitHub Pages under the `/thilo/` base path
+- **Backend**: [Strapi Backend](https://github.com/scout-ch/thilo-api) at `https://api.thilo.scouts.ch/` (override with the `BACKEND_URL` env var)
 
-### Backend
-[Strapi Backend](https://github.com/scout-ch/thilo-api)
+Unpublished (draft) sections and chapters are left out of the build. Set `SHOW_DRAFTS=true` to include them, or run the "Build & Deploy" workflow manually with the *show drafts* input enabled.
 
-## Deployment
-Run docker-compose.prod.yml file
+Key traits:
 
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
+- **i18n**: German (unprefixed), French and Italian (`/fr/`, `/it/`) pages are generated per locale; the language switcher maps sections across locales
+- **Search**: a web component scoring against a static per-locale index (`/search-index/[locale].json`) generated at build time
+- **PWA**: the whole site is precached (Workbox), API responses and images are runtime-cached, and an update prompt appears when a new build is available
+- **Quizzes**: the only React islands, hydrated lazily where a chapter links a quiz JSON
+- **Dark mode**: light/dark options in the menu, syncing with the system until the user picks explicitly
 
-Services
-- Frontend: http://localhost:3000
-- Backend: http://localhost:1337
-- SHLINK: http://localhost:8080
-- SHLINK ADMIN: http://localhost:8081
-- Postgres: localhost:5432
-- PgAdmin: http://localhost:5050
+See [docs/IMPROVEMENTS.md](./docs/IMPROVEMENTS.md) for a detailed change log of the current overhaul, [docs/GAMIFICATION.md](./docs/GAMIFICATION.md) for the progress-tracking and quiz roadmap, and [docs/MOBILE-APP-EVALUATION.md](./docs/MOBILE-APP-EVALUATION.md) for why the mobile strategy is PWA-first instead of React Native/Flutter. `CLAUDE.md` describes the code layout in more detail.
 
 ## Development
-### Environment Variables
-None
 
-### Available Scripts
-In the project directory, you can run:
+```bash
+pnpm install
+pnpm run dev        # dev server at http://localhost:4321
+pnpm run build      # astro check + production build to /build
+pnpm run preview    # serve the production build
+```
 
-### `npm start`
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The build fetches live content from Strapi, so it needs network access.
 
-### `npm test`
+## Deployment
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Every push to `master` builds the container image and deploys the static site to GitHub Pages (see `.github/workflows/deploy.yml`). For a local container stack:
 
-### `npm run build`
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+docker-compose up -d
+```
 
 ## Contribute
 Willst du mithelfen oder hast einen Verbesserungsvorschlag?
@@ -62,10 +55,9 @@ werden JSON Dateien angelegt mittels Strapi die Markdown enthalten.
 
 #### Anleitungen und Cheat Sheets für Markdown:
 Die grundlegende Markdown Syntax, die in diesem Projekt unterstützt wird, findet
-Ihr auf folgenden Seiten: 
-- https://remarkjs.github.io/react-markdown/
+Ihr auf folgenden Seiten:
 - https://commonmark.org/help/
-- https://github.com/remarkjs/remark-gfm#use
+- https://github.github.com/gfm/
 
 #### Projektspezifisches Markdown:
 Die Bildgestaltung und die Bildunterschrift können über das Alt-Attribut eines Bildes spezifiziert werden, wie folgt:
@@ -77,6 +69,3 @@ Der `caption` tag erlaubt die ursprüngliche alt-tag funktionalität noch zu nut
 Alle möglichen HTML Einheiten funktionieren für die `width` und `height` tags (und es können auch andere gültige CSS-Stiltags verwendet werden).
 
 Für weitere Infos, siehe die [Erfassungsrichtlinien](./Erfassungs-Richtlinien.md) des Hering Projekts, auf dem das Thilo basiert.
-
-## Production
-The frontend is deployed to GitHub pages.

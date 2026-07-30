@@ -1,0 +1,70 @@
+---
+import MainLayoutWithToC from '../layouts/MainLayoutWithToC.astro';
+import QuizComponent from '../components/Quiz';
+import { getTranslations, type Locale } from '../i18n';
+import { renderMarkdownParts, extractImageUrls } from '../utils/markdown';
+import { probeImages } from '../utils/imageDimensions';
+
+import '../styles/section.css';
+
+const BACKEND_URL = import.meta.env.BACKEND_URL || 'https://api.thilo.scouts.ch/';
+const locale = Astro.currentLocale || 'de';
+const t = getTranslations(locale as Locale);
+
+async function fetchImpressum(locale: string) {
+  try {
+    const response = await fetch(`${BACKEND_URL}impressum-page?_locale=${locale}`);
+
+    if (!response.ok) {
+      console.error(`Failed to fetch impressum: ${response.status} ${response.statusText}`);
+      return null;
+    }
+
+    const data = await response.json();
+
+    // Handle both single object and data.data.attributes structure
+    if (data?.data?.attributes) {
+      return data.data.attributes;
+    } else if (data?.id) {
+      return data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error fetching impressum:', error);
+    return null;
+  }
+}
+
+const impressumData = await fetchImpressum(locale);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+await probeImages(extractImageUrls(impressumData?.content));
+const contentParts = impressumData?.content
+  ? renderMarkdownParts(impressumData.content, base, locale)
+  : [];
+---
+
+<MainLayoutWithToC title={(impressumData?.title || t.translation.header.imprint) + " | Thilo"} lang={locale}>
+  <!-- section element: section.css scopes the title/content styling to it -->
+  <section class="content" data-color="#521d3a">
+    <div class="section-title mb-4">
+      <h1 class="bg-primary px-2">{impressumData?.title || t.translation.header.imprint}</h1>
+    </div>
+
+    <div class="section-body rounded-md p-2 color-bg-default">
+      <div class="impressum-content markdown-content">
+        {contentParts.length > 0 ? (
+          contentParts.map((part) =>
+            part.type === 'quiz' ? (
+              <QuizComponent url={part.value} client:visible />
+            ) : (
+              <div set:html={part.value} />
+            )
+          )
+        ) : (
+          <p>{t.translation.imprintPage.loadError}</p>
+        )}
+      </div>
+    </div>
+  </section>
+</MainLayoutWithToC>

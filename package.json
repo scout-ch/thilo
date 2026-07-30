@@ -1,62 +1,32 @@
 {
-  "name": "thilo",
-  "homepage": "https://scout-ch.github.io/thilo",
-  "description": "Frontend Thilo App",
-  "developer": {
-    "name": "Thilo App Team"
+  "name": "thilo-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
-    "@primer/css": "^21.3.6",
-    "@primer/octicons-react": "^19.11.0",
-    "@primer/primitives": "^8.2.3",
-    "@primer/react": "^35.32.2",
-    "@vitejs/plugin-react": "^4.3.1",
-    "axios": "^1.7.2",
-    "classnames": "^2.5.1",
-    "i18next": "^22.5.1",
-    "i18next-browser-languagedetector": "^7.2.1",
-    "modern-diacritics": "^2.3.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet-async": "^1.3.0",
-    "react-i18next": "^12.3.1",
-    "react-markdown": "^8.0.7",
-    "react-quiz-component": "^0.5.1",
-    "react-router": "^6.24.1",
-    "react-router-dom": "^6.24.1",
-    "remark": "^14.0.3",
-    "remark-gfm": "^3.0.1",
-    "strip-markdown": "^5.0.1",
-    "vite": "^4.5.3",
-    "web-vitals": "^3.5.2"
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/react": "^5.0.7",
+    "@vite-pwa/astro": "^1.2.0",
+    "astro": "^6.4.8",
+    "image-size": "^2.0.2",
+    "marked": "^18.0.5",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-quiz-component": "^1.1.0",
+    "typescript": "^6.0.3",
+    "workbox-window": "^7.4.1"
   },
   "devDependencies": {
-    "@craco/craco": "7.1.0",
-    "@types/node": "^18.19.39",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@types/react-helmet": "^6.1.11",
-    "@types/react-router-dom": "^5.3.3",
-    "sass": "^1.77.8",
-    "serve": "^14.2.3",
-    "typescript": "^4.9.5",
-    "vite-plugin-pwa": "^0.16.7"
-  },
-  "scripts": {
-    "start": "vite",
-    "preview": "vite preview --port=3000 --host",
-    "build": "vite build"
-  },
-  "resolutions": {
-    "react-error-overlay": "6.0.9"
-  },
-  "eslintConfig": {
-    "extends": ["react-app"]
-  },
-  "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "@astrojs/ts-plugin": "^1.10.9",
+    "@tailwindcss/vite": "^4.3.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.3.1"
   }
 }
