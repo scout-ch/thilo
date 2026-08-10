@@ -43,13 +43,18 @@ section {
     hyphens: auto;
     text-wrap: pretty;
 
-    /* fix for multiple images in a row on tiny displays, i.e. iphone, not ipad mini */
+    /* fix for multiple images in a row on tiny displays, i.e. iphone, not ipad mini
+       Image-only rows are not text: justify stretches the gaps between the
+       inline-blocks and text-wrap: pretty rebalances them onto extra lines.
+       Flex takes them out of text layout; wrap + min-width: 0 lets the
+       existing img max-width: 100% shrink oversized images to the column. */
     &:has(> .md-img + .md-img):not(:has(.float-left, .float-right)) {
       display: flex;
-      gap: 4px;
-      
+      flex-wrap: wrap;
+      /* font aware */
+      gap: 0.25em;
+
       > .md-img { min-width: 0; }
-      img { width: 100%; }
     }
   }
 
