@@ -42,6 +42,15 @@ section {
     word-wrap: break-word;
     hyphens: auto;
     text-wrap: pretty;
+
+    /* fix for multiple images in a row on tiny displays, i.e. iphone, not ipad mini */
+    &:has(> .md-img + .md-img):not(:has(.float-left, .float-right)) {
+      display: flex;
+      gap: 4px;
+      
+      > .md-img { min-width: 0; }
+      img { width: 100%; }
+    }
   }
 
   address, article, aside, blockquote, canvas, 
