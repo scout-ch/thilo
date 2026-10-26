@@ -38,7 +38,7 @@ RUN pnpm build
 ############################################
 # Production stage with nginx (unprivileged)
 ############################################
-FROM nginxinc/nginx-unprivileged:1.31.6
+FROM nginxinc/nginx-unprivileged:1.31.7
 
 COPY --from=builder /srv/app/build /usr/share/nginx/html
 COPY [ "./docker/nginx.conf", "/etc/nginx/conf.d/default.conf" ]
