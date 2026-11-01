@@ -2,11 +2,13 @@
 import de from './de.json';
 import fr from './fr.json';
 import it from './it.json';
+import en from './en.json';
 
 const translations = {
   de,
   fr,
-  it
+  it,
+  en
 } as const;
 
 export type Locale = keyof typeof translations;
@@ -31,5 +33,6 @@ export function t(key: string, locale: Locale = 'de'): string {
   return typeof result === 'string' ? result : key;
 }
 
-export const supportedLocales: Locale[] = ['de', 'fr', 'it'];
+export const supportedLocales: Locale[] = ['de', 'fr', 'it', 'en'];
 export const defaultLocale: Locale = 'de';
+export const localizedLocales = supportedLocales.filter(locale => locale !== defaultLocale);

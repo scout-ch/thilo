@@ -2,13 +2,14 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getSections } from '../../utils/data';
 import { stripMarkdown, type SearchIndexEntry, type SearchIndexHeadingChunk } from '../../utils/search';
 import { splitContentByHeading } from '../../utils/markdown';
+import { supportedLocales } from '../../i18n';
 
 // Static per-locale search index, fetched lazily by the search widget and
 // precached by the service worker. Keeps section content out of every page's
 // HTML and lets search score plain text instead of raw markdown.
 
 export const getStaticPaths: GetStaticPaths = () =>
-  ['de', 'fr', 'it'].map(locale => ({ params: { locale } }));
+  supportedLocales.map(locale => ({ params: { locale } }));
 
 // In-content headings render with a stable id (renderer.heading in
 // markdown.ts), so a chunk anchored to one can deep-link straight to it;

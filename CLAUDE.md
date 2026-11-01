@@ -22,7 +22,7 @@ This is an **Astro SSG** rewrite of the original React app (see `astro-rewrite` 
 All content is fetched from Strapi during the build. Key utilities in `src/utils/`:
 
 - **`data.ts`** — typed fetch wrappers (`getSections`, `getStartPage`, `getSectionBySlug`, `searchContent`). Includes an in-memory cache with 1-hour TTL used during the build.
-- **`sectionMappings.ts`** — `fetchAllSections()` fetches all three locales in parallel and builds a cross-locale section mapping keyed by the `sorting` field. Used at build time by the Header and layout to know every section's URL in every language.
+- **`sectionMappings.ts`** — `fetchAllSections()` fetches all supported locales in parallel and builds a cross-locale section mapping keyed by the `sorting` field. Used at build time by the Header and layout to know every section's URL in every language.
 - **`staticPaths.ts`** — `generateSectionPaths(locales, includeLocaleParam)` drives `getStaticPaths()` in page files.
 - **`slugMapping.ts`** — manual slug overrides for a handful of sections that have custom slugs (e.g. `die-pfadi`, `orientieren`). Most slugs are auto-generated via `slugify(title)`.
 
@@ -33,11 +33,11 @@ The `BACKEND_URL` env var defaults to `https://api.thilo.scouts.ch/` if not set.
 Astro `i18n` is configured with `defaultLocale: "de"` and `prefixDefaultLocale: false`. This means:
 
 - German pages: `/` (home), `/[slug]`, `/search`, `/impressum`
-- French/Italian: `/fr/`, `/fr/[slug]`, `/it/`, `/it/[slug]`, etc.
+- French/Italian/English: `/fr/`, `/fr/[slug]`, `/it/`, `/it/[slug]`, `/en/`, `/en/[slug]`, etc.
 
 Each route has a German-only file at `src/pages/[slug].astro` and a localized file at `src/pages/[lang]/[slug].astro`. They both delegate to `SectionPage.astro`.
 
-The `src/i18n/` module provides translated UI strings (de/fr/it). English content exists in Strapi but not in the i18n strings.
+The `src/i18n/` module provides translated UI strings (de/fr/it/en). Published English content is fetched from Strapi; untranslated sections fall back to the English home page when switching languages.
 
 ### Layout stack
 

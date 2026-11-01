@@ -11,7 +11,7 @@ export interface Props {
 
 const { title, lang = 'de', allSectionsData, description, canonicalUrl, hreflangUrls, structuredData } = Astro.props;
 
-const OG_LOCALES: Record<string, string> = { de: 'de_CH', fr: 'fr_CH', it: 'it_CH' };
+const OG_LOCALES: Record<string, string> = { de: 'de_CH', fr: 'fr_CH', it: 'it_CH', en: 'en_GB' };
 const ogLocale = OG_LOCALES[lang] ?? 'de_CH';
 const ogLocaleAlternates = Object.entries(OG_LOCALES)
   .filter(([locale]) => locale !== lang)
@@ -186,7 +186,7 @@ if (allSectionsData) {
     const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '';
     let path = window.location.pathname;
     if (base && path.startsWith(base)) path = path.slice(base.length);
-    path = path.replace(/^\/(fr|it)(?=\/|$)/, '');
+    path = path.replace(/^\/(fr|it|en)(?=\/|$)/, '');
     const sectionSlug = path.replace(/\/$/, '').split('/').pop() ?? '';
     if (!sectionSlug) return;
 

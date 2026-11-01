@@ -16,7 +16,7 @@ Unpublished (draft) sections and chapters are left out of the build. Set `SHOW_D
 
 Key traits:
 
-- **i18n**: German (unprefixed), French and Italian (`/fr/`, `/it/`) pages are generated per locale; the language switcher maps sections across locales
+- **i18n**: German (unprefixed), French, Italian and English (`/fr/`, `/it/`, `/en/`) pages are generated per locale; the language switcher maps sections across locales
 - **Search**: a web component scoring against a static per-locale index (`/search-index/[locale].json`) generated at build time
 - **PWA**: the whole site is precached (Workbox), API responses and images are runtime-cached, and an update prompt appears when a new build is available
 - **Quizzes**: the only React islands, hydrated lazily where a chapter links a quiz JSON

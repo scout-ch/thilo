@@ -1,16 +1,15 @@
 import type { APIRoute } from 'astro';
 import { fetchAllSections } from '../utils/sectionMappings';
-import { absoluteUrl } from '../utils/urls';
+import { absoluteUrl, localeHomeUrl } from '../utils/urls';
 
-const LOCALES = ['de', 'fr', 'it'] as const;
-
-type Locale = typeof LOCALES[number];
+import { supportedLocales as LOCALES, type Locale } from '../i18n';
 
 function sectionUrl(locale: Locale, slug: string): string {
   return absoluteUrl(locale === 'de' ? `/${slug}` : `/${locale}/${slug}`);
 }
 
 function pageUrl(locale: Locale, path: string): string {
+  if (path === '/') return absoluteUrl(localeHomeUrl(locale));
   return absoluteUrl(locale === 'de' ? path : `/${locale}${path}`);
 }
 

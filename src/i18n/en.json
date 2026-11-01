@@ -1,0 +1,70 @@
+{
+  "translation": {
+    "target": { "role": { "LL": "Camp leader", "C": "Coach", "AL": "Group leader" } },
+    "header": {
+      "imprint": "Legal notice",
+      "language": "Language",
+      "theme": "Theme",
+      "theme_auto_name": "Auto",
+      "theme_light_name": "Light",
+      "theme_dark_name": "Dark",
+      "openMenu": "Open menu",
+      "toggleSidebar": "Show table of contents"
+    },
+    "homePage": { "title": "Home" },
+    "startPage": { "menuName": "" },
+    "searchPage": {
+      "title": "Search",
+      "description": "Search all content",
+      "placeholder": "Enter a search term…",
+      "noResults": "No results found",
+      "results": "Results",
+      "keepTyping": "Please enter at least 2 characters…",
+      "section": "Section",
+      "chapter": "Chapter",
+      "loading": "Loading search data…",
+      "enterQuery": "Enter a search term",
+      "noResultsFor": "No results found for \"{query}\"",
+      "moreResults": "+{count} more results",
+      "moreResultsHint": "– press Enter to see all results"
+    },
+    "section": {
+      "backToTop": "Back to top",
+      "targetGroup": "Target group",
+      "skipToContent": "Skip to content"
+    },
+    "footer": {
+      "copyright": "© 2023 Swiss Guide and Scout Movement",
+      "prevButton": "Previous section",
+      "nextButton": "Next section",
+      "homeButton": "Overview",
+      "backToBeginning": "Back to the beginning",
+      "lastChapter": "Last section",
+      "firstChapter": "First section"
+    },
+    "language": { "de": "Deutsch", "fr": "Français", "it": "Italiano", "en": "English" },
+    "notFoundPage": {
+      "title": "Page not found",
+      "message": "Sorry, we could not find the page you were looking for.",
+      "home": "Go to the home page",
+      "search": "Search"
+    },
+    "imprintPage": { "loadError": "The legal notice could not be loaded." },
+    "pwa": {
+      "updateAvailable": "A new version is available.",
+      "reload": "Update",
+      "later": "Later",
+      "offlineReady": "Thilo is now available offline."
+    },
+    "quiz": {
+      "loading": "Loading quiz…",
+      "error": "The quiz could not be loaded",
+      "empty": "No quiz data available"
+    },
+    "toc": {
+      "title": "Table of contents",
+      "close": "Close table of contents",
+      "toggleChapters": "Expand or collapse chapters"
+    }
+  }
+}

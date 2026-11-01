@@ -1,4 +1,4 @@
-const LOCALE_PREFIXES = ['fr', 'it'];
+import { localizedLocales as LOCALE_PREFIXES } from '../i18n';
 
 // Shape of the slimmed-down meta[name="all-sections"] payload built in
 // BaseLayout.astro; keep the two in sync.
