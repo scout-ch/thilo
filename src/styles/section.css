@@ -1,11 +1,12 @@
 section {
+  --section-text: var(--section-text-light, var(--text-color));
   /* One scale for every heading level: size steps down monotonically,
      color and weight stay constant. Levels are set here even where only a
      more specific selector below actually renders them (h1/h2 are chrome-
      only in practice) so a stray in-content heading never falls back to the
      browser-reset "font-size/weight: inherit" Tailwind's preflight applies. */
   h1, h2, h3, h4, h5, h6 {
-    color: var(--color-primary);
+    color: var(--section-text);
     text-wrap: balance;
     font-weight: bold;
   }
@@ -33,7 +34,7 @@ section {
   }
 
   li::marker {
-    color: var(--color-primary);
+    color: var(--section-text);
     font-weight: 600;
   }
 
@@ -67,7 +68,12 @@ section {
     margin-top: -4px;
   }
   strong {
-    color: var(--color-primary);
+    color: var(--section-text);
+  }
+  /* Table headers have a tinted surface: use the theme's neutral text there
+     instead of an accent selected against the plain content background. */
+  table strong {
+    color: var(--text-color);
   }
   .search-term-highlight {
     background-color: color-mix(in srgb, var(--color-primary) 30%, var(--mix-light, white));
@@ -77,14 +83,18 @@ section {
   .section-title {
     display: flex;
     h1 {
-      color: white;
+      color: var(--section-title-ink, white);
+      font-size: clamp(1.5rem, 8vw, 2rem);
       display: inline-block;
       border-radius: 6px;
       flex-grow: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
       height: fit-content;
       align-self: center;
     }
     .icon {
+      flex: 0 0 72px;
       align-self:center;
       width: 72px;
       height: 72px;
@@ -102,6 +112,7 @@ section {
       display: flex;
       align-items: center;
       border-bottom: 1px solid;
+      border-color: var(--color-primary);
       margin-bottom: 16px;
     }
 
@@ -112,4 +123,8 @@ section {
       margin-top: 4px;
     }
   }
+}
+
+html.dark section {
+  --section-text: var(--section-text-dark, var(--text-color));
 }

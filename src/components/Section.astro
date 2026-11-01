@@ -5,6 +5,7 @@ import type { SectionT } from "../utils/data";
 import { getTranslations, type Locale } from "../i18n";
 import { renderMarkdownParts, extractImageUrls } from "../utils/markdown";
 import { probeImages } from "../utils/imageDimensions";
+import { sectionPalette } from "../utils/sectionPalette";
 
 import "../styles/quiz.css";
 import "../styles/section.css";
@@ -37,9 +38,15 @@ const sectionParts = render(section.content);
 
 // Get section color for CSS variable
 const sectionColor = section.color_primary || "#521d3a";
+const palette = sectionPalette(sectionColor);
 ---
 
-<section class="content" data-color={sectionColor}>
+<section class="content" data-color={sectionColor} style={{
+    '--color-primary': sectionColor,
+    '--section-text-light': palette.lightText,
+    '--section-text-dark': palette.darkText,
+    '--section-title-ink': palette.onPrimary,
+}}>
     <div
         id="section-title"
         class={`section-title section-${section.sorting} mb-4`}
