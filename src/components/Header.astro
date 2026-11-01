@@ -1,5 +1,5 @@
 ---
-import { getTranslations, type Locale } from '../i18n';
+import { getTranslations, supportedLocales, type Locale } from '../i18n';
 import { fetchAllSections, getSectionUrlForLocaleFromCache, type SimpleSectionsData } from '../utils/sectionMappings';
 import type { SectionT } from '../utils/data';
 import { localeHomeUrl } from '../utils/urls';
@@ -25,7 +25,7 @@ const allSectionsData: SimpleSectionsData = await fetchAllSections();
 
 // Generate language alternatives for dropdown
 let languageAlternatives = [];
-const allLocales = ['de', 'fr', 'it'];
+const allLocales = supportedLocales;
 
 if (currentSection) {
   // For section pages, use pre-built section mapping
@@ -48,13 +48,7 @@ if (currentSection) {
     : pathname;
 
   // Remove locale prefix if present
-  if (basePath.startsWith('/fr/')) {
-    basePath = basePath.substring(3) || '/';
-  } else if (basePath.startsWith('/it/')) {
-    basePath = basePath.substring(3) || '/';
-  } else if (basePath === '/fr' || basePath === '/it') {
-    basePath = '/';
-  }
+  basePath = basePath.replace(/^\/(fr|it|en)(?=\/|$)/, '') || '/';
 
   // Ensure basePath starts with /
   if (!basePath.startsWith('/')) {
@@ -138,7 +132,7 @@ if (currentSection) {
                     data-locale={altLocale}
                   >
                     <span>
-                      {altLocale === 'de' ? 'Deutsch' : altLocale === 'fr' ? 'Français' : altLocale === 'it' ? 'Italiano' : altLocale}
+                      {t.translation.language[altLocale]}
                     </span>
                     <span class="ml-auto">{locale === altLocale ? '✓' : ''}</span>
                   </AstroLink>

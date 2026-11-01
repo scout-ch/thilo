@@ -1,5 +1,6 @@
 import { getSections, type SectionT } from './data';
 import { localeHomeUrl } from './urls';
+import { supportedLocales } from '../i18n';
 
 export interface SectionData {
   id: number;
@@ -68,7 +69,7 @@ export async function fetchAllSections(): Promise<SimpleSectionsData> {
     return cachedAllSections;
   }
 
-  const locales = ['de', 'fr', 'it'];
+  const locales = supportedLocales;
   const sections: { [locale: string]: SectionData[] } = {};
 
   await Promise.all(locales.map(async (locale) => {

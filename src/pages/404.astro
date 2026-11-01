@@ -2,6 +2,7 @@
 import MainLayoutWithToC from '../layouts/MainLayoutWithToC.astro';
 import AstroLink from '../components/AstroLink.astro';
 import { getTranslations, supportedLocales, type Locale } from '../i18n';
+import { localeHomeUrl } from '../utils/urls';
 
 const locale = Astro.currentLocale || 'de';
 const t = getTranslations(locale as Locale);
@@ -21,7 +22,7 @@ const allNotFound = Object.fromEntries(
     <p class="text-gray-600 mb-8" data-nf="message">{notFound.message}</p>
     <div class="flex gap-3">
       <AstroLink
-        href={`${localePrefix}/`}
+        href={localeHomeUrl(locale)}
         class="px-4 py-2 rounded-md bg-primary text-white hover:opacity-90 transition-opacity"
         data-nf="home"
       >{notFound.home}</AstroLink>
@@ -41,7 +42,7 @@ const allNotFound = Object.fromEntries(
     const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') ?? '';
     let path = window.location.pathname;
     if (base && path.startsWith(base)) path = path.slice(base.length);
-    const match = path.match(/^\/(fr|it)(\/|$)/);
+    const match = path.match(/^\/(fr|it|en)(\/|$)/);
     const target = match ? match[1] : 'de';
     if (target === locale) return;
     const notFound = allNotFound[target];
@@ -52,7 +53,7 @@ const allNotFound = Object.fromEntries(
       const text = notFound[el.getAttribute('data-nf')];
       if (text) el.textContent = text;
     });
-    document.querySelector('a[data-nf="home"]')?.setAttribute('href', base + localePrefix + '/');
+    document.querySelector('a[data-nf="home"]')?.setAttribute('href', base + (localePrefix || '/'));
     document.querySelector('a[data-nf="search"]')?.setAttribute('href', base + localePrefix + '/search');
   })();
 </script>

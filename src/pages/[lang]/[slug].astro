@@ -1,9 +1,10 @@
 ---
 import SectionPage from '../../components/SectionPage.astro';
+import { localizedLocales } from '../../i18n';
 import { generateSectionPaths } from '../../utils/staticPaths';
 
 export async function getStaticPaths() {
-  return generateSectionPaths(['fr', 'it'], true); // French and Italian, include locale param
+  return generateSectionPaths(localizedLocales, true);
 }
 
 const { section, locale } = Astro.props;
